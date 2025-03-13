@@ -5,6 +5,7 @@ import { ArrowLeft, Mail, Phone, Calendar, Edit } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useClients } from "@/contexts/ClientsContext"
+import { useParams } from "next/navigation"
 
 type Client = {
   _id: string
@@ -31,14 +32,11 @@ type Client = {
   isYouth: boolean
 }
 
-interface ClientProfilePageProps {
-  params: { id: string }
-}
-
-export default function ClientProfilePage({ params }: ClientProfilePageProps) {
+export default function ClientProfilePage() {
   const [client, setClient] = useState<Client | null>(null)
   const [loading, setLoading] = useState(true)
-  const { id } = params
+  const params = useParams() // ✅ Next.js 13+ way of accessing dynamic route params
+  const { id } = params as { id: string }
   const { selectedClient } = useClients()
 
   useEffect(() => {
@@ -57,7 +55,7 @@ export default function ClientProfilePage({ params }: ClientProfilePageProps) {
     }
 
     if (id) {
-      fetchClient().then()
+      fetchClient()
     }
   }, [id])
 
