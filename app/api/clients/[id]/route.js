@@ -1,9 +1,7 @@
 import {NextResponse } from "next/server"
-import { getCollection } from "@/lib/mongodb"
+import { getCollection } from "../../../../lib/mongodb"
 import { ObjectId } from "mongodb"
 
-// GET client by ID
-// @ts-ignore
 export async function GET( { params }) {
   try {
     const id = params.id
