@@ -3,16 +3,18 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { Plus, Search, ChevronRight, Mail, Phone } from "lucide-react"
-import Link from "next/link"
+import {Search, Phone, ChevronLeft} from "lucide-react"
+// import Link from "next/link"
 
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarHeader } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Input } from "@/components/ui/input"
 
 type Client = {
+  clientStatus: React.JSX.Element;
   _id: string
+  name: string
   firstName: string
   lastName: string
   email?: string
@@ -44,7 +46,6 @@ export function SidebarRight({ onSelectClient, selectedClientId, ...props }: Sid
         setLoading(false)
       }
     }
-
     fetchClients()
   }, [])
 
@@ -63,41 +64,34 @@ export function SidebarRight({ onSelectClient, selectedClientId, ...props }: Sid
   }
 
   return (
-    <Sidebar
+    <div
       collapsible="none"
-      className="hidden lg:flex sticky top-0 h-svh border-l border-base-300 bg-base-200 flex-basis-1/3 max-w-[33%]"
+      className="hidden lg:flex sticky top-0 h-svh w-full"
       {...props}
     >
-      <SidebarHeader className="h-auto border-b border-base-300">
-        <div className="flex items-center justify-between px-4 py-2">
-          <h2 className="text-lg font-semibold text-base-content">Clients</h2>
-          <Link href="/dashboard/clients/new" className="btn btn-sm btn-primary">
-            <Plus className="h-4 w-4" />
-            New
-          </Link>
-        </div>
-        <div className="px-4 py-2">
+      <div className="h-auto relative">
+        <div className=" fixed top-0 right-0 bg-base-200 z-20 shadow-lg w-[25%]">
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-base-content/50" />
             <Input
               type="search"
               placeholder="Search clients..."
-              className="pl-8 w-full bg-base-100 border-base-300"
+              className="px-8 py-10 w-full bg-base-300 border-0 border-b border-base-300"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
-      </SidebarHeader>
-      <SidebarContent className="overflow-y-auto">
-        <div className="divide-y divide-base-300">
+      </div>
+      <div className="overflow-y-scroll overflow-hidden h-full w-full top-0 right-0 shadow-lg bg-base-200 z-10">
+        <div className="overflow-y-scroll divide-y divide-base-content/10 border-l border-base-300 mt-20">
           {loading ? (
             Array(10)
               .fill(0)
               .map((_, i) => (
                 <div key={i} className="p-4">
                   <div className="flex items-center gap-3">
-                    <Skeleton className="h-10 w-10 rounded-full" />
+                    <Skeleton className="h-10 w-10 rounded-full"/>
                     <div className="space-y-2">
                       <Skeleton className="h-4 w-24" />
                       <Skeleton className="h-3 w-16" />
@@ -116,6 +110,7 @@ export function SidebarRight({ onSelectClient, selectedClientId, ...props }: Sid
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3 flex-grow">
+                    <ChevronLeft className="h-6 w-6 text-base-content/30 flex-shrink-0" />
                     <Avatar className="h-10 w-10 bg-primary text-primary-content">
                       <AvatarFallback>
                         {client.firstName?.[0]}
@@ -123,20 +118,14 @@ export function SidebarRight({ onSelectClient, selectedClientId, ...props }: Sid
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0 flex-grow">
-                      <div className="font-medium text-base-content truncate">
-                        {client.firstName} {client.lastName}
+                      <div className="text-base-content/80 text-sm">
+                        {client.name}
                       </div>
                       <div className="flex flex-col xl:flex-row xl:gap-4">
-                        {client.email && (
-                          <div className="flex items-center text-xs text-base-content/70 truncate">
-                            <Mail className="h-3 w-3 mr-1 flex-shrink-0" />
-                            <span className="truncate">{client.email}</span>
-                          </div>
-                        )}
-                        {client.phone && (
-                          <div className="flex items-center text-xs text-base-content/70 truncate">
-                            <Phone className="h-3 w-3 mr-1 flex-shrink-0" />
-                            <span className="truncate">{client.phone}</span>
+
+                        {client.clientStatus && (
+                          <div className="flex items-center text-xs text-base-content/60 truncate">
+                            <span className="truncate">{client.clientStatus}</span>
                           </div>
                         )}
                       </div>
@@ -145,7 +134,6 @@ export function SidebarRight({ onSelectClient, selectedClientId, ...props }: Sid
                       )}
                     </div>
                   </div>
-                  <ChevronRight className="h-4 w-4 text-base-content/50 flex-shrink-0" />
                 </div>
               </div>
             ))
@@ -153,14 +141,8 @@ export function SidebarRight({ onSelectClient, selectedClientId, ...props }: Sid
             <div className="p-8 text-center text-base-content/70">No clients found</div>
           )}
         </div>
-      </SidebarContent>
-      <SidebarFooter className="border-t border-base-300 p-4">
-        <Link href="/dashboard/clients/new" className="btn btn-outline btn-block">
-          <Plus className="h-4 w-4 mr-2" />
-          Add New Client
-        </Link>
-      </SidebarFooter>
-    </Sidebar>
+      </div>
+    </div>
   )
 }
 

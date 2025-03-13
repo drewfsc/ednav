@@ -21,8 +21,8 @@ export function NavMain({
         <SidebarMenuItem key={item.title}>
           <Link
             href={item.url}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md w-full ${
-              item.isActive ? "bg-primary text-primary-content" : "text-base-content hover:bg-base-300"
+            className={`flex items-center gap-2 px-4 py-2 rounded-md w-full btn btn-primary ${
+              item.isActive ? " " : ""
             }`}
           >
             <item.icon className="h-5 w-5" />

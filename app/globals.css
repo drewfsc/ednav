@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
 
 html,
 body {
@@ -9,47 +10,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  @apply bg-base-100 text-base-content;
+  font-family: 'Helvetica Neue', sans-serif ;
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
-}
 
-.w-full {
-  width: 100%;
-}
-
-.max-w-full {
-  max-width: 100%;
-}
-
-.flex-basis-1\/3 {
-  flex-basis: 33.333333%;
-}
-
-/* Fix for DaisyUI buttons */
-.btn {
-  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
-}
-
-.btn-primary {
-  @apply bg-primary text-primary-content hover:bg-primary/90;
-}
-
-.btn-outline {
-  @apply border border-base-300 bg-transparent hover:bg-base-200 text-base-content;
-}
-
-.btn-ghost {
-  @apply hover:bg-base-200 text-base-content;
-}
-
-.btn-sm {
-  @apply h-9 px-3 rounded-md;
-}
-
-.btn-block {
-  @apply w-full;
-}
 

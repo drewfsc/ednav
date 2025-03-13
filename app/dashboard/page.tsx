@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, GraduationCap, FileText, MessageSquare } from "lucide-react"
-import Link from "next/link"
+import {useEffect, useState} from "react"
+import {FileText, GraduationCap, Users} from "lucide-react"
+import {useClients} from "@/contexts/ClientsContext";
+import ClientDescription from "@/components/client-description";
+import ActivityTable from "@/components/activity-table";
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
@@ -11,30 +12,34 @@ export default function DashboardPage() {
     navigators: 0,
     feps: 0,
     notes: 0,
+    actions: [],
   })
   const [loading, setLoading] = useState(true)
-
+  const { selectedClient, setSelectedClient } = useClients();
   useEffect(() => {
     const fetchStats = async () => {
       try {
         // Fetch counts from each collection
-        const [clientsRes, navigatorsRes, fepsRes, notesRes] = await Promise.all([
+        const [clientsRes, navigatorsRes, fepsRes, notesRes, actionsRes] = await Promise.all([
           fetch("/api/clients"),
           fetch("/api/education-navigators"),
           fetch("/api/feps"),
           fetch("/api/notes"),
+          fetch("/api/actions"),
         ])
 
         const clients = await clientsRes.json()
         const navigators = await navigatorsRes.json()
         const feps = await fepsRes.json()
         const notes = await notesRes.json()
+        const actions = await actionsRes.json()
 
         setStats({
           clients: clients.length,
           navigators: navigators.length,
           feps: feps.length,
           notes: notes.length,
+          actions: actions,
         })
       } catch (error) {
         console.error("Error fetching stats:", error)
@@ -42,8 +47,7 @@ export default function DashboardPage() {
         setLoading(false)
       }
     }
-
-    fetchStats()
+    fetchStats().then()
   }, [])
 
   const statCards = [
@@ -74,96 +78,38 @@ export default function DashboardPage() {
       color: "text-purple-500",
       bgColor: "bg-purple-100",
     },
-    {
-      title: "Notes",
-      value: stats.notes,
-      description: "Client notes",
-      icon: MessageSquare,
-      link: "/dashboard/notes",
-      color: "text-amber-500",
-      bgColor: "bg-amber-100",
-    },
   ]
 
   return (
-    <div className="space-y-6 w-full max-w-full">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
-
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {statCards.map((card, i) => (
-          <Link href={card.link} key={i}>
-            <Card className="hover:shadow-md transition-shadow">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">{card.title}</CardTitle>
-                <div className={`${card.bgColor} p-2 rounded-full ${card.color}`}>
-                  <card.icon className="h-4 w-4" />
+      <div>
+        <div className={`grid grid-cols-3 gap-6 ${selectedClient ? 'invisible h-0 overflow-hidden' : ''}`}>
+          {statCards.map((card, i) => (
+              <div key={i} className="card bg-base-200 rounded card-sm shadow-sm">
+                <div className="card-body">
+                  <h2 className="card-title">{card.title}</h2>
+                  <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {loading ? <div className="h-8 w-16 bg-base-300 animate-pulse rounded" /> : card.value}
-                </div>
-                <p className="text-xs text-base-content/70 pt-1">{card.description}</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+              </div>
+          ))}
+        </div>
+        <div>
+          {selectedClient && <div className={`grid grid-cols-3 gap-6 w-full`}>
+            <div className={`col-span-3 bg-base-200 min-h-10 p-6 rounded-box flex items-center justify-between font-normal text-2xl`}>
+              <div className={`text-3xl font-medium`}>{selectedClient.name}</div>
+              <div><span className={`text-lg text-base-content/60 font-light`}>Referred: </span>{selectedClient.dateReferred}</div>
+              <div><span className={`text-lg text-base-content/60 font-light`}>Age Group: </span>{selectedClient.group}</div>
+              <div><span className={`text-lg text-base-content/60 font-light`}>Case Number: </span>{selectedClient.caseNumber}</div>
+            </div>
+            <div className={`col-span-1 bg-base-200 min-h-80 rounded-box`}>
+              <ClientDescription client={selectedClient} />
+            </div>
+            <div className={`col-span-2 bg-base-200`}>
+              <ActivityTable actions={stats.actions} />
+            </div>
+          </div>}
+        </div>
       </div>
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Clients</CardTitle>
-            <CardDescription>Latest client additions</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="space-y-2">
-                {Array(3)
-                  .fill(0)
-                  .map((_, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className="h-8 w-8 rounded-full bg-base-300 animate-pulse" />
-                      <div className="space-y-1">
-                        <div className="h-4 w-24 bg-base-300 animate-pulse rounded" />
-                        <div className="h-3 w-16 bg-base-300 animate-pulse rounded" />
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-base-content/70">Client data will appear here</div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent FEPs</CardTitle>
-            <CardDescription>Latest family education plans</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="space-y-2">
-                {Array(3)
-                  .fill(0)
-                  .map((_, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className="h-8 w-8 rounded bg-base-300 animate-pulse" />
-                      <div className="space-y-1">
-                        <div className="h-4 w-24 bg-base-300 animate-pulse rounded" />
-                        <div className="h-3 w-16 bg-base-300 animate-pulse rounded" />
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-base-content/70">FEP data will appear here</div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
   )
 }
 

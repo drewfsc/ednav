@@ -1,76 +1,37 @@
-"use client"
-
 import type React from "react"
+import { Home} from "lucide-react";
+import ListRightClients from "@/components/list-right-clients";
+import LeftNavEntire from "@/components/LeftNavEntire";
 
-import { useState } from "react"
-import { SidebarLeft } from "@/components/sidebar-left"
-import { SidebarRight } from "@/components/sidebar-right"
-import { ThemeSwitcher } from "@/components/theme-switcher"
-import { ClientProfile } from "@/components/client-profile"
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { Separator } from "@/components/ui/separator"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb"
-
-type Client = {
-  _id: string
-  firstName: string
-  lastName: string
-  email?: string
-  phone?: string
-  address?: string
-  dateOfBirth?: string
-  notes?: string
-}
-
-export default function DashboardLayout({
+export default async function DashboardLayout({params,
   children,
 }: {
-  children: React.ReactNode
+  params: Record<string, any>;
+  children: React.ReactNode;
 }) {
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null)
-
+  const { id } = await params;
   return (
-    <SidebarProvider>
-      <div className="relative min-h-screen w-full">
-        <div className="absolute top-4 right-4 z-50">
-          <ThemeSwitcher />
-        </div>
-        <div className="flex w-full">
-          <SidebarLeft className="flex-shrink-0" />
-          <SidebarInset className="bg-base-100 flex-grow w-full min-w-0">
-            <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-base-100 border-b border-base-300 z-10 w-full">
-              <div className="flex flex-1 items-center gap-2 px-3">
-                <SidebarTrigger className="text-base-content hover:bg-base-200" />
-                <Separator orientation="vertical" className="mr-2 h-4 bg-base-300" />
-                {/*<Breadcrumb>*/}
-                {/*  <BreadcrumbList>*/}
-                {/*    <BreadcrumbItem>*/}
-                {/*      <BreadcrumbPage className="line-clamp-1 text-base-content">*/}
-                {/*        {selectedClient*/}
-                {/*          ? `Client: ${selectedClient.firstName} ${selectedClient.lastName}`*/}
-                {/*          : "Education Navigator Dashboard"}*/}
-                {/*      </BreadcrumbPage>*/}
-                {/*    </BreadcrumbItem>*/}
-                {/*  </BreadcrumbList>*/}
-                {/*</Breadcrumb>*/}
+      <div className="relative h-screen overflow-y-hidden w-full">
+        <div className="flex w-full h-screen">
+          <LeftNavEntire/>
+          <div className="bg-base-100 flex-grow w-full min-w-0">
+            <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 bg-base-200 z-10 w-full">
+              <div className="flex flex-1 items-center justify-between gap-2 px-3">
+                <div className={`flex items-center gap-2 text-base-content/70`}>
+                  <Home className="h-6 w-6 text-base-content/50" />
+                  <span className="text-base-content/70">Dashboard</span>
+                </div>
               </div>
             </header>
-            <main className="flex-1 p-4 w-full overflow-x-hidden">
-              {selectedClient ? (
-                <ClientProfile client={selectedClient} onClose={() => setSelectedClient(null)} />
-              ) : (
-                children
-              )}
+            <main className="flex-1 w-full overflow-x-hidden p-8">
+              {children}
             </main>
-          </SidebarInset>
-          <SidebarRight
-            className="flex-shrink-0 flex-basis-1/3 max-w-[33%]"
-            onSelectClient={setSelectedClient}
-            selectedClientId={selectedClient?._id}
-          />
+          </div>
+          <div className="flex-shrink-0 w-96 h-screen bg-base-200">
+            <ListRightClients searchVisible={true}/>
+          </div>
         </div>
       </div>
-    </SidebarProvider>
   )
 }
 

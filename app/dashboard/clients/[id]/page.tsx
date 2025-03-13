@@ -1,30 +1,46 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import React, {useEffect, useState} from "react"
 import { ArrowLeft, Mail, Phone, MapPin, Calendar, Edit } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {useClients} from "@/contexts/ClientsContext";
 
 type Client = {
-  _id: string
-  firstName: string
-  lastName: string
-  email?: string
-  phone?: string
-  address?: string
-  dateOfBirth?: string
-  notes?: string
+  _id: string,
+  name: string,
+  email: string,
+  contactNumber: string,
+  caseNumber: number,
+  dob: string,
+  fep: string,
+  dateReferred: string,
+  lastGrade: string,
+  hadOrientation: string,
+  pin: number,
+  region: number,
+  clientStatus: string,
+  tabe: string,
+  transcripts: string,
+  officeCity: string,
+  group: string,
+  schoolIfEnrolled: string,
+  ttsDream: string,
+  createdAt: string,
+  latestInteraction: string,
+  isYouth: boolean,
 }
 
 export default function ClientProfilePage({ params }: { params: { id: string } }) {
   const [client, setClient] = useState<Client | null>(null)
   const [loading, setLoading] = useState(true)
+  const {id} = params
+  const { selectedClient, setSelectedClient } = useClients();
 
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const response = await fetch(`/api/clients/${params.id}`)
+        const response = await fetch(`/api/clients/${id}`)
         if (response.ok) {
           const data = await response.json()
           setClient(data)
@@ -36,10 +52,10 @@ export default function ClientProfilePage({ params }: { params: { id: string } }
       }
     }
 
-    if (params.id) {
+    if (id) {
       fetchClient()
     }
-  }, [params.id])
+  }, [id])
 
   if (loading) {
     return (
@@ -71,7 +87,7 @@ export default function ClientProfilePage({ params }: { params: { id: string } }
             <span className="sr-only sm:not-sr-only sm:ml-2">Back</span>
           </Link>
           <h1 className="text-2xl font-bold text-base-content">
-            {client.firstName} {client.lastName}
+            {selectedClient?.name}
           </h1>
         </div>
         <Link href={`/dashboard/clients/${client._id}/edit`} className="btn btn-primary btn-sm">
@@ -87,13 +103,9 @@ export default function ClientProfilePage({ params }: { params: { id: string } }
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-16 w-16 rounded-full bg-primary flex items-center justify-center text-primary-content text-xl font-bold">
-                {client.firstName?.[0]}
-                {client.lastName?.[0]}
-              </div>
               <div>
                 <h3 className="font-medium text-base-content">
-                  {client.firstName} {client.lastName}
+                  {client.name}
                 </h3>
                 <p className="text-sm text-base-content/70">Client ID: {client._id}</p>
               </div>
@@ -107,76 +119,21 @@ export default function ClientProfilePage({ params }: { params: { id: string } }
                 </div>
               )}
 
-              {client.phone && (
+              {client.contactNumber && (
                 <div className="flex items-center gap-2 text-base-content">
                   <Phone className="h-4 w-4 text-base-content/70" />
-                  <span>{client.phone}</span>
+                  <span>{client.contactNumber}</span>
                 </div>
               )}
 
-              {client.address && (
-                <div className="flex items-center gap-2 text-base-content">
-                  <MapPin className="h-4 w-4 text-base-content/70" />
-                  <span>{client.address}</span>
-                </div>
-              )}
 
-              {client.dateOfBirth && (
+              {client.dob && (
                 <div className="flex items-center gap-2 text-base-content">
                   <Calendar className="h-4 w-4 text-base-content/70" />
-                  <span>{new Date(client.dateOfBirth).toLocaleDateString()}</span>
+                  <span>{new Date(client.dob).toLocaleDateString()}</span>
                 </div>
               )}
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="md:col-span-2 bg-base-100 border-base-300">
-          <CardHeader>
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="bg-base-200">
-                <TabsTrigger
-                  value="overview"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-content"
-                >
-                  Overview
-                </TabsTrigger>
-                <TabsTrigger
-                  value="feps"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-content"
-                >
-                  FEPs
-                </TabsTrigger>
-                <TabsTrigger
-                  value="notes"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-content"
-                >
-                  Notes
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="overview">
-              <TabsContent value="overview">
-                <div className="space-y-4">
-                  <h3 className="font-medium text-base-content">Client Notes</h3>
-                  {client.notes ? (
-                    <p className="text-base-content">{client.notes}</p>
-                  ) : (
-                    <p className="text-base-content/70">No notes available for this client.</p>
-                  )}
-                </div>
-              </TabsContent>
-              <TabsContent value="feps">
-                <div className="text-center py-8 text-base-content/70">
-                  No Family Education Plans available for this client.
-                </div>
-              </TabsContent>
-              <TabsContent value="notes">
-                <div className="text-center py-8 text-base-content/70">No notes available for this client.</div>
-              </TabsContent>
-            </Tabs>
           </CardContent>
         </Card>
       </div>

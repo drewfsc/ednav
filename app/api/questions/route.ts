@@ -5,7 +5,7 @@ import { getCollection } from "@/lib/mongodb"
 export async function GET() {
   try {
     const collection = await getCollection("questions")
-    const questions = await collection.find({}).toArray()
+    const questions = await collection.findOne()
 
     return NextResponse.json(questions, { status: 200 })
   } catch (error) {
