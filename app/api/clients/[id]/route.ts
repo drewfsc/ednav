@@ -2,13 +2,9 @@ import { NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-interface Context {
-  params: { id: string };
-}
-
-export async function GET(req: Request, context: Context) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
-    const { id } = context.params;  // Correct way to extract params
+    const { id } = params; // Correct extraction of params
     const collection = await getCollection("clients");
 
     if (!ObjectId.isValid(id)) {
