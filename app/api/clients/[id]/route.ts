@@ -1,12 +1,13 @@
-import { type NextRequest, NextResponse } from "next/server"
+import {NextResponse } from "next/server"
 import { getCollection } from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 
 // GET client by ID
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+// @ts-ignore
+export async function GET( { params }) {
   try {
     const id = params.id
-    const collection = await getCollection("clients")
+    const [collection] = await Promise.all([getCollection("clients")])
 
     // Validate ObjectId format
     if (!ObjectId.isValid(id)) {
