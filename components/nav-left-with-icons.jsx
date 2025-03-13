@@ -2,7 +2,7 @@
 import React from 'react';
 import {ThemeSwitcher} from "@/components/theme-switcher";
 import {usePathname} from "next/navigation";
-import {FileText, GraduationCap, Home, Icon, Users} from "lucide-react";
+import {FileText, GraduationCap, Home, Users} from "lucide-react";
 
 export default function NavLeftWithIcons() {
     const pathname = usePathname()

@@ -12,7 +12,6 @@ export default function NavigatorsLayout({
   children: React.ReactNode
 }) {
   const { selectedNavigator, setSelectedNavigator } = useNavigators() as { selectedNavigator: { name: string; email: string } | null, setSelectedNavigator: (navigator: { name: string; email: string } | null) => void };
-  const [tab, setTab] = React.useState("Clients");
   function handleOnClose() {
     setSelectedNavigator(null)
   }

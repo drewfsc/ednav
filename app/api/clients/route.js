@@ -1,5 +1,5 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { getCollection } from "@/lib/mongodb"
+import { NextResponse } from "next/server"
+import { getCollection } from "/lib/mongodb"
 import { ObjectId } from "mongodb"
 
 // GET all clients
@@ -16,9 +16,9 @@ export async function GET() {
 }
 
 // POST to add a new client
-export async function POST(request: NextRequest) {
+export async function POST( NextRequest) {
   try {
-    const body = await request.json()
+    const body = await NextRequest.json()
     const collection = await getCollection("clients")
 
     // If _id exists, it's an update operation

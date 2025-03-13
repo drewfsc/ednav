@@ -31,15 +31,15 @@ interface GuidedActivityFormProps {
         latestInteraction: string,
         isYouth: boolean,
     },
-    onActivityAddedAction?: () => Promise<void>
+    // onActivityAddedAction?: () => Promise<void>
 }
 
-export function GuidedActivityForm({client, onActivityAddedAction}: GuidedActivityFormProps) {
+export function GuidedActivityForm({client}: GuidedActivityFormProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [what, setWhat] = useState<string>("")
     const [when, setWhen] = useState<string>("")
     const [where, setWhere] = useState<string>("")
-    const [who, setWho] = useState<string>(client.fep)
+    const [who] = useState<string>(client.fep)
     const [activityDetail, setActivityDetail] = useState<string>("")
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState<Record<string, any>>({})
@@ -89,7 +89,7 @@ export function GuidedActivityForm({client, onActivityAddedAction}: GuidedActivi
             })
 
             if (response.ok) {
-              onActivityAddedAction?.().then()
+              // onActivityAddedAction?.().then()
                 setIsOpen(false)
                 setWhat("")
                 setWhen("")

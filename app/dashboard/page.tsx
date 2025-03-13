@@ -15,7 +15,7 @@ export default function DashboardPage() {
     actions: [],
   })
   const [loading, setLoading] = useState(true)
-  const { selectedClient, setSelectedClient } = useClients();
+  const { selectedClient } = useClients();
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -49,7 +49,7 @@ export default function DashboardPage() {
     }
     fetchStats().then()
   }, [])
-
+  console.log(loading)
   const statCards = [
     {
       title: "Total Clients",

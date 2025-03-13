@@ -42,7 +42,7 @@ export default function NavigatorsPage() {
     }
     fetchStats().then()
   }, [])
-
+console.log(loading)
   return (
       <NavigatorsTable navigators={stats.navigators} />
   )

@@ -1,64 +1,24 @@
 "use client"
 
-import {Component, useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import {ArrowLeft} from "lucide-react"
-import {Button} from "@/components/ui/button"
+import {Button} from "./ui/button"
 import {GuidedActivityForm} from "./guided-activity-form"
-import ClientDescriptionList from "@/components/client-description-list";
+import ClientDescriptionList from "../components/client-description-list";
 
-export type Client = {
-    _id: string,
-    name: string,
-    email: string,
-    contactNumber: string,
-    caseNumber: number,
-    dob: string,
-    fep: string,
-    dateReferred: string,
-    lastGrade: string,
-    hadOrientation: string,
-    pin: number,
-    region: number,
-    clientStatus: string,
-    tabe: string,
-    transcripts: string,
-    officeCity: string,
-    group: string,
-    schoolIfEnrolled: string,
-    ttsDream: string,
-    createdAt: string,
-    latestInteraction: string,
-    isYouth: boolean,
-}
+const getClientActionsUrl = (clientId) => `/api/actions?clientId=${clientId}`;
 
-type Action = {
-    _id: string
-    clientId: string
-    type: string
-    description: string
-    createdAt: string
-    createdBy?: string
-}
-
-interface ClientProfileProps {
-    client: Client,
-    onCloseAction: () => void,
-}
-
-const getClientActionsUrl = (clientId: string) => `/api/actions?clientId=${clientId}`;
-
-export class ClientProfile extends Component<ClientProfileProps> {
-  render() {
-    let {client, onCloseAction} = this.props;
-    const [clientActions, setClientActions] = useState<Action[]>([]);
+export default function ClientProfile ({client, onCloseAction}) {
+    // const [clientActions, setClientActions] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchActionsData = async (clientId: string) => {
+    const fetchActionsData = async (clientId) => {
       try {
         const response = await fetch(getClientActionsUrl(clientId));
         if (response.ok) {
           const data = await response.json();
-          setClientActions(data);
+          console.log(data)
+          // setClientActions(data);
         }
       } catch (error) {
         console.error("Error fetching client actions:", error);
@@ -67,9 +27,9 @@ export class ClientProfile extends Component<ClientProfileProps> {
 
     useEffect(() => {
       setLoading(true);
+      console.log(loading)
       fetchActionsData(client._id).finally(() => setLoading(false));
     }, [client._id]);
-
 
     return (
         <div className="w-full">
@@ -98,9 +58,7 @@ export class ClientProfile extends Component<ClientProfileProps> {
           <div className={`p-6`}>
             <GuidedActivityForm client={client} onActivityAddedAction={() => fetchActionsData(client._id)}/>
           </div>
-
         </div>
     )
-  }
 }
 

@@ -1,10 +1,10 @@
 "use client";
 import "./globals.css"
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {ClientsProvider} from "@/contexts/ClientsContext";
-import {Cookies} from "react-cookie";
+// import {Cookies} from "react-cookie";
 import {NavigatorsProvider} from "@/contexts/NavigatorsContext";
-const cookies = new Cookies();
+// const cookies = new Cookies();
 export default function RootLayout({
   children,
 }: Readonly<{

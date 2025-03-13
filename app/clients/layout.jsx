@@ -1,16 +1,13 @@
 "use client"
 import React from "react"
 import { Home} from "lucide-react";
-import {useClients} from "@/contexts/ClientsContext";
-import {ClientProfile, Client} from "@/components/client-profile";
-import LeftNavEntire from "@/components/LeftNavEntire";
+import {useClients} from "../../contexts/ClientsContext";
+import LeftNavEntire from "../../components/LeftNavEntire";
+import ClientProfile from "../../components/client-profile";
 
-export default function ClientsLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const { selectedClient, setSelectedClient } = useClients() as { selectedClient: Client | null, setSelectedClient: (client: Client | null) => void };
+export default function ClientsLayout({children}){
+
+  const { selectedClient, setSelectedClient } = useClients();
   function handleOnClose() {
     setSelectedClient(null)
   }
