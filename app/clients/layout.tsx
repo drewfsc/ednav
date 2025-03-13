@@ -1,6 +1,5 @@
 "use client"
 import React from "react"
-import NavLeftWithIcons from "@/components/nav-left-with-icons";
 import { Home} from "lucide-react";
 import {useClients} from "@/contexts/ClientsContext";
 import {ClientProfile, Client} from "@/components/client-profile";
@@ -38,7 +37,7 @@ export default function ClientsLayout({
           </div>
           <div className={`w-0 flex-shrink-0 h-screen bg-base-300 shadow-lg z-20 ${selectedClient ? "w-96" : "hidden"}`}>
             {selectedClient ? (
-              <ClientProfile client={selectedClient} onClose={handleOnClose}/>
+              <ClientProfile client={selectedClient} onCloseAction={handleOnClose}/>
             ) : (
               <div>No client selected</div>
             )}
