@@ -4,6 +4,7 @@ import React from "react";
 import {ClientsProvider} from "@/contexts/ClientsContext";
 // import {Cookies} from "react-cookie";
 import {NavigatorsProvider} from "@/contexts/NavigatorsContext";
+import {FepsProvider} from "@/contexts/FepsContext";
 // const cookies = new Cookies();
 export default function RootLayout({
   children,
@@ -24,7 +25,9 @@ export default function RootLayout({
       <body>
       <NavigatorsProvider>
           <ClientsProvider>
-          {children}
+              <FepsProvider>
+                  {children}
+              </FepsProvider>
           </ClientsProvider>
       </NavigatorsProvider>
       </body>

@@ -24,13 +24,13 @@ export default function NavLeftWithIcons() {
             title: "Education Navigators",
             url: "/navigators",
             icon: GraduationCap,
-            isActive: pathname.startsWith("/dashboard/navigators"),
+            isActive: pathname.startsWith("/navigators"),
         },
         {
             title: "FEPs",
             url: "/feps",
             icon: FileText,
-            isActive: pathname.startsWith("/dashboard/feps"),
+            isActive: pathname.startsWith("/feps"),
         },
     ]
 

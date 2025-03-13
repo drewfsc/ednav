@@ -1,47 +1,46 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { getCollection } from "@/lib/mongodb"
-import { ObjectId } from "mongodb"
+import { NextResponse } from "next/server";
+import { getCollection } from "@/lib/mongodb";
 
-// GET all FEPs
+// GET all FEPs with aggregated actions and clients
 export async function GET() {
-  try {
-    const collection = await getCollection("feps")
-    const feps = await collection.find({}).toArray()
+    try {
+        const fepsCollection = await getCollection("feps");
+        const actionsCollection = await getCollection("actions");
+        const clientsCollection = await getCollection("clients");
 
-    return NextResponse.json(feps, { status: 200 })
-  } catch (error) {
-    console.error("Error fetching FEPs:", error)
-    return NextResponse.json({ error: "Failed to fetch FEPs" }, { status: 500 })
-  }
-}
+        // Fetch all FEPs
+        const feps = await fepsCollection.find({}).toArray();
 
-// POST to add/edit a FEP
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json()
-    const collection = await getCollection("feps")
+        // Process each FEP to aggregate actions and clients
+        const enrichedFeps = await Promise.all(
+            feps.map(async (fep) => {
+                // Fetch actions where the FEP was involved, sorted by most recent first
+                const actions = await actionsCollection
+                    .find({ who: fep.name }) // Assuming 'who' field in actions matches FEP name
+                    .sort({ when: -1 }) // Sort actions by 'when' in descending order (most recent first)
+                    .toArray();
 
-    // If _id exists, it's an update operation
-    if (body._id) {
-      const id = body._id
-      const { _id, ...updateData } = body
+                // Fetch clients associated with the FEP
+                const clients = await clientsCollection
+                    .find({ fep: fep.name }) // Assuming 'fep' field in clients matches FEP name
+                    .toArray();
 
-      const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData })
+                return {
+                    name: fep.name,
+                    educationNavigator: fep.navigatorName, // Assuming the field in DB is 'navigatorName'
+                    actions, // Actions where the FEP was involved
+                    clients, // Clients associated with the FEP
+                    mostRecentAction: actions.length > 0 ? actions[0] : null // Get the most recent action
+                };
+            })
+        );
 
-      if (result.matchedCount === 0) {
-        return NextResponse.json({ error: "FEP not found" }, { status: 404 })
-      }
-
-      return NextResponse.json({ message: "FEP updated successfully", _id: id }, { status: 200 })
+        return NextResponse.json(enrichedFeps, { status: 200 });
+    } catch (error) {
+        console.error("Error fetching FEPs with aggregated data:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch FEPs with actions and clients" },
+            { status: 500 }
+        );
     }
-    // Otherwise, it's a new FEP
-    else {
-      const result = await collection.insertOne(body)
-      return NextResponse.json({ message: "FEP added successfully", _id: result.insertedId }, { status: 201 })
-    }
-  } catch (error) {
-    console.error("Error adding/updating FEP:", error)
-    return NextResponse.json({ error: "Failed to add/update FEP" }, { status: 500 })
-  }
 }
-
