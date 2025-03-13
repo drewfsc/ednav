@@ -1,15 +1,15 @@
 import type React from "react"
-import { Home} from "lucide-react";
+import { Home } from "lucide-react";
 import ListRightClients from "@/components/list-right-clients";
 import LeftNavEntire from "@/components/LeftNavEntire";
 
-export default async function DashboardLayout({params,
-  children,
-}: {
+export default function DashboardLayout({
+                                          children,
+                                        }: {
   params: Record<string, any>;
   children: React.ReactNode;
 }) {
-  const { id } = await params;
+
   return (
       <div className="relative h-screen overflow-y-hidden w-full">
         <div className="flex w-full h-screen">
@@ -28,10 +28,9 @@ export default async function DashboardLayout({params,
             </main>
           </div>
           <div className="flex-shrink-0 w-96 h-screen bg-base-200">
-            <ListRightClients searchVisible={true}/>
+            <ListRightClients searchVisible={true} />
           </div>
         </div>
       </div>
   )
 }
-
