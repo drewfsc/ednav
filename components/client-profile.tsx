@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowLeft, X } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GuidedActivityForm } from "./guided-activity-form"
 import ClientDescriptionList from "@/components/client-description-list";
@@ -42,42 +42,31 @@ type Action = {
 
 interface ClientProfileProps {
   client: Client
-  onClose: () => void
+  onCloseAction: () => void
 }
+const getClientActionsUrl = (clientId: string) => `/api/actions?clientId=${clientId}`;
 
-export function ClientProfile({ client, onClose }: ClientProfileProps) {
-  const [actions, setActions] = useState<Action[]>([])
-  const [loading, setLoading] = useState(true)
+export function ClientProfile({ client, onCloseAction }: ClientProfileProps) {
+  const [clientActions, setClientActions] = useState<Action[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchActions = async () => {
-      try {
-        const response = await fetch(`/api/actions?clientId=${client._id}`)
-        if (response.ok) {
-          const data = await response.json()
-          setActions(data)
-        }
-      } catch (error) {
-        console.error("Error fetching client actions:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchActions()
-  }, [client._id])
-
-  const refreshActions = async () => {
+  const fetchActionsData = async (clientId: string) => {
     try {
-      const response = await fetch(`/api/actions?clientId=${client._id}`)
+      const response = await fetch(getClientActionsUrl(clientId));
       if (response.ok) {
-        const data = await response.json()
-        setActions(data)
+        const data = await response.json();
+        setClientActions(data);
       }
     } catch (error) {
-      console.error("Error fetching client actions:", error)
+      console.error("Error fetching client actions:", error);
     }
-  }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetchActionsData(client._id).finally(() => setLoading(false));
+  }, [client._id]);
+
 
   return (
     <div className="w-full">
@@ -87,7 +76,7 @@ export function ClientProfile({ client, onClose }: ClientProfileProps) {
             <div className={`card-body`}>
               <div className={`card-title`}>
                 <div className={`flex items-center gap-4`}>
-                  <Button variant="outline" size="sm" onClick={onClose} className="text-base-content hover:bg-base-200">
+                  <Button variant="outline" size="sm" onClick={onCloseAction} className="text-base-content hover:bg-base-200">
                     <ArrowLeft className="h-4 w-4" />
                   </Button>
                   <div className={`text-xl`}>
@@ -103,7 +92,7 @@ export function ClientProfile({ client, onClose }: ClientProfileProps) {
       </div>
       <ClientDescriptionList client={client} />
       <div className={`p-6`}>
-        <GuidedActivityForm client={client} onActivityAdded={refreshActions} />
+        <GuidedActivityForm client={client} onActivityAddedAction={() => fetchActionsData(client._id)} />
       </div>
 
     </div>
