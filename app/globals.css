@@ -14,7 +14,7 @@ body {
 }
 
 .range {
-  width: clamp(3rem, 70rem, 100%);
+  width: clamp(3rem, 100%, 100%);
 }
 
 
