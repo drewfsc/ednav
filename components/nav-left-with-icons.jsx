@@ -1,6 +1,5 @@
 "use client";
 import React from 'react';
-import {ThemeSwitcher} from "@/components/theme-switcher";
 import {usePathname} from "next/navigation";
 import {FileText, GraduationCap, Home, Users} from "lucide-react";
 
@@ -21,7 +20,7 @@ export default function NavLeftWithIcons() {
             isActive: pathname.startsWith("/clients"),
         },
         {
-            title: "Education Navigators",
+            title: "Navigators",
             url: "/navigators",
             icon: GraduationCap,
             isActive: pathname.startsWith("/navigators"),
@@ -35,18 +34,19 @@ export default function NavLeftWithIcons() {
     ]
 
     return (
-        <div className={``}>
-            <ul className="menu bg-base-200 rounded-box w-56 text-base-content/60">
+        <div className={`flex flex-col justify-between`}>
+            <ul className="menu rounded w-full text-base-content/60 p-0 m-0">
                 {navMain.map(item => (
-                    <li key={item.title}>
-                        <a href={item.url} className={`${item.isActive ? 'bg-primary text-primary-content ' : ''}`}>
+                    <li className={`w-full p-0 my-2`} key={item.title}>
+                        <a href={item.url} className={`${item.isActive ? 'bg-accent text-accent-content ' : ''}`}>
                             <item.icon/> {item.title}
                         </a>
 
                     </li>
                 ))}
-                <ThemeSwitcher/>
+
             </ul>
+
         </div>
     );
 }

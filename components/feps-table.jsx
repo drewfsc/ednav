@@ -21,7 +21,7 @@ export default function FepsTable({feps}) {
                     [...feps]
                         .sort((a, b) => new Date(b.actions[0].when) - new Date(a.actions[0].when))
                         .map(fep => (
-                        <tr key={fep._id} className={`hover:bg-base-200 cursor-pointer`} onClick={() => setSelectedFep(fep)}>
+                        <tr key={fep.name} className={`hover:bg-base-200 cursor-pointer`} onClick={() => setSelectedFep(fep)}>
                             <th>{fep.name}</th>
                             <td>{fep.clients.length}</td>
                             <td>{fep.actions.length}</td>

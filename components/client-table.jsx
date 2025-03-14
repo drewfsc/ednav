@@ -1,5 +1,6 @@
 import React from 'react';
 import {useClients} from "@/contexts/ClientsContext";
+import moment from "moment";
 
 export default function ClientTable({clients}) {
     const { selectedClient, setSelectedClient } = useClients();
@@ -12,7 +13,6 @@ export default function ClientTable({clients}) {
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Phone</th>
                     <th>FEP</th>
                     <th>Navigator</th>
                     <th>Last Activity</th>
@@ -24,10 +24,9 @@ export default function ClientTable({clients}) {
                         <tr key={client._id} className={`hover:bg-base-200 cursor-pointer ${selectedClient?._id === client._id ? 'bg-primary text-primary-content' : ''}`} onClick={() => setSelectedClient(client)}>
                             <th>{client.name}</th>
                             <td>{client.email}</td>
-                            <td>{client.contactPhone}</td>
                             <td>{client.fep}</td>
                             <td>{client.fep}</td>
-                            <td>{client.latestInteraction}</td>
+                            <td>{moment(client.latestInteraction).calendar()}</td>
                         </tr>
                     ))
                 }

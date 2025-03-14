@@ -38,10 +38,13 @@ export default function ListRightClients({searchVisible}) {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await fetch("/api/clients")
+                const response = await fetch("/api/education-navigators")
                 if (response.ok) {
                     const data = await response.json()
-                    setClients(data)
+                    const chosenClient = data.find((client) => client.name === "Andrew McCauley")
+                    // console.log(chosenClient.clients)
+                    setClients(chosenClient.clients)
+                    // setClients(data.filter((client) => client.name === "Andrew McCauley").clients)
                 }
             } catch (error) {
                 console.error("Error fetching clients:", error)
@@ -57,7 +60,6 @@ export default function ListRightClients({searchVisible}) {
         const matchesSearch = client.name?.toLowerCase().includes(searchLower);
         const matchesStatus = status ? client.clientStatus === status : true;
         const matchesAge = age ? client.isYouth.toString() === age : true;
-
         return matchesSearch && matchesStatus && matchesAge;
     })
 
@@ -83,13 +85,13 @@ export default function ListRightClients({searchVisible}) {
                 return <InProgressSpan/>
         }
     }
-
+    // console.log(filteredClients)
     return (
-        <div className={`h-full w-full overflow-y-scroll p-0`}>
+        <div className={`h-full w-auto overflow-y-scroll p-0`}>
             {searchVisible && (
-                <div className={`sticky top-0 right-0 border-b border-base-300 z-20 w-96 `}>
-                    <div className={`grid grid-cols-2 gap-4 p-4`}>
-                        <label className="input col-span-2 w-full">
+                <div className={`sticky top-0 right-0 border-b border-base-300 z-20 w-auto`}>
+                    <div className={`grid grid-cols-2 gap-2 p-4 w-auto bg-primary rounded-t shadow`}>
+                        <label className="input col-span-2 w-auto">
                             <input type="search" className="grow" placeholder="Search clients by name..."
                                    value={searchTerm}
                                    onChange={(e) => setSearchTerm(e.target.value)}
@@ -109,8 +111,8 @@ export default function ListRightClients({searchVisible}) {
                             <option value={"false"}>Adult</option>
                             <option value={"true"}>Youth</option>
                         </select>
-                        <div className={`text-right col-span-2`}>
-                            <a className="link link-primary text-sm" href="#" onClick={handleFilterReset}>Reset Filters</a>
+                        <div className={`text-right col-span-2 -mx-1`}>
+                            <a className="link link-primary text-primary-content text-sm" href="#" onClick={handleFilterReset}>Reset Filters</a>
                         </div>
                     </div>
                 </div>

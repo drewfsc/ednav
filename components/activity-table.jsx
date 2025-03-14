@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from "moment";
 
 export default function ActivityTable({actions}) {
     return (
@@ -8,19 +9,19 @@ export default function ActivityTable({actions}) {
                     {/* head */}
                     <thead>
                     <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Job</th>
-                        <th>Favorite Color</th>
+                        <th>Who</th>
+                        <th>What</th>
+                        <th>When</th>
+                        <th>Where</th>
                     </tr>
                     </thead>
                     <tbody>
                     {
                         actions.map((action, i) => (
                             <tr key={i}>
-                                <th>{action?.when}</th>
+                                <th>{action?.who}</th>
                                 <td>{action?.what}</td>
-                                <td>{action?.who}</td>
+                                <td>{moment(action?.when).calendar()}</td>
                                 <td>{action?.where}</td>
                             </tr>
                         ))

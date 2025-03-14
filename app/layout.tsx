@@ -5,6 +5,7 @@ import {ClientsProvider} from "@/contexts/ClientsContext";
 // import {Cookies} from "react-cookie";
 import {NavigatorsProvider} from "@/contexts/NavigatorsContext";
 import {FepsProvider} from "@/contexts/FepsContext";
+import {SessionProvider} from "next-auth/react";
 // const cookies = new Cookies();
 export default function RootLayout({
   children,
@@ -20,9 +21,12 @@ export default function RootLayout({
     //         document.documentElement.setAttribute("data-theme", theme)
     //     }
     // }, [])
+
+
   return (
     <html lang="en">
       <body>
+      <SessionProvider>
       <NavigatorsProvider>
           <ClientsProvider>
               <FepsProvider>
@@ -30,6 +34,7 @@ export default function RootLayout({
               </FepsProvider>
           </ClientsProvider>
       </NavigatorsProvider>
+      </SessionProvider>
       </body>
     </html>
   )

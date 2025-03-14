@@ -13,5 +13,8 @@ body {
   font-family: 'Helvetica Neue', sans-serif ;
 }
 
+.range {
+  width: clamp(3rem, 70rem, 100%);
+}
 
 

@@ -3,17 +3,20 @@ import NavLeftWithIcons from "./nav-left-with-icons";
 
 export default function LeftNavEntire() {
     return (
-        <div className={`h-screen flex-shrink-0 bg-base-200`}>
-            <div className=" text-5xl p-4 border-b border-base-300 flex items-center">
-                <div>
-                    <div>
-                        <span className={`text-base-content/50 font-light`}>ED</span><span
-                        className={`text-secondary font-bold italic`}>NAV</span>
+        <div className={`h-auto bg-primary m-4 rounded box-content p-3 flex flex-col justify-between`}>
+            <div>
+                <div className=" text-5xl border-b border-primary flex items-center">
+                    <div className={`p-2`}>
+                        <div>
+                            <span className={`text-primary-content font-extralight`}>ED</span><span
+                            className={`text-accent font-bold italic`}>NAV</span>
+                        </div>
+                        <div className={`text-[16px] text-primary-content`}>SUCCESS TRACKER</div>
                     </div>
-                    <div className={`text-lg -mt-1 text-base-content/60`}>SUCCESS TRACKER</div>
                 </div>
+                <NavLeftWithIcons/>
             </div>
-            <NavLeftWithIcons/>
+            {/*<div className={`w-auto text-right`}><ThemeSwitcher className="w-full block"/></div>*/}
         </div>
     );
 }

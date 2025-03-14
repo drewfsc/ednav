@@ -6,9 +6,6 @@ import ClientTable from "@/components/client-table";
 export default function ClientsPage() {
   const [stats, setStats] = useState({
     clients: [],
-    navigators: 0,
-    feps: 0,
-    notes: 0,
   })
   const [loading, setLoading] = useState(true)
 
@@ -16,23 +13,14 @@ export default function ClientsPage() {
     const fetchStats = async () => {
       try {
         // Fetch counts from each collection
-        const [clientsRes, navigatorsRes, fepsRes, notesRes] = await Promise.all([
+        const [clientsRes] = await Promise.all([
           fetch("/api/clients"),
-          fetch("/api/education-navigators"),
-          fetch("/api/feps"),
-          fetch("/api/notes"),
         ])
 
         const clients = await clientsRes.json()
-        const navigators = await navigatorsRes.json()
-        const feps = await fepsRes.json()
-        const notes = await notesRes.json()
 
         setStats({
           clients: clients,
-          navigators: navigators.length,
-          feps: feps.length,
-          notes: notes.length,
         })
       } catch (error) {
         console.error("Error fetching stats:", error)
@@ -44,7 +32,19 @@ export default function ClientsPage() {
   }, [])
 
   return (
-      <ClientTable clients={stats.clients} />
+      loading && stats.clients.length === 0 ? (
+          Array(12).fill(0).map((_, i) => (
+              <div key={i} className="flex w-full gap-6 space-y-10">
+                  <div className="skeleton h-8 w-50"></div>
+                  <div className="skeleton h-8 w-138"></div>
+                  <div className="skeleton h-8 w-full"></div>
+                  <div className="skeleton h-8 w-84"></div>
+              </div>
+          ))
+
+      ) : (
+        <ClientTable clients={stats.clients} />
+      )
   )
 }
 

@@ -3,10 +3,17 @@ import { getCollection } from "/lib/mongodb"
 import { ObjectId } from "mongodb"
 
 // GET all clients
-export async function GET() {
+export async function GET(request) {
+  const url = new URL(request.url);
+  const {navigator} = url.searchParams;
+  let clients = [];
   try {
     const collection = await getCollection("clients")
-    const clients = await collection.find({}).toArray()
+    if (navigator) {
+      clients = await collection.find({fep: navigator}).toArray()
+    } else {
+      clients = await collection.find({}).toArray()
+    }
 
     return NextResponse.json(clients, { status: 200 })
   } catch (error) {

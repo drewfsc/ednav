@@ -1,15 +1,16 @@
 "use client"
-
+// import { useSession } from "next-auth/react";
 import {useEffect, useState} from "react"
 import {FileText, GraduationCap, Users} from "lucide-react"
 import {useClients} from "@/contexts/ClientsContext";
 import ClientDescription from "@/components/client-description";
 import ActivityTable from "@/components/activity-table";
+import {ThemeSwitcher} from "@/components/theme-switcher";
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
-    clients: 0,
-    navigators: 0,
+    clients: [],
+    navigators: [],
     feps: 0,
     notes: 0,
     actions: [],
@@ -21,7 +22,7 @@ export default function DashboardPage() {
       try {
         // Fetch counts from each collection
         const [clientsRes, navigatorsRes, fepsRes, notesRes, actionsRes] = await Promise.all([
-          fetch("/api/clients"),
+          fetch(`/api/clients?navigator=${"Andrew McCauley"}`),
           fetch("/api/education-navigators"),
           fetch("/api/feps"),
           fetch("/api/notes"),
@@ -82,13 +83,12 @@ export default function DashboardPage() {
 
   return (
       <div>
+        {/*{session && <div className="flex justify-between items-center">YAAAAY</div>}*/}
         <div className={`grid grid-cols-3 gap-6 ${selectedClient ? 'invisible h-0 overflow-hidden' : ''}`}>
           {statCards.map((card, i) => (
-              <div key={i} className="card bg-base-200 rounded card-sm shadow-sm">
-                <div className="card-body">
-                  <h2 className="card-title">{card.title}</h2>
-                  <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-                </div>
+              <div key={i} className="bg-base-200 rounded p-6">
+                <h2 className="mb-1 font-medium">{card.title}</h2>
+                <p className={`text-sm`}>A card component has a figure, a body part, and inside body there are title and actions parts</p>
               </div>
           ))}
         </div>
@@ -107,6 +107,9 @@ export default function DashboardPage() {
               <ActivityTable actions={stats.actions} />
             </div>
           </div>}
+        </div>
+        <div className={`m-auto  bg-base-200 rounded z-20 py-4 my-4`}>
+          <ThemeSwitcher />
         </div>
       </div>
 
