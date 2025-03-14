@@ -16,21 +16,17 @@ export default function ClientsLayout({children}){
         <div className="flex w-full h-screen">
           <LeftNavEntire/>
           <div className="bg-base-100 flex-grow w-full min-w-0">
-            <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 bg-base-200 z-10 w-full">
+            <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 bg-primary z-10 w-auto rounded my-4 p-4">
               <div className="flex flex-1 items-center justify-between gap-2 px-3">
-                <div className={`flex items-center gap-2 text-base-content/70`}>
-                  <Home className="h-6 w-6 text-base-content/50" />
-                  <span className="text-base-content/70">Clients</span>
+                <div className={`flex items-center gap-2 text-primary-content`}>
+                  <Home className="h-8 w-8"/>
+                  <span className="text-3xl font-light">Clients</span>
                 </div>
-
               </div>
             </header>
-            {/* Pass selectedClient to children */}
-            <div className={`h-full w-full overflow-y-scroll p-0`}>
-              <main className="p-8">
-                {children}
-              </main>
-            </div>
+            <main className="flex-1 w-full overflow-x-hidden p-1">
+              {children}
+            </main>
           </div>
           <div className={`w-0 flex-shrink-0 h-screen bg-base-300 shadow-lg z-20 ${selectedClient ? "w-96" : "hidden"}`}>
             {selectedClient ? (

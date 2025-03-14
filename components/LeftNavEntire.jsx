@@ -1,9 +1,12 @@
+"use client"
 import React from 'react';
 import NavLeftWithIcons from "./nav-left-with-icons";
+import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
 export default function LeftNavEntire() {
+    const {selectedFepLeft} = useFepsLeft()
     return (
-        <div className={`h-auto bg-primary m-4 rounded box-content p-3 flex flex-col justify-between`}>
+        <div className={`transition duration-500  bg-primary rounded p-3 ${selectedFepLeft === true ? "-translate-x-180 collapse overflow-hidden m-0 w-0 invisible p-0 flex-none -ml-6" : "min-w-30 m-4 mr-0 "}`}>
             <div>
                 <div className=" text-5xl border-b border-primary flex items-center">
                     <div className={`p-2`}>

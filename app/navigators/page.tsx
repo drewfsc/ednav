@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import NavigatorsTable from "@/components/navigators-table";
+import NavigatorGrid from "@/components/navigator-grid";
 
 export default function NavigatorsPage() {
   const [stats, setStats] = useState({
@@ -44,7 +44,8 @@ export default function NavigatorsPage() {
   }, [])
 console.log(loading)
   return (
-      <NavigatorsTable navigators={stats.navigators} />
+      <NavigatorGrid/>
+      // <NavigatorsTable navigators={stats.navigators} />
   )
 }
 

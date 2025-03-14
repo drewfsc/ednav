@@ -23,32 +23,34 @@ export async function GET(request) {
 }
 
 // POST to add a new client
-export async function POST( NextRequest) {
+export async function POST(request) { // Remove extra ")" and use request directly
   try {
-    const body = await NextRequest.json()
-    const collection = await getCollection("clients")
+    const body = await request.json(); // Correctly parse request body
+    const collection = await getCollection("clients");
 
     // If _id exists, it's an update operation
     if (body._id) {
-      const id = body._id
-      const { _id, ...updateData } = body
+      const id = body._id;
+      const { _id, ...updateData } = body;
 
-      const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData })
+      const result = await collection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updateData }
+      );
 
       if (result.matchedCount === 0) {
-        return NextResponse.json({ error: "Client not found" }, { status: 404 })
+        return NextResponse.json({ error: "Client not found" }, { status: 404 });
       }
 
-      return NextResponse.json({ message: "Client updated successfully", _id: id }, { status: 200 })
+      return NextResponse.json({ message: "Client updated successfully", _id: id }, { status: 200 });
     }
+
     // Otherwise, it's a new client
-    else {
-      const result = await collection.insertOne(body)
-      return NextResponse.json({ message: "Client added successfully", _id: result.insertedId }, { status: 201 })
-    }
+    const result = await collection.insertOne(body);
+    return NextResponse.json({ message: "Client added successfully", _id: result.insertedId }, { status: 201 });
+
   } catch (error) {
-    console.error("Error adding/updating client:", error)
-    return NextResponse.json({ error: "Failed to add/update client" }, { status: 500 })
+    console.error("Error adding/updating client:", error);
+    return NextResponse.json({ error: "Failed to add/update client" }, { status: 500 });
   }
 }
-

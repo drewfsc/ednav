@@ -35,7 +35,7 @@ export default function ClientProfile ({client, onCloseAction}) {
         <div className="w-full">
           <div className="w-full">
             <div className="w-full ">
-              <div className={`card bg-base-100 m-6`}>
+              <div className={`card bg-base-100 m-0`}>
                 <div className={`card-body`}>
                   <div className={`card-title`}>
                     <div className={`flex items-center gap-4`}>

@@ -1,13 +1,13 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {createContext, useContext, useState, ReactNode, SetStateAction, Dispatch} from "react";
 
 type FEP = {
-    "_id": string,
-    "name": string,
+    "left": boolean,
+    "right": boolean,
 }
 
 type FepsContextType = {
     selectedFep: FEP | null;
-    setSelectedFep: (fep: FEP | null) => void;
+    setSelectedFep: Dispatch<SetStateAction<FEP | null>>;
 };
 
 const FepsContext = createContext<FepsContextType | undefined>(undefined);

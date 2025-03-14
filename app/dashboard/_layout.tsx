@@ -2,7 +2,6 @@ import type React from "react"
 import {Home} from "lucide-react";
 import ListRightClients from "@/components/list-right-clients";
 import LeftNavEntire from "@/components/LeftNavEntire";
-import {SignOut} from "@/components/signout-button";
 
 export default function DashboardLayout({
                                             children,
@@ -21,7 +20,7 @@ export default function DashboardLayout({
                                 <Home className="h-8 w-8"/>
                                 <span className="text-3xl font-light">Dashboard</span>
                             </div>
-                            <SignOut/>
+                            {/*<SignOut/>*/}
                         </div>
                     </header>
                     <main className="flex-1 w-full overflow-x-hidden p-1">

@@ -26,7 +26,7 @@ export default function ClientDescriptionList({ client }) {
                     </div>
                 </div>
                 <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border mt-4">
-                    <div className="collapse-title font-semibold">Organization</div>
+                    <div className="collapse-title font-semibold mb-3">Organization</div>
                     <div className="collapse-content text-sm">
                         <dl className="divide-y divide-base-300">
                             <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

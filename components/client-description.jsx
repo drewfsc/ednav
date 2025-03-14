@@ -1,7 +1,7 @@
 export default function ClientDescription({ client }) {
     return (
         <div className="my-6 mx-8">
-            <h3 className="text-xl font-bold">Personal</h3>
+            <h3 className="text-xl font-bold mb-3">Personal</h3>
             <dl className="divide-y divide-base-300 mb-6">
                 <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt className="text-sm/6 font-light text-base-content/80">Email</dt>
@@ -20,7 +20,7 @@ export default function ClientDescription({ client }) {
                     <dd className="mt-1 text-sm/6 text-base-content sm:col-span-2 sm:mt-0">{client.lastGrade}</dd>
                 </div>
             </dl>
-            <h3 className="text-xl font-bold">Organization</h3>
+            <h3 className="text-xl font-bold mb-3">Organization</h3>
             <dl className="divide-y divide-base-300">
                 <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt className="text-sm/6 font-light text-base-content/80">FEP</dt>

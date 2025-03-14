@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Skeleton} from "@/components/ui/skeleton";
 import {PersonSimpleWalk, ProhibitInset, TrendUp, GraduationCap} from "phosphor-react";
 import {useClients} from "@/contexts/ClientsContext";
+import {useFeps} from "@/contexts/FepsContext";
 
 const ActiveSpan = () => {
     return (
@@ -31,7 +32,7 @@ export default function ListRightClients({searchVisible}) {
     const [searchTerm, setSearchTerm] = useState("")
     const [status, setStatus] = useState("")
     const [age, setAge] = useState("")
-
+    const {selectedFep } = useFeps();
     const { selectedClient, setSelectedClient } = useClients();
 
 
@@ -87,7 +88,8 @@ export default function ListRightClients({searchVisible}) {
     }
     // console.log(filteredClients)
     return (
-        <div className={`h-full w-auto overflow-y-scroll p-0`}>
+        <div className={` bg-base-200 overflow-scroll transition duration-500 rounded no-scrollbar ${selectedFep === true ? "translate-x-280 w-0 overflow-hidden collapse m-0" : "min-w-110 ml-0 m-4 "}`}>
+        <div className={``}>
             {searchVisible && (
                 <div className={`sticky top-0 right-0 border-b border-base-300 z-20 w-auto`}>
                     <div className={`grid grid-cols-2 gap-2 p-4 w-auto bg-primary rounded-t shadow`}>
@@ -153,6 +155,7 @@ export default function ListRightClients({searchVisible}) {
                         <div className="p-8 text-center text-base-content/70">No clients found</div>
                     )}
             </ul>
+        </div>
         </div>
     );
 }
