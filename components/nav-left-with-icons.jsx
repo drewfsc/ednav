@@ -17,35 +17,35 @@ export default function NavLeftWithIcons() {
             title: "Clients",
             url: "/clients",
             icon: Users,
-            isActive: pathname.startsWith("/clients"),
+            isActive: pathname === "/clients",
         },
         {
             title: "Navigators",
             url: "/navigators",
             icon: GraduationCap,
-            isActive: pathname.startsWith("/navigators"),
+            isActive: pathname === "/navigators",
         },
         {
             title: "FEPs",
             url: "/feps",
             icon: FileText,
-            isActive: pathname.startsWith("/feps"),
+            isActive: pathname === "/feps",
         },
         {
             title: "Add Client",
             url: "/clients/new",
             icon: UserPlus2,
-            isActive: pathname.startsWith("/clients/new"),
+            isActive: pathname === "/clients/new",
         },
     ]
 
     return (
         <div className={`flex flex-col justify-between`}>
-            <ul className="menu rounded w-full text-primary-content p-0 m-0">
+            <ul className="menu flex-col w-full p-0 m-0 text-lg h-full">
                 {navMain.map(item => (
-                    <li className={`w-full p-0 my-2`} key={item.title}>
-                        <a href={item.url} className={`${item.isActive ? 'bg-accent text-accent-content ' : ''}`}>
-                            <item.icon/> {item.title}
+                    <li className={`w-full transition duration-300 border-b border-base-300/10 h-18 hover:bg-primary justify-start rounded-0 ${item.isActive ? 'text-primary-content hover:bg-primary' : ''}`} key={item.title}>
+                        <a href={item.url} className={`px-10 w-full h-full hover:rounded-none flex items-center justify-start  ${item.isActive ? 'bg-primary rounded-none text-primary-content' : ''}`}>
+                            <item.icon size={24}/> {item.title}
                         </a>
 
                     </li>

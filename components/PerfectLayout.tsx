@@ -10,14 +10,19 @@ export default function PerfectLayout({
 }) {
 
   return (
-      <div className="fixed h-screen w-full bg-base-100">
+      <div className="fixed h-screen w-full">
         <div className="flex w-full h-screen">
           <LeftNavEntire/>
-          <div className=" flex-grow overflow-scroll h-full overflow-y-scroll p-0 no-scrollbar">
+          <div className=" flex-grow h-screen mb-8 p-0 overflow-clip">
                 <HeaderBar/>
-              <div className={ "flex-1 overflow-y-scroll w-full h-full no-scrollbar"}>
-                  <main className="h-auto w-full p-4">
-                      {children}
+              <div className={ "flex-1 bg-base-300 border-x mx-8 mb-0 border-primary/20 rounded-none p-0"}>
+                  <main className="h-auto">
+                      <div className={`h-18 bg-primary/80`}>
+
+                      </div>
+                      <div className={`h-screen mb-20 overflow-scroll no-scrollbar pt-14`}>
+                          {children}
+                      </div>
                   </main>
               </div>
           </div>

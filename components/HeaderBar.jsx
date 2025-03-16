@@ -1,35 +1,31 @@
 "use client"
 import React from 'react';
-import {useFeps} from "@/contexts/FepsContext";
-import {SidebarSimple} from "phosphor-react"
-import {useFepsLeft} from "@/contexts/FepsLeftContext";
+// import {useFeps} from "@/contexts/FepsContext";
+// import {useFepsLeft} from "@/contexts/FepsLeftContext";
+// import {useClients} from "@/contexts/ClientsContext";
 
 export default function HeaderBar() {
-    // right sidebar
-    const {selectedFep, setSelectedFep } = useFeps();
-    const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft()
+    // const {selectedFep, setSelectedFep } = useFeps();
+    // const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
+    // const {selectedClient} = useClients();
 
     return (
-        <div className={`flex flex-1 items-center gap-2 bg-primary z-10 rounded my-4 transition  duration-500 h-16 mx-4`}>
-            <header className={` flex w-auto flex-1 items-center justify-between gap-2 px-3 relative`}>
-                <div className="flex items-center justify-between">
-                    <div className={`flex  items-center justify-between gap-2`}>
-                        <div onClick={() => {
-                            setSelectedFepLeft(!selectedFepLeft)
-                        }} className={`w-[40px] h-[40px] cursor-pointer flex items-center`}><SidebarSimple
-                            className="h-10 w-8 font-light text-primary-content/40 hover:text-primary-content transition duration-300"/>
-                        </div>
-                        <div className={`flex items-center gap-2 text-primary-content`}>
-                            <span className="text-2xl font-light">Dashboard</span>
-                        </div>
-                    </div>
-                    <div onClick={() => {
-                        setSelectedFep(!selectedFep)
-                    }} className={`w-[40px] h-[40px] cursor-pointer flex items-center`}><SidebarSimple
-                        className="h-10 w-8 font-light rotate-180 text-primary-content/40 hover:text-primary-content transition duration-300"/>
-                    </div>
-                </div>
-            </header>
+        <div className={`bg-primary/60 border-b border-primary/80 h-30 text-primary-content z-20  mx-8 mt-8 transition duration-500`}>
+            <div className="flex items-center justify-between h-full p-4">
+                {/*<div className="flex items-center">*/}
+                {/*    <div onClick={() => {*/}
+                {/*        setSelectedFepLeft(!selectedFepLeft)*/}
+                {/*    }} className={`w-[40px] h-[40px] cursor-pointer flex items-center mr-2`}>*/}
+                {/*        <SidebarSimple*/}
+                {/*            className="h-15 w-12 font-light text-primary-content/40 hover:text-primary-content transition duration-300"/>*/}
+                {/*    </div>*/}
+                {/*    <div className={`text-3xl font-light`}>{selectedClient !== "" ? `Edit: ${selectedClient?.name || ""}` : "Client"}</div>*/}
+                {/*</div>*/}
+                {/*<div onClick={() => {setSelectedFep(!selectedFep)}} className={`w-[40px] h-[40px] cursor-pointer flex items-center`}>*/}
+                {/*    <SidebarSimple className="h-15 w-12 font-light rotate-180 text-secondary-content transition duration-300"/>*/}
+                {/*</div>*/}
+            </div>
+
         </div>
     );
 }

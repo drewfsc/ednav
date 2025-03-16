@@ -1,31 +1,31 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {adultSchools, youthSchools} from "../lib/schools";
 import {useClients} from "../contexts/ClientsContext";
 
-const AddClientForm = ({formStuff}) => {
-    const { selectedClient, setSelectedClient } = useClients();
+const EditClientForm = () => {
+    const { selectedClient } = useClients();
     const [formData, setFormData] = useState({
-        first_name: "",
-        last_name: "",
-        email: "",
-        contactNumber: "",
-        caseNumber: "",
-        dob: "",
-        fep: "",
-        dateReferred: "",
-        lastGrade: "",
-        hadOrientation: false,
-        pin: "",
-        region: "",
-        clientStatus: "",
-        reasonForInactive: false,
-        tabe: false,
-        transcripts: false,
-        officeCity: "",
-        group: "",
-        schoolIfEnrolled: "",
-        ttsDream: ""
+        first_name: selectedClient?.first_name || "",
+        last_name: selectedClient?.last_name || "",
+        email: selectedClient?.email || "",
+        contactNumber: selectedClient?.contactNumber || "",
+        caseNumber: selectedClient?.caseNumber || "",
+        dob: selectedClient?.dob || "",
+        fep: selectedClient?.fep || "",
+        dateReferred: selectedClient?.dateReferred || "",
+        lastGrade: selectedClient?.lastGrade || "",
+        hadOrientation: selectedClient?.hadOrientation || false,
+        pin: selectedClient?.pin || "",
+        region: selectedClient?.region || "",
+        clientStatus: selectedClient?.clientStatus || "",
+        reasonForInactive: selectedClient?.reasonForInactive || "",
+        tabe: selectedClient?.tabe || false,
+        transcripts: selectedClient?.transcripts || false,
+        officeCity: selectedClient?.officeCity || "",
+        group: selectedClient?.group || "",
+        schoolIfEnrolled: selectedClient?.schoolIfEnrolled || "",
+        ttsDream: selectedClient?.ttsDream || ""
     });
     const locations = [  "Brown",
         "Calumet",
@@ -46,6 +46,7 @@ const AddClientForm = ({formStuff}) => {
         "Waushara",
         "Winnebago",
         "Wood"]
+    const fepsList = ["Active", "Inactive", "Graduated", "In Progress"]
     const statuses = ["Active", "Inactive", "Graduated", "In Progress"]
     const reasonForInactive = [
         "W-2 Case Closed",
@@ -71,20 +72,20 @@ const AddClientForm = ({formStuff}) => {
         "No Formal Education"
     ];
 
-    useEffect(() => {
-        const fetchData = async () => {
-           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`)
-            const data = await response.json()
-            if(data){
-               setSelectedClient(data)
-            }
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`)
+    //         const data = await response.json()
+    //         if(data){
+    //            setSelectedClient(data)
+    //         }
+    //     };
+    //     fetchData().then();
+    // }, []);
 
-    const [errors, setErrors] = useState({});
+    // const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-
+    const [errors, setErrors] = useState({});
     async function postData() {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`, {
             method: "POST",
@@ -255,9 +256,9 @@ const AddClientForm = ({formStuff}) => {
                 <select name="fep" value={formData.fep} onChange={handleChange} className="select border p-2 rounded-md ">
                     <option value="">Select FEP</option>
                     {
-                        formStuff.feps.map((fep) => {
+                        fepsList.map((fep) => {
                             return (
-                                <option key={fep.name} value={fep.name}>{fep.name}</option>
+                                <option key={fep} value={fep}>{fep}</option>
                             )
                         })
                     }
@@ -396,4 +397,4 @@ const AddClientForm = ({formStuff}) => {
     );
 };
 
-export default AddClientForm;
+export default EditClientForm;

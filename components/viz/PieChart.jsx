@@ -11,12 +11,13 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "./ui/card"
+} from "@/components/ui/card"
 import {
+    ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "./ui/chart"
+} from "@/components/ui/chart"
 const chartData = [
     { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
     { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -51,13 +52,13 @@ const chartConfig = {
     },
 }
 
-export function PieChart() {
+export function PieChartt() {
     const totalVisitors = React.useMemo(() => {
         return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
     }, [])
 
     return (
-        <Card className="flex flex-col">
+        <Card className="flex flex-col no-border">
             <CardHeader className="items-center pb-0">
                 <CardTitle>Pie Chart - Donut with Text</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>

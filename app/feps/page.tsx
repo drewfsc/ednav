@@ -17,7 +17,6 @@ export default function NavigatorsPage() {
           fetch("/api/feps"),
         ])
         const feps = await fepsRes.json()
-        // console.log(feps)
         setStats({
           feps: feps
         })

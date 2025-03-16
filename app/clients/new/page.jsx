@@ -1,8 +1,9 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import AddClientForm from "../../../components/add-client-form";
+import EditClientForm from "../../../components/edit-client-form";
 
-export default function NewClient() {
+export default function NewClient({ selectedClient}) {
     const [stats, setStats] = useState({
         clients: [],
         navigators: [],
@@ -48,7 +49,7 @@ export default function NewClient() {
     return (
        loading ? <div>Loading...</div> : (
            <div className={`flex gap-10 justify-between`}>
-               <div className={`w-3/4`}><AddClientForm formStuff={stats}/></div>
+               <div className={`w-3/4`}>{selectedClient !== null ? <EditClientForm/> : <AddClientForm/>}</div>
                <div className={`w-1/4`}>
                    <ul className="steps steps-vertical mt-4">
                        <li className={`step ${formStep >= 1 ? "step-primary" : ""}`}>Personal</li>

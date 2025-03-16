@@ -2,11 +2,12 @@
 import "./globals.css"
 import React from "react";
 import {ClientsProvider} from "@/contexts/ClientsContext";
-import {NavigatorsProvider} from "@/contexts/NavigatorsContext";
+// import {NavigatorsProvider} from "@/contexts/NavigatorsContext";
 import {FepsProvider} from "@/contexts/FepsContext";
 import {SessionProvider} from "next-auth/react";
-import PerfectLayout from "@/components/PerfectLayout";
 import {FepsLeftProvider} from "@/contexts/FepsLeftContext";
+import PerfectLayout from "@/components/PerfectLayout";
+import {ThemesProvider} from "@/contexts/ThemesContext";
 export default function RootLayout({
                                        children,
                                    }: Readonly<{
@@ -18,7 +19,7 @@ export default function RootLayout({
         <html lang="en">
         <body>
         <SessionProvider>
-            <NavigatorsProvider>
+            <ThemesProvider>
                 <ClientsProvider>
                     <FepsProvider>
                         <FepsLeftProvider>
@@ -28,7 +29,7 @@ export default function RootLayout({
                         </FepsLeftProvider>
                     </FepsProvider>
                 </ClientsProvider>
-            </NavigatorsProvider>
+            </ThemesProvider>
         </SessionProvider>
         </body>
         </html>
