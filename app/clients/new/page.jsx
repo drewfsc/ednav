@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import AddClientForm from "../../../components/add-client-form";
 import EditClientForm from "../../../components/edit-client-form";
 
-export default function NewClient({ selectedClient}) {
+export function NewClient({ selectedClient}) {
     const [stats, setStats] = useState({
         clients: [],
         navigators: [],
