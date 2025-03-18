@@ -30,12 +30,12 @@ export default function NavLeftWithIcons() {
             icon: FileText,
             isActive: pathname === "/feps",
         },
-        {
-            title: "Add Client",
-            url: "/clients/new",
-            icon: UserPlus2,
-            isActive: pathname === "/clients/new",
-        },
+        // {
+        //     title: "Add Client",
+        //     url: "/clients/new",
+        //     icon: UserPlus2,
+        //     isActive: pathname === "/clients/new",
+        // },
     ]
 
     return (

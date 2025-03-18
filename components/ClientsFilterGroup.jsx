@@ -4,14 +4,14 @@ import {ProhibitInset, TrendUp, GraduationCap, PersonSimpleWalk } from "phosphor
 export default function ClientsFilterGroup({setFilter}) {
   const [buttonState, setButtonState] = useState('Active')
     return (
-        <div className=" isolate w-full flex rounded-full shadow-sm overflow-hidden border border-gray-600 divide-x divide-gray-600 transition-all duration-300 bg-white">
+        <div className=" isolate w-full flex rounded-lg shadow-sm overflow-hidden border border-gray-600 divide-x divide-gray-600 transition-all duration-300 bg-white">
       <button
           type="button"
           onClick={() => {
             setFilter('Active')
             setButtonState('Active')
           }}
-          className={`w-1/5 relative inline-flex items-center rounded-l-full pl-4 pr-2 text-xs text-black hover:text-white focus:z-10 hover:bg-green-600 ${buttonState === 'Active' ? 'bg-green-500 hover:bg-green-600 text-white hover:text-white' : ''}`}
+          className={`w-1/5 relative inline-flex items-center rounded-l-lg pl-4 pr-2 text-xs text-black hover:text-white focus:z-10 hover:bg-green-600 ${buttonState === 'Active' ? 'bg-green-500 hover:bg-green-600 text-white hover:text-white' : ''}`}
       >
           <span className={`text-[11px] leading-none`}>Active</span> <span className={`bg-green-500 rounded-full p-1 flex items-center w-auto ml-1`}><PersonSimpleWalk size={12} className={`text-white`} /></span>
       </button>
@@ -52,7 +52,7 @@ export default function ClientsFilterGroup({setFilter}) {
                     setButtonState('All')
                     setFilter('')
                 }}
-                className={`w-1/5 relative inline-flex items-center rounded-r-full pl-3 pr-4  text-xs focus:z-10 hover:bg-gray-300 ${buttonState === 'All' ? 'bg-gray-200 hover:bg-gray-300 text-black hover:text-black' : ''}`}
+                className={`w-1/5 relative inline-flex items-center rounded-r-lg pl-3 pr-4  text-xs focus:z-10 hover:bg-gray-300 ${buttonState === 'All' ? 'bg-gray-200 hover:bg-gray-300 text-black hover:text-black' : ''}`}
             >
                 <span className={`text-[11px] leading-none`}>All</span>
             </button>
