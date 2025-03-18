@@ -2,7 +2,6 @@ import { NextResponse } from "next/server"
 import { getCollection } from "/lib/mongodb"
 import { ObjectId } from "mongodb"
 
-// GET all clients
 export async function GET(request) {
   const url = new URL(request.url);
   const {navigator, clientId} = url.searchParams;

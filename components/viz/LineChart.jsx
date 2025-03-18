@@ -16,6 +16,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import {getLastSixMonthsLabel} from "@/lib/utils";
 const chartData = [
     { month: "January", desktop: 186, mobile: 80 },
     { month: "February", desktop: 305, mobile: 200 },
@@ -38,10 +39,10 @@ const chartConfig = {
 
 export function LineChartt() {
     return (
-        <Card className={`border-0`}>
+        <Card className={`w-full`}>
             <CardHeader>
                 <CardTitle>Referrals <span className={`text-sm text-neutral-500/80 font-normal`}>to last year</span></CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+                <CardDescription>{getLastSixMonthsLabel()}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
@@ -79,18 +80,18 @@ export function LineChartt() {
                     </LineChart>
                 </ChartContainer>
             </CardContent>
-            <CardFooter>
-                <div className="flex w-full items-start gap-2 text-sm">
-                    <div className="grid gap-2">
-                        <div className="flex items-center gap-2 font-medium leading-none">
-                            Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                        </div>
-                        <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                            Showing total visitors for the last 6 months
-                        </div>
-                    </div>
-                </div>
-            </CardFooter>
+            {/*<CardFooter>*/}
+            {/*    <div className="flex w-full items-start gap-2 text-sm">*/}
+            {/*        <div className="grid gap-2">*/}
+            {/*            <div className="flex items-center gap-2 font-medium leading-none">*/}
+            {/*                Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />*/}
+            {/*            </div>*/}
+            {/*            <div className="flex items-center gap-2 leading-none text-muted-foreground">*/}
+            {/*                Showing total visitors for the last 6 months*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</CardFooter>*/}
         </Card>
     )
 }

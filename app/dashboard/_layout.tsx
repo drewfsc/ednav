@@ -1,6 +1,6 @@
 import type React from "react"
 import {Home} from "lucide-react";
-import ListRightClients from "@/components/list-right-clients";
+import RightListClients from "@/components/RightListClients";
 import LeftNavEntire from "@/components/LeftNavEntire";
 
 export default function DashboardLayout({
@@ -28,7 +28,7 @@ export default function DashboardLayout({
                     </main>
                 </div>
                 <div className="min-w-70 w-auto h-auto bg-base-200 m-4 rounded">
-                    <ListRightClients searchVisible={true}/>
+                    <RightListClients searchVisible={true}/>
                 </div>
             </div>
         </div>

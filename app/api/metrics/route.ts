@@ -11,6 +11,17 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const filter = url.searchParams.getAll("filter[]") || [];
 
+    // New pipeline for counting clients by region
+    const clientsByRegionPipeline = [
+        {
+            $group: {
+                _id: "$region", // Assuming there's a "region" field in the client documents
+                count: { $sum: 1 }
+            }
+        },
+        { $sort: { count: -1 } }
+    ];
+
     // Aggregation pipeline for actions
     const pipeline = [
         {
@@ -262,6 +273,7 @@ export async function GET(req: Request) {
     const clientsReferredData = await clientsCollection.aggregate(clientsReferredPipeline).toArray();
     const graduatedClientsData = await actionsCollection.aggregate(graduatedClientsPipeline).toArray();
     const enrolledClientsData = await actionsCollection.aggregate(enrolledClientsPipeline).toArray();
+    const clientsByRegionData = await clientsCollection.aggregate(clientsByRegionPipeline).toArray();
 
     // Combine results for word cloud
     const wordFrequency: Record<string, number> = {};
@@ -308,11 +320,12 @@ export async function GET(req: Request) {
 
     // Final response
     return NextResponse.json({
-        wordCloud: filteredWordCloudData,
+        totalClients: totalClientCount,
+        clientsByRegionData,
         clientStatusBreakdown: clientStatusPercentages,
         clientsReferredPerMonth,
         graduatedClientsPerMonth,
         enrolledClientsPerMonth,
-        totalClients: totalClientCount,
+        wordCloud: filteredWordCloudData,
     });
 }

@@ -17,6 +17,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import {getLastSixMonthsLabel} from "@/lib/utils";
 const chartData = [
     { month: "January", desktop: 186 },
     { month: "February", desktop: 305 },
@@ -35,10 +36,10 @@ const chartConfig = {
 
 export function BarChartt() {
     return (
-        <Card className={``}>
+        <div className={`border`}>
             <CardHeader>
-                <CardTitle>Bar Chart</CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+                <CardTitle>Regions</CardTitle>
+                <CardDescription>{getLastSixMonthsLabel()}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
@@ -59,14 +60,14 @@ export function BarChartt() {
                     </BarChart>
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="flex-col items-start gap-2 text-sm">
-                <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                </div>
-                <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
-                </div>
-            </CardFooter>
-        </Card>
+            {/*<CardFooter className="flex-col items-start gap-2 text-sm">*/}
+            {/*    <div className="flex gap-2 font-medium leading-none">*/}
+            {/*        Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />*/}
+            {/*    </div>*/}
+            {/*    <div className="leading-none text-muted-foreground">*/}
+            {/*        Showing total visitors for the last 6 months*/}
+            {/*    </div>*/}
+            {/*</CardFooter>*/}
+        </div>
     )
 }

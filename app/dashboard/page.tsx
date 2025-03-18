@@ -1,4 +1,5 @@
-import React from "react"
+"use client";
+import React, {useEffect, useState} from "react"
 import {LineChartt} from "@/components/viz/LineChart"
 import {BarChartt} from "@/components/viz/BarChart"
 import {PieChartt} from "@/components/viz/PieChart"
@@ -8,11 +9,10 @@ export default function DashboardPage() {
 
   return (
       <div className={`dashboard-viz flex-col overflow-y-scroll no-scrollbar`}>
-        <div className={`flex flex-row justify-around mx-4 my-10`}>
-          <div><BarChartt/></div>
-            <div><PieChartt/></div>
-          <div><LineChartt/></div>
-
+        <div className={`flex flex-row justify-around my-4`}>
+            <div className={`w-1/3`}><BarChartt/></div>
+            <div className={`w-1/3`}><PieChartt/></div>
+            <div className={`w-1/3`}><LineChartt/></div>
         </div>
         <InteractiveLineChart/>
         <InteractiveLineChart/>

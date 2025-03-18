@@ -3,7 +3,7 @@ import React from "react"
 import {ArrowLeft, Home} from "lucide-react";
 import LeftNavEntire from "@/components/LeftNavEntire";
 import {useNavigators} from "@/contexts/NavigatorsContext";
-import ListRightClients from "@/components/list-right-clients";
+import RightListClients from "@/components/RightListClients";
 import {Button} from "@/components/ui/button";
 
 export default function NavigatorsLayout({
@@ -48,7 +48,7 @@ export default function NavigatorsLayout({
                   <div className="tabs tabs-lift mx-4">
                     <input type="radio" name="my_tabs_3" className="tab" aria-label="Clients" defaultChecked />
                     <div className="tab-content bg-base-100 border-base-300">
-                      <ListRightClients searchVisible={false}/>
+                      <RightListClients searchVisible={false}/>
                     </div>
 
                     <input type="radio" name="my_tabs_3" className="tab" aria-label="FEPs" />

@@ -45,6 +45,10 @@
         --destructive-foreground: 0 0% 98%;
         --border: 240 5.9% 90%;
         --input: 240 5.9% 90%;
+        --info: 200 15% 55%;
+        --success: 120 50% 40%;
+        --warning: 40 80% 50%;
+        --error: 0 62.8% 30.6%;
         --ring: 240 10% 3.9%;
         --chart-1: 173 58% 39%;
         --chart-2: 12 76% 61%;
@@ -72,6 +76,10 @@
         --destructive-foreground: 0 0% 98%;
         --border: 240 3.7% 15.9%;
         --input: 240 3.7% 15.9%;
+        --info:  240 3.7% 15.9%;
+        --success: 120 50% 40%;
+        --warning: 40 80% 50%;
+        --error: 0 62.8% 30.6%;
         --ring: 240 4.9% 83.9%;
         --chart-1: 220 70% 50%;
         --chart-5: 160 60% 45%;
@@ -86,19 +94,19 @@
     --chart-secondary: var(--secondary);
     --chart-accent: var(--accent);
     --chart-info: 200 15% 55%;
-    /*--chart-success: var(--success);*/
-    /*--chart-warning: var(--warning);*/
-    /*--chart-error: var(--error);*/
+    --chart-success: var(--success);
+    --chart-warning: var(--warning);
+    --chart-error: var(--error);
 }
 
 .dark {
     --chart-primary: var(--primary);
     --chart-secondary: var(--secondary);
     --chart-accent: var(--accent);
-    /*--chart-info: var(--info);*/
-    /*--chart-success: var(--success);*/
-    /*--chart-warning: var(--warning);*/
-    /*--chart-error: var(--error);*/
+    --chart-info: var(--info);
+    --chart-success: var(--success);
+    --chart-warning: var(--warning);
+    --chart-error: var(--error);
 }
 
 html,
@@ -119,5 +127,5 @@ html {
 }
 
 .client-list-item {
-    @apply rounded-full p-1 w-fit ring-3 ring-base-content;
+    @apply rounded-full p-1 w-fit ring-5 ring-white shadow-xl;
 }
