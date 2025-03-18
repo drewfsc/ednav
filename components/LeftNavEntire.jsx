@@ -3,8 +3,10 @@ import React from 'react';
 import NavLeftWithIcons from "./nav-left-with-icons";
 import ThemeSwitcher from "..//components/theme-switcher"
 import Image from "next/image";
+import NavigatorSelector from "@/components/NavigatorSelector";
 
 export default function LeftNavEntire() {
+
     return (
         <div>
             <div className=" text-6xl border-b-1 border-primary/80 h-30 bg-primary/60 flex items-center justify-center">
@@ -15,6 +17,7 @@ export default function LeftNavEntire() {
             <div className={`m-4`}>
                 <ThemeSwitcher className="w-full block"/>
             </div>
+            <NavigatorSelector/>
         </div>
 );
 }

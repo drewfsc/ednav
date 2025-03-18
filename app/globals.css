@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-    themes: light --default, dark, abyss, silk, autumn, garden;
+    themes: light, dark, abyss, silk, autumn, garden;
 }
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {

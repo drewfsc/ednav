@@ -6,10 +6,11 @@ export async function GET(request) {
   const url = new URL(request.url);
   const {navigator, clientId} = url.searchParams;
   let clients = [];
+  console.log(navigator, clientId)
   try {
     const collection = await getCollection("clients")
     if (navigator) {
-      clients = await collection.find({fep: navigator}).toArray()
+      clients = await collection.find({navigator: navigator}).toArray()
     } else if (clientId) {
       clients = await collection.findOne({_id: new ObjectId(clientId)})
     } else {

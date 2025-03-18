@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn, signOut } from "../auth";
+import { signIn, signOut } from "../_auth";
 import { Button } from "./ui/button"
 import React from "react";
 

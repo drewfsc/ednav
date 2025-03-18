@@ -4,7 +4,7 @@ import AddClientForm from "../../../components/add-client-form";
 import {useClients} from "@/contexts/ClientsContext";
 
 export default function Page() {
-    const { selectedClient, setSelectedClient } = useClients();
+    // const { selectedClient, setSelectedClient } = useClients();
     const [stats, setStats] = useState({
         clients: [],
         navigators: [],
@@ -19,7 +19,7 @@ export default function Page() {
             try {
                 // Fetch counts from each collection
                 const [clientsRes, navigatorsRes, fepsRes, notesRes, actionsRes] = await Promise.all([
-                    fetch(`/api/clients?navigator=${"Andrew McCauley"}`),
+                    fetch(`/api/clients`),
                     fetch("/api/education-navigators"),
                     fetch("/api/feps"),
                     fetch("/api/notes"),
@@ -50,7 +50,7 @@ export default function Page() {
     return (
        loading ? <div>Loading...</div> : (
            <div className={`flex gap-10 justify-between`}>
-               <div className={`w-3/4`}>{selectedClient && <AddClientForm formStuff={null} />}</div>
+               {/*<div className={`w-3/4`}>{selectedClient && <AddClientForm formStuff={null} />}</div>*/}
                <div className={`w-1/4`}>
                    <ul className="steps steps-vertical mt-4">
                        <li className={`step ${formStep >= 1 ? "step-primary" : ""}`}>Personal</li>

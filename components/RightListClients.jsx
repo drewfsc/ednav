@@ -2,9 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Skeleton} from "@/components/ui/skeleton";
 import {useClients} from "@/contexts/ClientsContext";
-import {useFeps} from "@/contexts/FepsContext";
-import RightListClientSingle from "@/components/RightListClientSingle";
-import ClientTable from "@/components/client-table";
+import ClientTable from "@/components/ClientTable";
 
 export default function RightListClients({searchVisible}) {
     const [clients, setClients] = useState([])
@@ -12,7 +10,6 @@ export default function RightListClients({searchVisible}) {
     const [searchTerm] = useState("")
     const [status] = useState("")
     const [age] = useState("")
-    const {selectedFep } = useFeps();
     const { selectedClient, setSelectedClient } = useClients();
 
     useEffect(() => {

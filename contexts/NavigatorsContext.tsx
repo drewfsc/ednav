@@ -6,7 +6,7 @@ type Navigator = {
 }
 
 type NavigatorsContextType = {
-    selectedNavigator: Navigator | null;
+    selectedNavigator: Navigator | string | null;
     setSelectedNavigator: (client: Navigator | null) => void;
 };
 
@@ -26,7 +26,7 @@ export const NavigatorsProvider = ({ children }: { children: ReactNode }) => {
 export const useNavigators = () => {
     const context = useContext(NavigatorsContext);
     if (!context) {
-        throw new Error("useClients must be used within a ClientsProvider");
+        throw new Error("useNavigators must be used within a useNavigators");
     }
     return context;
 };

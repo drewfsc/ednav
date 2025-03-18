@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react"
+import React from "react"
 import {LineChartt} from "@/components/viz/LineChart"
 import {BarChartt} from "@/components/viz/BarChart"
 import {PieChartt} from "@/components/viz/PieChart"

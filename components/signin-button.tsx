@@ -1,5 +1,5 @@
 
-import { signIn } from "@/auth"
+import { signIn } from "@/_auth"
 
 export default function SignIn() {
     return (

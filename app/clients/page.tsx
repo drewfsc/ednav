@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import ClientTable from "@/components/client-table";
+import ClientTable from "@/components/ClientTable";
 
 export default function ClientsPage() {
   const [stats, setStats] = useState({
@@ -43,7 +43,10 @@ export default function ClientsPage() {
           ))
 
       ) : (
-        <ClientTable clients={stats.clients} />
+          <div className="flex w-full gap-6 space-y-10">
+              <ClientTable clients={stats.clients} />
+          </div>
+
       )
   )
 }
