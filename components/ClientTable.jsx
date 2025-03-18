@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import {useClients} from "@/contexts/ClientsContext";
 import {useEditing} from "@/contexts/EditingContext";
 

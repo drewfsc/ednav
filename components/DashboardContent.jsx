@@ -4,8 +4,8 @@ import ClientDescription from "./client-description";
 import {useClients} from "../contexts/ClientsContext";
 
 
-export default function DashboardContent({selectedClient, loading}) {
-    const {selectedClient, setSelectedClient} = useClients();
+export default function DashboardContent({loading}) {
+    const {selectedClient} = useClients();
 
     return (
         loading ? <div>Loading...</div> : <div>
