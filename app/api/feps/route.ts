@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
 
-// GET all FEPs with aggregated actions and clients
+// GET all FEPs with aggregated activities and clients
 export async function GET() {
     try {
         const fepsCollection = await getCollection("feps");
@@ -11,13 +11,13 @@ export async function GET() {
         // Fetch all FEPs
         const feps = await fepsCollection.find({}).toArray();
 
-        // Process each FEP to aggregate actions and clients
+        // Process each FEP to aggregate activities and clients
         const enrichedFeps = await Promise.all(
             feps.map(async (fep) => {
-                // Fetch actions where the FEP was involved, sorted by most recent first
+                // Fetch activities where the FEP was involved, sorted by most recent first
                 const actions = await actionsCollection
-                    .find({ who: fep.name }) // Assuming 'who' field in actions matches FEP name
-                    .sort({ when: -1 }) // Sort actions by 'when' in descending order (most recent first)
+                    .find({ who: fep.name }) // Assuming 'who' field in activities matches FEP name
+                    .sort({ when: -1 }) // Sort activities by 'when' in descending order (most recent first)
                     .toArray();
 
                 // Fetch clients associated with the FEP
@@ -39,7 +39,7 @@ export async function GET() {
     } catch (error) {
         console.error("Error fetching FEPs with aggregated data:", error);
         return NextResponse.json(
-            { error: "Failed to fetch FEPs with actions and clients" },
+            { error: "Failed to fetch FEPs with activities and clients" },
             { status: 500 }
         );
     }

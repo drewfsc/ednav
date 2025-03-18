@@ -64,9 +64,6 @@ export default function NavigatorGrid() {
             {/*}*/}
 
         <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-
-
             {stats.navigators?.map((person) => (
                 <li key={person.email} className="col-span-1 divide-y divide-base-content/5 rounded bg-base-200 shadow text-base-content">
                     <div className="flex w-full items-center justify-between space-x-6 p-6 card">

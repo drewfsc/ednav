@@ -1,12 +1,14 @@
 import React from 'react';
 import {useClients} from "@/contexts/ClientsContext";
 import moment from "moment";
+import {GuidedActivityForm} from "@/components/guided-activity-form";
 
 export default function ClientTable({clients}) {
     const { selectedClient, setSelectedClient } = useClients();
 
     return (
         <div className="overflow-x-auto rounded border border-base-content/5 bg-base-100">
+            <GuidedActivityForm client={{fep: "fepName"}} navigator={"selectedNavigator"} fep={"selectedFep"}/>
             <table className="table">
                 {/* head */}
                 <thead>

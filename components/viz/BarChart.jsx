@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
@@ -34,7 +35,7 @@ const chartConfig = {
 
 export function BarChartt() {
     return (
-        <Card className={`border-0`}>
+        <Card className={``}>
             <CardHeader>
                 <CardTitle>Bar Chart</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>

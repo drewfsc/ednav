@@ -5,4 +5,12 @@ export default {
     extend: {},
   },
   plugins: [import("daisyui"), import('tailwind-scrollbar-hide')],
+  daisyui: {
+    styled: true,
+    themes: ["night", "sunset", "abyss", "silk", "autumn", "garden"],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+  },
 };

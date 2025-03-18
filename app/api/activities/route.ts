@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getCollection } from "@/lib/mongodb"
 
-// GET actions, optionally filtered by clientId
+// GET activities, optionally filtered by clientId
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -18,8 +18,8 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(actions, { status: 200 })
   } catch (error) {
-    console.error("Error fetching actions:", error)
-    return NextResponse.json({ error: "Failed to fetch actions" }, { status: 500 })
+    console.error("Error fetching activities:", error)
+    return NextResponse.json({ error: "Failed to fetch activities" }, { status: 500 })
   }
 }
 

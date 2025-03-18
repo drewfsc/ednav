@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { connectToDatabase } from "@/lib/mongodb"; // Ensure you have this MongoDB connection utility
-// import { getCollection } from "@/lib/mongodb"
-
+import { connectToDatabase } from "@/lib/mongodb";
 
 export async function GET(req: Request) {
     const db = await connectToDatabase();
@@ -13,37 +11,235 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const filter = url.searchParams.getAll("filter[]") || [];
 
-    // Function to tokenize text into words
-    const tokenizeText = (text: string) => {
-        return text
-            .toLowerCase()
-            .replace(/[^\w\s]/g, "") // Remove punctuation
-            .split(/\s+/) // Split by whitespace
-            .filter((word) => word.length > 2); // Remove short words
-    };
-
-    // Aggregation pipeline for `actions`
-    const actionsPipeline = [
-        { $project: { text: { $concat: ["$description", " ", "$action"] } } },
-        { $unwind: { path: "$text", preserveNullAndEmptyArrays: true } },
+    // Aggregation pipeline for actions
+    const pipeline = [
+        {
+            $project: {
+                words: {
+                    $filter: {
+                        input: {
+                            $split: [
+                                {
+                                    $toLower: {
+                                        $replaceAll: {
+                                            input: {
+                                                $replaceAll: {
+                                                    input: {
+                                                        $replaceAll: {
+                                                            input: {
+                                                                $replaceAll: {
+                                                                    input: {
+                                                                        $concat: [
+                                                                            { $ifNull: ["$what", ""] },
+                                                                            " ",
+                                                                            { $ifNull: ["$where", ""] }
+                                                                        ]
+                                                                    },
+                                                                    find: ".",
+                                                                    replacement: ""
+                                                                }
+                                                            },
+                                                            find: ",",
+                                                            replacement: ""
+                                                        }
+                                                    },
+                                                    find: "!",
+                                                    replacement: ""
+                                                }
+                                            },
+                                            find: "?",
+                                            replacement: ""
+                                        }
+                                    }
+                                },
+                                " "
+                            ]
+                        },
+                        as: "word",
+                        cond: { $gt: [{ $strLenCP: "$$word" }, 2] } // Filter words longer than 2 characters
+                    }
+                }
+            }
+        },
+        { $unwind: "$words" },
         {
             $group: {
-                _id: "$text",
+                _id: "$words",
                 count: { $sum: 1 },
             },
-        },
+        }
     ];
 
-    // Aggregation pipeline for `notes`
+    // Aggregation pipeline for notes
     const notesPipeline = [
-        { $project: { text: { $concat: ["$note", " ", "$details"] } } },
-        { $unwind: { path: "$text", preserveNullAndEmptyArrays: true } },
+        {
+            $project: {
+                words: {
+                    $filter: {
+                        input: {
+                            $split: [
+                                {
+                                    $toLower: {
+                                        $replaceAll: {
+                                            input: {
+                                                $replaceAll: {
+                                                    input: {
+                                                        $replaceAll: {
+                                                            input: {
+                                                                $replaceAll: {
+                                                                    input: {
+                                                                        $concat: [
+                                                                            { $ifNull: ["$noteText", ""] }
+                                                                        ]
+                                                                    },
+                                                                    find: ".",
+                                                                    replacement: ""
+                                                                }
+                                                            },
+                                                            find: ",",
+                                                            replacement: ""
+                                                        }
+                                                    },
+                                                    find: "!",
+                                                    replacement: ""
+                                                }
+                                            },
+                                            find: "?",
+                                            replacement: ""
+                                        }
+                                    }
+                                },
+                                " "
+                            ]
+                        },
+                        as: "word",
+                        cond: { $gt: [{ $strLenCP: "$$word" }, 2] } // Filter words longer than 2 characters
+                    }
+                }
+            }
+        },
+        { $unwind: "$words" },
         {
             $group: {
-                _id: "$text",
+                _id: "$words",
                 count: { $sum: 1 },
             },
+        }
+    ];
+
+    // Aggregation pipeline for number of clients referred each month
+    const clientsReferredPipeline = [
+        {
+            $match: { dateReferred: { $exists: true, $ne: null } }
         },
+        {
+            $project: {
+                yearMonth: {
+                    $dateToString: {
+                        format: "%Y-%m",
+                        date: {
+                            $cond: {
+                                if: { $eq: [{ $type: "$dateReferred" }, "date"] }, // If already a valid date, use it
+                                then: "$dateReferred",
+                                else: {
+                                    $dateFromString: {
+                                        dateString: "$dateReferred",
+                                        onError: null, // Handle invalid date values gracefully
+                                        onNull: null
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $match: { yearMonth: { $ne: null } } // Remove invalid date entries
+        },
+        {
+            $group: {
+                _id: "$yearMonth",
+                count: { $sum: 1 }
+            }
+        },
+        { $sort: { _id: 1 } }
+    ];
+
+    // Aggregation pipeline for number of clients who graduated each month
+    const graduatedClientsPipeline = [
+        {
+            $match: { what: { $regex: "^graduated$", $options: "i" }, createdAt: { $exists: true, $ne: null } }
+        },
+        {
+            $project: {
+                parsedCreatedAt: {
+                    $dateFromString: {
+                        dateString: "$createdAt",
+                        onError: null, // Prevents errors if conversion fails
+                        onNull: null
+                    }
+                }
+            }
+        },
+        {
+            $match: { parsedCreatedAt: { $ne: null } } // Remove invalid dates
+        },
+        {
+            $project: {
+                yearMonth: {
+                    $dateToString: {
+                        format: "%Y-%m",
+                        date: "$parsedCreatedAt"
+                    }
+                }
+            }
+        },
+        {
+            $group: {
+                _id: "$yearMonth",
+                count: { $sum: 1 }
+            }
+        },
+        { $sort: { _id: 1 } }
+    ];
+
+    // Aggregation pipeline for number of clients who were enrolled each month
+    const enrolledClientsPipeline = [
+        {
+            $match: { what: { $regex: "^enrolled$", $options: "i" }, createdAt: { $exists: true, $ne: null } }
+        },
+        {
+            $project: {
+                parsedCreatedAt: {
+                    $dateFromString: {
+                        dateString: "$createdAt",
+                        onError: null, // Prevents errors if conversion fails
+                        onNull: null
+                    }
+                }
+            }
+        },
+        {
+            $match: { parsedCreatedAt: { $ne: null } } // Remove invalid dates
+        },
+        {
+            $project: {
+                yearMonth: {
+                    $dateToString: {
+                        format: "%Y-%m",
+                        date: "$parsedCreatedAt"
+                    }
+                }
+            }
+        },
+        {
+            $group: {
+                _id: "$yearMonth",
+                count: { $sum: 1 }
+            }
+        },
+        { $sort: { _id: 1 } }
     ];
 
     // Aggregation pipeline for clientStatuses
@@ -60,25 +256,22 @@ export async function GET(req: Request) {
     ];
 
     // Execute aggregations
-    const actionsData = await actionsCollection.aggregate(actionsPipeline).toArray();
+    const actionsData = await actionsCollection.aggregate(pipeline).toArray();
     const notesData = await notesCollection.aggregate(notesPipeline).toArray();
     const clientStatusData = await clientsCollection.aggregate(clientStatusPipeline).toArray();
+    const clientsReferredData = await clientsCollection.aggregate(clientsReferredPipeline).toArray();
+    const graduatedClientsData = await actionsCollection.aggregate(graduatedClientsPipeline).toArray();
+    const enrolledClientsData = await actionsCollection.aggregate(enrolledClientsPipeline).toArray();
 
     // Combine results for word cloud
     const wordFrequency: Record<string, number> = {};
-
     [...actionsData, ...notesData].forEach(({ _id, count }) => {
-        if (_id) {
-            const words = tokenizeText(_id);
-            words.forEach((word) => {
-                wordFrequency[word] = (wordFrequency[word] || 0) + count;
-            });
-        }
+        wordFrequency[_id] = (wordFrequency[_id] || 0) + count;
     });
 
     // Apply filter (remove words in the filter array)
     const filteredWordCloudData = Object.entries(wordFrequency)
-        .filter(([word]) => !filter.includes(word)) // Remove filtered words
+        .filter(([word]) => !filter.includes(word))
         .map(([word, count]) => ({
             text: word,
             value: count,
@@ -92,9 +285,34 @@ export async function GET(req: Request) {
         percentage: totalClients > 0 ? ((count / totalClients) * 100).toFixed(2) + "%" : "0%",
     }));
 
+    // Format client metrics
+    const clientsReferredPerMonth = clientsReferredData.map(({ _id, count }) => ({
+        month: _id,
+        count,
+    }));
+
+    const graduatedClientsPerMonth = graduatedClientsData.map(({ _id, count }) => ({
+        month: _id,
+        count,
+    }));
+
+    const enrolledClientsPerMonth = enrolledClientsData.map(({ _id, count }) => ({
+        month: _id,
+        count,
+    }));
+
+    // total clients
+    const totalClientCount = await clientsCollection.countDocuments({
+        clientStatus: { $ne: "Inactive" } // Exclude "inactive" clients
+    }) || 0;
+
     // Final response
     return NextResponse.json({
         wordCloud: filteredWordCloudData,
         clientStatusBreakdown: clientStatusPercentages,
+        clientsReferredPerMonth,
+        graduatedClientsPerMonth,
+        enrolledClientsPerMonth,
+        totalClients: totalClientCount,
     });
 }

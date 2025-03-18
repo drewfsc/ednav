@@ -70,7 +70,7 @@ export function GuidedActivityForm({client}: GuidedActivityFormProps) {
 
         setLoading(true)
         try {
-            const response = await fetch("/api/actions", {
+            const response = await fetch("/api/activities", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

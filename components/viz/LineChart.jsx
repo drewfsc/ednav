@@ -40,7 +40,7 @@ export function LineChartt() {
     return (
         <Card className={`border-0`}>
             <CardHeader>
-                <CardTitle>Line Chart - Multiple</CardTitle>
+                <CardTitle>Referrals <span className={`text-sm text-neutral-500/80 font-normal`}>to last year</span></CardTitle>
                 <CardDescription>January - June 2024</CardDescription>
             </CardHeader>
             <CardContent>

@@ -1,10 +1,12 @@
 import React from 'react';
 import moment from "moment";
+import {GuidedActivityForm} from "./guided-activity-form";
 
 export default function ActivityTable({actions}) {
     return (
         <div>
             <div className="overflow-x-auto">
+                <GuidedActivityForm client={selectedClient} navigator={selectedNavigator} fep={selectedFep}/>
                 <table className="table">
                     {/* head */}
                     <thead>

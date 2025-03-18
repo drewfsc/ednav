@@ -1,9 +1,7 @@
 "use client"
-
 import * as React from "react"
 import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
-
 import {
     Card,
     CardContent,
@@ -13,7 +11,6 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import {
-    ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
@@ -25,7 +22,6 @@ const chartData = [
     { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
     { browser: "other", visitors: 190, fill: "var(--color-other)" },
 ]
-
 const chartConfig = {
     visitors: {
         label: "Visitors",
@@ -51,16 +47,14 @@ const chartConfig = {
         color: "hsl(var(--chart-5))",
     },
 }
-
 export function PieChartt() {
     const totalVisitors = React.useMemo(() => {
         return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
     }, [])
-
     return (
-        <Card className="flex flex-col no-border">
-            <CardHeader className="items-center pb-0">
-                <CardTitle>Pie Chart - Donut with Text</CardTitle>
+        <Card className="flex flex-col chart-1-primary text-accent-content">
+            <CardHeader className="items-start pb-0">
+                <CardTitle>Client Statuses</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
@@ -80,8 +74,7 @@ export function PieChartt() {
                             innerRadius={60}
                             strokeWidth={5}
                         >
-                            <Label
-                                content={({ viewBox }) => {
+                            <Label content={({ viewBox }) => {
                                     if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                                         return (
                                             <text

@@ -5,7 +5,6 @@ import {FileText, GraduationCap, Home, Users, UserPlus2} from "lucide-react";
 
 export default function NavLeftWithIcons() {
     const pathname = usePathname()
-
     const navMain = [
         {
             title: "Dashboard",
@@ -13,12 +12,12 @@ export default function NavLeftWithIcons() {
             icon: Home,
             isActive: pathname === "/dashboard",
         },
-        {
-            title: "Clients",
-            url: "/clients",
-            icon: Users,
-            isActive: pathname === "/clients",
-        },
+        // {
+        //     title: "Clients",
+        //     url: "/clients",
+        //     icon: Users,
+        //     isActive: pathname === "/clients",
+        // },
         {
             title: "Navigators",
             url: "/navigators",
@@ -43,9 +42,9 @@ export default function NavLeftWithIcons() {
         <div className={`flex flex-col justify-between`}>
             <ul className="menu flex-col w-full p-0 m-0 text-lg h-full">
                 {navMain.map(item => (
-                    <li className={`w-full transition duration-300 border-b border-base-300/10 h-18 hover:bg-primary justify-start rounded-0 ${item.isActive ? 'text-primary-content hover:bg-primary' : ''}`} key={item.title}>
-                        <a href={item.url} className={`px-10 w-full h-full hover:rounded-none flex items-center justify-start  ${item.isActive ? 'bg-primary rounded-none text-primary-content' : ''}`}>
-                            <item.icon size={24}/> {item.title}
+                    <li className={`w-full transition duration-300 border-b border-base-300/10 h-12 hover:bg-primary justify-start rounded-0 ${item.isActive ? 'text-primary-content hover:bg-primary' : ''}`} key={item.title}>
+                        <a href={item.url} className={`px-10 w-full h-full hover:rounded-none flex items-center justify-start text-sm ${item.isActive ? 'bg-accent rounded-none text-primary-content' : ''}`}>
+                            <item.icon size={20}/> {item.title}
                         </a>
 
                     </li>

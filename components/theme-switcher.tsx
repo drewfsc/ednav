@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 // List of available DaisyUI themes
-const themes = ["night", "sunset", "abyss", "silk", "autumn", 'garden']
+const themes = ["light", "dark", "abyss", "silk", "autumn", 'garden']
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState<number>(0)

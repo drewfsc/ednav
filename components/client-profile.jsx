@@ -1,11 +1,9 @@
 "use client"
-
 import {useEffect, useState} from "react"
 import {ArrowLeft} from "lucide-react"
 import {Button} from "./ui/button"
 import {GuidedActivityForm} from "./guided-activity-form"
 import ClientDescriptionList from "../components/client-description-list";
-
 const getClientActionsUrl = (clientId) => `/api/actions?clientId=${clientId}`;
 
 export default function ClientProfile ({client, onCloseAction}) {
@@ -21,7 +19,7 @@ export default function ClientProfile ({client, onCloseAction}) {
           // setClientActions(data);
         }
       } catch (error) {
-        console.error("Error fetching client actions:", error);
+        console.error("Error fetching client activities:", error);
       }
     };
 

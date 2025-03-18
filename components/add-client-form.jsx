@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from "react";
-import {adultSchools, youthSchools} from "../lib/schools";
-import {useClients} from "../contexts/ClientsContext";
+import {adultSchools, youthSchools} from "@/lib/schools";
+import {useClients} from "@/contexts/ClientsContext";
 
 const AddClientForm = ({formStuff}) => {
     const { selectedClient, setSelectedClient } = useClients();
@@ -252,16 +252,16 @@ const AddClientForm = ({formStuff}) => {
                 </div>
 
                 {/* FEP */}
-                <select name="fep" value={formData.fep} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select FEP</option>
-                    {
-                        formStuff.feps.map((fep) => {
-                            return (
-                                <option key={fep.name} value={fep.name}>{fep.name}</option>
-                            )
-                        })
-                    }
-                </select>
+                {/*<select name="fep" value={formData.fep} onChange={handleChange} className="select border p-2 rounded-md ">*/}
+                {/*    <option value="">Select FEP</option>*/}
+                {/*    {*/}
+                {/*        formStuff.feps.map((fep) => {*/}
+                {/*            return (*/}
+                {/*                <option key={fep.name} value={fep.name}>{fep.name}</option>*/}
+                {/*            )*/}
+                {/*        })*/}
+                {/*    }*/}
+                {/*</select>*/}
                 {errors.fep && <p className="text-red-500">{errors.fep}</p>}
 
                 {/* Case Number */}
