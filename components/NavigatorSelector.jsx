@@ -33,10 +33,11 @@ function NavigatorSelector() {
 
     return (
         <div style={{ marginBottom: "10px" }}>
-            <label htmlFor="navigator-select">Select Navigator:</label>
+            <label htmlFor="navigator-select">Navigator Selector</label>
             <select
                 id="navigator-select"
                 value={selectedNavigator}
+                className="select mt-2"
                 onChange={(e) => setSelectedNavigator(e.target.value)}
             >
                 <option value="" disabled>Select a navigator</option>

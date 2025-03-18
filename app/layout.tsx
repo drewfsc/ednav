@@ -2,7 +2,7 @@
 import "./globals.css"
 import React, { useEffect, useState } from "react";
 import { ClientsProvider } from "@/contexts/ClientsContext";
-import { FepsProvider } from "@/contexts/FepsContext";
+import {EditingProvider} from "@/contexts/EditingContext";
 import { SessionProvider } from "next-auth/react";
 import { FepsLeftProvider } from "@/contexts/FepsLeftContext";
 import PerfectLayout from "@/components/PerfectLayout";
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ThemeWrapper>
                 <SessionProvider>
                     <ClientsProvider>
-                        <FepsProvider>
+                        <EditingProvider>
                             <FepsLeftProvider>
                                 <PerfectLayout>
                                     <NavigatorsProvider>
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                     </NavigatorsProvider>
                                 </PerfectLayout>
                             </FepsLeftProvider>
-                        </FepsProvider>
+                        </EditingProvider>
                     </ClientsProvider>
                 </SessionProvider>
             </ThemeWrapper>

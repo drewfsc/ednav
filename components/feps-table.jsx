@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {useFeps} from "/contexts/FepsContext";
+import {useFeps} from "/contexts/EditingContext";
 export default function FepsTable({feps}) {
     // console.log(feps);
     const { selectedFep, setSelectedFep } = useFeps();

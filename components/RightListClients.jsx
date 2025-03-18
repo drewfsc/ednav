@@ -1,16 +1,15 @@
 "use client";
 import React, {useEffect, useState} from 'react';
-import {Skeleton} from "@/components/ui/skeleton";
-import {useClients} from "@/contexts/ClientsContext";
+// import {Skeleton} from "@/components/ui/skeleton";
 import ClientTable from "@/components/ClientTable";
 
-export default function RightListClients({searchVisible}) {
+export default function RightListClients() {
+
     const [clients, setClients] = useState([])
     const [loading, setLoading] = useState(true)
     const [searchTerm] = useState("")
     const [status] = useState("")
     const [age] = useState("")
-    const { selectedClient, setSelectedClient } = useClients();
 
     useEffect(() => {
         const fetchClients = async () => {
@@ -38,11 +37,7 @@ export default function RightListClients({searchVisible}) {
         return matchesSearch && matchesStatus && matchesAge;
     })
 
-    const handleClientClick = (clientObject) => {
-        setSelectedClient(clientObject)
-    }
-
     return (
-        <ClientTable clients={filteredClients} loading={loading} onClientClick={handleClientClick}/>
+        <ClientTable clients={filteredClients} loading={loading}/>
     );
 }

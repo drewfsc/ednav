@@ -1,8 +1,12 @@
+"use client";
 import React from 'react';
 import ClientDescription from "./client-description";
-// import ActivityTable from "./activity-table";
+import {useClients} from "../contexts/ClientsContext";
+
 
 export default function DashboardContent({selectedClient, loading}) {
+    const {selectedClient, setSelectedClient} = useClients();
+
     return (
         loading ? <div>Loading...</div> : <div>
             <div>

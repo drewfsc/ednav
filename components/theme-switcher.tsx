@@ -31,16 +31,17 @@ export default function ThemeSwitcher() {
 
     return (
         <div>
+            <label htmlFor="theme-select">Theme Selector</label>
             <select
                 name="theme-select"
                 id="theme-select"
                 value={theme}
-                className="select"
+                className="select mt-2"
                 onChange={(e) => setTheme(Number(e.target.value))}
             >
                 {themes.map((theme, index) => (
                     <option key={theme} value={index}>
-                        {theme}
+                     {theme}
                     </option>
                 ))}
             </select>
