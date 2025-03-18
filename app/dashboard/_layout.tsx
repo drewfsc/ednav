@@ -28,7 +28,7 @@ export default function DashboardLayout({
                     </main>
                 </div>
                 <div className="min-w-70 w-auto h-auto bg-base-200 m-4 rounded">
-                    <RightListClients searchVisible={true}/>
+                    <RightListClients/>
                 </div>
             </div>
         </div>

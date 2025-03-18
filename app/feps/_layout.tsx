@@ -48,7 +48,7 @@ export default function NavigatorsLayout({
                   <div className="tabs tabs-lift mx-4">
                     <input type="radio" name="my_tabs_3" className="tab" aria-label="Clients" defaultChecked />
                     <div className="tab-content bg-base-100 border-base-300">
-                      <RightListClients searchVisible={false}/>
+                      <RightListClients/>
                     </div>
 
                     <input type="radio" name="my_tabs_3" className="tab" aria-label="FEPs" />
