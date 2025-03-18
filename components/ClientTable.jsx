@@ -4,6 +4,7 @@ import { useClients } from "@/contexts/ClientsContext";
 import { useEditing } from "@/contexts/EditingContext";
 import ClientsFilterGroup from "@/components/ClientsFilterGroup";
 import ClientsAgeFilterGroup from "@/components/ClientsAgeFilterGroup";
+import { useThemes } from "../contexts/ThemesContext";
 
 export default function ClientTable({ clients }) {
     const { editing, setEditing } = useEditing();
@@ -12,6 +13,11 @@ export default function ClientTable({ clients }) {
     const [userClients, setUserClients] = useState(clients);
     const [searchTerm, setSearchTerm] = useState("");
     const [searchFields, setSearchFields] = useState(["name"]); // ✅ Default to searching only by name
+    const { theme } = useThemes(); // 🔥 Get active DaisyUI theme
+    const [chartColors, setChartColors] = useState({
+        background: "#4F46E5",
+        border: "#4338CA",
+    });
 
     const handleClientClick = (clientObject) => {
         setSelectedClient(clientObject);
@@ -20,14 +26,9 @@ export default function ClientTable({ clients }) {
 
     // ✅ Function to filter clients based on search term
     const filterClients = (term) => {
-        if (!term) return clients; // Show all clients if no search term
+        if (!term.trim()) return clients; // Ensure no filtering when empty
         return clients.filter((client) =>
-            searchFields.some(
-                (field) =>
-                    client[field] &&
-                    typeof client[field] === "string" &&
-                    client[field].toLowerCase().includes(term.toLowerCase())
-            )
+            client?.name?.toLowerCase().includes(term.toLowerCase())
         );
     };
 
@@ -38,6 +39,18 @@ export default function ClientTable({ clients }) {
     useEffect(() => {
         setUserClients(filterClients(searchTerm)); // ✅ Update filtered clients when search term changes
     }, [searchTerm, clients, searchFields]);
+
+    useEffect(() => {
+        // 🔥 Get primary colors from DaisyUI CSS variables
+        const rootStyle = getComputedStyle(document.documentElement);
+        const primaryColor = rootStyle.getPropertyValue("--p").trim() || "#4F46E5";
+        const secondaryColor = rootStyle.getPropertyValue("--s").trim() || "#4338CA";
+
+        setChartColors({
+            background: primaryColor,
+            border: secondaryColor,
+        });
+    }, [theme]); // 🔄 Re-run when theme changes
 
     // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
