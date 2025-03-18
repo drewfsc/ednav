@@ -1,40 +1,117 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {useClients} from "@/contexts/ClientsContext";
-import {useEditing} from "@/contexts/EditingContext";
+import { useClients } from "@/contexts/ClientsContext";
+import { useEditing } from "@/contexts/EditingContext";
+import ClientsFilterGroup from "@/components/ClientsFilterGroup";
+import ClientsAgeFilterGroup from "@/components/ClientsAgeFilterGroup";
 
-export default function ClientTable({clients}) {
-    const {editing, setEditing} = useEditing()
+export default function ClientTable({ clients }) {
+    const { editing, setEditing } = useEditing();
     const [isMounted, setIsMounted] = useState(false);
-    const {selectedClient, setSelectedClient} = useClients(null);
+    const { selectedClient, setSelectedClient } = useClients(null);
+    const [userClients, setUserClients] = useState(clients);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchFields, setSearchFields] = useState(["name"]); // ✅ Default to searching only by name
 
     const handleClientClick = (clientObject) => {
-        setSelectedClient(clientObject)
-        setEditing(true)
-    }
+        setSelectedClient(clientObject);
+        setEditing(true);
+    };
 
+    // ✅ Function to filter clients based on search term
+    const filterClients = (term) => {
+        if (!term) return clients; // Show all clients if no search term
+        return clients.filter((client) =>
+            searchFields.some(
+                (field) =>
+                    client[field] &&
+                    typeof client[field] === "string" &&
+                    client[field].toLowerCase().includes(term.toLowerCase())
+            )
+        );
+    };
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
+
+    useEffect(() => {
+        setUserClients(filterClients(searchTerm)); // ✅ Update filtered clients when search term changes
+    }, [searchTerm, clients, searchFields]);
 
     // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
 
     return (
         <div className={`overflow-y-scroll no-scrollbar`}>
-            <div className={`bg-primary/60 py-6 shadow-lg h-30`}></div>
-            <div className={`h-10 bg-primary/80 text-primary-content items-center flex pl-8`}>{clients.length} clients</div>
+            <div className={`bg-primary/60 p-8 shadow-lg h-30`}>
+                <input
+                    type="text"
+                    placeholder="Search clients by name"
+                    className="border p-2 rounded w-full"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <div className="mt-2">
+                    <label className="text-sm font-semibold">Filter by:</label>
+                    <div className="flex gap-2 mt-1">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={searchFields.includes("name")}
+                                onChange={(e) =>
+                                    setSearchFields((prev) =>
+                                        e.target.checked
+                                            ? [...prev, "name"]
+                                            : prev.filter((f) => f !== "name")
+                                    )
+                                }
+                            /> Name
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={searchFields.includes("email")}
+                                onChange={(e) =>
+                                    setSearchFields((prev) =>
+                                        e.target.checked
+                                            ? [...prev, "email"]
+                                            : prev.filter((f) => f !== "email")
+                                    )
+                                }
+                            /> Email
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={searchFields.includes("role")}
+                                onChange={(e) =>
+                                    setSearchFields((prev) =>
+                                        e.target.checked
+                                            ? [...prev, "role"]
+                                            : prev.filter((f) => f !== "role")
+                                    )
+                                }
+                            /> Role
+                        </label>
+                    </div>
+                </div>
+                <ClientsFilterGroup />
+                <ClientsAgeFilterGroup />
+            </div>
+            <div className={`h-10 bg-primary/80 text-primary-content items-center flex pl-8`}>
+                Clients
+            </div>
             <div className="px-4 sm:px-6 lg:px-8 mt-8">
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto">
                         <h1 className="text-base-content font-semibold ">Clients</h1>
                         <p className="mt-2 text-sm text-base-content/70">
-                            A list of all the clients in you care for.
+                            A list of all the clients in your care.
                         </p>
                     </div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <button onClick={handleClientClick}
+                        <button
+                            onClick={handleClientClick}
                             className="block rounded-md bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-content shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-bg-primary focus-visible:ring-2 focus-visible:ring-primary-600"
                         >
                             Add client
@@ -65,9 +142,9 @@ export default function ClientTable({clients}) {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-base-300">
-                                    {clients.length > 0 ? (
-                                        clients.map((person, i) => (
-                                            <tr key={person.email+i}>
+                                    {userClients.length > 0 ? (
+                                        userClients.map((person, i) => (
+                                            <tr key={person.email + i}>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-neutral-700 sm:pl-0">
                                                     {person.name}
                                                 </td>

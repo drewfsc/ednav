@@ -58,7 +58,7 @@ export default function PerfectLayout({
               <div className={"flex-1 mx-4 my-8 "}>
                   <main className="h-full flex">
                       <div className={`bg-base-300/80 w-full shadow-xl backdrop-blur-xs flex flex-col relative overflow-hidden`}>
-                          <div className={`absolute top-0 left-0 bg-base-300 z-30 w-full h-full transform duration-500 p-6  ${editing ? '' : 'translate-x-[1000px] '}`}>
+                          <div className={`absolute top-0 left-0 bg-base-300 z-30 w-full h-full transform duration-500 p-6  ${editing ? '' : 'translate-x-[1500px] '}`}>
                               <div onClick={() => (setEditing(null))} className={`absolute top-8 right-12 text-2xl font-extralight cursor-pointer py-1 px-3 bg-primary rounded-full text-primary-content`}>X</div>
                               <div className={`text-4xl p-3 font-light`}>Add a Client</div>
                               <div className={``}><AddClientForm formStuff={metrics}/></div>
