@@ -17,7 +17,7 @@ export default function RightListClients() {
                 const response = await fetch("/api/education-navigators")
                 if (response.ok) {
                     const data = await response.json()
-                    const chosenClient = data.find((client) => client.name === "Andrew McCauley")
+                    const chosenClient = data.find((client) => client.name === "")
                     setClients(chosenClient.clients)
                 }
             } catch (error) {

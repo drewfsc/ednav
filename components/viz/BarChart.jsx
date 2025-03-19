@@ -1,4 +1,6 @@
 "use client"
+export let defaultValue
+= undefined;
 
 import * as React from "react"
 import { TrendingUp } from "lucide-react"

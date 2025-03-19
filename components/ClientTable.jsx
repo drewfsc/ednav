@@ -67,11 +67,11 @@ export default function ClientTable({ clients }) {
                 <ClientsFilterGroup />
                 <ClientsAgeFilterGroup />
             </div>
-            <div className={`h-18 bg-primary/80 text-primary-content items-center flex pl-8`}>
+            <div className={`h-18 bg-primary/80 text-primary-content justify-between items-center flex px-8 `}>
                 <input
                     type="text"
                     placeholder="Search clients by name"
-                    className="input w-3/5 input-secondary"
+                    className=" w-1/2 transition duration-300 border border-base-100 py-1 px-4 rounded hover:bg-base-100 text-white focus:bg-secondary focus:text-white focus:outline-none focus:ring-2 focus:ring-secondary-600"
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <FilterCheckboxes searchFields={searchFields} setSearchFields={setSearchFields}/>

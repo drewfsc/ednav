@@ -3,7 +3,7 @@ import {useState} from "react"
 export default function ClientsAgeFilterGroup({setFilter}) {
   const [buttonState, setButtonState] = useState(null)
     return (
-        <div className="flex rounded-lg shadow-sm border-neutral-700 divide-x divide-neutral-700 transition-all duration-300 bg-base-100">
+        <div className="flex rounded-lg divide-x divide-neutral-700 transition-all duration-300 bg-base-300">
       <button
           type="button"
           onClick={() => {

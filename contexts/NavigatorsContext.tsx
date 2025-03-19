@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { z } from "zod";
 
 type Navigator = {
     "_id": string,
@@ -13,7 +14,7 @@ type NavigatorsContextType = {
 const NavigatorsContext = createContext<NavigatorsContextType | undefined>(undefined);
 
 export const NavigatorsProvider = ({ children }: { children: ReactNode }) => {
-    const [selectedNavigator, setSelectedNavigator] = useState<Navigator | null>(null);
+    const [selectedNavigator, setSelectedNavigator] = useState<Navigator | string | null>(null);
 
     return (
         <NavigatorsContext.Provider value={{ selectedNavigator, setSelectedNavigator }}>

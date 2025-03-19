@@ -1,10 +1,27 @@
-import React from 'react';
+"use client"
+
+import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import {useFeps} from "/contexts/EditingContext";
+
 export default function FepsTable({feps}) {
+    const [allFeps, setAllFeps] = useState([]);
     // console.log(feps);
-    const { selectedFep, setSelectedFep } = useFeps();
-    console.log(selectedFep);
+    // const { selectedFep, setSelectedFep } = useFeps();
+    let selectedFep;
+    const newSelectedFep = selectedFep === undefined ? "not selected" : selectedFep;
+    const fetchAllFeps = async () => {
+        const response = await fetch('/api/feps');
+        const data = await response.json();
+        setAllFeps(data);
+        console.log(data);
+    }
+
+    useEffect(() => {
+        fetchAllFeps().then(() => console.log(allFeps));
+    })
+
+    console.log(newSelectedFep);
     return (
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
             <table className="table">
@@ -18,15 +35,8 @@ export default function FepsTable({feps}) {
                 </thead>
                 <tbody>
                 {
-                    [...feps]
-                        .sort((a, b) => new Date(b.actions[0].when) - new Date(a.actions[0].when))
-                        .map(fep => (
-                        <tr key={fep.name} className={`hover:bg-base-200 cursor-pointer`} onClick={() => setSelectedFep(fep)}>
-                            <th>{fep.name}</th>
-                            <td>{fep.clients.length}</td>
-                            <td>{fep.actions.length}</td>
-                            <td>{moment(fep.actions[0].when).calendar()}</td>
-                        </tr>
+                    allFeps.map((fep, index) => (
+                        <tr key={fep._id+index} className={`hover:bg-base-200 cursor-pointer`}>{fep.name}</tr>
                     ))
                 }
                 </tbody>

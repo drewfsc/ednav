@@ -3,18 +3,25 @@ import "./globals.css"
 import React, { useEffect, useState } from "react";
 import { ClientsProvider } from "@/contexts/ClientsContext";
 import {EditingProvider} from "@/contexts/EditingContext";
-import { SessionProvider } from "next-auth/react";
+import {getSession, SessionProvider} from "next-auth/react";
 import { FepsLeftProvider } from "@/contexts/FepsLeftContext";
 import PerfectLayout from "@/components/PerfectLayout";
 import { ThemesProvider, useThemes } from "@/contexts/ThemesContext";
 import {NavigatorsProvider} from "@/contexts/NavigatorsContext";
+import {LocationsProvider} from "@/contexts/LocationsContext";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            getSession().then((session) => console.log(session));
+        }
+    }, []);
     return (
         <ThemesProvider>
-            <ThemeWrapper>
+            {/*<ThemeWrapper>*/}
                 <SessionProvider>
                     <ClientsProvider>
+                        <LocationsProvider>
                         <EditingProvider>
                             <FepsLeftProvider>
                                 <PerfectLayout>
@@ -24,9 +31,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 </PerfectLayout>
                             </FepsLeftProvider>
                         </EditingProvider>
+                        </LocationsProvider>
                     </ClientsProvider>
                 </SessionProvider>
-            </ThemeWrapper>
+            {/*</ThemeWrapper>*/}
         </ThemesProvider>
     );
 }
@@ -36,15 +44,21 @@ function ThemeWrapper({ children }: { children: React.ReactNode }) {
     const { selectedTheme } = useThemes();
     const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    return (
-        <html lang="en" data-theme={selectedTheme}>
-            <body>{isMounted && children}</body>
-        </html>
-    );
+    // useEffect(() => {
+    //     setIsMounted(true);
+    // }, []);
+    //
+    // const theme = useThemes().selectedTheme; // Ensure it returns a string
+    //
+    // return (
+    //
+    //     // @ts-ignore
+ return(
+     <html lang="en" data-theme={"light"} suppressHydrationWarning>
+     <body>{isMounted && children}</body>
+     </html>
+ )
+    // );
 }
 
 // ✅ Persistent Navigator Selector Component with Static Names

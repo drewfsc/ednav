@@ -32,12 +32,12 @@ function NavigatorSelector() {
     if (!isMounted) return null; // ✅ Prevent rendering until hydration completes
 
     return (
-        <div style={{ marginBottom: "10px" }}>
-            <label htmlFor="navigator-select">Navigator Selector</label>
+        <div>
+            {/*<label htmlFor="navigator-select">Navigator Selector</label>*/}
             <select
                 id="navigator-select"
                 value={selectedNavigator}
-                className="select mt-2"
+                className=" transition duration-300 border border-base-100 py-2 px-4 rounded text-white"
                 onChange={(e) => setSelectedNavigator(e.target.value)}
             >
                 <option value="" disabled>Select a navigator</option>
