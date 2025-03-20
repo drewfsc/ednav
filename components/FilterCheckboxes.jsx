@@ -5,43 +5,43 @@ export default function FilterCheckboxes({searchFields, setSearchFields}) {
         <div>
 
             {/*CHECKBOXES*/}
-            <div className="mt-2 text-sm font-light text-white">
-                <div className="flex gap-4 pb-2 mt-1 w-full justify-between items-center">
-                    <label className="flex items-center self-center">
-                        <input type="checkbox" checked={searchFields.includes("name")} className="checkbox checkbox-lg checkbox-info"  onChange={(e) =>
+            <div className="mt-2">
+                <div className="flex gap-2 mt-1">
+                    <label>
+                        <input type="checkbox" checked={searchFields.includes("name")} className="checkbox checkbox-lg text-accent-content" onChange={(e) =>
                             setSearchFields((prev) =>
                                 e.target.checked
                                     ? [...prev, "name"]
                                     : prev.filter((f) => f !== "name")
                             )
                         } />
-                        <div className={`ml-2 text-xsm`}>Name</div>
+                        Name
                     </label>
-                    <label className="flex items-center">
+                    <label>
                         <input
                             type="checkbox"
-                            checked={searchFields.includes("email")} className="checkbox checkbox-lg checkbox-info"
+                            checked={searchFields.includes("email")}
                             onChange={(e) =>
                                 setSearchFields((prev) =>
                                     e.target.checked
                                         ? [...prev, "email"]
                                         : prev.filter((f) => f !== "email")
                                 )
-                            }/>
-                        <div className={`ml-2`}>Email</div>
+                            }
+                        /> Email
                     </label>
-                    <label className="flex items-center">
+                    <label>
                         <input
                             type="checkbox"
-                            checked={searchFields.includes("role")} className="checkbox checkbox-lg checkbox-info"
+                            checked={searchFields.includes("role")}
                             onChange={(e) =>
                                 setSearchFields((prev) =>
                                     e.target.checked
                                         ? [...prev, "role"]
                                         : prev.filter((f) => f !== "role")
                                 )
-                            }/>
-                        <div className={`ml-2`}>Name</div>
+                            }
+                        /> Role
                     </label>
                 </div>
             </div>
