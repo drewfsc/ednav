@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import React from "react";
-import {signIn} from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -47,7 +46,6 @@ export function LoginForm({
                                 </div>
                                 <button type={`button`} className={`bg-blue-600 text-white rounded px-8 py-2 w-fit`} onClick={(e) => {
                                     e.preventDefault();
-                                    signIn("credentials", {username: "uxmccauley", password: "1234", redirectTo: "/"}).then()
 
                                 }}>Log In</button>
                             </div>
