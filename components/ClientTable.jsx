@@ -5,6 +5,17 @@ import { useClients } from "@/contexts/ClientsContext";
 export default function ClientTable({ setEditing, userClients }) {
     const [isMounted, setIsMounted] = useState(false);
     const { selectedClient, setSelectedClient } = useClients(null);
+    const [selectedNavigator, setSelectedNavigator] = useState("");
+
+    useEffect(() => {
+        setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
+        if (typeof window !== "undefined") {
+            const storedNavigator = localStorage.getItem("navigatorName") || "";
+            setSelectedNavigator(storedNavigator);
+            // console.log(client)
+            // getNotes().then()
+        }
+    }, [selectedNavigator]);
 
     const getBadgeColor = (status) => {
         switch (status) {
@@ -36,7 +47,7 @@ export default function ClientTable({ setEditing, userClients }) {
                         <table className="min-w-full divide-y divide-base-300">
                             <tbody className="divide-y divide-base-300">
                             {userClients?.length > 0 ? (
-                                userClients?.map((person, i) => (
+                                userClients?.filter(client => client.navigator === selectedNavigator).map((person, i) => (
                                     <tr key={person.email + i}  onClick={() => {
                                         if (selectedClient?._id === person._id) {
                                             setSelectedClient(null);

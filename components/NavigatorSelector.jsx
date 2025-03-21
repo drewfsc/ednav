@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {useNavigators} from "@/contexts/NavigatorsContext";
 
 function NavigatorSelector() {
     const navigatorNames = [
@@ -12,8 +13,8 @@ function NavigatorSelector() {
         "Drew McCauley"
     ];
 
-    const [selectedNavigator, setSelectedNavigator] = useState("");
     const [isMounted, setIsMounted] = useState(false);
+    const {selectedNavigator, setSelectedNavigator} = useNavigators();
 
     useEffect(() => {
         setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage

@@ -10,7 +10,7 @@ export default function ActivityTable({actions, client}) {
     const [clientNotes, setClientNotes] = useState([])
     const [selectedNavigator, setSelectedNavigator] = useState("");
     const [, setIsMounted] = useState(false);
-    console.log(selectedNavigator)
+    // console.log(selectedNavigator)
     const [note, setNote] = React.useState(
         {
             noteContent: "",
@@ -26,7 +26,7 @@ export default function ActivityTable({actions, client}) {
         if (typeof window !== "undefined") {
             const storedNavigator = localStorage.getItem("navigatorName") || "";
             setSelectedNavigator(storedNavigator);
-            console.log(client)
+            // console.log(client)
             getNotes().then()
         }
     }, []);

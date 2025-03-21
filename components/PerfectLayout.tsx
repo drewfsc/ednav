@@ -5,6 +5,7 @@ import {useEditing} from "@/contexts/EditingContext";
 import {useClients} from "@/contexts/ClientsContext";
 import ClientProfile from "@/components/ClientProfile";
 import ClientTable from "@/components/ClientTable";
+import {NavigatorProvider, useNavigators} from "@/contexts/NavigatorsContext";
 
 
 export default function PerfectLayout({
@@ -14,12 +15,12 @@ export default function PerfectLayout({
 }) {
 
     const [, setIsClient] = React.useState(false);
-    const [selectedNavigator, setSelectedNavigator] = useState("");
     const [, setIsMounted] = useState(false);
     const {editing, setEditing} = useEditing()
     const [, setLoading] = useState(true)
     const { selectedClient } = useClients();
-    const [userClients, setUserClients] = useState();
+    const [userClients, setUserClients] = useState([]);
+    const { selectedNavigator, setSelectedNavigator } = useNavigators();
 
 
     useEffect(() => {
@@ -29,10 +30,19 @@ export default function PerfectLayout({
     // Fetch all clients and set them to a state for use in the table
     useEffect(() => {
         const fetchClients = async () => {
+            let response;
             try {
-                const response = await fetch("/api/clients"); // Replace with your API endpoint
+                if(selectedNavigator) {
+                    console.log(selectedNavigator !== "")
+                    response = await fetch(`/api/clients?navigator=${selectedNavigator}`); // Replace with your API endpoint
+                } else {
+                    response = await fetch(`/api/clients`); // Replace with your API endpoint
+                }
+
                 if (response.ok) {
-                    const data = await response.json();
+                    const data = (await response.json())
+                        // .filter((client: { status: string; navigator: string; }) => client?.navigator === selectedNavigator);
+
                     setUserClients(data); // Update state with fetched clients
                 } else {
                     console.error("Failed to fetch clients:", response.statusText);
@@ -57,7 +67,8 @@ export default function PerfectLayout({
         setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
         if (typeof window !== "undefined") {
             const storedNavigator = localStorage.getItem("navigatorName") || "";
-            setSelectedNavigator(storedNavigator);
+            // @ts-ignore
+            setSelectedNavigator(storedNavigator || null);
         }
     }, []);
 
@@ -91,7 +102,9 @@ export default function PerfectLayout({
         <div className={`h-screen overflow-hidden flex`}>
             <div className="flex max-h-screen overflow-hidden flex-1 ">
                 <div className={`w-30 md:w-60 border border-base-300`}>
+                    <NavigatorProvider>
                     <LeftNavEntire/>
+                    </NavigatorProvider>
                 </div>
                 <div className={`bg-base-200 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen `}>
                     <ClientTable userClients={userClients} setEditing={undefined}/>

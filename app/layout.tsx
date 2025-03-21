@@ -7,6 +7,7 @@ import {FepsLeftProvider} from "@/contexts/FepsLeftContext";
 import PerfectLayout from "@/components/PerfectLayout";
 import {ThemesProvider, useThemes} from "@/contexts/ThemesContext";
 import {LocationsProvider} from "@/contexts/LocationsContext";
+import {NavigatorProvider} from "@/contexts/NavigatorsContext";
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
@@ -16,9 +17,11 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                     <EditingProvider>
                         <FepsLeftProvider>
                             <LocationsProvider>
-                                <PerfectLayout>
-                                    {children}
-                                </PerfectLayout>
+                                <NavigatorProvider >
+                                    <PerfectLayout>
+                                        {children}
+                                    </PerfectLayout>
+                                </NavigatorProvider>
                             </LocationsProvider>
                         </FepsLeftProvider>
                     </EditingProvider>
@@ -45,45 +48,45 @@ function ThemeWrapper({children}: { children: React.ReactNode }) {
 }
 
 // ✅ Persistent Navigator Selector Component with Static Names
-function NavigatorSelector() {
-    const navigatorNames = [
-        "Stacy Martinez",
-        "Hailey Jester",
-        "Ashleigh Chesney",
-        "Rich Basche",
-        "Rachael Banerdt",
-        "Morgan Sole",
-        "Kecia Thompson-Gorgon"
-    ];
+// function NavigatorSelector() {
+//     const navigatorNames = [
+//         "Stacy Martinez",
+//         "Hailey Jester",
+//         "Ashleigh Chesney",
+//         "Rich Basche",
+//         "Rachael Banerdt",
+//         "Morgan Sole",
+//         "Kecia Thompson-Gorgon"
+//     ];
 
-    const [selectedNavigator, setSelectedNavigator] = useState(() => {
-        if (typeof window !== "undefined") {
-            return localStorage.getItem("navigatorName") || "";
-        }
-        return "";
-    });
+    // const [selectedNavigator, setSelectedNavigator] = useState(() => {
+    //     if (typeof window !== "undefined") {
+    //         return localStorage.getItem("navigatorName") || "";
+    //     }
+    //     return "";
+    // });
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            localStorage.setItem("navigatorName", selectedNavigator);
-        }
-    }, [selectedNavigator]);
+    // useEffect(() => {
+    //     if (typeof window !== "undefined") {
+    //         localStorage.setItem("navigatorName", selectedNavigator);
+    //     }
+    // }, [selectedNavigator]);
 
-    return (
-        <div style={{marginBottom: "10px"}}>
-            <label htmlFor="navigator-select">Select Navigator:</label>
-            <select
-                id="navigator-select"
-                value={selectedNavigator}
-                onChange={(e) => setSelectedNavigator(e.target.value)}
-            >
-                <option value="" disabled>Select a navigator</option>
-                {navigatorNames.map((name) => (
-                    <option key={name} value={name}>
-                        {name}
-                    </option>
-                ))}
-            </select>
-        </div>
-    );
-}
+    // return (
+    //     <div style={{marginBottom: "10px"}}>
+    //         <label htmlFor="navigator-select">Select Navigator:</label>
+    //         <select
+    //             id="navigator-select"
+    //             value={selectedNavigator}
+    //             onChange={(e) => setSelectedNavigator(e.target.value)}
+    //         >
+    //             <option value="" disabled>Select a navigator</option>
+    //             {navigatorNames.map((name) => (
+    //                 <option key={name} value={name}>
+    //                     {name}
+    //                 </option>
+    //             ))}
+    //         </select>
+    //     </div>
+    // );
+// }
