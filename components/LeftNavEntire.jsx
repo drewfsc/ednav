@@ -5,7 +5,8 @@ import NavigatorSelector from "@/components/NavigatorSelector";
 import NavLeftWithIcons from "@/components/nav-left-with-icons";
 import {LocationsProvider} from "@/contexts/LocationsContext";
 
-export default function LeftNavEntire({searchTerm, setSearchTerm, status, setStatus}) {
+export default function LeftNavEntire() {
+
     return (
         <div className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-4 gap-4 shadow-2xl `}>
             <div>
@@ -21,7 +22,7 @@ export default function LeftNavEntire({searchTerm, setSearchTerm, status, setSta
                     setSearchTerm(e.target.value)
                 }} placeholder="Search by name..." className="input w-full mb-4"/>
                 <LocationsProvider>
-                <NavLeftWithIcons searchTerm={searchTerm} setSearchTerm={setSearchTerm} status={status} setStatus={setStatus}/>
+                <NavLeftWithIcons/>
                 </LocationsProvider>
             </div>
 
