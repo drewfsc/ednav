@@ -1,9 +1,11 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import moment from "moment";
-import {GuidedActivityForm} from "./guided-activity-form";
+import {_guidedActivityForm} from "./_guided-activity-form";
 import NoteFeed from "@/components/NoteFeed";
 import MoodSelect from "@/components/MoodSelect";
+import {GuidedActivityForm} from "@/components/guided-activity-form";
+import DynamicSelect from "@/components/DynamicSelect";
 
 export default function ActivityTable({actions, client, fetchActionsData}) {
     const [openNote, setOpenNote] = useState(0);
@@ -58,11 +60,19 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
     return (
 
         <div className={`flex-1 mt-4`}>
-            <div className={`flex justify-between items-center mr-4 ml-2`}>
-                <div className={`mb-5 text-2xl`}>Activity Log</div>
+            <div className={`flex justify-start items-center gap-4 mb-6`}>
+                <div className={`text-2xl`}>Activity Log</div>
                 <GuidedActivityForm client={client} navigator={"selectedNavigator"} onActivityAddedAction={() => fetchActionsData(client._id)}/>
             </div>
-            <div className="overflow-x-auto h-full">
+
+            <div className="overflow-x-auto w-full border border-base-300">
+            <div className={`flex divide-x divide-base-content/5 border-b border-base-300`}>
+                <div className={`w-1/5 pl-6 py-2`}>Who</div>
+                <div className={`w-1/5 pl-6 py-2`}>What</div>
+                <div className={`w-1/5 pl-6 py-2`}>When</div>
+                <div className={`w-1/5 pl-6 py-2`}>Where</div>
+                <div className={`w-1/5 pl-6 py-2`}>Note Count</div>
+            </div>
                     {
                         actions.map((action, i) => (
                             <div className={``} key={i+1}>
@@ -78,11 +88,12 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
                                     setOpenNote(prevState => {
                                         return prevState === i+1 ? 0 : i+1;
                                     })
-                                }} className={`hover:bg-base-200 cursor-pointer grid grid-cols-10 px-2 py-2`}>
-                                    <div className={`col-span-2`}>{action?.who}</div>
-                                    <div className={`col-span-2`}>{action?.what}</div>
-                                    <div className={`col-span-3`}>{moment(action?.when).format("M/D/Y")}</div>
-                                    <div className={`col-span-2`}>{action?.where}</div>
+                                }} className={`hover:bg-accent/60 hover:text-accent-content ${openNote === i+1 ? `bg-accent text-accent-content` : ``}} cursor-pointer flex divide-x divide-base-content/5 border-b border-base-300`}>
+                                    <div className={`w-1/5 pl-6 py-2`}>{action?.who}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{action?.what}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{moment(action?.when).format("M/D/Y")}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{action?.where}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{clientNotes.filter(note => note.activityId === action._id).length}</div>
                                 </div>
                                 <div className={`bg-base-200  ${openNote === i+1 ? `block` : `hidden`}`}>
                                     <div className={`flex p-6`}>
@@ -126,6 +137,7 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
                         ))
                     }
             </div>
+            <DynamicSelect client={client}/>
         </div>
     );
 }

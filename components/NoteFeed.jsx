@@ -41,8 +41,8 @@ export default function NoteFeed({notes, activityIdFromPage}) {
     return (
         <div className="flow-root overflow-hidden">
             <ul role="list" className="-mb-8">
-                {notes.filter(note => note.activityId === activityIdFromPage).map((event, eventIdx) => (
-                    <li key={event.id}>
+                {notes.filter((note) => note.activityId === activityIdFromPage).map((event, eventIdx) => (
+                    <li key={event.id+eventIdx.toString()}>
                         <div className="relative pb-8">
                             {eventIdx !== notes.length - 1 ? (
                                 <span aria-hidden="true" className={`absolute left-5 top-4 -ml-px h-full w-0.5 bg-base-content/40 `} />

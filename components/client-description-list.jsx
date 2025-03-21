@@ -26,7 +26,7 @@ export default function ClientDescriptionList({ client }) {
     }
 
     return (
-        <div className=" my-2">
+        <div className="  mb-12 ml-6">
             <div className="font-semibold mb-4">Personal</div>
             <div className=" text-sm">
                 <dl className="divide-y divide-base-content/20">

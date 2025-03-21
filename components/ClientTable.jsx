@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useClients } from "@/contexts/ClientsContext";
-import { useThemes } from "@/contexts/ThemesContext";
 
 export default function ClientTable({ clients, searchTerm, searchFields, setEditing }) {
     const [isMounted, setIsMounted] = useState(false);

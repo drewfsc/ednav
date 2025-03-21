@@ -75,7 +75,7 @@ const EditClientForm = () => {
     // useEffect(() => {
     //     const fetchData = async () => {
     //        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`)
-    //         const data = await response.json()
+    //         const data = await response.js()
     //         if(data){
     //            setSelectedClient(data)
     //         }

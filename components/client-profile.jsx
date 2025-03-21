@@ -32,12 +32,13 @@ export default function ClientProfile ({client, selectedNavigator, setEditing}) 
     }, [client._id]);
 
     return (
-        <div className="w-full px-5 pt-4 h-screen overflow-y-scroll relative">
+        <div className="w-full px-5 h-screen overflow-y-scroll relative">
+            <div className={`text-2xl font-extralight absolute p-6 left-0 right-0 bg-secondary text-secondary-content`}>Client Profile</div>
             <div onClick={() => {
                 setEditing(null)
                 setSelectedClient(null)
             }}
-                 className={`absolute top-8 right-12 text-2xl font-extralight cursor-pointer py-1 px-3 bg-primary rounded-full text-primary-content`}>X
+                 className={`absolute top-5 right-5 text-2xl font-extralight cursor-pointer py-1 px-3 bg-base-100 rounded-full text-base-content hover:bg-primary hover:accent-primary-content`}>X
             </div>
           <div className="w-full">
             <div className="w-full ">

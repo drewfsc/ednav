@@ -5,6 +5,7 @@ import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from "@
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
 import {Button} from "@/components/ui/button"
 import {Card} from "@/components/ui/card"
+import {newQuestions} from "@/lib/response";
 
 interface GuidedActivityFormProps {
     client: {
@@ -34,7 +35,7 @@ interface GuidedActivityFormProps {
     // onActivityAddedAction?: () => Promise<void>
 }
 
-export function GuidedActivityForm({client}: GuidedActivityFormProps) {
+export function _guidedActivityForm({client}: GuidedActivityFormProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [what, setWhat] = useState<string>("")
     const [when, setWhen] = useState<string>("")
@@ -43,15 +44,13 @@ export function GuidedActivityForm({client}: GuidedActivityFormProps) {
     const [activityDetail, setActivityDetail] = useState<string>("")
     const [loading, setLoading] = useState(false)
     const [questions, setQuestions] = useState<Record<string, any>>({})
-    console.log(questions)
-    // Get the appropriate question set based on whether the client is youth or adult
     const questionSet = client.isYouth ? questions["youth"] || {} : questions["adult"] || {}
     const activityTypes = Object.keys(questionSet)
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetch(`/api/questions`)
+                const response = await fetch(`../../lib/response.json`)
                 if (response.ok) {
                     const data = await response.json()
                     setQuestions(data)
@@ -109,8 +108,9 @@ export function GuidedActivityForm({client}: GuidedActivityFormProps) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="btn btn-primary">Add Activity</Button>
+                <button className="btn btn-sm bg-primary text-primary-content">+ Add Activity</button>
             </DialogTrigger>
+
             <DialogContent className="sm:max-w-[500px] bg-base-100">
                 <DialogHeader>
                     <DialogTitle className="text-base-content">

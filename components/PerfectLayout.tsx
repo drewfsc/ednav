@@ -83,7 +83,7 @@ export default function PerfectLayout({
                     <main className="h-full flex">
                         <div className={`bg-base-100 border-x border-base-300 flex-1 flex flex-col relative overflow-hidden`}>
                             <div
-                                className={`absolute top-0 left-0 bg-base-100 z-30 w-full h-full transform duration-500 p-6  ${editing ? '' : 'translate-x-[1800px] '}`}>
+                                className={`absolute top-0 left-0 bg-base-100 z-30 w-full h-full transform duration-500  ${editing ? '' : 'translate-x-[1800px] '}`}>
                                 <div className={``}>
                                     {
                                         selectedClient && <ClientProfile setEditing={setEditing} selectedNavigator={selectedNavigator} client={selectedClient}/>
