@@ -77,7 +77,7 @@ export default function PerfectLayout({
                     <LeftNavEntire searchTerm={searchTerm} setSearchTerm={setSearchTerm} status={status} setStatus={setStatus}/>
                 </div>
                 <div className={`bg-base-200 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen `}>
-                    <RightListClients selectedNavigator={selectedNavigator}/>
+                    <RightListClients />
                 </div>
                 <div className={"max-h-full flex-1"}>
                     <main className="h-full flex">
