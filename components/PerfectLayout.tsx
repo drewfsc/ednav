@@ -17,7 +17,6 @@ export default function PerfectLayout({
     const [, setIsClient] = React.useState(false);
     const [, setIsMounted] = useState(false);
     const {editing, setEditing} = useEditing()
-    const [, setLoading] = useState(true)
     const { selectedClient } = useClients();
     const [userClients, setUserClients] = useState([]);
     const { selectedNavigator, setSelectedNavigator } = useNavigators();

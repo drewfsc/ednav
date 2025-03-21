@@ -323,7 +323,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
         totalClients: totalClientCount,
         clientsByRegionData,
-        clientStatusBreakdown: clientStatusData,
+        clientStatusBreakdown: clientStatusPercentages,
         clientsReferredPerMonth,
         graduatedClientsPerMonth,
         enrolledClientsPerMonth,
