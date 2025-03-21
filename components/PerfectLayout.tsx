@@ -77,22 +77,16 @@ export default function PerfectLayout({
                     <LeftNavEntire searchTerm={searchTerm} setSearchTerm={setSearchTerm} status={status} setStatus={setStatus}/>
                 </div>
                 <div className={`bg-base-200 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen `}>
-                    <RightListClients />
+                    <RightListClients setEditing={setEditing} />
                 </div>
                 <div className={"max-h-full flex-1"}>
                     <main className="h-full flex">
                         <div className={`bg-base-100 border-x border-base-300 flex-1 flex flex-col relative overflow-hidden`}>
                             <div
                                 className={`absolute top-0 left-0 bg-base-100 z-30 w-full h-full transform duration-500 p-6  ${editing ? '' : 'translate-x-[1800px] '}`}>
-                                <div onClick={() => {
-                                    setEditing(null)
-                                    setSelectedClient(null)
-                                }}
-                                     className={`absolute top-8 right-12 text-2xl font-extralight cursor-pointer py-1 px-3 bg-primary rounded-full text-primary-content`}>X
-                                </div>
                                 <div className={``}>
                                     {
-                                        selectedClient && <ClientProfile selectedNavigator={selectedNavigator} client={selectedClient}/>
+                                        selectedClient && <ClientProfile setEditing={setEditing} selectedNavigator={selectedNavigator} client={selectedClient}/>
                                     }
 
                                 </div>

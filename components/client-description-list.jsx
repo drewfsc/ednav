@@ -25,16 +25,11 @@ export default function ClientDescriptionList({ client }) {
         setChange({...change, [e.target.name]: e.target.value});
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(change);
-    }
-
     return (
         <div className=" my-2">
             <div className="font-semibold mb-4">Personal</div>
             <div className=" text-sm">
-                <dl className="divide-y divide-neutral-400/60">
+                <dl className="divide-y divide-base-content/20">
                     {
                         personalFields.map((f) => (
                             <div key={f} className="py-2 grid grid-cols-3 gap-4 text-base-content text-sm/6">
@@ -52,7 +47,7 @@ export default function ClientDescriptionList({ client }) {
 
             <div className="font-semibold mt-10 mb-4">Organization</div>
             <div className="text-sm">
-                <dl className="divide-y divide-base-300">
+                <dl className="divide-y divide-base-content/20">
                     {
                         organizationFields.map((f) => (
                             <div key={f} className="py-2 grid grid-cols-3 gap-4 text-base-content text-sm/6">

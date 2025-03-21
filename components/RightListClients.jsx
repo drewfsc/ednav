@@ -4,14 +4,12 @@ import React, {useEffect, useState} from 'react';
 import ClientTable from "@/components/ClientTable";
 import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
-export default function RightListClients() {
+export default function RightListClients({setEditing}) {
     const {selectedFepLeft} = useFepsLeft("");
     const [clients, setClients] = useState([])
     const [loading, setLoading] = useState(true)
     const [searchTerm] = useState("")
     const [selectedNavigator, setSelectedNavigator] = useState("")
-    console.log(selectedNavigator)
-
 
     useEffect(() => {
 
@@ -59,6 +57,6 @@ export default function RightListClients() {
     })
 
     return (
-        <ClientTable clients={filteredClients} loading={loading}/>
+        <ClientTable setEditing={setEditing} clients={filteredClients} loading={loading}/>
     );
 }

@@ -1,20 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useClients } from "@/contexts/ClientsContext";
-import { useEditing } from "@/contexts/EditingContext";
 import { useThemes } from "@/contexts/ThemesContext";
 
-export default function ClientTable({ clients, searchTerm, searchFields }) {
-    const { editing, setEditing } = useEditing();
+export default function ClientTable({ clients, searchTerm, searchFields, setEditing }) {
     const [isMounted, setIsMounted] = useState(false);
     const { selectedClient, setSelectedClient } = useClients(null);
     const [userClients, setUserClients] = useState(clients);
-
-    const { theme } = useThemes(); // 🔥 Get active DaisyUI theme
-    const [chartColors, setChartColors] = useState({
-        background: "#4F46E5",
-        border: "#4338CA",
-    });
 
     const getBadgeColor = (status) => {
         switch (status) {
@@ -31,8 +23,7 @@ export default function ClientTable({ clients, searchTerm, searchFields }) {
         }
     }
 
-    const handleClientClick = (clientObject) => {
-        // setSelectedClient(clientObject);
+    const handleClientClick = () => {
         setEditing(true);
     };
 
@@ -57,18 +48,6 @@ export default function ClientTable({ clients, searchTerm, searchFields }) {
         setUserClients(filterClients(searchTerm)); // ✅ Update filtered clients when search term changes
     }, [searchTerm, clients, searchFields]);
 
-    useEffect(() => {
-        // 🔥 Get primary colors from DaisyUI CSS variables
-        const rootStyle = getComputedStyle(document.documentElement);
-        const primaryColor = rootStyle.getPropertyValue("--p").trim() || "#4F46E5";
-        const secondaryColor = rootStyle.getPropertyValue("--s").trim() || "#4338CA";
-
-        setChartColors({
-            background: primaryColor,
-            border: secondaryColor,
-        });
-    }, [theme]); // 🔄 Re-run when theme changes
-
     // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
 
@@ -82,7 +61,12 @@ export default function ClientTable({ clients, searchTerm, searchFields }) {
                             {userClients.length > 0 ? (
                                 userClients.map((person, i) => (
                                     <tr key={person.email + i}  onClick={() => {
-                                        setSelectedClient(person);
+                                        if (selectedClient?._id === person._id) {
+                                            setSelectedClient(null);
+                                            setEditing(null);
+                                        } else {
+                                            setSelectedClient(person);
+                                        }
                                         // console.log(person);
                                         handleClientClick()
                                     }} className={`hover:bg-accent hover:text-accent-content cursor-pointer ${selectedClient?._id === person._id ? 'bg-accent text-accent-content' : ''}`}>
