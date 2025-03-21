@@ -10,7 +10,6 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
     const [clientNotes, setClientNotes] = useState([])
     const [selectedNavigator, setSelectedNavigator] = useState("");
     const [isMounted, setIsMounted] = useState(false);
-    const {id} = client
     console.log(selectedNavigator)
     const [note, setNote] = React.useState(
         {
@@ -33,14 +32,14 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
     }, []);
 
     const getNotes = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notes?clientId=${client._id}`)
+        const response = await fetch(`/api/notes?clientId=${client._id}`)
         const data = await response.json()
         setClientNotes(data)
         // console.log(data)
     }
 
     const saveNote = async () => {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notes/`, {
+        await fetch(`/api/notes/`, {
             method: "POST",
             body: JSON.stringify(note),
             headers: {
