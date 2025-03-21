@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import ThemeSwitcher from "..//components/theme-switcher"
+// import ThemeSwitcher from "..//components/theme-switcher"
 import NavigatorSelector from "@/components/NavigatorSelector";
 import NavLeftWithIcons from "@/components/nav-left-with-icons";
 
@@ -24,7 +24,7 @@ export default function LeftNavEntire({searchTerm, setSearchTerm, status, setSta
 
             <div className={`mb-6`}>
                 <NavigatorSelector/>
-                <ThemeSwitcher/>
+                {/*<ThemeSwitcher/>*/}
             </div>
 
         </div>
