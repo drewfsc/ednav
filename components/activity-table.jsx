@@ -88,8 +88,8 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
                                         return prevState === i+1 ? 0 : i+1;
                                     })
                                 }} className={`hover:bg-accent/60 hover:text-accent-content ${openNote === i+1 ? `bg-accent text-accent-content` : ``}} cursor-pointer flex divide-x divide-base-content/5 border-b border-base-300`}>
-                                    <div className={`w-1/5 pl-6 py-2`}>{action?.who}</div>
-                                    <div className={`w-1/5 pl-6 py-2`}>{action?.what}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{action?.who || action?.fep}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{action?.what || action?.path}</div>
                                     <div className={`w-1/5 pl-6 py-2`}>{moment(action?.when).format("M/D/Y")}</div>
                                     <div className={`w-1/5 pl-6 py-2`}>{action?.where}</div>
                                     <div className={`w-1/5 pl-6 py-2`}>{clientNotes.filter(note => note.activityId === action._id).length}</div>
