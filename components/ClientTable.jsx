@@ -4,7 +4,7 @@ import { useClients } from "@/contexts/ClientsContext";
 
 export default function ClientTable({ setEditing, userClients }) {
     const [isMounted, setIsMounted] = useState(false);
-    const { selectedClient, setSelectedClient } = useClients(null);
+    const {selectedClient, setSelectedClient} = useClients(null);
     const [selectedNavigator, setSelectedNavigator] = useState("");
 
     useEffect(() => {
@@ -54,6 +54,7 @@ export default function ClientTable({ setEditing, userClients }) {
                                             setEditing(null);
                                         } else {
                                             setSelectedClient(person);
+                                            setEditing(true);
                                         }
                                     }} className={`hover:bg-accent hover:text-accent-content cursor-pointer ${selectedClient?._id === person._id ? 'bg-accent text-accent-content' : ''}`}>
                                         <td className="whitespace-nowrap text-sm font-medium">

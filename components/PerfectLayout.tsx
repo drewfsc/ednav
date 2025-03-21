@@ -107,7 +107,7 @@ export default function PerfectLayout({
                     </NavigatorProvider>
                 </div>
                 <div className={`bg-base-200 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen `}>
-                    <ClientTable userClients={userClients} setEditing={undefined}/>
+                    <ClientTable userClients={userClients} setEditing={setEditing}/>
                 </div>
                 <div className={"max-h-full flex-1"}>
                     <main className="h-full flex">
@@ -116,7 +116,7 @@ export default function PerfectLayout({
                                 className={`absolute top-0 left-0 bg-base-100 z-30 w-full h-full transform duration-500  ${editing ? '' : 'translate-x-[1800px] '}`}>
                                 <div className={``}>
                                     {
-                                        selectedClient && <ClientProfile setEditing={setEditing} selectedNavigator={selectedNavigator} client={selectedClient}/>
+                                        selectedClient && <ClientProfile setEditing={setEditing} client={selectedClient}/>
                                     }
 
                                 </div>

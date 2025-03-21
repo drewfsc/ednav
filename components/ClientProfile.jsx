@@ -8,7 +8,18 @@ import {ChevronDown} from "lucide-react";
 
 const getClientActionsUrl = (clientId) => `/api/activities?clientId=${clientId}`;
 
-export default function ClientProfile({client, selectedNavigator, setEditing}) {
+export default function ClientProfile({client, setEditing}) {
+    const [isMounted, setIsMounted] = useState(false);
+    const [selectedNavigator, setSelectedNavigator] = useState("");
+
+    useEffect(() => {
+        setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
+        if (typeof window !== "undefined") {
+            const storedNavigator = localStorage.getItem("navigatorName") || "";
+            setSelectedNavigator(storedNavigator);
+        }
+    }, [selectedNavigator]);
+
     const [loading, setLoading] = useState(true);
     const [actions, setActions] = useState([]);
     const {selectedClient, setSelectedClient} = useClients();
@@ -42,6 +53,13 @@ export default function ClientProfile({client, selectedNavigator, setEditing}) {
         {name: 'Profile', href: '#', icon: User, current: true},
         {name: 'Activity', href: '#', icon: Heart, current: false},
     ]
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    // ✅ Prevent hydration mismatch by rendering only after mount
+    if (!isMounted) return null;
 
     return (
         <div className="w-full px-5 h-screen overflow-y-scroll relative">
