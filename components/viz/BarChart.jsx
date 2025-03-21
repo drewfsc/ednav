@@ -31,12 +31,13 @@ const chartData = [
 
 const chartConfig = {
     desktop: {
-        label: "Desktop",
-        color: "hsl(var(--chart-1))",
+        label: "Clients",
+        color: "hsl(var(--chart-4))",
     },
 }
 
-export function BarChartt() {
+export function BarChartt({metrics}) {
+    console.log(metrics)
     return (
         <div className={`border`}>
             <CardHeader>
@@ -48,7 +49,7 @@ export function BarChartt() {
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="region"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}

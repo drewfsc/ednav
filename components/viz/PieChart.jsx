@@ -17,42 +17,39 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import moment from "moment";
-const chartData = [
-    { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-    { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-    { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-    { browser: "other", visitors: 190, fill: "var(--color-other)" },
-]
+// const chartData = [
+//     { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
+//     { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+//     { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
+//     { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
+//     { browser: "other", visitors: 190, fill: "var(--color-other)" },
+// ]
 const chartConfig = {
-    visitors: {
-        label: "Visitors",
+    clients: {
+        label: "Clients",
     },
-    chrome: {
-        label: "Chrome",
-        color: "hsl(var(--chart-1))",
+    graduated: {
+        label: "Graduated",
+        color: "hsl(var(--chart-primary))",
     },
-    safari: {
-        label: "Safari",
+    inactive: {
+        label: "Inactive",
         color: "hsl(var(--chart-2))",
     },
-    firefox: {
-        label: "Firefox",
+    active: {
+        label: "Active",
         color: "hsl(var(--chart-3))",
     },
-    edge: {
-        label: "Edge",
+    "in progress": {
+        label: "In Progress",
         color: "hsl(var(--chart-4))",
-    },
-    other: {
-        label: "Other",
-        color: "hsl(var(--chart-5))",
     },
 }
 
-export function PieChartt() {
+export function PieChartt({metrics}) {
+    console.log(metrics.clientStatuses)
     const totalVisitors = React.useMemo(() => {
-        return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
+        return metrics.clientStatuses.reduce((acc, curr) => acc + curr.count, 0)
     }, [])
     return (
         <div className="flex flex-col w-full border">
@@ -72,9 +69,9 @@ export function PieChartt() {
                             content={<ChartTooltipContent hideLabel />}
                         />
                         <Pie
-                            data={chartData}
-                            dataKey="visitors"
-                            nameKey="browser"
+                            data={metrics.clientStatuses}
+                            dataKey="count"
+                            nameKey="_id"
                             innerRadius={50}
                             strokeWidth={6}
                         >

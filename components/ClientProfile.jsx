@@ -5,6 +5,7 @@ import {useClients} from "@/contexts/ClientsContext";
 import ActivityTable from "@/components/ActivityTable";
 import {Heart, User} from "phosphor-react";
 import {ChevronDown} from "lucide-react";
+import {XCircle} from "phosphor-react"
 
 const getClientActionsUrl = (clientId) => `/api/activities?clientId=${clientId}`;
 
@@ -62,25 +63,23 @@ export default function ClientProfile({client, setEditing}) {
     if (!isMounted) return null;
 
     return (
-        <div className="w-full px-5 h-screen overflow-y-scroll relative">
+        <div className="w-full px-5 h-screen overflow-y-scroll no-scrollbar relative">
             <div
-                className={`text-2xl font-extralight absolute p-6 left-0 right-0 bg-secondary text-secondary-content`}>Client
+                className={`text-xl h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 bg-accent text-accent-content`}>Client
                 Profile
+                <div onClick={() => {
+                    setEditing(null)
+                    setSelectedClient(null)
+                }}
+                     className={``}>
+                    <XCircle size={33} color={'#2f2f2f'}/>
+                </div>
+
             </div>
-            <div onClick={() => {
-                setEditing(null)
-                setSelectedClient(null)
-            }}
-                 className={`absolute top-5 right-5 text-2xl font-extralight cursor-pointer py-1 px-3 bg-base-100 rounded-full text-base-content hover:bg-primary hover:accent-primary-content`}>X
-            </div>
+
             <div className="w-full">
                 <div className="w-full ">
                     <div className={`items-center gap-4`}>
-                        <div className={` mb-8`}>
-                            <div className={`text-2xl`}>{client.name}</div>
-                            <div className={` font-normal`}>{client.caseNumber}</div>
-                            <div className={` font-normal`}>{selectedNavigator}</div>
-                        </div>
                         <div className={`px-5`}>
                             <div className="grid grid-cols-1 sm:hidden">
                                 {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}

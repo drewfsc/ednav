@@ -269,6 +269,7 @@ export async function GET(req: Request) {
     // Execute aggregations
     const actionsData = await actionsCollection.aggregate(pipeline).toArray();
     const notesData = await notesCollection.aggregate(notesPipeline).toArray();
+    // const clientStatusData = await clientsCollection.aggregate(clientStatusPipeline).toArray();
     const clientStatusData = await clientsCollection.aggregate(clientStatusPipeline).toArray();
     const clientsReferredData = await clientsCollection.aggregate(clientsReferredPipeline).toArray();
     const graduatedClientsData = await actionsCollection.aggregate(graduatedClientsPipeline).toArray();
@@ -322,7 +323,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
         totalClients: totalClientCount,
         clientsByRegionData,
-        clientStatusBreakdown: clientStatusPercentages,
+        clientStatusBreakdown: clientStatusData,
         clientsReferredPerMonth,
         graduatedClientsPerMonth,
         enrolledClientsPerMonth,

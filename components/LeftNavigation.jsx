@@ -5,7 +5,7 @@ import {useFepsLeft} from "@/contexts/FepsLeftContext";
 import {useLocations} from "@/contexts/LocationsContext";
 
 export default function LeftNavigation() {
-    const {selectedLocation, setSelectedLocation} = useLocations("");
+    const {selectedLocation, setSelectedLocation} = useLocations("Dashboard");
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
     const navMain = [
         {
@@ -63,8 +63,9 @@ export default function LeftNavigation() {
                     navMain.map((item, i) => (
                         <li key={i}>
                             <a onClick={() => {
-                                setSelectedLocation(item.title);
                                 console.log(selectedLocation)
+                                setSelectedLocation(item.title);
+
                             }} className={`hover:bg-accent ${selectedLocation === item.title ? "bg-accent text-accent-content" : ""}`}>{item.title}</a>
                         </li>
                     ))

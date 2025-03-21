@@ -54,14 +54,7 @@ export default function PerfectLayout({
         fetchClients().then(); // Call the function here
     }, []);
 
-    const [, setMetrics] = useState({
-        referrals: [{count: 0}],
-        clients: 0,
-        graduations: [{count: 0}],
-        enrollments: [{count: 0}],
-        clientsPerRegion: [],
-        clientStatuses: []
-    })
+
 
     useEffect(() => {
         setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
@@ -72,36 +65,12 @@ export default function PerfectLayout({
         }
     }, []);
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const [response] = await Promise.all([
-                    fetch("/api/metrics")
-                ])
 
-                const metrics = await response.json()
-
-                setMetrics({
-                    graduations: metrics.graduatedClientsPerMonth,
-                    referrals: metrics.clientsReferredPerMonth,
-                    clients: metrics.totalClients,
-                    enrollments: metrics.enrolledClientsPerMonth,
-                    clientsPerRegion: metrics.clientsByRegion,
-                    clientStatuses: metrics.clientStatusBreakdown
-                })
-            } catch (error) {
-                console.error("Error fetching stats:", error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchStats().then()
-    }, [])
 
     return (
         <div className={`h-screen overflow-hidden flex`}>
             <div className="flex max-h-screen overflow-hidden flex-1 ">
-                <div className={`w-30 md:w-60 border border-base-300`}>
+                <div className={`w-30 md:w-60`}>
                     <NavigatorProvider>
                     <LeftNavEntire/>
                     </NavigatorProvider>
@@ -111,7 +80,7 @@ export default function PerfectLayout({
                 </div>
                 <div className={"max-h-full flex-1"}>
                     <main className="h-full flex">
-                        <div className={`bg-base-100 border-x border-base-300 flex-1 flex flex-col relative overflow-hidden`}>
+                        <div className={`bg-base-100 flex-1 flex flex-col relative overflow-hidden`}>
                             <div
                                 className={`absolute top-0 left-0 bg-base-100 z-30 w-full h-full transform duration-500  ${editing ? '' : 'translate-x-[1800px] '}`}>
                                 <div className={``}>

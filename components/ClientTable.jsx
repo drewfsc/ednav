@@ -20,13 +20,13 @@ export default function ClientTable({ setEditing, userClients }) {
     const getBadgeColor = (status) => {
         switch (status) {
             case "Active":
-                return "badge badge-primary";
+                return "badge badge-error";
             case "Inactive":
-                return "badge badge-secondary";
-            case "In Progress":
                 return "badge badge-warning";
-            case "Graduated":
+            case "In Progress":
                 return "badge badge-success";
+            case "Graduated":
+                return "badge badge-info";
             default:
                 return "badge badge-primary";
         }
@@ -41,10 +41,13 @@ export default function ClientTable({ setEditing, userClients }) {
 
     return (
         <div className="flex-1">
-            <div className="mt-2 overflow-y-scroll">
+            <div className="mt-0 overflow-y-scroll no-scrollbar">
                 <div className="h-auto">
-                    <div className="inline-block min-w-full py-0 align-middle ">
-                        <table className="min-w-full divide-y divide-base-300">
+                    <div className="inline-block min-w-full py-0 h-full align-middle relative">
+                        <div className="h-16 font-extralight text-xl fixed top-0 bg-secondary text-secondary-content flex items-center pl-6 w-full shadow-lg">
+                            Add a new client
+                        </div>
+                        <table className="min-w-full divide-y divide-base-300 mt-16">
                             <tbody className="divide-y divide-base-300">
                             {userClients?.length > 0 ? (
                                 userClients?.filter(client => client.navigator === selectedNavigator).map((person, i) => (
@@ -60,7 +63,7 @@ export default function ClientTable({ setEditing, userClients }) {
                                         <td className="whitespace-nowrap text-sm font-medium">
                                             <span className={`ml-4`}>{person.name}</span>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
                                             <div className={`badge ${getBadgeColor(person.clientStatus)}`}>{person.clientStatus}</div>
                                         </td>
                                     </tr>
