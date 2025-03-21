@@ -6,7 +6,6 @@ import {useEditing} from "@/contexts/EditingContext";
 import {useClients} from "@/contexts/ClientsContext";
 import ClientProfile from "@/components/ClientProfile";
 
-const isClient = typeof window !== "undefined";
 
 export default function PerfectLayout({
                                           children,
@@ -14,20 +13,20 @@ export default function PerfectLayout({
   children: React.ReactNode;
 }) {
 
-    const [isClient, setIsClient] = React.useState(false);
+    const [, setIsClient] = React.useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [status, setStatus] = useState("All");
     const [selectedNavigator, setSelectedNavigator] = useState("");
-    const [isMounted, setIsMounted] = useState(false);
+    const [, setIsMounted] = useState(false);
     const {editing, setEditing} = useEditing()
-    const [loading, setLoading] = useState(true)
-    const { selectedClient, setSelectedClient } = useClients();
+    const [, setLoading] = useState(true)
+    const { selectedClient } = useClients();
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
-    const [metrics, setMetrics] = useState({
+    const [, setMetrics] = useState({
         referrals: [{count: 0}],
         clients: 0,
         graduations: [{count: 0}],
