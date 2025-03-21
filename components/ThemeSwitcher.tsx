@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useThemes } from "@/contexts/ThemesContext";
 
 // List of available DaisyUI themes
-const themes = ["light", "dark", "abyss", "silk", "autumn", "garden"];
+const themes = ["dim", "nord"];
 
 export default function ThemeSwitcher() {
     // Load theme index from localStorage OR default to "light"
@@ -16,7 +16,7 @@ export default function ThemeSwitcher() {
         return 0;
     });
 
-    const { selectedTheme, setSelectedTheme } = useThemes() as unknown as {
+    const {setSelectedTheme } = useThemes() as unknown as {
         selectedTheme: string;
         setSelectedTheme: React.Dispatch<React.SetStateAction<string>>;
     };

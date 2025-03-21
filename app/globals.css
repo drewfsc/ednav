@@ -2,8 +2,8 @@
 @import 'react-datepicker/dist/react-datepicker.css';
 
 @plugin "daisyui" {
-    themes: silk --default;
-    /*themes: light, dark, abyss, silk, autumn, garden;*/
+    /*themes: silk --default;*/
+    themes: nord --light, dim --default --prefersDark, abyss, silk, autumn, garden;
 }
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {

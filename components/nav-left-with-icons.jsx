@@ -2,9 +2,10 @@
 import React from 'react';
 import {FileText, GraduationCap, Home} from "lucide-react";
 import {useFepsLeft} from "@/contexts/FepsLeftContext";
+import {useLocations} from "@/contexts/LocationsContext";
 
 export default function NavLeftWithIcons() {
-    // const {selectedLocation, setSelectedLocation} = useLocations("");
+    const {selectedLocation, setSelectedLocation} = useLocations("");
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
     const navMain = [
         {
@@ -36,9 +37,9 @@ export default function NavLeftWithIcons() {
                             <a onClick={() => setSelectedFepLeft(prevState => {
                                 return {
                                     ...prevState,
-                                    status: item !== "All" ? item : ""
+                                    status: item
                                 }
-                            })} className={`hover:bg-accent capitalize ${selectedFepLeft.status === item ? "bg-accent text-accent-content" : ""}`}>{item}</a>
+                            })} className={`hover:bg-accent capitalize ${selectedFepLeft.status === item || selectedFepLeft.status === "" ? "bg-accent text-accent-content" : ''}`}>{item}</a>
                         </li>
                     ))
                 }
@@ -50,7 +51,7 @@ export default function NavLeftWithIcons() {
                             <a onClick={() => setSelectedFepLeft(prevState => {
                                 return {
                                     ...prevState,
-                                    age: item === "All" ? "" : item
+                                    age: item
                                 }
                             })} className={`hover:bg-accent ${selectedFepLeft.age === item ? "bg-accent text-accent-content" : ""}`}>{item}</a>
                         </li>
@@ -61,7 +62,10 @@ export default function NavLeftWithIcons() {
                 {
                     navMain.map((item, i) => (
                         <li key={i}>
-                            <a className={`hover:bg-accent`}>{item.title}</a>
+                            <a onClick={() => {
+                                setSelectedLocation(item.title);
+                                console.log(selectedLocation)
+                            }} className={`hover:bg-accent ${selectedLocation === item.title ? "bg-accent text-accent-content" : ""}`}>{item.title}</a>
                         </li>
                     ))
                 }
