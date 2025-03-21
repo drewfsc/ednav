@@ -3,10 +3,11 @@ import { getCollection } from "/lib/mongodb"
 import { ObjectId } from "mongodb"
 
 export async function GET(request) {
-  const url = new URL(request.url);
-  const {navigator, clientId} = url.searchParams;
+  const url = await new URL(request.url);
+  console.log(url)
+  const {navigator, clientId} = await url.searchParams;
   let clients = [];
-  console.log(navigator, clientId)
+  await  console.log(navigator, clientId)
   try {
     const collection = await getCollection("clients")
     if (navigator) {

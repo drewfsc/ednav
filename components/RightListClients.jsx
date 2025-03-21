@@ -4,21 +4,43 @@ import React, {useEffect, useState} from 'react';
 import ClientTable from "@/components/ClientTable";
 import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
-export default function RightListClients({selectedNavigator}) {
-    const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft("");
+export default function RightListClients() {
+    const {selectedFepLeft} = useFepsLeft("");
     const [clients, setClients] = useState([])
     const [loading, setLoading] = useState(true)
     const [searchTerm] = useState("")
+    const [selectedNavigator, setSelectedNavigator] = useState("")
+    console.log(selectedNavigator)
+
 
     useEffect(() => {
+
+        let navigator
         const fetchClients = async () => {
+             if (typeof window !== "undefined") {
+                navigator = localStorage.getItem("navigatorName") || "";
+                setSelectedNavigator(navigator);
+            }
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?navigator=${selectedNavigator}`)
-                if (response.ok) {
-                    const data = await response.json()
-                    // const chosenClient = data.find((client) => client.name === "")
-                    setClients(data)
+                if (navigator) {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?navigator=${navigator}`)
+                    if (response.ok) {
+                        const data = await response.json()
+                            .then(
+                                (data) => {
+                                    return data.filter((client) => client.navigator === navigator)
+                                })
+                        setClients(data)
+                    }
+                } else {
+
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients`)
+                    if (response.ok) {
+                        const data = await response.json()
+                        setClients(data)
+                    }
                 }
+
             } catch (error) {
                 console.error("Error fetching clients:", error)
             } finally {
