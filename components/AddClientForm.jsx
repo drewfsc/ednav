@@ -1,9 +1,9 @@
 "use client"
 import React, {useEffect, useState} from "react";
-import {adultSchools, youthSchools} from "@/lib/schools";
-import {useClients} from "@/contexts/ClientsContext";
+import {adultSchools, youthSchools} from "/lib/schools";
+import {useClients} from "/contexts/ClientsContext";
 
-const AddClientForm = ({formStuff}) => {
+const AddClientForm = () => {
     const { selectedClient, setSelectedClient } = useClients();
     const [formData, setFormData] = useState({
         first_name: "",

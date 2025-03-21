@@ -1,6 +1,6 @@
 "use client"
 import React, {useEffect, useState} from "react"
-import ClientDescriptionList from "../components/client-description-list";
+import ClientProfileDetails from "./ClientProfileDetails";
 import {useClients} from "@/contexts/ClientsContext";
 import ActivityTable from "@/components/ActivityTable";
 import {Heart, User} from "phosphor-react";
@@ -131,7 +131,7 @@ export default function ClientProfile({client, setEditing}) {
                         </div>
                         <div className={`flex gap-10`}>
                             <div className={`flex-1 ${tabState === "Profile" ? '' : 'hidden'}`}>
-                                <ClientDescriptionList client={client}/>
+                                <ClientProfileDetails client={client}/>
                             </div>
                             <div className={`flex-1 ${tabState === "Activity" ? '' : 'hidden'}`}>
                                 <ActivityTable actions={actions} loading={loading} client={client}

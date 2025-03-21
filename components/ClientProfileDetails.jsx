@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 
-export default function ClientDescriptionList({ client }) {
+export default function ClientProfileDetails({ client }) {
     const [change, setChange] = useState({
         email: client.email,
         phone: client.contactNumber,
