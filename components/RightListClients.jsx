@@ -23,7 +23,7 @@ export default function RightListClients() {
             }
             try {
                 if (navigator) {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?navigator=${navigator}`)
+                    const response = await fetch(`/api/clients?navigator=${navigator}`)
                     if (response.ok) {
                         const data = await response.json()
                             .then(
@@ -34,7 +34,7 @@ export default function RightListClients() {
                     }
                 } else {
 
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients`)
+                    const response = await fetch(`/api/clients`)
                     if (response.ok) {
                         const data = await response.json()
                         setClients(data)
