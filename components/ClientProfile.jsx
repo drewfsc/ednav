@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from "react"
 import ClientDescriptionList from "../components/client-description-list";
 import {useClients} from "@/contexts/ClientsContext";
-import ActivityTable from "@/components/activity-table";
+import ActivityTable from "@/components/ActivityTable";
 import {Heart, User} from "phosphor-react";
 import {ChevronDown} from "lucide-react";
 
@@ -70,7 +70,7 @@ export default function ClientProfile({client, selectedNavigator, setEditing}) {
                                     defaultValue={tabState}
                                     aria-label="Select a tab"
                                     onChange={(e) => setTabState(e.target.value)}
-                                    className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                                    className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 focus:-outline-offset-2 focus:outline-secondary"
                                 >
                                     {tabs.map((tab) => (
                                         <option key={tab.name}>{tab.name}</option>
@@ -92,7 +92,7 @@ export default function ClientProfile({client, selectedNavigator, setEditing}) {
                                                 aria-current={tab.current ? 'page' : undefined}
                                                 className={classNames(
                                                     tab.name === tabState
-                                                        ? 'border-indigo-500 text-indigo-600'
+                                                        ? 'border-accent text-accent'
                                                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                                                     'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium',
                                                 )}
@@ -100,7 +100,7 @@ export default function ClientProfile({client, selectedNavigator, setEditing}) {
                                                 <tab.icon
                                                     aria-hidden="true"
                                                     className={classNames(
-                                                        tab.name === tabState ? 'text-indigo-500' : 'text-gray-400 group-hover:text-gray-500',
+                                                        tab.name === tabState ? 'text-accent' : 'text-gray-400 group-hover:text-base-content',
                                                         '-ml-0.5 mr-2 size-5',
                                                     )}
                                                 />

@@ -1,17 +1,15 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import moment from "moment";
-import {_guidedActivityForm} from "./_guided-activity-form";
 import NoteFeed from "@/components/NoteFeed";
 import MoodSelect from "@/components/MoodSelect";
-import {GuidedActivityForm} from "@/components/guided-activity-form";
 import DynamicSelect from "@/components/DynamicSelect";
 
-export default function ActivityTable({actions, client, fetchActionsData}) {
+export default function ActivityTable({actions, client}) {
     const [openNote, setOpenNote] = useState(0);
     const [clientNotes, setClientNotes] = useState([])
     const [selectedNavigator, setSelectedNavigator] = useState("");
-    const [isMounted, setIsMounted] = useState(false);
+    const [, setIsMounted] = useState(false);
     console.log(selectedNavigator)
     const [note, setNote] = React.useState(
         {
@@ -37,7 +35,6 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
         const response = await fetch(`/api/notes?clientId=${client._id}`)
         const data = await response.json()
         setClientNotes(data)
-        // console.log(data)
     }
 
     const saveNote = async () => {
@@ -47,10 +44,7 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
             headers: {
                 "Content-Type": "application/json"
             }
-
         })
-        // const data = sentNote.JSON()
-        // console.log(data)
     }
 
     const handleNote = () => {
@@ -58,7 +52,6 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
     }
 
     return (
-
         <div className={`flex-1 mt-4`}>
             <div className={`flex justify-start items-center gap-4 mb-6`}>
                 <div className={`text-2xl`}>Activity Log</div>

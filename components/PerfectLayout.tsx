@@ -4,7 +4,7 @@ import RightListClients from "@/components/RightListClients";
 import LeftNavEntire from "@/components/LeftNavEntire";
 import {useEditing} from "@/contexts/EditingContext";
 import {useClients} from "@/contexts/ClientsContext";
-import ClientProfile from "@/components/client-profile";
+import ClientProfile from "@/components/ClientProfile";
 
 const isClient = typeof window !== "undefined";
 
