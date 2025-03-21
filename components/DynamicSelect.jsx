@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {newQuestions} from "/lib/response";
 import { Card, CardContent } from '@/components/ui/card';
+import DatePicker from 'react-datepicker';
 
 const saveSelectionToMongoDB = async (data) => {
     await fetch('/api/activities', {
@@ -20,6 +21,7 @@ const DynamicSelect = ({ client }) => {
     const [multiSelectOptions, setMultiSelectOptions] = useState(null);
     const [multiSelectValues, setMultiSelectValues] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
     useEffect(() => {
         if (client?.group) {
@@ -67,6 +69,7 @@ const DynamicSelect = ({ client }) => {
                 clientEmail: client.email,
                 clientName: client.name,
                 fep: client.fep,
+                selectedDate: selectedDate,  // Include date selection
                 timestamp: new Date(),
             });
         }
@@ -84,12 +87,13 @@ const DynamicSelect = ({ client }) => {
 
     const handleMultiSelectAdvance = async () => {
         const dataToSave = {
-            path: newPath,
-            selection: selectedValue,
+            path: selectedPath,
+            selections: multiSelectValues,
             clientId: client._id,
             clientEmail: client.email,
             clientName: client.name,
             fep: client.fep,
+            selectedDate: selectedDate,  // Include date selection
             timestamp: new Date(),
         };
 
@@ -99,7 +103,7 @@ const DynamicSelect = ({ client }) => {
         setCurrentOptions([]);
         setFinalSelection('Completed Multi-Select');
     }
-
+    const showDatePicker = selectedPath.length === 1; // Show DatePicker only at the beginning
     return (
         <Card className="w-full max-w-md p-4 m-auto mt-5">
             <CardContent>
@@ -108,6 +112,17 @@ const DynamicSelect = ({ client }) => {
                 {selectedPath.length > 0 && (
                     <div className="mb-4 text-sm text-gray-500">
                         <strong>Path:</strong> {selectedPath.join(' > ')}
+                    </div>
+                )}
+
+                {showDatePicker && (
+                    <div className="mt-4">
+                        <h3 className="text-lg font-semibold mb-2">Select Date</h3>
+                        <DatePicker
+                            selected={selectedDate}
+                            onChange={(date) => setSelectedDate(date)}
+                            className="p-2 border rounded"
+                        />
                     </div>
                 )}
 
