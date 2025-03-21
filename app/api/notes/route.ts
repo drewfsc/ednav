@@ -3,7 +3,7 @@ import { getCollection } from "@/lib/mongodb"
 import {ObjectId} from "mongodb";
 
 // GET all notes
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const clientId = url.searchParams.get("clientId")?.split(",") || [];
   const activityId = url.searchParams.get("activityId")?.split(",") || [];
