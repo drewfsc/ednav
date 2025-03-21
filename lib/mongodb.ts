@@ -1,11 +1,11 @@
 import { MongoClient, type Db } from "mongodb"
 
 if (!process.env.MONGODB_URI) {
-  throw new Error("Please add your MongoDB URI to .env.local")
+  throw new Error("Please add your MongoDB URI to .env")
 }
 
 if (!process.env.MONGODB_DB) {
-  throw new Error("Please add your MongoDB Database name to .env.local")
+  throw new Error("Please add your MongoDB Database name to .env")
 }
 
 const uri = process.env.MONGODB_URI

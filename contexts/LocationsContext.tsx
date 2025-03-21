@@ -23,10 +23,10 @@ export const LocationsProvider = ({ children }: { children: ReactNode }) => {
 };
 
 // Custom hook for consuming context
-export const useNLocations = () => {
+export const useLocations = () => {
     const context = useContext(LocationsContext);
     if (!context) {
-        throw new Error("useNavigators must be used within a useNavigators");
+        throw new Error("useLocations must be used within a useLocations");
     }
     return context;
 };

@@ -2,23 +2,22 @@
 import React, {useEffect, useState} from 'react';
 // import {Skeleton} from "@/components/ui/skeleton";
 import ClientTable from "@/components/ClientTable";
+import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
-export default function RightListClients() {
-
+export default function RightListClients({selectedNavigator}) {
+    const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft("");
     const [clients, setClients] = useState([])
     const [loading, setLoading] = useState(true)
     const [searchTerm] = useState("")
-    const [status] = useState("")
-    const [age] = useState("")
 
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await fetch("/api/education-navigators")
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?navigator=${selectedNavigator}`)
                 if (response.ok) {
                     const data = await response.json()
-                    const chosenClient = data.find((client) => client.name === "")
-                    setClients(chosenClient.clients)
+                    // const chosenClient = data.find((client) => client.name === "")
+                    setClients(data)
                 }
             } catch (error) {
                 console.error("Error fetching clients:", error)
@@ -32,8 +31,8 @@ export default function RightListClients() {
     const filteredClients = clients.filter((client) => {
         const searchLower = searchTerm.toLowerCase()
         const matchesSearch = client.name?.toLowerCase().includes(searchLower);
-        const matchesStatus = status ? client.clientStatus === status : true;
-        const matchesAge = age ? client.isYouth.toString() === age : true;
+        const matchesStatus = selectedFepLeft.status ? client.clientStatus === selectedFepLeft.status : true;
+        const matchesAge = selectedFepLeft.age ? client.group === selectedFepLeft.age : true;
         return matchesSearch && matchesStatus && matchesAge;
     })
 

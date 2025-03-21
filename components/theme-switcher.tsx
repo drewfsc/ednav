@@ -31,7 +31,6 @@ export default function ThemeSwitcher() {
 
     return (
         <div>
-            <label htmlFor="theme-select">Theme Selector</label>
             <select
                 name="theme-select"
                 id="theme-select"

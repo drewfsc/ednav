@@ -1,19 +1,24 @@
 import React, {createContext, useContext, useState, ReactNode, SetStateAction, Dispatch} from "react";
 
 type FEP = {
-    "left": boolean,
-    "right": boolean,
+    "searchTerm": string,
+    "age": string,
+    "status": string
 }
 
 type FepsLeftContextType = {
-    selectedFepLeft: FEP | null;
-    setSelectedFepLeft: Dispatch<SetStateAction<FEP | null>>;
+    selectedFepLeft: {
+        "searchTerm": string,
+        "age": string,
+        "status": string
+    };
+    setSelectedFepLeft: Dispatch<SetStateAction<FEP>>;
 };
 
-const FepsLeftContext = createContext<FepsLeftContextType | undefined>(undefined);
+const FepsLeftContext = createContext<FepsLeftContextType | null>(null as FepsLeftContextType | null);
 
 export const FepsLeftProvider = ({ children }: { children: ReactNode }) => {
-    const [selectedFepLeft, setSelectedFepLeft] = useState<FEP | null>(null);
+    const [selectedFepLeft, setSelectedFepLeft] = useState<FEP>({ searchTerm: "", age: "", status: "" });
 
     return (
         <FepsLeftContext.Provider value={{ selectedFepLeft, setSelectedFepLeft }}>

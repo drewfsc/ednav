@@ -1,12 +1,11 @@
 "use client";
 import React from 'react';
 import {FileText, GraduationCap, Home} from "lucide-react";
-import NavigatorSelector from "@/components/NavigatorSelector";
-import {useNLocations} from "@/contexts/LocationsContext";
+import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
 export default function NavLeftWithIcons() {
-    const {selectedLocation, setSelectedLocation} = useNLocations("");
-
+    // const {selectedLocation, setSelectedLocation} = useLocations("");
+    const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
     const navMain = [
         {
             title: "Dashboard",
@@ -25,21 +24,48 @@ export default function NavLeftWithIcons() {
         },
     ]
 
+    const navStatus = ["All", "Active", "In Progress", "Graduated", "Inactive"]
+    const navAgeGroup = ["All", "Adult", "Youth"]
+
     return (
-        <div className={`flex text-sm justify-between items-center w-full h-full mr-8`}>
-            <div className={`flex gap-4`}>
+        <div>
+            <ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">
                 {
-                navMain.map((item) => (
-                    <div onClick={() => {
-                        setSelectedLocation(item.url);
-                    }} key={item}
-                         className={` transition duration-300 border border-base-100 py-1 px-4 rounded hover:bg-base-100 hover:text-white ${item.url === selectedLocation ? 'bg-secondary' : ''}`}>
-                        <a href={item.url} className={`flex w-full text-base-100 `}>{item.title}</a>
-                    </div>
-                ))
-            }
-            </div>
-            <NavigatorSelector/>
+                    navStatus.map((item, i) => (
+                        <li key={i}>
+                            <a onClick={() => setSelectedFepLeft(prevState => {
+                                return {
+                                    ...prevState,
+                                    status: item !== "All" ? item : ""
+                                }
+                            })} className={`hover:bg-accent capitalize ${selectedFepLeft.status === item ? "bg-accent text-accent-content" : ""}`}>{item}</a>
+                        </li>
+                    ))
+                }
+            </ul>
+            <ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">
+                {
+                    navAgeGroup.map((item, i) => (
+                        <li key={i}>
+                            <a onClick={() => setSelectedFepLeft(prevState => {
+                                return {
+                                    ...prevState,
+                                    age: item === "All" ? "" : item
+                                }
+                            })} className={`hover:bg-accent ${selectedFepLeft.age === item ? "bg-accent text-accent-content" : ""}`}>{item}</a>
+                        </li>
+                    ))
+                }
+            </ul>
+            <ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">
+                {
+                    navMain.map((item, i) => (
+                        <li key={i}>
+                            <a className={`hover:bg-accent`}>{item.title}</a>
+                        </li>
+                    ))
+                }
+            </ul>
         </div>
     );
 }

@@ -1,28 +1,30 @@
 "use client"
 import React from 'react';
 import ThemeSwitcher from "..//components/theme-switcher"
-import Image from "next/image";
-import {useNavigators} from "@/contexts/NavigatorsContext";
-import FepsTable from "@/components/feps-table";
+import NavigatorSelector from "@/components/NavigatorSelector";
+import NavLeftWithIcons from "@/components/nav-left-with-icons";
 
-export default function LeftNavEntire() {
-    const {selectedNavigator, setSelectedNavigator} = useNavigators();
+export default function LeftNavEntire({searchTerm, setSearchTerm, status, setStatus}) {
     return (
-        <div className={`flex flex-col justify-between h-full`}>
+        <div className={`flex flex-col h-full justify-between bg-base-200 px-4 pb-8 pt-4 gap-4`}>
             <div>
-                <div
-                    className=" text-6xl border-b-1 border-primary/80 h-30 bg-primary/60 flex items-center justify-center">
-                    <Image src="/EDNAV.png" width={220} height={220} alt="EDNAV"/>
+                <div className={`mb-4`}>
+                    <div className={`text-6xl font-black italic`}>
+                        <span className={`text-accent z-10 relative`}>ED</span><span className={`text-secondary -m-3 z-0 relative`}>NAV</span>
+                    </div>
+                    <div className={`uppercase text-base-content -mt-2 tracking-widest text-lg`}>
+                        Success Tracker
+                    </div>
                 </div>
-                <div className="h-18 bg-primary/80 text-primary-content items-center flex pl-8">
-                    {selectedNavigator}
-                </div>
-                <FepsTable setSelectedNavigator={setSelectedNavigator} selectedNavigator={selectedNavigator} />
+                <input type="text" onChange={(e) => {
+                    setSearchTerm(e.target.value)
+                }} placeholder="Search by name..." className="input w-full mb-4"/>
+                <NavLeftWithIcons searchTerm={searchTerm} setSearchTerm={setSearchTerm} status={status} setStatus={setStatus}/>
             </div>
-            <div className={`mx-10 mb-6`}>
-                <div className={`my-4`}>
-                    <ThemeSwitcher className="w-full block"/>
-                </div>
+
+            <div className={`mb-6`}>
+                <NavigatorSelector/>
+                <ThemeSwitcher/>
             </div>
 
         </div>

@@ -72,14 +72,16 @@ const AddClientForm = ({formStuff}) => {
     ];
 
     useEffect(() => {
-        const fetchData = async () => {
-           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`)
-            const data = await response.json()
-            if(data){
-               setSelectedClient(data)
-            }
-        };
-        fetchData();
+        if(selectedClient){
+            const fetchData = async () => {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`)
+                const data = await response.json()
+                if(data){
+                    setSelectedClient(data)
+                }
+            };
+            fetchData();
+        }
     }, []);
 
     const [errors, setErrors] = useState({});
