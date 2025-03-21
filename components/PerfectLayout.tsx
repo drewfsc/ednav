@@ -41,7 +41,7 @@ export default function PerfectLayout({
                 console.error("Error fetching clients:", error);
             }
         };
-        fetchClients(); // Call the function here
+        fetchClients().then(); // Call the function here
     }, []);
 
     const [, setMetrics] = useState({

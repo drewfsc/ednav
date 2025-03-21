@@ -4,7 +4,7 @@ import {FileText, GraduationCap, Home} from "lucide-react";
 import {useFepsLeft} from "@/contexts/FepsLeftContext";
 import {useLocations} from "@/contexts/LocationsContext";
 
-export default function NavLeftWithIcons() {
+export default function LeftNavigation() {
     const {selectedLocation, setSelectedLocation} = useLocations("");
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
     const navMain = [
