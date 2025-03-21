@@ -19,9 +19,9 @@ export default function PerfectLayout({
     const [status, setStatus] = useState("All");
     const [selectedNavigator, setSelectedNavigator] = useState("");
     const [isMounted, setIsMounted] = useState(false);
-    const {selectedClient} = useClients()
     const {editing, setEditing} = useEditing()
     const [loading, setLoading] = useState(true)
+    const { selectedClient, setSelectedClient } = useClients();
 
     useEffect(() => {
         setIsClient(true);
@@ -84,7 +84,10 @@ export default function PerfectLayout({
                         <div className={`bg-base-100 border-x border-base-300 flex-1 flex flex-col relative overflow-hidden`}>
                             <div
                                 className={`absolute top-0 left-0 bg-base-100 z-30 w-full h-full transform duration-500 p-6  ${editing ? '' : 'translate-x-[1800px] '}`}>
-                                <div onClick={() => (setEditing(null))}
+                                <div onClick={() => {
+                                    setEditing(null)
+                                    setSelectedClient(null)
+                                }}
                                      className={`absolute top-8 right-12 text-2xl font-extralight cursor-pointer py-1 px-3 bg-primary rounded-full text-primary-content`}>X
                                 </div>
                                 <div className={``}>

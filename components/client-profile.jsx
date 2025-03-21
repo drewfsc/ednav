@@ -35,7 +35,7 @@ export default function ClientProfile ({client, selectedNavigator}) {
     }, [client._id]);
 
     return (
-        <div className="w-full px-5 pt-4">
+        <div className="w-full px-5 pt-4 h-screen overflow-y-scroll">
           <div className="w-full">
             <div className="w-full ">
                 <div className={`items-center gap-4`}>
@@ -51,11 +51,6 @@ export default function ClientProfile ({client, selectedNavigator}) {
                 </div>
             </div>
           </div>
-
-          <div className={`p-6`}>
-            <GuidedActivityForm client={selectedClient} onActivityAddedAction={() => fetchActionsData(client._id)}/>
-          </div>
-
         </div>
     )
 }
