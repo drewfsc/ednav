@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {newQuestions} from "/lib/response";
 import { Card, CardContent } from '@/components/ui/card';
 
-const DynamicSelect = () => {
+const saveSelectionToMongoDB = async (data) => {
+    await fetch('/api/activities', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+}
+
+const DynamicSelect = ({ client }) => {
     const [selectedPath, setSelectedPath] = useState([]);
     const [currentOptions, setCurrentOptions] = useState(Object.keys(newQuestions));
     const [currentObject, setCurrentObject] = useState(newQuestions);
@@ -11,35 +21,16 @@ const DynamicSelect = () => {
     const [multiSelectValues, setMultiSelectValues] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
 
-    // const saveSelectionToMongoDB = async (data) => {
-    //     const { MongoClient } = require('mongodb');
-    //
-    //     const uri = "mongodb://localhost:27017"; // Update with your MongoDB connection string
-    //     const client = new MongoClient(uri);
-    //
-    //     try {
-    //         await client.connect();
-    //         const database = client.db('yourDatabaseName'); // Replace with your DB name
-    //         const collection = database.collection('yourCollectionName'); // Replace with your collection name
-    //
-    //         const result = await collection.insertOne(data);
-    //         console.log(`Data saved with ID: ${result.insertedId}`);
-    //     } catch (error) {
-    //         console.error('Failed to save data:', error);
-    //     } finally {
-    //         await client.close();
-    //     }
-    // };
-
-    const saveSelectionToMongoDB = async (data) => {
-        await fetch('/api/activities', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-    }
+    useEffect(() => {
+        if (client?.group) {
+            const autoSelection = client.group.toLowerCase();
+            if (newQuestions[autoSelection]) {
+                setSelectedPath([autoSelection]);
+                setCurrentObject(newQuestions[autoSelection]);
+                setCurrentOptions(Object.keys(newQuestions[autoSelection]));
+            }
+        }
+    }, [client]);
 
     const handleSelectChange = (value) => {
         setSelectedValue(value);
@@ -50,7 +41,7 @@ const DynamicSelect = () => {
 
         const newPath = [...selectedPath, selectedValue];
         setSelectedPath(newPath);
-        setSelectedValue(null);  // Reset selected value for next step
+        setSelectedValue(null);
 
         const newObject = newPath.reduce((acc, key) => (acc && acc[key] ? acc[key] : null), newQuestions);
         setCurrentObject(newObject);
@@ -60,7 +51,7 @@ const DynamicSelect = () => {
 
             if (Object.hasOwn(newObject, 'completed')) {
                 setMultiSelectOptions(newObject.completed);
-                setCurrentOptions([]); // Hide radios, show checkboxes instead
+                setCurrentOptions([]);
             } else {
                 setMultiSelectOptions(null);
                 setCurrentOptions(Object.keys(newObject));
@@ -69,10 +60,13 @@ const DynamicSelect = () => {
             setCurrentOptions([]);
             setFinalSelection(selectedValue);
 
-            // Save single selection to the database
             await saveSelectionToMongoDB({
                 path: newPath,
                 selection: selectedValue,
+                clientId: client._id,
+                clientEmail: client.email,
+                clientName: client.name,
+                fep: client.fep,
                 timestamp: new Date(),
             });
         }
@@ -90,17 +84,22 @@ const DynamicSelect = () => {
 
     const handleMultiSelectAdvance = async () => {
         const dataToSave = {
-            path: selectedPath,
-            selections: multiSelectValues,
+            path: newPath,
+            selection: selectedValue,
+            clientId: client._id,
+            clientEmail: client.email,
+            clientName: client.name,
+            fep: client.fep,
             timestamp: new Date(),
         };
 
         await saveSelectionToMongoDB(dataToSave);
 
-        setMultiSelectOptions(null); // Clear checkboxes
-        setCurrentOptions([]); // Hide options after multi-select
+        setMultiSelectOptions(null);
+        setCurrentOptions([]);
         setFinalSelection('Completed Multi-Select');
     }
+
     return (
         <Card className="w-full max-w-md p-4 m-auto mt-5">
             <CardContent>

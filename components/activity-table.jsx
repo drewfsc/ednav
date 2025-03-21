@@ -62,7 +62,6 @@ export default function ActivityTable({actions, client, fetchActionsData}) {
         <div className={`flex-1 mt-4`}>
             <div className={`flex justify-start items-center gap-4 mb-6`}>
                 <div className={`text-2xl`}>Activity Log</div>
-                <GuidedActivityForm client={client} navigator={"selectedNavigator"} onActivityAddedAction={() => fetchActionsData(client._id)}/>
             </div>
 
             <div className="overflow-x-auto w-full border border-base-300">
