@@ -18,8 +18,8 @@ export default function ClientProfileDetails({ client }) {
         schoolIfEnrolled: client.schoolIfEnrolled,
     });
 
-    const personalFields = ["email", "phone", "dob", "lastGrade"];
-    const organizationFields = ["fep", "referred", "pin", "region", "clientStatus", "transcripts", "officeCity", "group", "schoolIfEnrolled"];
+    const personalFields = ["email", "phone", "dob", "lastGrade", "clientStatus", "transcripts"];
+    const organizationFields = ["fep", "referred", "pin", "region", "officeCity", "group", "schoolIfEnrolled"];
 
     const handleChange = (e) => {
         setChange({...change, [e.target.name]: e.target.value});
@@ -27,11 +27,7 @@ export default function ClientProfileDetails({ client }) {
 
     return (
         <div className="  mb-12 ml-6">
-            <div className={`mt-8 mb-8`}>
-                <div className={`text-2xl`}>{client.name}</div>
-                <div className={` font-normal`}>{client.caseNumber}</div>
-            </div>
-            <div className="flex w-full gap-20">
+            <div className="flex w-full gap-20 mt-6">
                 <div className={`flex-1`}>
                     <div className="font-semibold mb-4">Personal</div>
                     <div className="flex-1 text-sm">

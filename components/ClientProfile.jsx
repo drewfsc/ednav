@@ -65,8 +65,11 @@ export default function ClientProfile({client, setEditing}) {
     return (
         <div className="w-full px-5 h-screen overflow-y-scroll no-scrollbar relative">
             <div
-                className={`text-xl h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 bg-accent text-accent-content`}>Client
-                Profile
+                className={`text-xl h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 bg-accent text-accent-content`}>
+                <div className={`font-medium`}>{selectedClient && selectedClient.name}</div>
+                <div>Case #: {selectedClient && selectedClient.caseNumber}</div>
+                <div>Age Group: {selectedClient && selectedClient.group}</div>
+                <div>Status: {selectedClient && selectedClient.clientStatus}</div>
                 <div onClick={() => {
                     setEditing(null)
                     setSelectedClient(null)
