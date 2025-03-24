@@ -1,5 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import ActivityTable from "@/components/ActivityTable";
+import {useClients} from "@/contexts/ClientsContext";
 
+const getClientActionsUrl = (clientId) => `/api/activities?clientId=${clientId}`;
 
 export default function ClientProfileDetails({ client }) {
     const [change, setChange] = useState({
@@ -20,6 +23,9 @@ export default function ClientProfileDetails({ client }) {
     });
     const [editingPersonal, setEditingPersonal] = useState(false);
     const [editingOrganization, setEditingOrganization] = useState(false);
+    const [actions, setActions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const {selectedClient} = useClients();
 
     const personalFields = ["email", "contactNumber", "dob", "lastGrade", "clientStatus", "transcripts"];
     const organizationFields = ["fep", "referred", "pin", "region", "officeCity", "schoolIfEnrolled"];
@@ -29,7 +35,7 @@ export default function ClientProfileDetails({ client }) {
     }
 
     const handleSubmit = async () => {
-        const savedData = await fetch('/api/clients', {
+        await fetch('/api/clients', {
             method: 'POST',
             body: JSON.stringify(change),
             headers: {
@@ -37,6 +43,26 @@ export default function ClientProfileDetails({ client }) {
             }
         })
     }
+
+    const fetchActionsData = async (clientId) => {
+
+        try {
+            const response = await fetch(getClientActionsUrl(clientId));
+            if (response.ok) {
+                const data = await response.json();
+                setActions(data);
+            }
+        } catch (error) {
+            console.error("Error fetching client activities:", error);
+        }
+    };
+
+    useEffect(() => {
+        setLoading(true);
+        if (selectedClient) {
+            fetchActionsData(client._id).finally(() => setLoading(false));
+        }
+    }, [client._id]);
 
     return (
         <div className="  mb-12 ml-6">
@@ -97,8 +123,12 @@ export default function ClientProfileDetails({ client }) {
                             }
                         </dl>
                     </div>
+
                 </div>
+
             </div>
+            <ActivityTable actions={actions} loading={loading} client={client}
+                           onActivityAddedAction={fetchActionsData}/>
         </div>
     );
 }
