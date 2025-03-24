@@ -1,13 +1,13 @@
 "use client";
 import React, {useEffect, useState} from "react"
-import {LineChartt} from "@/components/viz/LineChart"
-import {BarChartt} from "@/components/viz/BarChart"
-import {PieChartt} from "@/components/viz/PieChart"
-import {InteractiveLineChart} from "@/components/viz/InteractiveLineChart";
+// import {LineChartt} from "@/components/viz/LineChart"
+// import {BarChartt} from "@/components/viz/BarChart"
+// import {PieChartt} from "@/components/viz/PieChart"
+// import {InteractiveLineChart} from "@/components/viz/InteractiveLineChart";
 import {SignOut} from "phosphor-react"
 
 export default function DashboardPage() {
-    const [metrics, setMetrics] = useState({
+    const [, setMetrics] = useState({
         referrals: [{count: 0}],
         clients: 0,
         graduations: [{count: 0}],
@@ -58,14 +58,15 @@ export default function DashboardPage() {
               <SignOut size={28} onClick={() => {}}/>
           </div>
           <div className={`grid grid-cols-3 py-4 px-4`}>
-              <div className={`col-span-3  md:col-span-1`}><BarChartt metrics={metrics}/></div>
-              <div className={` md:col-span-1`}><PieChartt metrics={metrics}/></div>
-              <div className={`col-span-2 md:col-span-1`}><LineChartt/></div>
+              {/*<div className={`col-span-3  md:col-span-1`}><BarChartt metrics={metrics}/></div>*/}
+              {/*<div className={` md:col-span-1`}><PieChartt metrics={metrics}/></div>*/}
+              {/*<div className={`col-span-2 md:col-span-1`}><LineChartt/></div>*/}
           </div>
-          <div className={`px-8`}><InteractiveLineChart/>
-              <InteractiveLineChart/>
-              <InteractiveLineChart/>
-              <InteractiveLineChart/>
+          <div className={`px-8`}>
+              {/*<InteractiveLineChart/>*/}
+              {/*<InteractiveLineChart/>*/}
+              {/*<InteractiveLineChart/>*/}
+              {/*<InteractiveLineChart/>*/}
           </div>
       </div>
   )

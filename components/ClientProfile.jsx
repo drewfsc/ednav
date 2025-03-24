@@ -80,7 +80,7 @@ export default function ClientProfile({client, setEditing}) {
             <div className="w-full">
                 <div className="w-full ">
                     <div className={`items-center gap-4`}>
-                        <div className={`px-5`}>
+                        <div className={`px-5 pt-20`}>
                             <div className="grid grid-cols-1 sm:hidden">
                                 {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
                                 <select
