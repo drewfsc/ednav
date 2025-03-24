@@ -52,9 +52,9 @@ export default function ActivityTable({actions, client}) {
     }
 
     return (
-        <div className={`flex-1 mt-4`}>
+        <div className={`flex-1 mt-8`}>
             <div className={`flex justify-start items-center gap-4 mb-6`}>
-                <div className={`text-2xl`}>Activity Log</div>
+                <div className={`font-bold`}>Activity Log</div>
             </div>
 
             <div className="overflow-x-auto w-full border border-base-300">

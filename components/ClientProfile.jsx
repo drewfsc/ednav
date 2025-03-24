@@ -2,12 +2,7 @@
 import React, {useEffect, useState} from "react"
 import ClientProfileDetails from "./ClientProfileDetails";
 import {useClients} from "@/contexts/ClientsContext";
-// import ActivityTable from "@/components/ActivityTable";
-import {Heart, User} from "phosphor-react";
-// import {ChevronDown} from "lucide-react";
 import {XCircle} from "phosphor-react"
-
-const getClientActionsUrl = (clientId) => `/api/activities?clientId=${clientId}`;
 
 export default function ClientProfile({client, setEditing}) {
     const [isMounted, setIsMounted] = useState(false);
@@ -21,39 +16,8 @@ export default function ClientProfile({client, setEditing}) {
         }
     }, [selectedNavigator]);
 
-    const [, setLoading] = useState(true);
-    const [, setActions] = useState([]);
     const {selectedClient, setSelectedClient} = useClients();
     const [tabState] = useState("Profile");
-
-    function classNames(...classes) {
-        return classes.filter(Boolean).join(' ')
-    }
-
-    const fetchActionsData = async (clientId) => {
-
-        try {
-            const response = await fetch(getClientActionsUrl(clientId));
-            if (response.ok) {
-                const data = await response.json();
-                setActions(data);
-            }
-        } catch (error) {
-            console.error("Error fetching client activities:", error);
-        }
-    };
-
-    useEffect(() => {
-        setLoading(true);
-        if (selectedClient) {
-            fetchActionsData(client._id).finally(() => setLoading(false));
-        }
-    }, [client._id]);
-
-    const tabs = [
-        {name: 'Profile', href: '#', icon: User, current: true},
-        {name: 'Activity', href: '#', icon: Heart, current: false},
-    ]
 
     useEffect(() => {
         setIsMounted(true);
