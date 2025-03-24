@@ -64,8 +64,6 @@ export default function PerfectLayout({
         }
     }, []);
 
-
-
     return (
         <div className={`h-screen overflow-hidden flex`}>
             <div className="flex max-h-screen overflow-hidden flex-1 ">
@@ -75,7 +73,9 @@ export default function PerfectLayout({
                     </NavigatorProvider>
                 </div>
                 <div className={`bg-base-200 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen `}>
+                    <NavigatorProvider>
                     <ClientTable userClients={userClients} setEditing={setEditing}/>
+                    </NavigatorProvider>
                 </div>
                 <div className={"max-h-full flex-1"}>
                     <main className="h-full flex">

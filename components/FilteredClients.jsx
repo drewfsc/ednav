@@ -12,7 +12,7 @@ const FilteredClients = () => {
     const [clients, setClients] = useState([]);
     const [selectedNavigator, setSelectedNavigator] = useState('');
     const [loading, setLoading] = useState(false);
-    const {selectedFepLeft} = useFepsLeft({ status: "All", age: "All"});
+    const {selectedFepLeft} = useFepsLeft();
 
     useEffect(() => {
         const fetchClients = async () => {

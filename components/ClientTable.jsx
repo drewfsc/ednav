@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useClients } from "@/contexts/ClientsContext";
+import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
 export default function ClientTable({ setEditing, userClients }) {
     const [isMounted, setIsMounted] = useState(false);
@@ -20,17 +21,25 @@ export default function ClientTable({ setEditing, userClients }) {
     const getBadgeColor = (status) => {
         switch (status) {
             case "Active":
-                return "badge badge-error";
+                return "badge badge-error text-error-content px-3";
             case "Inactive":
-                return "badge badge-warning";
+                return "badge badge-warning text-warning-content px-3";
             case "In Progress":
-                return "badge badge-success";
+                return "badge badge-success text-success-content px-3";
             case "Graduated":
-                return "badge badge-info";
+                return "badge badge-info text-info-content px-3";
             default:
-                return "badge badge-primary";
+                return "badge badge-primary text-primary-content px-3";
         }
     }
+
+    const {selectedFepLeft} = useFepsLeft();
+    const filteredClients = userClients.filter(client => {
+        const matchesSearch = client.name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
+        const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
+        const matchesGroup = selectedFepLeft.age === 'All' || client.group === selectedFepLeft.age;
+        return matchesSearch && matchesStatus && matchesGroup;
+    });
 
     useEffect(() => {
         setIsMounted(true);
@@ -49,8 +58,8 @@ export default function ClientTable({ setEditing, userClients }) {
                         </div>
                         <table className="min-w-full divide-y divide-base-300 mt-16">
                             <tbody className="divide-y divide-base-300">
-                            {userClients?.length > 0 ? (
-                                userClients?.filter(client => client.navigator === selectedNavigator).map((person, i) => (
+                            {filteredClients?.length > 0 ? (
+                                filteredClients?.filter(client => client.navigator === selectedNavigator).map((person, i) => (
                                     <tr key={person.email + i}  onClick={() => {
                                         if (selectedClient?._id === person._id) {
                                             setSelectedClient(null);
