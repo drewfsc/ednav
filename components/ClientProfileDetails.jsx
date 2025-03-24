@@ -76,7 +76,7 @@ export default function ClientProfileDetails({ client }) {
                         else {
                             setEditingPersonal(true);
                         }
-                    }} className={`font-normal underline text-accent`}>{editingPersonal ? 'Save' : 'Edit'}</span></div>
+                    }} className={`font-normal underline text-accent cursor-pointer`}>{editingPersonal ? 'Save' : 'Edit'}</span></div>
                     <div className="flex-1 text-sm">
                         <dl className="divide-y divide-base-content/20 w-full">
                             {
@@ -104,7 +104,7 @@ export default function ClientProfileDetails({ client }) {
                         else {
                             setEditingOrganization(true);
                         }
-                    }} className={`font-normal underline text-accent`}>{editingOrganization ? 'Save' : 'Edit'}</span></div>
+                    }} className={`font-normal underline text-accent cursor-pointer`}>{editingOrganization ? 'Save' : 'Edit'}</span></div>
                     <div className="text-sm w-full">
                         <dl className="divide-y divide-base-content/20">
                             {
