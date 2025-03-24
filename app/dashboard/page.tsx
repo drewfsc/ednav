@@ -53,7 +53,7 @@ export default function DashboardPage() {
 
   return (
       <div className={`dashboard-viz flex-col overflow-y-scroll no-scrollbar`}>
-          <div className={`px-8 py-4 h-16 bg-info text-info-content flex items-center justify-between text-xl font-extralight`}>
+          <div className={`px-8 py-4 h-16 bg-accent text-accent-content flex items-center justify-between text-xl font-extralight`}>
             Dashboard
               <SignOut size={28} onClick={() => {}}/>
           </div>

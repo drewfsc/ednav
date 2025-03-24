@@ -58,19 +58,19 @@ export default function LeftNavigation() {
                     ))
                 }
             </ul>
-            <ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">
-                {
-                    navMain.map((item, i) => (
-                        <li key={i}>
-                            <a onClick={() => {
-                                console.log(selectedLocation)
-                                setSelectedLocation(item.title);
+            {/*<ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">*/}
+            {/*    {*/}
+            {/*        navMain.map((item, i) => (*/}
+            {/*            <li key={i}>*/}
+            {/*                <a onClick={() => {*/}
+            {/*                    console.log(selectedLocation)*/}
+            {/*                    setSelectedLocation(item.title);*/}
 
-                            }} className={`hover:bg-accent ${selectedLocation === item.title ? "bg-accent text-accent-content" : ""}`}>{item.title}</a>
-                        </li>
-                    ))
-                }
-            </ul>
+            {/*                }} className={`hover:bg-accent ${selectedLocation === item.title ? "bg-accent text-accent-content" : ""}`}>{item.title}</a>*/}
+            {/*            </li>*/}
+            {/*        ))*/}
+            {/*    }*/}
+            {/*</ul>*/}
         </div>
     );
 }
