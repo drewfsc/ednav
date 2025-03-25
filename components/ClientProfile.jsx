@@ -1,27 +1,11 @@
 "use client"
 import React, {useEffect, useState} from "react"
 import ClientProfileDetails from "./ClientProfileDetails";
-import {useClients} from "@/contexts/ClientsContext";
-import {XCircle} from "phosphor-react"
+import ClientProfileHeader from "@/components/ClientProfileHeader";
 
 export default function ClientProfile({client, setEditing}) {
     const [isMounted, setIsMounted] = useState(false);
     const [selectedNavigator, setSelectedNavigator] = useState("");
-
-    const getBGColor = (status) => {
-        switch (status) {
-            case "Active":
-                return "bg-error text-error-content";
-            case "Inactive":
-                return "bg-warning text-warning-content";
-            case "In Progress":
-                return "bg-success text-success-content";
-            case "Graduated":
-                return "bg-info text-info-content";
-            default:
-                return "bg-primary text-primary-content";
-        }
-    }
 
     useEffect(() => {
         setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
@@ -31,7 +15,7 @@ export default function ClientProfile({client, setEditing}) {
         }
     }, [selectedNavigator]);
 
-    const {selectedClient, setSelectedClient} = useClients();
+
     const [tabState] = useState("Profile");
 
     useEffect(() => {
@@ -43,21 +27,7 @@ export default function ClientProfile({client, setEditing}) {
 
     return (
         <div className="w-full px-5 h-screen overflow-y-scroll no-scrollbar relative">
-            <div
-                className={`text-xl h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 ${getBGColor(selectedClient.clientStatus)} text-accent-content`}>
-                <div className={`font-medium`}>{selectedClient && selectedClient.name}</div>
-                <div>Case #: {selectedClient && selectedClient.caseNumber}</div>
-                <div>Age Group: {selectedClient && selectedClient.group}</div>
-                <div>Status: {selectedClient && selectedClient.clientStatus}</div>
-                <div onClick={() => {
-                    setEditing(null)
-                    setSelectedClient(null)
-                }}
-                     className={``}>
-                    <XCircle size={33} color={'#2f2f2f'}/>
-                </div>
-            </div>
-
+            <ClientProfileHeader setEditing={setEditing} client={client}/>
             <div className="w-full">
                 <div className="w-full ">
                     <div className={`items-center gap-4`}>
