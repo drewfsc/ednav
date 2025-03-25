@@ -9,7 +9,7 @@ export default function ClientTable({setEditing, userClients}) {
     const [isMounted, setIsMounted] = useState(false);
     const [selectedNavigator, setSelectedNavigator] = useState("");
     const [grouped, setGrouped] = useState(false);
-    const [tableClients, setTableClients] = useState(userClients.filter(client => client.navigator === selectedNavigator).length);
+    const [, setTableClients] = useState(userClients.filter(client => client.navigator === selectedNavigator).length);
 
     const handleGroupChange = () => {
         setGrouped(!grouped);
@@ -47,7 +47,13 @@ export default function ClientTable({setEditing, userClients}) {
 
     const {selectedFepLeft} = useFepsLeft();
     const filteredClients = userClients.filter(client => client.navigator === selectedNavigator).filter(client => {
-        const matchesSearch = client.name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
+        let currentName;
+        if (!client.name){
+            currentName = client.firstName + " " + client.lastName;
+        } else {
+            currentName = client.name;
+        }
+        const matchesSearch = currentName.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
         const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
         const matchesGroup = selectedFepLeft.age === 'All' || client.group === selectedFepLeft.age;
         return matchesSearch && matchesStatus && matchesGroup;
@@ -70,7 +76,7 @@ export default function ClientTable({setEditing, userClients}) {
                 <div className="h-auto">
                     <div className="inline-block min-w-full py-0 h-full align-middle relative">
                         <div
-                            className="h-16 fixed top-0 bg-base-300 text-base-content flex justify-between items-center px-6 w-full">
+                            className="h-16 fixed top-0 bg-base-300 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
                             <div>
                                 <span className={`font-bold`} >{filteredClients
                                     .filter(client => client.navigator === selectedNavigator)
@@ -80,8 +86,8 @@ export default function ClientTable({setEditing, userClients}) {
                             </div>
                             <div>
                                 <div className={`cursor-pointer`} onClick={handleGroupChange}>
-                                    <ToggleGroup className={` px-3 py-1 rounded border ${grouped ? 'border-error text-error' : 'border-base-content/30 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
-                                    <GroupIcon className={`w-6 h-6 `} /><span>{grouped ? 'Grouped' : 'Group'}</span>
+                                    <ToggleGroup className={` px-3 py-1 rounded-full border ${grouped ? 'border-error text-error' : 'border-base-content/30 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
+                                    <GroupIcon className={`w-6 h-6 `} /><span>{grouped ? 'Group' : 'Group'}</span>
                                 </ToggleGroup></div>
                             </div>
                         </div>
@@ -94,7 +100,7 @@ export default function ClientTable({setEditing, userClients}) {
                                             <td colSpan="5" className="py-2 px-4 font-bold">{status} ({clients.length})</td>
                                         </tr>
                                         {clients.map((person, i) => (
-                                            <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing}/>
+                                            <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} />
                                         ))}
                                     </React.Fragment>
                                 ))

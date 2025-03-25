@@ -6,7 +6,7 @@ import LeftNavigation from "@/components/LeftNavigation";
 import {LocationsProvider} from "@/contexts/LocationsContext";
 import {useFepsLeft} from "@/contexts/FepsLeftContext";
 
-export default function LeftNavEntire() {
+export default function LeftNavEntire({ setEditing}) {
     const {setSelectedFepLeft} = useFepsLeft();
     return (
         <div className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-4 gap-4 drop-shadow-lg z-50  relative`}>
@@ -28,7 +28,7 @@ export default function LeftNavEntire() {
                     })
                 }} placeholder="Search by name..." className="input w-full mb-4"/>
                 <LocationsProvider>
-                <LeftNavigation/>
+                <LeftNavigation setEditing={setEditing}/>
                 </LocationsProvider>
             </div>
 

@@ -1,10 +1,10 @@
 "use client"
 import React, {useEffect, useState} from "react";
 import {adultSchools, youthSchools} from "/lib/schools";
-import {useClients} from "/contexts/ClientsContext";
-
-const AddClientForm = () => {
-    const { selectedClient, setSelectedClient } = useClients();
+import {XCircle} from "phosphor-react";
+const AddClientForm = ({setEditing, setOpen}) => {
+    const [feps, setFeps] = useState([]);
+    const [navigators, setNavigators] = useState([]);
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
@@ -13,12 +13,13 @@ const AddClientForm = () => {
         caseNumber: "",
         dob: "",
         fep: "",
+        navigator: "",
         dateReferred: "",
         lastGrade: "",
         hadOrientation: false,
         pin: "",
         region: "",
-        clientStatus: "",
+        clientStatus: "Active",
         reasonForInactive: false,
         tabe: false,
         transcripts: false,
@@ -46,17 +47,6 @@ const AddClientForm = () => {
         "Waushara",
         "Winnebago",
         "Wood"]
-    const statuses = ["Active", "Inactive", "Graduated", "In Progress"]
-    const reasonForInactive = [
-        "W-2 Case Closed",
-        "Graduated",
-        "Participant Declined Assistance",
-        "Participant Request (Barriers)",
-        "No contact with EN for 60 days",
-        "Participant request (Employment)",
-        "Participant decline prior to meeting EN",
-        "No show to warm hand off 3x",
-    ]
     const lastGradeCompletedOptions = [
         "5th",
         "6th",
@@ -71,24 +61,33 @@ const AddClientForm = () => {
         "No Formal Education"
     ];
 
-    useEffect(() => {
-        if(selectedClient){
-            const fetchData = async () => {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`)
-                const data = await response.json()
-                if(data){
-                    setSelectedClient(data)
-                }
-            };
-            fetchData();
+    const fetchFeps = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/feps`)
+        const data = await response.json()
+        if(data){
+            setFeps(data)
         }
+    }
+
+    const fetchNavigators = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/education-navigators`)
+        const data = await response.json()
+        if(data){
+            setNavigators(data)
+        }
+    }
+
+    useEffect(() => {
+        fetchFeps().then();
+        fetchNavigators().then();
+        console.log(navigators)
     }, []);
 
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
     async function postData() {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients?clientId=${selectedClient._id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -96,17 +95,19 @@ const AddClientForm = () => {
             body: JSON.stringify(formData),
         })
         const data = await response.json()
+        if(data){
+            setOpen(true)
+            setEditing(false)
+            setTimeout(() => {
+                setOpen(false)
+            }, 7000)
+        }
         console.log(data)
     }
 
     // Handle input change
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    // Handle toggle change
-    const handleToggle = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.checked });
     };
 
     // Validate required fields
@@ -133,15 +134,16 @@ const AddClientForm = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            alert("Client saved successfully!");
         }, 2000); // Simulate API call
     };
 
     return (
-        <div className="p-4 space-y-4">
-            <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-3 gap-4">
+        <div className="px-10 py-6 space-y-4 relative">
+            <div className="flex justify-between items-center text-2xl font-light">Add a Client</div>
+            <div onClick={() => setEditing(false)} className="absolute top-6 right-10"><XCircle size={36}/></div>
+            <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-6 gap-4">
 
-                <div className="flex w-full flex-col col-span-3">
+                <div className="flex w-full flex-col col-span-6">
                     <div className="divider">Personal</div>
                 </div>
 
@@ -152,7 +154,7 @@ const AddClientForm = () => {
                     placeholder="First Name"
                     value={formData.first_name}
                     onChange={handleChange}
-                    className="input  border p-2 rounded-md"
+                    className="input col-span-2 w-full border p-2 rounded-md"
                 />
                 {errors.first_name && <p className="text-red-500">{errors.first_name}</p>}
 
@@ -163,9 +165,17 @@ const AddClientForm = () => {
                     placeholder="Last Name"
                     value={formData.last_name}
                     onChange={handleChange}
-                    className="input border p-2 rounded-md"
+                    className="input col-span-2 w-full border p-2 rounded-md"
                 />
                 {errors.last_name && <p className="text-red-500">{errors.last_name}</p>}
+
+                {/* Age group */}
+                <select name="group" value={formData.group} onChange={handleChange} className="select border p-2 rounded-md ">
+                    <option value="">Age group</option>
+                    <option>Adult</option>
+                    <option>Youth</option>
+                </select>
+                {errors.group && <p className="text-red-500">{errors.group}</p>}
 
                 {/* Date of Birth */}
                 <input
@@ -184,32 +194,20 @@ const AddClientForm = () => {
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="input  border p-2 rounded-md"
+                    className="input col-span-2 w-full border p-2 rounded-md"
                 />
                 {errors.email && <p className="text-red-500">{errors.email}</p>}
 
                 {/* Contact Number */}
                 <input
-                    type="text"
+                    type="tel"
                     name="contactNumber"
                     placeholder="Contact Number"
                     value={formData.contactNumber}
                     onChange={handleChange}
-                    className="input  border p-2 rounded-md"
+                    className="input col-span-2 w-full border p-2 rounded-md"
                 />
                 {errors.contactNumber && <p className="text-red-500">{errors.contactNumber}</p>}
-
-                {/* Age group */}
-                <select name="group" value={formData.group} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select age group</option>
-                    <option>Adult</option>
-                    <option>Youth</option>
-                </select>
-                {errors.group && <p className="text-red-500">{errors.group}</p>}
-
-                <div className="flex w-full flex-col col-span-3">
-                    <div className="divider">Education</div>
-                </div>
 
                 {/* Last grade */}
                 <select name="lastGrade" value={formData.lastGrade} onChange={handleChange} className="select border p-2 rounded-md ">
@@ -241,30 +239,35 @@ const AddClientForm = () => {
                 </select>
                 {errors.schoolIfEnrolled && <p className="text-red-500">{errors.schoolIfEnrolled}</p>}
 
-                <label className="flex items-center space-x-2 ml-4">
-                    <span>Transcripts?</span>
-                    <input type="checkbox" name="transcripts" checked={formData.transcripts} onChange={handleToggle} className="toggle" />
-                </label>
-                {errors.transcripts && <p className="text-red-500">{errors.transcripts}</p>}
-
-
-
-                <div className="flex w-full flex-col col-span-3">
+                <div className="flex w-full flex-col col-span-6">
                     <div className="divider">Administrative</div>
                 </div>
 
                 {/* FEP */}
-                {/*<select name="fep" value={formData.fep} onChange={handleChange} className="select border p-2 rounded-md ">*/}
-                {/*    <option value="">Select FEP</option>*/}
-                {/*    {*/}
-                {/*        formStuff.feps.map((fep) => {*/}
-                {/*            return (*/}
-                {/*                <option key={fep.name} value={fep.name}>{fep.name}</option>*/}
-                {/*            )*/}
-                {/*        })*/}
-                {/*    }*/}
-                {/*</select>*/}
+                <select name="fep" value={formData.fep} onChange={handleChange} className="select border p-2 rounded-md ">
+                    <option value="">Select FEP</option>
+                    {
+                       feps.map((fep) => {
+                            return (
+                                <option key={fep.name} value={fep.name}>{fep.name}</option>
+                            )
+                        })
+                    }
+                </select>
                 {errors.fep && <p className="text-red-500">{errors.fep}</p>}
+
+                {/* Navigator */}
+                <select name="navigator" value={formData.navigator} onChange={handleChange} className="select border p-2 rounded-md ">
+                    <option value="">Select Navigator</option>
+                    {
+                        navigators.map((navigator) => {
+                            return (
+                                <option key={navigator.name} value={navigator.name}>{navigator.name}</option>
+                            )
+                        })
+                    }
+                </select>
+                {errors.navigator && <p className="text-red-500">{errors.navigator}</p>}
 
                 {/* Case Number */}
                 <input
@@ -277,16 +280,7 @@ const AddClientForm = () => {
                 />
                 {errors.caseNumber && <p className="text-red-500">{errors.caseNumber}</p>}
 
-                {/* PIN */}
-                <input
-                    type="number"
-                    name="pin"
-                    placeholder="PIN"
-                    value={formData.pin}
-                    onChange={handleChange}
-                    className="input  border p-2 rounded-md"
-                />
-                {errors.pin && <p className="text-red-500">{errors.pin}</p>}
+
 
 
                 {/* Region */}
@@ -301,7 +295,7 @@ const AddClientForm = () => {
                 {errors.region && <p className="text-red-500">{errors.region}</p>}
 
                 {/* Office city */}
-                <select name="officeCity" value={formData.officeCity} onChange={handleChange} className="select border p-2 rounded-md ">
+                <select name="officeCity" value={formData.officeCity} onChange={handleChange} className="select border col-span-2 w-full p-2 rounded-md ">
                     <option value="">Select office location</option>
                     {
                         locations.map((location) => {
@@ -313,9 +307,16 @@ const AddClientForm = () => {
                 </select>
                 {errors.officeCity && <p className="text-red-500">{errors.officeCity}</p>}
 
-                <div className="flex w-full flex-col col-span-3">
-                    <div className="divider">Progress</div>
-                </div>
+                {/* PIN */}
+                <input
+                    type="number"
+                    name="pin"
+                    placeholder="PIN"
+                    value={formData.pin}
+                    onChange={handleChange}
+                    className="input col-span-1 border p-2 rounded-md"
+                />
+                {errors.pin && <p className="text-red-500">{errors.pin}</p>}
 
                 {/* Date referred */}
                 <input
@@ -323,65 +324,17 @@ const AddClientForm = () => {
                     name="dateReferred"
                     value={formData.dateReferred}
                     onChange={handleChange}
-                    className="input  border p-2 rounded-md"
+                    className="input col-span-1 border p-2 rounded-md"
                 />
                 {errors.dateReferred && <p className="text-red-500">{errors.dateReferred}</p>}
 
-                {/* Status */}
-                <select name="clientStatus" value={formData.clientStatus} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select status</option>
-                    {
-                        statuses.map((status) => {
-                            return (
-                                <option key={status} value={status}>{status}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.clientStatus && <p className="text-red-500">{errors.clientStatus}</p>}
-
-                {/* Reason for inactive */}
-                <select name="reasonForInactive" value={formData.reasonForInactive} onChange={handleChange} className="select border p-2 rounded-md " disabled={formData.reasonForInactive !== "Inactive"}>
-                    <option value="">Select reason for inactive</option>
-                    {
-                        reasonForInactive.map((status) => {
-                            return (
-                                <option key={status} value={status}>{status}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.reasonForInactive && <p className="text-red-500">{errors.reasonForInactive}</p>}
-
-
-
-                {/* Yes/No Toggles */}
-                <label className="flex items-center space-x-2">
-                    <span>Had Orientation?</span>
-                    <input type="checkbox" name="hadOrientation" checked={formData.hadOrientation} onChange={handleToggle} className="toggle" />
-                </label>
-                {errors.hadOrientation && <p className="text-red-500">{errors.hadOrientation}</p>}
-
-                <label className="flex items-center space-x-2">
-                    <span>TABE?</span>
-                    <input type="checkbox" name="tabe" checked={formData.tabe} onChange={handleToggle} className="toggle" />
-                </label>
-                {errors.tabe && <p className="text-red-500">{errors.tabe}</p>}
-
-
-
-                <div className="flex w-full flex-col col-span-3">
-                    <div className="divider">Dreams</div>
-                </div>
-
                 {/* TTS dream */}
-                <input
-                    type="text"
+                <textarea
                     name="ttsDream"
                     placeholder="TTS dream"
                     value={formData.ttsDream}
                     onChange={handleChange}
-                    className="input  border p-2 rounded-md"
+                    className="input col-span-4 w-full border p-2 rounded-md"
                 />
                 {errors.ttsDream && <p className="text-red-500">{errors.ttsDream}</p>}
 

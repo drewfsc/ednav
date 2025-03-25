@@ -1,18 +1,18 @@
 import React, {createContext, useContext, useState, ReactNode, SetStateAction, Dispatch} from "react";
 
 type Edit = {
-    editing: boolean,
+    editing: string,
 }
 
 type EditContextType = {
-    editing: false | null;
+    editing: "" | "add-client" | "client";
     setEditing: Dispatch<SetStateAction<Edit | null>>;
 };
 
 const EditingContext = createContext<EditContextType | undefined>(undefined);
 
 export const EditingProvider = ({ children }: { children: ReactNode }) => {
-    const [editing, setEditing] = useState<false | null>(null);
+    const [editing, setEditing] = useState<"" | null>(null);
 
     return (
         // @ts-ignore

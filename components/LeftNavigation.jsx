@@ -1,30 +1,9 @@
 "use client";
 import React from 'react';
-import {FileText, GraduationCap, Home} from "lucide-react";
 import {useFepsLeft} from "@/contexts/FepsLeftContext";
-import {useLocations} from "@/contexts/LocationsContext";
 
-export default function LeftNavigation() {
-    const {selectedLocation, setSelectedLocation} = useLocations("Dashboard");
+export default function LeftNavigation({ setEditing}) {
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
-    const navMain = [
-        {
-            title: "Dashboard",
-            url: "dashboard",
-            icon: Home,
-        },
-        {
-            title: "Navigators",
-            url: "navigators",
-            icon: GraduationCap,
-        },
-        {
-            title: "FEPs",
-            url: "feps",
-            icon: FileText,
-        },
-    ]
-
     const navStatus = [[
         "All",
         "all",
@@ -91,8 +70,10 @@ export default function LeftNavigation() {
             </ul>
             <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
                 <li>
-                    <a onClick={() => setSelectedLocation("Dashboard")}
-                       className={`hover:bg-accent ${selectedLocation === "Dashboard" ? "bg-accent text-accent-content" : ""}`}>Add New Client</a>
+                    <a onClick={() => {
+                        setEditing("add-client")
+                    }}
+                       className={`hover:bg-base-200 `}>Add New Client +</a>
                 </li>
             </ul>
             {/*<ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">*/}

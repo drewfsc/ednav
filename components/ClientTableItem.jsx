@@ -1,7 +1,7 @@
 import React from 'react';
 import {useClients} from "@/contexts/ClientsContext";
 
-export default function ClientTableItem({person, i, setEditing}) {
+export default function ClientTableItem({ person, i, setEditing}) {
 
     const {selectedClient, setSelectedClient} = useClients(null);
 
@@ -39,14 +39,14 @@ export default function ClientTableItem({person, i, setEditing}) {
         <tr key={person.email + i}  onClick={() => {
             if (selectedClient?._id === person._id) {
                 setSelectedClient(null);
-                setEditing(null);
+                setEditing("");
             } else {
                 setSelectedClient(person);
-                setEditing(true);
+                setEditing("client");
             }
         }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer border-l-8 border-base-100 ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
             <td className="whitespace-nowrap text-sm font-medium">
-                <span className={`ml-4`}>{person.name}</span>
+                <span className={`ml-4`}>{!person.name ? person.first_name + " " + person.last_name : person.name}</span>
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
                 <div className={`badge ${getBadgeColor(person.clientStatus)}`}>{person.clientStatus}</div>
