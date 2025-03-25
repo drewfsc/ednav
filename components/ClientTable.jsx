@@ -36,7 +36,10 @@ export default function ClientTable({ setEditing, userClients }) {
                 <div className="h-auto">
                     <div className="inline-block min-w-full py-0 h-full align-middle relative">
                         <div className="h-16 font-extralight text-xl fixed top-0 bg-base-300 text-secondary-content flex items-center pl-6 w-full">
-                            Add a new client
+                            {userClients
+                                .filter(client => client.navigator === selectedNavigator)
+                                .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All" )
+                                .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All" ).length} Clients
                         </div>
                         <table className="min-w-full mt-16">
                             <tbody className="">

@@ -46,7 +46,7 @@ export default function ClientTableItem({person, i, setEditing}) {
             }
         }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer border-l-8 border-base-100 ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
             <td className="whitespace-nowrap text-sm font-medium">
-                <span className={`ml-4`}>{person.name}</span>
+                <span className={`ml-4`}>{person.name} {i}</span>
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
                 <div className={`badge ${getBadgeColor(person.clientStatus)}`}>{person.clientStatus}</div>
