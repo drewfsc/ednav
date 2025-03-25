@@ -69,7 +69,7 @@ export default function PerfectLayout({
     return (
         <div className={`w-full h-screen overflow-hidden relative`}>
             <div className={`fixed bottom-12 right-6 w-[300px] h-[30px] z-50 transition-all duration-300 ease-in-out invisible opacity-0 ${open ? 'visible opacity-100' : ''}`}>
-                <SuccessMessage message={`Client saved successfully.`} open={open} setOpen={setOpen}/>
+                <SuccessMessage message={`Client saved successfully.`} setOpen={setOpen}/>
             </div>
             <div className={`h-screen overflow-hidden flex`}>
 
