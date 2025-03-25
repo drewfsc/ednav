@@ -28,8 +28,8 @@ export default function LeftNavigation() {
     const navStatus = [[
         "All",
         "all",
-        "bg-accent shadow-lg",
-        "hover:bg-accent",
+        "bg-base-300 shadow-lg",
+        "hover:bg-base-200",
     ], [
         "Active",
         "active",
