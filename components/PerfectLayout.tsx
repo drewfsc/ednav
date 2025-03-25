@@ -72,7 +72,7 @@ export default function PerfectLayout({
                     <LeftNavEntire/>
                     </NavigatorProvider>
                 </div>
-                <div className={`bg-base-200 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen `}>
+                <div className={`bg-base-100 w-50 md:w-90 overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg`}>
                     <NavigatorProvider>
                     <ClientTable userClients={userClients} setEditing={setEditing}/>
                     </NavigatorProvider>

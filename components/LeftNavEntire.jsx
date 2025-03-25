@@ -9,7 +9,7 @@ import {useFepsLeft} from "@/contexts/FepsLeftContext";
 export default function LeftNavEntire() {
     const {setSelectedFepLeft} = useFepsLeft();
     return (
-        <div className={`flex flex-col h-full justify-between bg-primary px-4 pb-8 pt-4 gap-4 shadow-2xl `}>
+        <div className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-4 gap-4 drop-shadow-lg z-50  relative`}>
             <div>
                 <div className={`mb-4`}>
                     <div className={`text-6xl font-black italic`}>
