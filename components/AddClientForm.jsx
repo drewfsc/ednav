@@ -70,7 +70,7 @@ const AddClientForm = ({setEditing, setOpen}) => {
     }
 
     const fetchNavigators = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/education-navigators`)
+        const response = await fetch(`/api/education-navigators`)
         const data = await response.json()
         if(data){
             setNavigators(data)
@@ -87,7 +87,7 @@ const AddClientForm = ({setEditing, setOpen}) => {
     const [loading, setLoading] = useState(false);
 
     async function postData() {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/clients`, {
+        const response = await fetch(`/api/clients`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
