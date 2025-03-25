@@ -16,6 +16,12 @@
     }
 }
 
+@layer utilities {
+    .pause {
+        animation-play-state: paused;
+    }
+}
+
 .dashboard-viz div,
 .dashboard-viz svg {
     border: none;

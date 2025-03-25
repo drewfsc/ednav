@@ -10,6 +10,9 @@ export default {
       import("daisyui"),
       plugin(function({ addUtilities }) {
         addUtilities({
+          ".pause": {
+            animationPlayState: "paused",
+          },
           /* Chrome, Safari and Opera */
           ".scrollbar-hidden::-webkit-scrollbar": {
             display: "none",
@@ -17,7 +20,7 @@ export default {
           ".scrollbar-hidden": {
             "scrollbar-width": "none" /* Firefox */,
             "-ms-overflow-style": "none" /* IE and Edge */,
-          }
+          },
         })
       })
   ],

@@ -5,6 +5,8 @@ import React, {useEffect, useState} from "react"
 // import {PieChartt} from "@/components/viz/PieChart"
 // import {InteractiveLineChart} from "@/components/viz/InteractiveLineChart";
 import {SignOut} from "phosphor-react"
+import BentoHome from "@/components/BentoHome";
+import MetricsHome from "@/components/MetricsHome";
 
 export default function DashboardPage() {
     const [, setMetrics] = useState({
@@ -57,6 +59,8 @@ export default function DashboardPage() {
             Dashboard
               <SignOut size={28} onClick={() => {}}/>
           </div>
+          <MetricsHome/>
+          <BentoHome/>
           <div className={`grid grid-cols-3 py-4 px-4`}>
               {/*<div className={`col-span-3  md:col-span-1`}><BarChartt metrics={metrics}/></div>*/}
               {/*<div className={` md:col-span-1`}><PieChartt metrics={metrics}/></div>*/}
