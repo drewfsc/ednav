@@ -96,7 +96,7 @@ export default function ClientTable({setEditing, userClients}) {
                             {grouped ? (
                                 Object.entries(groupedClients).map(([status, clients], idx) => (
                                     <React.Fragment key={status}>
-                                        <tr className="bg-gray-200">
+                                        <tr className="bg-gray-200 border-l-6 border-l-base-200 border-b-1 border-b-base-300">
                                             <td colSpan="5" className="py-2 px-4 font-bold">{status} ({clients.length})</td>
                                         </tr>
                                         {clients.map((person, i) => (

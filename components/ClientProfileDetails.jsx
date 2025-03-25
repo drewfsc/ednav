@@ -27,8 +27,8 @@ export default function ClientProfileDetails({ client }) {
     const [loading, setLoading] = useState(true);
     const {selectedClient} = useClients();
 
-    const personalFields = ["email", "contactNumber", "dob", "lastGrade", "clientStatus", "transcripts"];
-    const organizationFields = ["fep", "referred", "pin", "region", "officeCity", "schoolIfEnrolled"];
+    const personalFields = ["email", "contactNumber", "dob", "lastGrade", "schoolIfEnrolled"];
+    const organizationFields = ["fep", "dateReferred", "pin", "region", "officeCity", "clientStatus"];
 
     const handleChange = (e) => {
         setChange({...change, [e.target.name]: e.target.value});
