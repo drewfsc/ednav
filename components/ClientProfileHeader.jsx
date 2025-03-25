@@ -22,7 +22,7 @@ export default function ClientProfileHeader({setEditing}) {
     return (
         <div
             className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg ${getBGColor(selectedClient.clientStatus)} text-accent-content`}>
-            <div className={`w-2/3 flex justify-between gap-8 items-center`}>
+            <div className={`w-4/5 flex justify-between gap-4 items-center`}>
                 <div
                     className={`-mt-[4px] py-0 text-3xl`}>{selectedClient && !selectedClient.name ? selectedClient.first_name + " " + selectedClient.last_name : selectedClient.name}</div>
                 <div><span className={`font-medium`}>Case: </span>{selectedClient && selectedClient.caseNumber}</div>

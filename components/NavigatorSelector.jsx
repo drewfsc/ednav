@@ -10,7 +10,8 @@ function NavigatorSelector() {
         "Rachael Banerdt",
         "Morgan Sole",
         "Kecia Thompson-Gorgon",
-        "Drew McCauley"
+        "Drew McCauley",
+        "Sara Jackson"
     ];
 
     const [isMounted, setIsMounted] = useState(false);

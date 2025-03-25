@@ -62,7 +62,7 @@ export default function ClientProfileDetails({ client }) {
         if (selectedClient) {
             fetchActionsData(client._id).finally(() => setLoading(false));
         }
-    }, [client._id]);
+    }, [client._id, loading, setLoading]);
 
     return (
         <div className="  mb-12 ml-6">
@@ -127,7 +127,7 @@ export default function ClientProfileDetails({ client }) {
                 </div>
 
             </div>
-            <ActivityTable actions={actions} loading={loading} client={client}
+            <ActivityTable actions={actions} loading={loading} setLoading={setLoading} client={client}
                            onActivityAddedAction={fetchActionsData}/>
         </div>
     );

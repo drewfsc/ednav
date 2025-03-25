@@ -2,14 +2,16 @@
 import React, {useEffect, useState} from 'react';
 import moment from "moment";
 import NoteFeed from "@/components/NoteFeed";
-import MoodSelect from "@/components/MoodSelect";
-import DynamicSelect from "@/components/DynamicSelect";
+// import MoodSelect from "@/components/MoodSelect";
+// import ActivityDynamicSelect from "@/components/ActivityDynamicSelect";
+import ActivityModal from "@/components/ActivityModal";
 
-export default function ActivityTable({actions, client}) {
+export default function ActivityTable({actions, client, setLoading, loading}) {
     const [openNote, setOpenNote] = useState(0);
     const [clientNotes, setClientNotes] = useState([])
     const [selectedNavigator, setSelectedNavigator] = useState("");
     const [, setIsMounted] = useState(false);
+    const [open, setOpen] = useState(false);
     // console.log(selectedNavigator)
     const [note, setNote] = React.useState(
         {
@@ -29,7 +31,7 @@ export default function ActivityTable({actions, client}) {
             // console.log(client)
             getNotes().then()
         }
-    }, []);
+    }, [loading]);
 
     const getNotes = async () => {
         const response = await fetch(`/api/notes?clientId=${client._id}`)
@@ -53,8 +55,11 @@ export default function ActivityTable({actions, client}) {
 
     return (
         <div className={`flex-1 mt-8`}>
+            <ActivityModal client={client} open={open} setOpen={setOpen} loading={loading} setLoading={setLoading}/>
             <div className={`flex justify-start items-center gap-4 mb-6`}>
-                <div className={`font-bold`}>Activity Log</div>
+                <div className={`font-bold`}>Activity Log <span className={`text-accent underline font-normal ml-2`} onClick={() => {
+                    setOpen(true)
+                }}>Add an activity</span></div>
             </div>
 
             <div className="overflow-x-auto w-full border border-base-300">
@@ -120,7 +125,7 @@ export default function ActivityTable({actions, client}) {
                                                     setOpenNote(0)
                                                 }}>Save
                                                 </button>
-                                                <div className={``}><MoodSelect mood={note.mood} setNote={setNote}/></div>
+                                                {/*<div className={``}><MoodSelect mood={note.mood} setNote={setNote}/></div>*/}
                                             </div>
                                         </div>
                                     </div>
@@ -129,7 +134,6 @@ export default function ActivityTable({actions, client}) {
                         ))
                     }
             </div>
-            <DynamicSelect client={client}/>
         </div>
     );
 }

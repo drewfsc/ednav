@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {newQuestions} from "/lib/response";
-import { Card, CardContent } from '@/components/ui/card';
 import DatePicker from 'react-datepicker';
 
 const saveSelectionToMongoDB = async (data) => {
@@ -13,10 +12,10 @@ const saveSelectionToMongoDB = async (data) => {
     })
 }
 
-const DynamicSelect = ({ client }) => {
+const ActivityDynamicSelect = ({client, setLoading, loading}) => {
     const [selectedPath, setSelectedPath] = useState([]);
     const [currentOptions, setCurrentOptions] = useState(Object.keys(newQuestions));
-    const [currentObject, setCurrentObject] = useState(newQuestions);
+    const [, setCurrentObject] = useState(newQuestions);
     const [finalSelection, setFinalSelection] = useState(null);
     const [multiSelectOptions, setMultiSelectOptions] = useState(null);
     const [multiSelectValues, setMultiSelectValues] = useState([]);
@@ -102,88 +101,87 @@ const DynamicSelect = ({ client }) => {
         setMultiSelectOptions(null);
         setCurrentOptions([]);
         setFinalSelection('Completed Multi-Select');
+        setLoading(true);
     }
     const showDatePicker = selectedPath.length === 1; // Show DatePicker only at the beginning
     return (
-        <Card className="w-full max-w-md p-4 m-auto mt-5">
-            <CardContent>
-                <h2 className="text-xl font-bold mb-4">Select Options</h2>
+        <div className="px-8 py-4">
+            {/*<h2 className="text-xl font-bold mb-4">Select Options</h2>*/}
 
-                {selectedPath.length > 0 && (
-                    <div className="mb-4 text-sm text-gray-500">
-                        <strong>Path:</strong> {selectedPath.join(' > ')}
-                    </div>
-                )}
+            {selectedPath.length > 0 && (
+                <div className="mb-4 text-sm text-gray-500">
+                    <strong>Path:</strong> {selectedPath.join(' > ')}
+                </div>
+            )}
 
-                {showDatePicker && (
-                    <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">Select Date</h3>
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={(date) => setSelectedDate(date)}
-                            className="p-2 border rounded"
-                        />
-                    </div>
-                )}
+            {showDatePicker && (
+                <div className="mt-4">
+                    <h3 className="text-lg font-semibold mb-2">Select Date</h3>
+                    <DatePicker
+                        selected={selectedDate}
+                        onChange={(date) => setSelectedDate(date)}
+                        className="p-2 border rounded"
+                    />
+                </div>
+            )}
 
-                {currentOptions.length > 0 && (
-                    <div className="grid grid-cols-1 gap-2 mt-4">
-                        {currentOptions.map((option) => (
-                            <label key={option} className="flex items-center space-x-2 cursor-pointer">
+            {currentOptions.length > 0 && (
+                <div className="grid grid-cols-1 gap-2 mt-4 max-w-50 mx-auto">
+                    {currentOptions.map((option) => (
+                        <label key={option} className="flex items-center space-x-2 cursor-pointer">
+                            <input
+                                type="radio"
+                                name="option"
+                                value={option}
+                                className="radio radio-primary"
+                                checked={selectedValue === option}
+                                onChange={() => handleSelectChange(option)}
+                            />
+                            <span className={`capitalize`}>{option}</span>
+                        </label>
+                    ))}
+                    <button
+                        className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
+                        onClick={handleAdvance}
+                        disabled={!selectedValue}
+                    >
+                        Continue
+                    </button>
+                </div>
+            )}
+
+            {multiSelectOptions && (
+                <div className="mt-4">
+                    <h3 className="text-lg font-semibold mb-2">Select Multiple Options</h3>
+                    <div className="grid grid-cols-1 gap-2">
+                        {multiSelectOptions.map((option, index) => (
+                            <label key={`${option}-${index}`} className="flex items-center space-x-2 cursor-pointer">
                                 <input
-                                    type="radio"
-                                    name="option"
+                                    type="checkbox"
                                     value={option}
-                                    checked={selectedValue === option}
-                                    onChange={() => handleSelectChange(option)}
+                                    checked={multiSelectValues.includes(option)}
+                                    onChange={() => handleMultiSelectChange(option)}
                                 />
                                 <span>{option}</span>
                             </label>
                         ))}
-                        <button
-                            className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
-                            onClick={handleAdvance}
-                            disabled={!selectedValue}
-                        >
-                            Continue
-                        </button>
                     </div>
-                )}
+                    <button
+                        className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
+                        onClick={handleMultiSelectAdvance}
+                        disabled={multiSelectValues.length === 0}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
 
-                {multiSelectOptions && (
-                    <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">Select Multiple Options</h3>
-                        <div className="grid grid-cols-1 gap-2">
-                            {multiSelectOptions.map((option, index) => (
-                                <label key={`${option}-${index}`} className="flex items-center space-x-2 cursor-pointer">
-                                    <input
-                                        type="checkbox"
-                                        value={option}
-                                        checked={multiSelectValues.includes(option)}
-                                        onChange={() => handleMultiSelectChange(option)}
-                                    />
-                                    <span>{option}</span>
-                                </label>
-                            ))}
-                        </div>
-                        <button
-                            className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
-                            onClick={handleMultiSelectAdvance}
-                            disabled={multiSelectValues.length === 0}
-                        >
-                            Next
-                        </button>
-                    </div>
-                )}
-
-                {finalSelection && (
-                    <div className="mt-4 p-2 text-green-700">
-                        <strong>Final Selection:</strong> {finalSelection}
-                    </div>
-                )}
-            </CardContent>
-        </Card>
+            {finalSelection && (
+                <div className="mt-4 p-2 text-green-700">
+                    <strong>Final Selection:</strong> {finalSelection}
+                </div>
+            )}</div>
     );
 };
 
-export default DynamicSelect;
+export default ActivityDynamicSelect;
