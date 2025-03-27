@@ -11,12 +11,12 @@ export default function Dashboard() {
     const router = useRouter();
     const [error, setError] = useState('');
 
-    const handleSubmit = async ({email, pin}) => {
+    const handleSubmit = async ({email}) => {
         try {
-            const result = await signIn('credentials', {
+            const result = await signIn('email', {
                 email,
-                pin,
-                redirect: false
+                redirect: false,
+                callbackUrl: '/auth/callback',
             });
 
             if (result?.error) {

@@ -2,8 +2,6 @@
 import React from 'react';
 import ClientDescription from "../components/ClientProfileDetails"
 import {useClients} from "../contexts/ClientsContext";
-// import ThemedChart from "./ThemedBarChart";
-
 
 export default function DashboardContent({loading}) {
     const {selectedClient} = useClients();

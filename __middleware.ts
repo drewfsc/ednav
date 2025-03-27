@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { updateSession } from "./sharedFunctions";
 import { getToken } from "next-auth/jwt";
 
-export async function middleware(request: NextRequest) {
+export async function __middleware(request: NextRequest) {
     // Check for Next-Auth session
     const token = await getToken({
         req: request,
@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     return await updateSession(request);
 }
 
-// Add paths that should be matched by the middleware
+// Add paths that should be matched by the __middleware
 export const config = {
     matcher: ['/', '/dashboard/:path*', '/auth/:path*']
 };
