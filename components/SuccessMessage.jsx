@@ -1,4 +1,5 @@
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import React from "react";
 
 export default function SuccessMessage({message, setOpen}) {
     return (

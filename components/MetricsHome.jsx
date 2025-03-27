@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {SignIn} from "@/components/sign-in";
 
 
 export default function MetricsHome() {
@@ -33,6 +34,10 @@ export default function MetricsHome() {
                         {/*<p className="mt-4 text-lg/8 text-gray-600">Lorem ipsum dolor sit amet consect adipisicing possimus.</p>*/}
                     </div>
                     <dl className="mt-10 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+                        <div className="flex flex-col bg-gray-400/5 p-8">
+                            <dt className="text-sm/6 font-semibold text-gray-600">{'stat.name'}</dt>
+                            <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900"><SignIn/></dd>
+                        </div>
                         {metrics?.map((stat, i) => (
                             <div key={i} className="flex flex-col bg-gray-400/5 p-8">
                                 <dt className="text-sm/6 font-semibold text-gray-600">{stat.name}</dt>

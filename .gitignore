@@ -25,3 +25,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/ssh-fsc.txt
+/ssh-fsc.txt.pub
+/.idea/testDataGeneratorSettings.xml
+/touch ssh.txt
+/touch ssh.txt.pub
+/.idea/betterCommentsSettings.xml
+/.idea/developer-tools.xml
+/.idea/misc.xml

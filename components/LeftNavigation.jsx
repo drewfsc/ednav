@@ -75,6 +75,24 @@ export default function LeftNavigation({ setEditing}) {
                     }}
                        className={`hover:bg-base-200 `}>Add New Client +</a>
                 </li>
+                <li>
+                    <a href="./pages/auth/signin">Login</a>
+                </li>
+                <li>
+                    <a href="/auth/signout">Logout</a>
+                </li>
+                <li>
+                    <a href="/auth/newUser">New User</a>
+                </li>
+                <li>
+                    <a href="/auth/verifyRequest">Verify Request</a>
+                </li>
+                <li>
+                    <a href="/auth/error">Error</a>
+                </li>
+                <li>
+                    <a href="/dashboard">Dashboard</a>
+                </li>
             </ul>
             {/*<ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">*/}
             {/*    {*/}
