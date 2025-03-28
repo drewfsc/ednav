@@ -1,9 +1,9 @@
 "use client";
 import React, {useEffect, useState} from "react";
-import {useFepsLeft} from "@/contexts/FepsLeftContext";
-import ClientTableItem from "@/components/ClientTableItem";
+import {useFepsLeft} from "/contexts/FepsLeftContext";
+import ClientTableItem from "/components/ClientTableItem";
 import {GroupIcon} from "lucide-react";
-import {ToggleGroup} from "@/components/ui/toggle-group";
+import {ToggleGroup} from "/components/ui/toggle-group";
 
 export default function ClientTable({setEditing, userClients}) {
     const [isMounted, setIsMounted] = useState(false);

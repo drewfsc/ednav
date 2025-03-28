@@ -16,7 +16,7 @@ export default function Dashboard() {
             const result = await signIn('email', {
                 email,
                 redirect: false,
-                callbackUrl: '/auth/callback',
+                callbackUrl: '/',
             });
 
             if (result?.error) {

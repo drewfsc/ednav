@@ -1,5 +1,5 @@
 import React from 'react';
-import {useClients} from "@/contexts/ClientsContext";
+import {useClients} from "/contexts/ClientsContext";
 
 export default function ClientTableItem({ person, i, setEditing}) {
 

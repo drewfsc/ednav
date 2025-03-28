@@ -7,12 +7,12 @@ import {EditingProvider} from "../contexts/EditingContext";
 import {FepsLeftProvider} from "../contexts/FepsLeftContext";
 import {LocationsProvider} from "../contexts/LocationsContext";
 import {NavigatorProvider} from "../contexts/NavigatorsContext";
-import {SessionProvider} from "next-auth/react";
+// import {SessionProvider} from "next-auth/react";
 
 export default function RootLayout({children}) {
 
   return (
-      <SessionProvider>
+      // <SessionProvider>
       <ThemesProvider>
           <ThemeWrapper>
           <ClientsProvider>
@@ -28,7 +28,7 @@ export default function RootLayout({children}) {
           </ClientsProvider>
           </ThemeWrapper>
       </ThemesProvider>
-      </SessionProvider>
+      // </SessionProvider>
   )
 }
 

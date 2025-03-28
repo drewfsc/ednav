@@ -1,25 +1,25 @@
 import React, {useEffect, useState} from "react";
-import ActivityTable from "@/components/ActivityTable";
-import {useClients} from "@/contexts/ClientsContext";
+import ActivityTable from "/components/ActivityTable";
+import {useClients} from "/contexts/ClientsContext";
 
 const getClientActionsUrl = (clientId) => `/api/activities?clientId=${clientId}`;
 
 export default function ClientProfileDetails({ client }) {
     const [change, setChange] = useState({
-        _id: client._id,
-        email: client.email,
-        contactNumber: client.contactNumber,
-        dob: client.dob,
-        lastGrade: client.lastGrade,
-        fep: client.fep,
-        referred: client.dateReferred,
-        pin: client.pin,
-        region: client.region,
-        clientStatus: client.clientStatus,
-        transcripts: client.transcripts,
-        officeCity: client.officeCity,
-        group: client.group,
-        schoolIfEnrolled: client.schoolIfEnrolled,
+        _id: client?._id,
+        email: client?.email,
+        contactNumber: client?.contactNumber,
+        dob: client?.dob,
+        lastGrade: client?.lastGrade,
+        fep: client?.fep,
+        referred: client?.dateReferred,
+        pin: client?.pin,
+        region: client?.region,
+        clientStatus: client?.clientStatus,
+        transcripts: client?.transcripts,
+        officeCity: client?.officeCity,
+        group: client?.group,
+        schoolIfEnrolled: client?.schoolIfEnrolled,
     });
     const [editingPersonal, setEditingPersonal] = useState(false);
     const [editingOrganization, setEditingOrganization] = useState(false);
@@ -60,9 +60,9 @@ export default function ClientProfileDetails({ client }) {
     useEffect(() => {
         setLoading(true);
         if (selectedClient) {
-            fetchActionsData(client._id).finally(() => setLoading(false));
+            fetchActionsData(client?._id).finally(() => setLoading(false));
         }
-    }, [client._id, loading, setLoading]);
+    }, [client?._id]);
 
     return (
         <div className="  mb-12 ml-6">
@@ -80,7 +80,7 @@ export default function ClientProfileDetails({ client }) {
                     <div className="flex-1 text-sm">
                         <dl className="divide-y divide-base-content/20 w-full">
                             {
-                                personalFields.map((f) => (
+                              selectedClient && personalFields.map((f) => (
                                     <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                                         <dt className="font-light capitalize">{f}</dt>
                                         <dd className={`visible ${editingPersonal ? 'hidden' : 'visible'}`}>
@@ -108,7 +108,7 @@ export default function ClientProfileDetails({ client }) {
                     <div className="text-sm w-full">
                         <dl className="divide-y divide-base-content/20">
                             {
-                                organizationFields.map((f) => (
+                                selectedClient &&  organizationFields.map((f) => (
                                     <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                                         <dt className="font-light capitalize">{f}</dt>
                                         <dd className={`visible ${editingOrganization ? 'hidden' : 'visible'}`}>

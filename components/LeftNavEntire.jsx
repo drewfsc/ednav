@@ -1,10 +1,10 @@
 "use client"
 import React from 'react';
 // import ThemeSwitcher from "./ThemeSwitcher"
-import NavigatorSelector from "@/components/NavigatorSelector";
-import LeftNavigation from "@/components/LeftNavigation";
-import {LocationsProvider} from "@/contexts/LocationsContext";
-import {useFepsLeft} from "@/contexts/FepsLeftContext";
+import NavigatorSelector from "/components/NavigatorSelector";
+import LeftNavigation from "/components/LeftNavigation";
+import {LocationsProvider} from "/contexts/LocationsContext";
+import {useFepsLeft} from "/contexts/FepsLeftContext";
 
 export default function LeftNavEntire({ setEditing}) {
     const {setSelectedFepLeft} = useFepsLeft();

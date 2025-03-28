@@ -20,7 +20,7 @@ export default function ActivityTable({actions, client, setLoading, loading}) {
             activityId: "",
             mood: "User",
             createdAt: new Date(),
-            clientId: client._id,
+            clientId: client?._id,
         }
     );
     useEffect(() => {
@@ -31,9 +31,10 @@ export default function ActivityTable({actions, client, setLoading, loading}) {
             // console.log(client)
             getNotes().then()
         }
-    }, [loading]);
+    }, []);
 
     const getNotes = async () => {
+      if (!client) return;
         const response = await fetch(`/api/notes?clientId=${client._id}`)
         const data = await response.json()
         setClientNotes(data)

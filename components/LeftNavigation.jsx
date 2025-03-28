@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import {useFepsLeft} from "@/contexts/FepsLeftContext";
+import {useFepsLeft} from "../contexts/FepsLeftContext";
 
 export default function LeftNavigation({ setEditing}) {
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
@@ -43,6 +43,9 @@ export default function LeftNavigation({ setEditing}) {
                     navStatus.map((item, i) => (
                         <li className={`mb-1`} key={i}>
                             <a onClick={() => setSelectedFepLeft(prevState => {
+                                console.log(prevState)
+                                console.log(item[0])
+                                console.log(selectedFepLeft.status)
                                 return {
                                     ...prevState,
                                     status: item[0]
@@ -79,7 +82,7 @@ export default function LeftNavigation({ setEditing}) {
                     <a href="./pages/auth/signin">Login</a>
                 </li>
                 <li>
-                    <a href="/auth/signout">Logout</a>
+                    <a href="/auth/signOut">Logout</a>
                 </li>
                 <li>
                     <a href="/auth/newUser">New User</a>

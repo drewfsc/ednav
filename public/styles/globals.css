@@ -1,8 +1,8 @@
 @import "tailwindcss";
 /*@import 'react-datepicker/dist/react-datepicker.css';*/
 @plugin "daisyui" {
-    themes: nord --default;
-    /*themes: nord --light, dim --default --prefersDark, abyss, silk, autumn, garden;*/
+    /*themes: nord --default;*/
+    themes: nord --light, dim --default --prefersDark, abyss, silk, autumn, garden;
 }
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {

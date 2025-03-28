@@ -8,8 +8,7 @@ const clientPromise = (async () => {
     return client;
 })();
 
-export const { GET, POST, handlers, auth } = NextAuth( {
-
+const authOptions = NextAuth({
     adapter: MongoDBAdapter(clientPromise),
     session: {
         strategy: 'jwt',
@@ -25,40 +24,37 @@ export const { GET, POST, handlers, auth } = NextAuth( {
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
-        signIn: '/auth/signin',
-        // signOut: '/auth/signout',
-        // error: '/auth/signin/error',
-        // verifyRequest: '/auth/signin/verify-request',
+        signIn: '/auth/signIn',
+        signOut: '/auth/signOut',
+        error: '/auth/error',
+        verifyRequest: '/auth/verifyRequest',
     },
     callbacks: {
         async jwt({token, user}) {
             if (user) {
                 token.id = user.id;
-                token.phone = user.email; // Add phone for SMS auth
+                token.phone = user.email;
             }
             return token;
         },
         async session({session, token}) {
             if (token?.sub && session.user) {
                 (session.user as { id: string }).id = token.sub;
-                // Add phone number if available
                 if (token.phone) {
                     session.user.email = token.email;
                 }
             }
             return session;
         },
-        // Handle the email verification callback
         async signIn({  }) {
-            // Allow all email sign-ins to proceed
             return true;
         },
-        // Handle the redirect after successful sign-in
         async redirect({ url, baseUrl }) {
-            // Always redirect to dashboard after successful authentication
-            if (url.startsWith("/")) return `${baseUrl}/dashboard`
-            else if (new URL(url).origin === baseUrl) return `${baseUrl}/dashboard`
-            return baseUrl
+            if (url.startsWith("/")) return `${baseUrl}/`;
+            else if (new URL(url).origin === baseUrl) return `${baseUrl}/`;
+            return baseUrl;
         }
     },
 });
+export const GET = NextAuth(authOptions).GET;
+export const POST = NextAuth(authOptions).POST;

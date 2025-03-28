@@ -2,9 +2,11 @@
 import React, {useEffect, useState} from "react";
 import {adultSchools, youthSchools} from "/lib/schools";
 import {XCircle} from "phosphor-react";
+import { useClients } from '../contexts/ClientsContext';
 const AddClientForm = ({setEditing, setOpen}) => {
     const [feps, setFeps] = useState([]);
     const [navigators, setNavigators] = useState([]);
+    const {setSelectedClient}= useClients(null);
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
@@ -62,7 +64,7 @@ const AddClientForm = ({setEditing, setOpen}) => {
     ];
 
     const fetchFeps = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/feps`)
+        const response = await fetch(`/api/feps`)
         const data = await response.json()
         if(data){
             setFeps(data)
@@ -80,7 +82,10 @@ const AddClientForm = ({setEditing, setOpen}) => {
     useEffect(() => {
         fetchFeps().then();
         fetchNavigators().then();
-        console.log(navigators)
+        if(navigators) {
+            console.log(navigators)
+        }
+
     }, []);
 
     const [errors, setErrors] = useState({});
@@ -140,7 +145,10 @@ const AddClientForm = ({setEditing, setOpen}) => {
     return (
         <div className="px-10 py-6 space-y-4 relative">
             <div className="flex justify-between items-center text-2xl font-light">Add a Client</div>
-            <div onClick={() => setEditing(false)} className="absolute top-6 right-10"><XCircle size={36}/></div>
+            <div onClick={() => {
+                setEditing("")
+                setSelectedClient(null)
+            }} className="absolute top-6 right-10"><XCircle size={36}/></div>
             <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-6 gap-4">
 
                 <div className="flex w-full flex-col col-span-6">
