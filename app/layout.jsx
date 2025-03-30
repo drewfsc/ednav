@@ -12,12 +12,7 @@ import {NavigatorProvider} from "../contexts/NavigatorsContext";
 
 export default function RootLayout({children}) {
 
-  const viewport = {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  }
+
   return (
       // <SessionProvider>
       <ThemesProvider>
@@ -50,7 +45,11 @@ function ThemeWrapper({children}) {
 
     return (
         <html lang="en" data-theme={selectedTheme} suppressHydrationWarning>
-
+        <head>
+          <title></title>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
         <body>{isMounted && children}</body>
         </html>
     );

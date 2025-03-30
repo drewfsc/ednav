@@ -5,7 +5,7 @@ import ClientProfileHeader from "/components/ClientProfileHeader";
 
 export default function ClientProfile({client, setEditing}) {
     const [isMounted, setIsMounted] = useState(false);
-    const [selectedNavigator, setSelectedNavigator] = useState("");
+    const [, setSelectedNavigator] = useState("");
 
     useEffect(() => {
         setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
