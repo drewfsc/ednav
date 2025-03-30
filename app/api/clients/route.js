@@ -4,10 +4,8 @@ import { ObjectId } from "mongodb"
 
 export async function GET(request) {
   const url = await new URL(request.url);
-  console.log(url)
   const {navigator, clientId} = await url.searchParams;
   let clients = [];
-  await  console.log(navigator, clientId)
   try {
     const collection = await getCollection("clients")
     if (navigator) {
