@@ -54,7 +54,6 @@ export default function ActivityFeed({
                                        client,
                                        setLoading,
                                        loading,
-                                       selectedClient
                                      }) {
   const [selected, setSelected] = useState(moods[5])
   const [open, setOpen] = useState(false);

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ActivityTable from "/components/ActivityTable";
 import {useClients} from "/contexts/ClientsContext";
-import ActivityFeed from './ActivityFeed';
 
 export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
