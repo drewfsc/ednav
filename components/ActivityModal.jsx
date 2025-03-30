@@ -1,56 +1,48 @@
 'use client'
-
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-// import { CheckIcon } from '@heroicons/react/24/outline'
 import ActivityDynamicSelect from "./ActivityDynamicSelect";
 
-export default function ActivityModal({ open, setOpen, client, loading, setLoading}) {
-    // const [open, setOpen] = useState(true)
+export default function ActivityModal({ open, setOpen, setActions, client}) {
+    const [questions, setQuestions] = useState([]);
+
+    const getQuestions = async () => {
+        let cleanedQuestions = {};
+        const response = await fetch('/api/questions');
+        const questions = await response.json();
+        const {adult, youth} = await questions;
+        cleanedQuestions.adult = adult
+        cleanedQuestions.youth = youth
+        setQuestions(cleanedQuestions)
+        return cleanedQuestions
+    }
+
+    useEffect(() => {
+        getQuestions().then()
+    }, []);
 
     return (
         <Dialog open={open} onClose={setOpen} className="relative z-60">
             <DialogBackdrop
                 transition
-                className="fixed inset-0 bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+                className="fixed inset-0 bg-gray-500/35 backdrop-blur-xs transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
             />
-
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                     <DialogPanel
                         transition
-                        className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-2 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+                        className="relative transform overflow-hidden rounded-lg bg-base-100 p-12 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
                     >
-                        <div>
-                            {/*<div className="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100">*/}
-                            {/*    <CheckIcon aria-hidden="true" className="size-6 text-green-600" />*/}
-                            {/*</div>*/}
-                            <div className="mt-1 text-center sm:mt-3">
-                                <DialogTitle as="h3" className="text-3xl font-light text-gray-900">
+                        <div className="px-12 py-8">
+                            <div>
+                                <DialogTitle as="h3" className="text-3xl font-light text-base-content  max-w-60 mx-auto">
                                     Add an activity
                                 </DialogTitle>
-                                <div className="mt-2">
-                                    <ActivityDynamicSelect client={client} setLoading={setLoading} loading={loading}/>
+                                <div className="">
+                                    { questions && <ActivityDynamicSelect setActions={setActions} client={client} questions={questions} />}
                                 </div>
                             </div>
                         </div>
-                        {/*<div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">*/}
-                        {/*    <button*/}
-                        {/*        type="button"*/}
-                        {/*        onClick={() => setOpen(false)}*/}
-                        {/*        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"*/}
-                        {/*    >*/}
-                        {/*        Deactivate*/}
-                        {/*    </button>*/}
-                        {/*    <button*/}
-                        {/*        type="button"*/}
-                        {/*        data-autofocus*/}
-                        {/*        onClick={() => setOpen(false)}*/}
-                        {/*        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"*/}
-                        {/*    >*/}
-                        {/*        Cancel*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
                     </DialogPanel>
                 </div>
             </div>

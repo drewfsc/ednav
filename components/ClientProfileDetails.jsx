@@ -2,32 +2,30 @@ import React, {useEffect, useState} from "react";
 import ActivityTable from "/components/ActivityTable";
 import {useClients} from "/contexts/ClientsContext";
 
-const getClientActionsUrl = (clientId) => `/api/activities?clientId=${clientId}`;
-
-export default function ClientProfileDetails({ client }) {
+export default function ClientProfileDetails() {
+    const {selectedClient} = useClients();
     const [change, setChange] = useState({
-        _id: client?._id,
-        email: client?.email,
-        contactNumber: client?.contactNumber,
-        dob: client?.dob,
-        lastGrade: client?.lastGrade,
-        fep: client?.fep,
-        referred: client?.dateReferred,
-        pin: client?.pin,
-        region: client?.region,
-        clientStatus: client?.clientStatus,
-        transcripts: client?.transcripts,
-        officeCity: client?.officeCity,
-        group: client?.group,
-        schoolIfEnrolled: client?.schoolIfEnrolled,
+        _id: selectedClient?._id,
+        email: selectedClient?.email,
+        contactNumber: selectedClient?.contactNumber,
+        dob: selectedClient?.dob,
+        lastGrade: selectedClient?.lastGrade,
+        fep: selectedClient?.fep,
+        referred: selectedClient?.dateReferred,
+        pin: selectedClient?.pin,
+        region: selectedClient?.region,
+        clientStatus: selectedClient?.clientStatus,
+        transcripts: selectedClient?.transcripts,
+        officeCity: selectedClient?.officeCity,
+        group: selectedClient?.group,
+        schoolIfEnrolled: selectedClient?.schoolIfEnrolled,
     });
     const [editingPersonal, setEditingPersonal] = useState(false);
     const [editingOrganization, setEditingOrganization] = useState(false);
     const [actions, setActions] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const {selectedClient} = useClients();
-
-    const personalFields = ["email", "contactNumber", "dob", "lastGrade", "schoolIfEnrolled"];
+    const [notes, setNotes] = useState([])
+    const [fetching, setFetching] = useState(false);
+    const personalFields = ["email", "contactNumber", "dob", "lastGrade", "schoolIfEnrolled", "group"];
     const organizationFields = ["fep", "dateReferred", "pin", "region", "officeCity", "clientStatus"];
 
     const handleChange = (e) => {
@@ -44,25 +42,40 @@ export default function ClientProfileDetails({ client }) {
         })
     }
 
-    const fetchActionsData = async (clientId) => {
-
+    const getActions = async () => {
+        if (!selectedClient) return;
         try {
-            const response = await fetch(getClientActionsUrl(clientId));
-            if (response.ok) {
-                const data = await response.json();
-                setActions(data);
-            }
+            await fetch(`/api/activities?clientId=${selectedClient._id}`)
+              .then(response => response.json())
+              .then(data => setActions(data))
+              .catch(error => console.error('Error fetching client activities:', error))
         } catch (error) {
             console.error("Error fetching client activities:", error);
         }
-    };
 
-    useEffect(() => {
-        setLoading(true);
-        if (selectedClient) {
-            fetchActionsData(client?._id).finally(() => setLoading(false));
-        }
-    }, [client?._id]);
+    }
+
+    useEffect( () => {
+       getActions().then()
+    }, [selectedClient])
+
+    // const fetchActionsData = async () => {
+    //
+    //     try {
+    //         const response = await fetch(`/api/activities?clientId=${selectedClient._id}`);
+    //             const data = await response.json();
+    //             await setActions(data);
+    //
+    //     } catch (error) {
+    //         console.error("Error fetching client activities:", error);
+    //     }
+    // };
+    //
+    // useEffect(() => {
+    //     if (selectedClient) {
+    //         fetchActionsData().then()
+    //     }
+    // }, []);
 
     return (
         <div className="  mb-12 ml-6">
@@ -84,7 +97,7 @@ export default function ClientProfileDetails({ client }) {
                                     <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                                         <dt className="font-light capitalize">{f}</dt>
                                         <dd className={`visible ${editingPersonal ? 'hidden' : 'visible'}`}>
-                                            <div className={``}>{client[f]}</div>
+                                            <div className={``}>{selectedClient[f]}</div>
                                         </dd>
                                         <dd className={`${!editingPersonal ? 'hidden' : ''}`}>
                                             <input className={`border`} name={f} type={`text`} value={change[f]} onChange={handleChange}/>
@@ -112,12 +125,11 @@ export default function ClientProfileDetails({ client }) {
                                     <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                                         <dt className="font-light capitalize">{f}</dt>
                                         <dd className={`visible ${editingOrganization ? 'hidden' : 'visible'}`}>
-                                            <div className={``}>{client[f]}</div>
+                                            <div className={``}>{selectedClient[f]}</div>
                                         </dd>
                                         <dd className={`${!editingOrganization ? 'hidden' : ''}`}>
                                             <input className={`border`} name={f} type={`text`} value={change[f]} onChange={handleChange}/>
                                         </dd>
-                                        {/*<dd className="">Edit</dd>*/}
                                     </div>
                                 ))
                             }
@@ -127,8 +139,8 @@ export default function ClientProfileDetails({ client }) {
                 </div>
 
             </div>
-            <ActivityTable actions={actions} loading={loading} setLoading={setLoading} client={client}
-                           onActivityAddedAction={fetchActionsData}/>
+            <ActivityTable selectedClient={selectedClient} fetching={fetching} setFetching={setFetching} actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={selectedClient}
+                           />
         </div>
     );
 }

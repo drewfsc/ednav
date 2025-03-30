@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {newQuestions} from "/lib/response";
-import DatePicker from 'react-datepicker';
 
 const saveSelectionToMongoDB = async (data) => {
     await fetch('/api/activities', {
@@ -12,23 +10,23 @@ const saveSelectionToMongoDB = async (data) => {
     })
 }
 
-const ActivityDynamicSelect = ({client, setLoading, loading}) => {
+const ActivityDynamicSelect = ({client, setActions, questions}) => {
     const [selectedPath, setSelectedPath] = useState([]);
-    const [currentOptions, setCurrentOptions] = useState(Object.keys(newQuestions));
-    const [, setCurrentObject] = useState(newQuestions);
+    const [currentOptions, setCurrentOptions] = useState(Object.keys(questions));
+    const [, setCurrentObject] = useState(questions);
     const [finalSelection, setFinalSelection] = useState(null);
     const [multiSelectOptions, setMultiSelectOptions] = useState(null);
     const [multiSelectValues, setMultiSelectValues] = useState([]);
-    const [selectedValue, setSelectedValue] = useState(null);
+    const [selectedValue, setSelectedValue] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     useEffect(() => {
         if (client?.group) {
             const autoSelection = client.group.toLowerCase();
-            if (newQuestions[autoSelection]) {
+            if (questions[autoSelection]) {
                 setSelectedPath([autoSelection]);
-                setCurrentObject(newQuestions[autoSelection]);
-                setCurrentOptions(Object.keys(newQuestions[autoSelection]));
+                setCurrentObject(questions[autoSelection]);
+                setCurrentOptions(Object.keys(questions[autoSelection]));
             }
         }
     }, [client]);
@@ -42,26 +40,30 @@ const ActivityDynamicSelect = ({client, setLoading, loading}) => {
 
         const newPath = [...selectedPath, selectedValue];
         setSelectedPath(newPath);
-        setSelectedValue(null);
+        setSelectedValue("");
 
-        const newObject = newPath.reduce((acc, key) => (acc && acc[key] ? acc[key] : null), newQuestions);
+        const newObject = newPath.reduce((acc, key) => (acc && acc[key] ? acc[key] : null), questions);
         setCurrentObject(newObject);
 
-        if (newObject && typeof newObject === 'object' && !Array.isArray(newObject)) {
+        if (newObject && typeof newObject === 'object') {
+            console.log("1", Array.isArray(newObject), newObject);
             setFinalSelection(null);
-
-            if (Object.hasOwn(newObject, 'completed')) {
-                setMultiSelectOptions(newObject.completed);
+            if (Array.isArray(newObject)) {
+                console.log("2", Array.isArray(newObject), newObject);
+                setMultiSelectOptions(newObject);
                 setCurrentOptions([]);
             } else {
                 setMultiSelectOptions(null);
                 setCurrentOptions(Object.keys(newObject));
             }
+        } else if(Array.isArray(newObject)) {
+            setMultiSelectOptions(newObject.completed);
+            setCurrentOptions([]);
         } else {
             setCurrentOptions([]);
             setFinalSelection(selectedValue);
 
-            await saveSelectionToMongoDB({
+            const action = await saveSelectionToMongoDB({
                 path: newPath,
                 selection: selectedValue,
                 clientId: client._id,
@@ -71,6 +73,8 @@ const ActivityDynamicSelect = ({client, setLoading, loading}) => {
                 selectedDate: selectedDate,  // Include date selection
                 timestamp: new Date(),
             });
+            const savedAction = await action.json();
+            await setActions([...setActions, savedAction]);
         }
     };
 
@@ -101,45 +105,36 @@ const ActivityDynamicSelect = ({client, setLoading, loading}) => {
         setMultiSelectOptions(null);
         setCurrentOptions([]);
         setFinalSelection('Completed Multi-Select');
-        setLoading(true);
     }
     const showDatePicker = selectedPath.length === 1; // Show DatePicker only at the beginning
     return (
-        <div className="px-8 py-4">
-            {/*<h2 className="text-xl font-bold mb-4">Select Options</h2>*/}
-
-            {selectedPath.length > 0 && (
-                <div className="mb-4 text-sm text-gray-500">
-                    <strong>Path:</strong> {selectedPath.join(' > ')}
-                </div>
-            )}
+        <div className="px-0 py-4 max-w-60 mx-auto">
 
             {showDatePicker && (
-                <div className="mt-4">
-                    <h3 className="text-lg font-semibold mb-2">Select Date</h3>
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={(date) => setSelectedDate(date)}
-                        className="p-2 border rounded"
-                    />
-                </div>
+                <label className="flex flex-col space-y-2 text-sm font-light">Date of activity:
+                    <input
+                      type="date"
+                      name="date"
+                      className="w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3"
+                      value={selectedDate.toISOString().split('T')[0]}
+                      onChange={(e) => setSelectedDate(new Date(e.target.value))} />
+                </label>
             )}
 
             {currentOptions.length > 0 && (
-                <div className="grid grid-cols-1 gap-2 mt-4 max-w-50 mx-auto">
-                    {currentOptions.map((option) => (
-                        <label key={option} className="flex items-center space-x-2 cursor-pointer">
-                            <input
-                                type="radio"
-                                name="option"
-                                value={option}
-                                className="radio radio-primary"
-                                checked={selectedValue === option}
-                                onChange={() => handleSelectChange(option)}
-                            />
-                            <span className={`capitalize`}>{option}</span>
-                        </label>
-                    ))}
+                <label className="flex flex-col space-y-2 text-sm font-light mt-6">Type of activity:
+                    <select
+                      name={currentOptions[0]}
+                      className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}
+                            value={selectedValue}
+                      onChange={(e) => handleSelectChange(e.target.value)}>
+                        <option value="">Select an activity</option>
+                        {
+                            currentOptions.map((option) => (
+                              <option key={option} value={option}>{option}</option>
+                            ))
+                        }
+                    </select>
                     <button
                         className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
                         onClick={handleAdvance}
@@ -147,7 +142,7 @@ const ActivityDynamicSelect = ({client, setLoading, loading}) => {
                     >
                         Continue
                     </button>
-                </div>
+                </label>
             )}
 
             {multiSelectOptions && (
@@ -177,8 +172,8 @@ const ActivityDynamicSelect = ({client, setLoading, loading}) => {
             )}
 
             {finalSelection && (
-                <div className="mt-4 p-2 text-green-700">
-                    <strong>Final Selection:</strong> {finalSelection}
+                <div className="mt-4 text-green-700">
+                   Your activity was saved successfully.
                 </div>
             )}</div>
     );

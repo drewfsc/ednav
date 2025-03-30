@@ -1,18 +1,16 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import moment from "moment";
-import NoteFeed from "@/components/NoteFeed";
+import NoteFeed from "/components/NoteFeed";
 // import MoodSelect from "@/components/MoodSelect";
-// import ActivityDynamicSelect from "@/components/ActivityDynamicSelect";
-import ActivityModal from "@/components/ActivityModal";
+import ActivityModal from "/components/ActivityModal";
 
-export default function ActivityTable({actions, client, setLoading, loading}) {
+export default function ActivityTable({actions, setActions, notes, setNotes, client, setLoading, loading, fetching, setFetching, selectedClient}) {
     const [openNote, setOpenNote] = useState(0);
-    const [clientNotes, setClientNotes] = useState([])
+    // const [clientNotes, setClientNotes] = useState([])
     const [selectedNavigator, setSelectedNavigator] = useState("");
     const [, setIsMounted] = useState(false);
     const [open, setOpen] = useState(false);
-    // console.log(selectedNavigator)
     const [note, setNote] = React.useState(
         {
             noteContent: "",
@@ -28,8 +26,6 @@ export default function ActivityTable({actions, client, setLoading, loading}) {
         if (typeof window !== "undefined") {
             const storedNavigator = localStorage.getItem("navigatorName") || "";
             setSelectedNavigator(storedNavigator);
-            // console.log(client)
-            getNotes().then()
         }
     }, []);
 
@@ -37,16 +33,25 @@ export default function ActivityTable({actions, client, setLoading, loading}) {
       if (!client) return;
         const response = await fetch(`/api/notes?clientId=${client._id}`)
         const data = await response.json()
-        setClientNotes(data)
+        await setNotes(data)
     }
 
-    const saveNote = async () => {
-        await fetch(`/api/notes/`, {
+    useEffect(() => {
+      getNotes().then()
+    }, [fetching, selectedClient])
+
+    const saveNote = async (noteData) => {
+        const note = await fetch(`/api/notes/`, {
             method: "POST",
-            body: JSON.stringify(note),
+            body: JSON.stringify(noteData),
             headers: {
                 "Content-Type": "application/json"
             }
+        })
+        const data = await note.json()
+        setNotes(prevState => {
+          setFetching(prevState => !prevState)
+          return [data, ...prevState]
         })
     }
 
@@ -56,7 +61,7 @@ export default function ActivityTable({actions, client, setLoading, loading}) {
 
     return (
         <div className={`flex-1 mt-8`}>
-            <ActivityModal client={client} open={open} setOpen={setOpen} loading={loading} setLoading={setLoading}/>
+            <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={client} open={open} setOpen={setOpen} loading={loading} setLoading={setLoading}/>
             <div className={`flex justify-start items-center gap-4 mb-6`}>
                 <div className={`font-bold`}>Activity Log <span className={`text-accent underline font-normal ml-2`} onClick={() => {
                     setOpen(true)
@@ -91,16 +96,14 @@ export default function ActivityTable({actions, client, setLoading, loading}) {
                                     <div className={`w-1/5 pl-6 py-2`}>{action?.what || action?.path}</div>
                                     <div className={`w-1/5 pl-6 py-2`}>{moment(action?.when).format("M/D/Y")}</div>
                                     <div className={`w-1/5 pl-6 py-2`}>{action?.where}</div>
-                                    <div className={`w-1/5 pl-6 py-2`}>{clientNotes.filter(note => note.activityId === action._id).length}</div>
+                                    <div className={`w-1/5 pl-6 py-2`}>{notes.filter(note => note.activityId === action._id).length}</div>
                                 </div>
                                 <div className={`bg-base-200  ${openNote === i+1 ? `block` : `hidden`}`}>
                                     <div className={`flex p-6`}>
                                         <div className={`flex-1 p mr-10 h-fit`}>
                                             <span className={`text-lg font-medium`}>Activity Notes</span>
                                             <div className={`mt-4`}>
-                                                {
-                                                    <NoteFeed notes={clientNotes} activityIdFromPage={action?._id}/>
-                                                }
+                                                    <NoteFeed notes={notes} setNotes={setNotes} activityIdFromPage={action?._id}/>
                                             </div>
                                         </div>
                                         <div className={`w-1/3 flex flex-col`}>
