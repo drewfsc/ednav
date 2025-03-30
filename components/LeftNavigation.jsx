@@ -4,7 +4,8 @@ import {useFepsLeft} from "../contexts/FepsLeftContext";
 
 export default function LeftNavigation({ setEditing}) {
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
-    const navStatus = [[
+    const navStatus = [
+      [
         "All",
         "all",
         "bg-base-300 shadow-lg",
@@ -78,38 +79,7 @@ export default function LeftNavigation({ setEditing}) {
                     }}
                        className={`hover:bg-base-200 `}>Add New Client +</a>
                 </li>
-                <li>
-                    <a href="./pages/auth/signin">Login</a>
-                </li>
-                <li>
-                    <a href="/auth/signOut">Logout</a>
-                </li>
-                <li>
-                    <a href="/auth/newUser">New User</a>
-                </li>
-                <li>
-                    <a href="/auth/verifyRequest">Verify Request</a>
-                </li>
-                <li>
-                    <a href="/auth/error">Error</a>
-                </li>
-                <li>
-                    <a href="/dashboard">Dashboard</a>
-                </li>
             </ul>
-            {/*<ul className="menu menu-vertical w-full bg-base-300 rounded mb-4">*/}
-            {/*    {*/}
-            {/*        navMain.map((item, i) => (*/}
-            {/*            <li key={i}>*/}
-            {/*                <a onClick={() => {*/}
-            {/*                    console.log(selectedLocation)*/}
-            {/*                    setSelectedLocation(item.title);*/}
-
-            {/*                }} className={`hover:bg-accent ${selectedLocation === item.title ? "bg-accent text-accent-content" : ""}`}>{item.title}</a>*/}
-            {/*            </li>*/}
-            {/*        ))*/}
-            {/*    }*/}
-            {/*</ul>*/}
         </div>
     );
 }

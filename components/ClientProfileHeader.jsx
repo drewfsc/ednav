@@ -4,45 +4,29 @@ import {useClients} from "/contexts/ClientsContext";
 
 export default function ClientProfileHeader({setEditing}) {
     const {selectedClient, setSelectedClient} = useClients();
-    const getBGColor = (status) => {
+    const getBadgeColor = (status) => {
         switch (status) {
             case "Active":
-                return "bg-error text-error-content text-white";
+                return "badge badge-error text-error-content text-xs px-3 ";
             case "Inactive":
-                return "bg-warning text-warning-content";
+                return "badge badge-warning text-warning-content text-xs px-3";
             case "In Progress":
-                return "bg-success text-success-content";
+                return "badge badge-success text-success-content text-xs px-3";
             case "Graduated":
-                return "bg-info text-info-content text-white";
+                return "badge badge-info text-info-content text-xs px-3";
             default:
-                return "bg-primary text-primary-content";
+                return "badge badge-primary text-primary-content text-xs px-3";
         }
     }
 
     return (
         <div
-            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg ${getBGColor(selectedClient?.clientStatus)} text-accent-content`}>
+            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-300 text-base-content`}>
             <div className={` flex justify-between gap-4 items-center divide-x divide-accent-content/30`}>
                 <div
                     className={`font-bold pr-4`}>{selectedClient && !selectedClient?.name ? selectedClient?.first_name + " " + selectedClient?.last_name : selectedClient?.name}</div>
                 <div className={`pr-4`}>
-                    {/*<span className={`font-medium`}>Case: </span>*/}
-                    {selectedClient && selectedClient?.caseNumber}
-                </div>
-                {/*<div>*/}
-                {/*    <span className={`font-medium`}>Group: </span>*/}
-                {/*    {selectedClient && selectedClient?.group}*/}
-                {/*</div>*/}
-                <div className={`pr-4`}>
-                    {/*<span className={`font-medium`}>FEP: </span>*/}
-                    {selectedClient && selectedClient?.fep}
-                </div>
-                <div className={`pr-4`}>
-                    {/*<span className={`font-medium`}>Navigator: </span>*/}
-                    {selectedClient && selectedClient?.navigator}
-                </div>
-                <div className={`pr-4`}>
-                    <span className={`py-[2px] px-3 rounded-full border font-normal text-sm $${selectedClient?.clientStatus === "Active" || selectedClient?.clientStatus === "Graduated" ? "border-white" : "border-black"}`}>{selectedClient && selectedClient?.clientStatus}</span>
+                    <div className={`${getBadgeColor(selectedClient?.clientStatus)}`}>{selectedClient?.clientStatus}</div>
                 </div>
             </div>
             <div onClick={() => {
@@ -50,7 +34,7 @@ export default function ClientProfileHeader({setEditing}) {
                 setSelectedClient(null)
             }}
                  className={``}>
-                <XCircle size={33} color={selectedClient?.clientStatus === "Active" || selectedClient?.clientStatus === "Graduated" ? "white" : "black"}/>
+                <XCircle size={33} color={`white`}/>
             </div>
         </div>
     );

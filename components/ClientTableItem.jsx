@@ -8,15 +8,15 @@ export default function ClientTableItem({ person, i, setEditing}) {
     const getBadgeColor = (status) => {
         switch (status) {
             case "Active":
-                return "badge badge-error text-white px-3 ";
+                return "badge badge-error text-error-content text-xs px-3 ";
             case "Inactive":
-                return "badge badge-warning text-warning-content px-3";
+                return "badge badge-warning text-warning-content text-xs px-3";
             case "In Progress":
-                return "badge badge-success text-success-content px-3";
+                return "badge badge-success text-success-content text-xs px-3";
             case "Graduated":
-                return "badge badge-info text-white px-3";
+                return "badge badge-info text-info-content text-xs px-3";
             default:
-                return "badge badge-primary text-primary-content px-3";
+                return "badge badge-primary text-primary-content text-xs px-3";
         }
     }
 
@@ -49,7 +49,7 @@ export default function ClientTableItem({ person, i, setEditing}) {
                 <span className={`ml-4`}>{!person.name ? person.first_name + " " + person.last_name : person.name}</span>
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
-                <div className={`badge ${getBadgeColor(person.clientStatus)}`}>{person.clientStatus}</div>
+                <div className={`${getBadgeColor(person.clientStatus)}`}>{person.clientStatus}</div>
             </td>
         </tr>
     );
