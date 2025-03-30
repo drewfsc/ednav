@@ -357,8 +357,8 @@
           "TABE"
         ]
       },
-      "adrc": {},
-      "aDvoCap": {}
+      "aDvoCap": {},
+      "adrc": {}
     },
     "enrolled in": {
       "BTC": {
@@ -1632,10 +1632,7 @@
       "other": {}
     },
     "enrolled in": {
-      "Work program":{},
-      "Apprenticeship":{},
-      "Tutoring":{},
-      "University":{},
+      "Apprenticeship": {},
       "Tech school": {
         "BTC": {
           "GED": [
@@ -1764,7 +1761,6 @@
             "Career Assessment",
             "Civics",
             "Employability",
-            "GED.com account",
             "HS Transcript",
             "Health",
             "Journey Letter",
@@ -1987,16 +1983,19 @@
             "TABE"
           ]
         }
-      }
+      },
+      "Tutoring": {},
+      "University": {},
+      "Work program": {}
     },
     "grade advancement": {
+      "10th": {},
+      "11th": {},
+      "12th": {},
       "6th": {},
       "7th": {},
       "8th": {},
       "9th": {},
-      "10th": {},
-      "11th": {},
-      "12th": {},
       "Graduated": {}
     },
     "referred to": {

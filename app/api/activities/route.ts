@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getCollection } from "@/lib/mongodb"
+import { ObjectId } from 'mongodb';
 
 // GET activities, optionally filtered by clientId
 export async function GET(request: NextRequest) {
@@ -28,15 +29,20 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const actionsCollection = await getCollection("actions")
+    const clientsCollection = await getCollection("clients")
 
     // Add timestamp if not provided
     if (!body.createdAt) {
       body.createdAt = new Date().toISOString()
     }
+    let user
+    if (body.trackable) {
+       user = await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { trackable: body.trackable }})
+    }
 
     const result = await actionsCollection.insertOne(body)
 
-    return NextResponse.json({ message: "Action added successfully", _id: result.insertedId }, { status: 201 })
+    return NextResponse.json({ message: "Action added successfully", _id: result.insertedId, user }, { status: 201 })
   } catch (error) {
     console.error("Error adding action:", error)
     return NextResponse.json({ error: "Failed to add action" }, { status: 500 })
