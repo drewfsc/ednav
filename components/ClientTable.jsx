@@ -68,15 +68,13 @@ export default function ClientTable({setEditing, userClients}) {
     // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
 
-
-
     return (
         <div className="flex-1">
             <div className="mt-0 overflow-y-scroll no-scrollbar">
                 <div className="h-auto">
                     <div className="inline-block min-w-full py-0 h-full align-middle relative">
                         <div
-                            className="h-16 fixed top-0 bg-base-300 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
+                            className="h-16 fixed top-0 bg-base-200 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
                             <div>
                                 <span className={`font-bold`} >{filteredClients
                                     .filter(client => client.navigator === selectedNavigator)

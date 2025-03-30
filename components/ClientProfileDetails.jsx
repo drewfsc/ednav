@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ActivityTable from "/components/ActivityTable";
 import {useClients} from "/contexts/ClientsContext";
+import ActivityFeed from './ActivityFeed';
 
 export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
@@ -79,8 +80,8 @@ export default function ClientProfileDetails() {
 
     return (
         <div className="  mb-12 ml-6">
-            <div className="flex w-full gap-20 mt-6">
-                <div className={`flex-1`}>
+            <div className="flex w-full gap-6 mt-6">
+                <div className={`flex-1 bg-base-200 p-4 rounded-lg`}>
                     <div className="font-semibold mb-4">Personal <span onClick={() => {
                         if (editingPersonal) {
                             handleSubmit().then();
@@ -89,7 +90,7 @@ export default function ClientProfileDetails() {
                         else {
                             setEditingPersonal(true);
                         }
-                    }} className={`font-normal underline text-accent cursor-pointer`}>{editingPersonal ? 'Save' : 'Edit'}</span></div>
+                    }} className={`text-secondary/50 text-xs hover:text-secondary cursor-pointer underline font-normal`}>{editingPersonal ? 'Save' : 'Edit'}</span></div>
                     <div className="flex-1 text-sm">
                         <dl className="divide-y divide-base-content/20 w-full">
                             {
@@ -108,7 +109,7 @@ export default function ClientProfileDetails() {
                         </dl>
                     </div>
                 </div>
-                <div className={`flex-1`}>
+                <div className={`flex-1 bg-base-200 p-4 rounded-lg`}>
                     <div className="font-semibold mt-0 mb-4">Organization <span onClick={() => {
                         if (editingOrganization) {
                             handleSubmit().then();
@@ -117,7 +118,7 @@ export default function ClientProfileDetails() {
                         else {
                             setEditingOrganization(true);
                         }
-                    }} className={`font-normal underline text-accent cursor-pointer`}>{editingOrganization ? 'Save' : 'Edit'}</span></div>
+                    }} className={`text-secondary/50 text-xs hover:text-secondary cursor-pointer underline font-normal`}>{editingOrganization ? 'Save' : 'Edit'}</span></div>
                     <div className="text-sm w-full">
                         <dl className="divide-y divide-base-content/20">
                             {
@@ -139,6 +140,10 @@ export default function ClientProfileDetails() {
                 </div>
 
             </div>
+            {/*<div className={`my-16`}>*/}
+            {/*    <ActivityFeed client={selectedClient} actions={actions} setActions={setActions} notes={notes} setNotes={setNotes}/>*/}
+            {/*</div>*/}
+
             <ActivityTable selectedClient={selectedClient} fetching={fetching} setFetching={setFetching} actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={selectedClient}
                            />
         </div>

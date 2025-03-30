@@ -10,7 +10,7 @@ function NavigatorSelector() {
         "Rachael Banerdt",
         "Morgan Sole",
         "Kecia Thompson-Gorgon",
-        "Drew McCauley",
+        "Andrew McCauley",
         "Sara Jackson"
     ];
 

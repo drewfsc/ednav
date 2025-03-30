@@ -16,7 +16,7 @@ export default function LeftNavEntire({ setEditing}) {
                         <a href={`/`}><span className={`text-info z-10 relative`}>ED</span><span
                             className={`text-warning -m-3 z-0 relative`}>NAV</span></a>
                     </div>
-                    <div className={`uppercase text-primary-content -mt-2 tracking-widest text-lg`}>
+                    <div className={`uppercase text-base-content font-light -mt-2 tracking-widest text-lg`}>
                         Success Tracker
                     </div>
                 </div>
