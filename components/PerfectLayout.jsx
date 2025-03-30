@@ -15,6 +15,7 @@ export default function PerfectLayout() {
   const { selectedClient } = useClients();
   const {selectedNavigator,setSelectedNavigator} = useNavigators();
   const [userClients, setUserClients] = useState([]);
+  const [, setFetching] = useState(false);
 
   useEffect(() => {
     if (session.data.user.level === 'navigator') {
@@ -41,7 +42,7 @@ export default function PerfectLayout() {
               </div>
               <div
                 className={`bg-base-100 w-[310px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
-                <ClientTable userClients={userClients} setEditing={setEditing} />
+                <ClientTable userClients={userClients} setEditing={setEditing} setFetching={setFetching}/>
               </div>
             </div>
             <div className={`flex h-screen w-full`}>

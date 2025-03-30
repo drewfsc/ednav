@@ -6,7 +6,7 @@ import {GroupIcon} from "lucide-react";
 import {ToggleGroup} from "/components/ui/toggle-group";
 import { useNavigators } from '../contexts/NavigatorsContext';
 
-export default function ClientTable({setEditing, userClients}) {
+export default function ClientTable({setEditing, userClients, setFetching}) {
     const [isMounted, setIsMounted] = useState(false);
     const {selectedNavigator} = useNavigators();
     const [grouped, setGrouped] = useState(false);
@@ -90,7 +90,7 @@ export default function ClientTable({setEditing, userClients}) {
                                             <td colSpan="5" className="py-2 px-4 font-bold">{status} ({clients.length})</td>
                                         </tr>
                                         {clients.map((person, i) => (
-                                            <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} />
+                                            <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} setFetching={setFetching} />
                                         ))}
                                     </React.Fragment>
                                 ))

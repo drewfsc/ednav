@@ -27,14 +27,14 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const collection = await getCollection("actions")
+    const actionsCollection = await getCollection("actions")
 
     // Add timestamp if not provided
     if (!body.createdAt) {
       body.createdAt = new Date().toISOString()
     }
 
-    const result = await collection.insertOne(body)
+    const result = await actionsCollection.insertOne(body)
 
     return NextResponse.json({ message: "Action added successfully", _id: result.insertedId }, { status: 201 })
   } catch (error) {

@@ -19,6 +19,7 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
     const [multiSelectValues, setMultiSelectValues] = useState([]);
     const [selectedValue, setSelectedValue] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [trackable, setTrackable] = useState({});
 
     useEffect(() => {
         if (client?.group) {
@@ -45,6 +46,20 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
         const newObject = newPath.reduce((acc, key) => (acc && acc[key] ? acc[key] : null), questions);
         setCurrentObject(newObject);
 
+        if (selectedValue === 'GED' || selectedValue === 'HSED') {
+            let items = []
+            if (newObject && newObject.length > 0) {
+                items = newObject.map(item => {
+                    return {
+                        name: item,
+                        completed: false,
+                    }
+                });
+            }
+            setTrackable({ type: selectedValue, length: newObject.length, items: items });
+            // console.log("trackable", trackable);
+        }
+
         if (newObject && typeof newObject === 'object') {
             console.log("1", Array.isArray(newObject), newObject);
             setFinalSelection(null);
@@ -70,6 +85,7 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
                 clientEmail: client.email,
                 clientName: client.name,
                 fep: client.fep,
+                trackable: trackable,
                 selectedDate: selectedDate,  // Include date selection
                 timestamp: new Date(),
             });
@@ -78,11 +94,13 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
         }
     };
 
-    const handleMultiSelectChange = (option) => {
+    const handleMultiSelectChange = (option, index) => {
         setMultiSelectValues((prev) => {
             if (prev.includes(option)) {
+                trackable.items[index].completed = false;
                 return prev.filter(item => item !== option);
             } else {
+                trackable.items[index].completed = true;
                 return [...prev, option];
             }
         });
@@ -96,6 +114,7 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
             clientEmail: client.email,
             clientName: client.name,
             fep: client.fep,
+            trackable: trackable,
             selectedDate: selectedDate,  // Include date selection
             timestamp: new Date(),
         };
@@ -155,7 +174,7 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
                                     type="checkbox"
                                     value={option}
                                     checked={multiSelectValues.includes(option)}
-                                    onChange={() => handleMultiSelectChange(option)}
+                                    onChange={() => handleMultiSelectChange(option, index)}
                                 />
                                 <span>{option}</span>
                             </label>

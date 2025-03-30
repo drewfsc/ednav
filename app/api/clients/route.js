@@ -24,7 +24,7 @@ export async function GET(request) {
 }
 
 // POST to add a new client
-export async function POST(request) { // Remove extra ")" and use request directly
+export async function POST(request) {
   try {
     const body = await request.json(); // Correctly parse request body
     const collection = await getCollection("clients");
