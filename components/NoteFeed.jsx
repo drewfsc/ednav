@@ -6,7 +6,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function NoteFeed({notes, setNotes, activityIdFromPage}) {
+export default function NoteFeed({notes, activityIdFromPage}) {
     const getIconBGColor = (status) => {
         switch (status) {
             case "ThumbsUp":
