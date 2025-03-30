@@ -9,8 +9,11 @@ export default function Home() {
 
   if (session.status !== 'authenticated') {
     return (
-      <div>
-        <SignIn/>
+      <div className={`w-full h-screen flex justify-center items-center`}>
+        <div className={`text-center`}>
+          <img src="/images/logo.png" width={160} height={160} alt="EDNAV" />
+          <SignIn/>
+        </div>
       </div>
     )
   }

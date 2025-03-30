@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import {useNavigators} from "@/contexts/NavigatorsContext";
+import {useNavigators} from "/contexts/NavigatorsContext";
 
 function NavigatorSelector() {
     const navigatorNames = [
+        "All",
         "Stacy Martinez",
         "Hailey Jester",
         "Ashleigh Chesney",
@@ -11,6 +12,7 @@ function NavigatorSelector() {
         "Morgan Sole",
         "Kecia Thompson-Gorgon",
         "Andrew McCauley",
+        "Drew McCauley",
         "Sara Jackson"
     ];
 

@@ -2,10 +2,15 @@
 import React, {useEffect, useState} from "react";
 import {adultSchools, youthSchools} from "/lib/schools";
 import {XCircle} from "phosphor-react";
-import { useClients } from '../contexts/ClientsContext';
-const AddClientForm = ({setEditing, setOpen}) => {
+import { useClients } from '@/contexts/ClientsContext';
+import InputLabel from '@/components/InputLabel';
+import { useEditing } from '@/contexts/EditingContext';
+
+const AddClientForm = () => {
+
     const [feps, setFeps] = useState([]);
-    const [navigators, setNavigators] = useState([]);
+    const [, setNavigators] = useState([]);
+    const {setEditing} = useEditing();
     const {setSelectedClient}= useClients(null);
     const [formData, setFormData] = useState({
         first_name: "",
@@ -30,6 +35,19 @@ const AddClientForm = ({setEditing, setOpen}) => {
         schoolIfEnrolled: "",
         ttsDream: ""
     });
+    const navigatorNames = [
+        "All",
+        "Stacy Martinez",
+        "Hailey Jester",
+        "Ashleigh Chesney",
+        "Rich Basche",
+        "Rachael Banerdt",
+        "Morgan Sole",
+        "Kecia Thompson-Gorgon",
+        "Andrew McCauley",
+        "Drew McCauley",
+        "Sara Jackson"
+    ]
     const locations = [  "Brown",
         "Calumet",
         "Columbia",
@@ -64,11 +82,14 @@ const AddClientForm = ({setEditing, setOpen}) => {
     ];
 
     const fetchFeps = async () => {
+        let feps = []
         const response = await fetch(`/api/feps`)
         const data = await response.json()
-        if(data){
-            setFeps(data)
-        }
+        await data.forEach(fep => {
+            feps.push(fep.name)
+        })
+           setFeps(feps)
+
     }
 
     const fetchNavigators = async () => {
@@ -82,13 +103,9 @@ const AddClientForm = ({setEditing, setOpen}) => {
     useEffect(() => {
         fetchFeps().then();
         fetchNavigators().then();
-        if(navigators) {
-            console.log(navigators)
-        }
-
     }, []);
 
-    const [errors, setErrors] = useState({});
+    const [, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
     async function postData() {
@@ -101,14 +118,33 @@ const AddClientForm = ({setEditing, setOpen}) => {
         })
         const data = await response.json()
         if(data){
-            setOpen(true)
+            // setOpen(true)
             setEditing(false)
             setTimeout(() => {
-                setOpen(false)
+                // setOpen(false)
             }, 7000)
         }
         console.log(data)
     }
+
+    const formFields = [
+        {name: 'first_name', label: 'First Name', type: 'text', required: true, value: formData.first_name, options: null},
+        {name: 'last_name', label: 'Last Name', type: 'text', required: true, value: formData.last_name, options: null},
+        {name: 'email', label: 'Email', type: 'email', required: true, value: formData.email, options: null},
+        {name: 'contactNumber', label: 'Contact Number', type: 'tel', required: true, value: formData.contactNumber, options: null},
+        {name: 'caseNumber', label: 'Case Number', type: 'text', required: true, value: formData.caseNumber, options: null},
+        {name: 'pin', label: 'PIN', type: 'text', required: true, value: formData.pin, options: null},
+        {name: 'dob', label: 'Date of Birth', type: 'date', required: true, value: formData.dob, options: null},
+        {name: 'fep', label: 'FEP', type: 'select', required: true, options: feps, value: formData.fep},
+        {name: 'navigator', label: 'Navigator', type: 'select', required: true, options: navigatorNames, value: formData.navigator},
+        {name: 'dateReferred', label: 'Date Referred', type: 'date', required: true, value: formData.dateReferred, options: null},
+        {name: 'lastGrade', label: 'Last Grade Completed', type: 'select', required: true, options: lastGradeCompletedOptions, value: formData.lastGrade},
+        {name: 'region', label: 'Region', type: 'select', required: true, options: ["1", "2", "3", "4", "5", "6"], value: formData.region},
+        {name: 'group', label: 'Age Group', type: 'select', required: true, options: ["Adult", "Youth"], value: formData.group},
+        {name: 'schoolIfEnrolled', label: 'School (if enrolled)', type: 'select', required: true, options: formData.group === "Adult" ? formData.group === "Youth" ? null : adultSchools : youthSchools , value: formData.schoolIfEnrolled},
+        {name: 'officeCity', label: 'Office Location', type: 'select', required: true, options: locations, value: formData.officeCity},
+        {name: 'ttsDream', label: 'TTS Dream', type: 'textarea', required: true, value: formData.ttsDream, options: null},
+    ]
 
     // Handle input change
     const handleChange = (e) => {
@@ -149,207 +185,22 @@ const AddClientForm = ({setEditing, setOpen}) => {
                 setEditing("")
                 setSelectedClient(null)
             }} className="absolute top-6 right-10"><XCircle size={36}/></div>
-            <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-6 gap-4">
+            <form onSubmit={handleSubmit}>
 
-                <div className="flex w-full flex-col col-span-6">
-                    <div className="divider">Personal</div>
+                <div className="space-y-4 grid grid-cols-3 gap-4">
+                    {formFields.map((field) => {
+                    return (
+                      <InputLabel key={field.name} label={field.label} name={field.name} formData={formData}
+                                  handleChange={handleChange} text={field.label} type={field.type}
+                                  required={field.required} options={field.options} value={field.value} />
+                    );
+                })}
                 </div>
 
-                {/* First Name */}
-                <input
-                    type="text"
-                    name="first_name"
-                    placeholder="First Name"
-                    value={formData.first_name}
-                    onChange={handleChange}
-                    className="input col-span-2 w-full border p-2 rounded-md"
-                />
-                {errors.first_name && <p className="text-red-500">{errors.first_name}</p>}
-
-                {/* Last Name */}
-                <input
-                    type="text"
-                    name="last_name"
-                    placeholder="Last Name"
-                    value={formData.last_name}
-                    onChange={handleChange}
-                    className="input col-span-2 w-full border p-2 rounded-md"
-                />
-                {errors.last_name && <p className="text-red-500">{errors.last_name}</p>}
-
-                {/* Age group */}
-                <select name="group" value={formData.group} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Age group</option>
-                    <option>Adult</option>
-                    <option>Youth</option>
-                </select>
-                {errors.group && <p className="text-red-500">{errors.group}</p>}
-
-                {/* Date of Birth */}
-                <input
-                    type="date"
-                    name="dob"
-                    value={formData.dob}
-                    onChange={handleChange}
-                    className="input  border p-2 rounded-md"
-                />
-                {errors.dob && <p className="text-red-500">{errors.dob}</p>}
-
-                {/* Email */}
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="input col-span-2 w-full border p-2 rounded-md"
-                />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}
-
-                {/* Contact Number */}
-                <input
-                    type="tel"
-                    name="contactNumber"
-                    placeholder="Contact Number"
-                    value={formData.contactNumber}
-                    onChange={handleChange}
-                    className="input col-span-2 w-full border p-2 rounded-md"
-                />
-                {errors.contactNumber && <p className="text-red-500">{errors.contactNumber}</p>}
-
-                {/* Last grade */}
-                <select name="lastGrade" value={formData.lastGrade} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select last grade completed</option>
-                    {
-                        lastGradeCompletedOptions.map((grade) => {
-                            return (
-                                <option key={grade} value={grade}>{grade}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.lastGrade && <p className="text-red-500">{errors.lastGrade}</p>}
-
-                {/* School if enrolled */}
-                <select name="schoolIfEnrolled" value={formData.schoolIfEnrolled} onChange={handleChange} disabled={formData.group === ""} className="select border p-2 rounded-md ">
-                    <option value="">Select school if enrolled</option>
-                    {
-                        formData.group === "Adult" ? adultSchools.map((school) => {
-                            return (
-                                <option key={school} value={school}>{school}</option>
-                            )
-                        }) : youthSchools.map((school) => {
-                            return (
-                                <option key={school} value={school}>{school}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.schoolIfEnrolled && <p className="text-red-500">{errors.schoolIfEnrolled}</p>}
-
-                <div className="flex w-full flex-col col-span-6">
-                    <div className="divider">Administrative</div>
-                </div>
-
-                {/* FEP */}
-                <select name="fep" value={formData.fep} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select FEP</option>
-                    {
-                       feps.map((fep) => {
-                            return (
-                                <option key={fep.name} value={fep.name}>{fep.name}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.fep && <p className="text-red-500">{errors.fep}</p>}
-
-                {/* Navigator */}
-                <select name="navigator" value={formData.navigator} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select Navigator</option>
-                    {
-                        navigators.map((navigator) => {
-                            return (
-                                <option key={navigator.name} value={navigator.name}>{navigator.name}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.navigator && <p className="text-red-500">{errors.navigator}</p>}
-
-                {/* Case Number */}
-                <input
-                    type="number"
-                    name="caseNumber"
-                    placeholder="Case Number"
-                    value={formData.caseNumber}
-                    onChange={handleChange}
-                    className="input  border p-2 rounded-md"
-                />
-                {errors.caseNumber && <p className="text-red-500">{errors.caseNumber}</p>}
-
-
-
-
-                {/* Region */}
-                <select name="region" value={formData.region} onChange={handleChange} className="select border p-2 rounded-md ">
-                    <option value="">Select region</option>
-                    {
-                        Array(9).fill(0).map((_, i) => (
-                            <option key={i} value={i+1}>{i+1}</option>
-                        ))
-                    }
-                </select>
-                {errors.region && <p className="text-red-500">{errors.region}</p>}
-
-                {/* Office city */}
-                <select name="officeCity" value={formData.officeCity} onChange={handleChange} className="select border col-span-2 w-full p-2 rounded-md ">
-                    <option value="">Select office location</option>
-                    {
-                        locations.map((location) => {
-                            return (
-                                <option key={location} value={location}>{location}</option>
-                            )
-                        })
-                    }
-                </select>
-                {errors.officeCity && <p className="text-red-500">{errors.officeCity}</p>}
-
-                {/* PIN */}
-                <input
-                    type="number"
-                    name="pin"
-                    placeholder="PIN"
-                    value={formData.pin}
-                    onChange={handleChange}
-                    className="input col-span-1 border p-2 rounded-md"
-                />
-                {errors.pin && <p className="text-red-500">{errors.pin}</p>}
-
-                {/* Date referred */}
-                <input
-                    type="date"
-                    name="dateReferred"
-                    value={formData.dateReferred}
-                    onChange={handleChange}
-                    className="input col-span-1 border p-2 rounded-md"
-                />
-                {errors.dateReferred && <p className="text-red-500">{errors.dateReferred}</p>}
-
-                {/* TTS dream */}
-                <textarea
-                    name="ttsDream"
-                    placeholder="TTS dream"
-                    value={formData.ttsDream}
-                    onChange={handleChange}
-                    className="input col-span-4 w-full border p-2 rounded-md"
-                />
-                {errors.ttsDream && <p className="text-red-500">{errors.ttsDream}</p>}
-
-                {/* Submit Button with Loading Spinner */}
-                <button type="submit" className="bg-green-500 text-white p-2 rounded-md ">
+                {/*/!* Submit Button with Loading Spinner *!/*/}
+                <button type="submit" className="bg-green-500 text-white p-2 rounded-md mt-6 px-6">
                     {loading ? (
-                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white mx-auto"></div>
+                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white mx-auto max-h-10"></div>
                     ) : (
                         "Submit"
                     )}

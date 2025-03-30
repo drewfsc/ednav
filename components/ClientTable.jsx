@@ -4,10 +4,11 @@ import {useFepsLeft} from "/contexts/FepsLeftContext";
 import ClientTableItem from "/components/ClientTableItem";
 import {GroupIcon} from "lucide-react";
 import {ToggleGroup} from "/components/ui/toggle-group";
+import { useNavigators } from '../contexts/NavigatorsContext';
 
 export default function ClientTable({setEditing, userClients}) {
     const [isMounted, setIsMounted] = useState(false);
-    const [selectedNavigator, setSelectedNavigator] = useState("");
+    const {selectedNavigator} = useNavigators();
     const [grouped, setGrouped] = useState(false);
     const [, setTableClients] = useState(userClients.filter(client => client.navigator === selectedNavigator).length);
 
@@ -24,11 +25,10 @@ export default function ClientTable({setEditing, userClients}) {
         }
     };
 
-    // Group clients by clientStatus
     const groupByClientStatus = (clients) => {
         return clients
             .filter(client => client.navigator === selectedNavigator)
-            .sort((a, b) => (a.clientStatus > b.clientStatus ? 1 : -1)) // Proper sorting
+            .sort((a, b) => (a.clientStatus > b.clientStatus ? 1 : -1))
             .reduce((groups, client) => {
                 const status = client.clientStatus || "Unknown";
                 if (!groups[status]) groups[status] = [];
@@ -36,14 +36,6 @@ export default function ClientTable({setEditing, userClients}) {
                 return groups;
             }, {});
     };
-
-    useEffect(() => {
-        setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
-        if (typeof window !== "undefined") {
-            const storedNavigator = localStorage.getItem("navigatorName") || "";
-            setSelectedNavigator(storedNavigator);
-        }
-    }, [selectedNavigator]);
 
     const {selectedFepLeft} = useFepsLeft();
     const filteredClients = userClients.filter(client => client.navigator === selectedNavigator).filter(client => {

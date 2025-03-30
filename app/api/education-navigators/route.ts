@@ -3,7 +3,7 @@ import { getCollection } from "@/lib/mongodb";
 
 export async function GET() {
   try {
-    const navigatorsCollection = await getCollection("educationNavigators");
+    const navigatorsCollection = await getCollection("users");
     const fepsCollection = await getCollection("feps");
     const clientsCollection = await getCollection("clients");
 

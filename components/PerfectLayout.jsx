@@ -6,26 +6,37 @@ import { useEditing } from '/contexts/EditingContext';
 import ClientProfile from './ClientProfile';
 import { useClients } from '/contexts/ClientsContext';
 import AddClientForm from './AddClientForm';
+import { useSession } from 'next-auth/react';
+import { useNavigators } from '@/contexts/NavigatorsContext';
 
 export default function PerfectLayout() {
+  const session = useSession();
   const { editing, setEditing } = useEditing();
   const { selectedClient } = useClients();
+  const {selectedNavigator,setSelectedNavigator} = useNavigators();
   const [userClients, setUserClients] = useState([]);
+
+  useEffect(() => {
+    if (session.data.user.level === 'navigator') {
+      setSelectedNavigator(session.data.user.name)
+    }
+  }, []);
 
   useEffect(() => {
     fetch('/api/clients')
       .then(res => res.json())
       .then(data => setUserClients(data))
       .catch(err => console.log(err));
-  }, []);
+  }, [selectedNavigator]);
 
   return (
     <div className={`w-full h-screen overflow-hidden relative bg-base-100`}>
+      {/*<SuccessMessage/>*/}
       <div className={`h-screen overflow-hidden flex`}>
         <div className="flex max-h-screen overflow-hidden w-full">
           <div className={`flex flex-row h-screen w-full`}>
-            <div className={`flex w-[600px]`}>
-              <div className={`w-[190px]`}>
+            <div className={`flex w-[540px]`}>
+              <div className={`w-[230px]`}>
                 <LeftNavEntire setEditing={setEditing} />
               </div>
               <div
@@ -42,8 +53,6 @@ export default function PerfectLayout() {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
