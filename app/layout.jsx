@@ -9,9 +9,7 @@ import { LocationsProvider } from '../contexts/LocationsContext';
 import { NavigatorProvider } from '../contexts/NavigatorsContext';
 import { SessionProvider } from 'next-auth/react';
 
-
 export default function RootLayout({ children }) {
-
 
   return (
     <SessionProvider>

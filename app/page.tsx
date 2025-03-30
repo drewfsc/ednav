@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import PerfectLayout from '../components/PerfectLayout';
 
-export default function Home({ children}) {
+export default function Home() {
   const session = useSession();
   console.log(session);
   // if (session.status === 'authenticated'){
@@ -12,8 +12,6 @@ export default function Home({ children}) {
   //   redirect('/auth/signIn');
   // }
   return (
-    <PerfectLayout>
-      {children}
-    </PerfectLayout>
+    <PerfectLayout/>
   );
 }
