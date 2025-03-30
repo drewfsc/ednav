@@ -44,7 +44,7 @@ export default function ClientTableItem({ person, i, setEditing}) {
                 setSelectedClient(person);
                 setEditing("client");
             }
-        }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer border-l-8 border-base-100 ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
+        }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer border-l-4 border-base-100 ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
             <td className="whitespace-nowrap text-sm font-medium">
                 <span className={`ml-4`}>{!person.name ? person.first_name + " " + person.last_name : person.name}</span>
             </td>

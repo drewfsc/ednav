@@ -52,35 +52,16 @@ export default function ClientProfileDetails() {
         } catch (error) {
             console.error("Error fetching client activities:", error);
         }
-
     }
 
     useEffect( () => {
        getActions().then()
     }, [selectedClient])
 
-    // const fetchActionsData = async () => {
-    //
-    //     try {
-    //         const response = await fetch(`/api/activities?clientId=${selectedClient._id}`);
-    //             const data = await response.json();
-    //             await setActions(data);
-    //
-    //     } catch (error) {
-    //         console.error("Error fetching client activities:", error);
-    //     }
-    // };
-    //
-    // useEffect(() => {
-    //     if (selectedClient) {
-    //         fetchActionsData().then()
-    //     }
-    // }, []);
-
     return (
-        <div className="  mb-12 ml-6">
+        <div className="mb-12 ml-6">
             <div className="flex w-full gap-6 mt-6">
-                <div className={`flex-1 bg-base-200 p-4 rounded-lg`}>
+                <div className={`w-1/2 bg-base-200 p-6 rounded-lg`}>
                     <div className="font-semibold mb-4">Personal <span onClick={() => {
                         if (editingPersonal) {
                             handleSubmit().then();
@@ -90,7 +71,7 @@ export default function ClientProfileDetails() {
                             setEditingPersonal(true);
                         }
                     }} className={`text-secondary/50 text-xs hover:text-secondary cursor-pointer underline font-normal`}>{editingPersonal ? 'Save' : 'Edit'}</span></div>
-                    <div className="flex-1 text-sm">
+                    <div className="text-sm">
                         <dl className="divide-y divide-base-content/20 w-full">
                             {
                               selectedClient && personalFields.map((f) => (
@@ -108,7 +89,7 @@ export default function ClientProfileDetails() {
                         </dl>
                     </div>
                 </div>
-                <div className={`flex-1 bg-base-200 p-4 rounded-lg`}>
+                <div className={`w-1/2 bg-base-200 p-6 rounded-lg`}>
                     <div className="font-semibold mt-0 mb-4">Organization <span onClick={() => {
                         if (editingOrganization) {
                             handleSubmit().then();
@@ -139,12 +120,15 @@ export default function ClientProfileDetails() {
                 </div>
 
             </div>
-            {/*<div className={`my-16`}>*/}
-            {/*    <ActivityFeed client={selectedClient} actions={actions} setActions={setActions} notes={notes} setNotes={setNotes}/>*/}
-            {/*</div>*/}
-
-            <ActivityTable selectedClient={selectedClient} fetching={fetching} setFetching={setFetching} actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={selectedClient}
-                           />
+            <ActivityTable
+              selectedClient={selectedClient}
+              fetching={fetching}
+              setFetching={setFetching}
+              actions={actions}
+              setActions={setActions}
+              notes={notes}
+              setNotes={setNotes}
+              client={selectedClient}/>
         </div>
     );
 }

@@ -9,8 +9,15 @@ import {LocationsProvider} from "../contexts/LocationsContext";
 import {NavigatorProvider} from "../contexts/NavigatorsContext";
 // import {SessionProvider} from "next-auth/react";
 
+
 export default function RootLayout({children}) {
 
+  const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  }
   return (
       // <SessionProvider>
       <ThemesProvider>
@@ -43,6 +50,7 @@ function ThemeWrapper({children}) {
 
     return (
         <html lang="en" data-theme={selectedTheme} suppressHydrationWarning>
+
         <body>{isMounted && children}</body>
         </html>
     );

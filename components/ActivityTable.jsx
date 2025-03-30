@@ -80,7 +80,7 @@ export default function ActivityTable({
   };
 
   return (
-    <div className={`flex-1 bg-base-200 p-4 rounded-lg mt-6`}>
+    <div className={`flex-1 bg-base-200 p-6 rounded-lg mt-6`}>
       <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={client}
                      open={open} setOpen={setOpen} loading={loading} setLoading={setLoading} />
       <div className={`flex justify-start items-center gap-4 mb-6`}>
