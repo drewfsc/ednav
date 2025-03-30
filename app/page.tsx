@@ -1,16 +1,20 @@
 "use client"
-// import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import PerfectLayout from '../components/PerfectLayout';
+import SignIn from '@/components/sign-in';
 
 export default function Home() {
+
   const session = useSession();
-  console.log(session);
-  // if (session.status === 'authenticated'){
-  //   redirect('/dashboard');
-  // } else {
-  //   redirect('/auth/signIn');
-  // }
+
+  if (session.status !== 'authenticated') {
+    return (
+      <div>
+        <SignIn/>
+      </div>
+    )
+  }
+
   return (
     <PerfectLayout/>
   );

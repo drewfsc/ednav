@@ -5,8 +5,6 @@ import NavigatorSelector from "/components/NavigatorSelector";
 import LeftNavigation from "/components/LeftNavigation";
 import {LocationsProvider} from "/contexts/LocationsContext";
 import {useFepsLeft} from "/contexts/FepsLeftContext";
-import SignInButton from './sign-in';
-
 
 export default function LeftNavEntire({ setEditing}) {
     const {setSelectedFepLeft} = useFepsLeft();
@@ -36,7 +34,6 @@ export default function LeftNavEntire({ setEditing}) {
             </div>
 
             <div className={`mb-6`}>
-                <SignInButton/>
                 <NavigatorSelector/>
                 {/*<ThemeSwitcher/>*/}
             </div>

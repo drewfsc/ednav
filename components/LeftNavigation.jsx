@@ -1,8 +1,12 @@
 "use client";
 import React from 'react';
 import {useFepsLeft} from "../contexts/FepsLeftContext";
+import SignInButton from './sign-in';
+import { useSession } from 'next-auth/react';
+import { SignOutButton } from './sign-out';
 
 export default function LeftNavigation({ setEditing}) {
+  const session = useSession();
     const {selectedFepLeft, setSelectedFepLeft} = useFepsLeft();
     const navStatus = [
       [
@@ -79,6 +83,9 @@ export default function LeftNavigation({ setEditing}) {
                     }}
                        className={`hover:bg-base-200 `}>Add New Client +</a>
                 </li>
+              <li>
+                {session.status === 'authenticated' ? <SignOutButton/> : <SignInButton/>}
+              </li>
             </ul>
         </div>
     );

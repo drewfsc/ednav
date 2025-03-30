@@ -7,12 +7,11 @@ import ClientProfile from './ClientProfile';
 import { useClients } from '/contexts/ClientsContext';
 import AddClientForm from './AddClientForm';
 
-export default function PerfectLayout(props) {
+export default function PerfectLayout() {
   const { editing, setEditing } = useEditing();
   const { selectedClient } = useClients();
   const [userClients, setUserClients] = useState([]);
 
-  const { children } = props;
   useEffect(() => {
     fetch('/api/clients')
       .then(res => res.json())
@@ -40,7 +39,6 @@ export default function PerfectLayout(props) {
               </div>
               <div className={`bg-base-100 relative overflow-hidden transition-all duration-500  ${editing === 'add-client' ? 'w-full  translate-x-0' : 'translate-x-[4000px] collapse w-0'}`}>
                 {editing === 'add-client' && <AddClientForm client={selectedClient} setEditing={setEditing} />}
-                {children}
               </div>
             </div>
           </div>
