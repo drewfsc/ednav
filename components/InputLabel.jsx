@@ -8,7 +8,7 @@ export default function InputLabel({name, handleChange, type, value, label, opti
           htmlFor={name}
           className="absolute z-10 -top-2 left-2 inline-block rounded-lg  px-1 text-xs font-medium text-base-content bg-base-300"
         >{label}</label>
-          <textarea name={name} placeholder={label} value={value} onChange={handleChange} className="input w-full border p-2 rounded-md relative z-0 min-h-32"/>
+          <textarea id={name} placeholder={label} value={value} onChange={handleChange} className="input w-full border p-2 rounded-md relative z-0 min-h-32"/>
 
       </div>
     )
@@ -19,7 +19,7 @@ export default function InputLabel({name, handleChange, type, value, label, opti
           htmlFor={name}
           className="absolute z-10 -top-2 left-2 inline-block rounded-lg  px-1 text-xs font-medium text-base-content bg-base-300"
         >{label}</label>
-          <select name={name} value={value} onChange={handleChange} className="input w-full border p-2 rounded-md relative z-0">
+          <select autoComplete={"true"} id={name} value={value} onChange={handleChange} className="input w-full border p-2 rounded-md relative z-0">
             <option value="">{label}</option>
             {
              options && options.map((o) => (
@@ -39,8 +39,9 @@ export default function InputLabel({name, handleChange, type, value, label, opti
           {label}
         </label>
         <input
+          autoComplete={"true"}
           type={type}
-          name={name}
+          id={name}
           placeholder={label}
           value={value}
           onChange={handleChange}

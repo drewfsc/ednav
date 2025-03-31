@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useClients } from '@/contexts/ClientsContext';
 import moment from 'moment';
+import InputLabel from '@/components/InputLabel';
 
 function ClientProfilePersonalOrganization() {
   const {selectedClient} = useClients();
@@ -79,7 +80,7 @@ function ClientProfilePersonalOrganization() {
                     {f === 'dob' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : splitCamelCase(selectedClient[f])}
                   </dd>
                   <dd className={`${!editingPersonal ? 'hidden' : ''}`}>
-                    <input className={`border`} name={f} type={`text`} value={change[f]} onChange={handleChange} />
+                    <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={splitCamelCase(f)}/>
                   </dd>
                 </div>
               ))
@@ -104,7 +105,7 @@ function ClientProfilePersonalOrganization() {
                     {/*<div className={``}>{selectedClient[f]}</div>*/}
                   </dd>
                   <dd className={`${!editingOrganization ? 'hidden' : ''}`}>
-                    <input className={`border`} name={f} type={`text`} value={change[f]} onChange={handleChange} />
+                    <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={splitCamelCase(f)}/>
                   </dd>
                 </div>
               ))

@@ -9,6 +9,7 @@ import { useNavigators } from '../contexts/NavigatorsContext';
 export default function ClientTable({setEditing, userClients, setFetching}) {
     const [isMounted, setIsMounted] = useState(false);
     const {selectedNavigator} = useNavigators();
+    const {selectedFepLeft} = useFepsLeft();
     const [grouped, setGrouped] = useState(false);
     const [, setTableClients] = useState(userClients.filter(client => client.navigator === selectedNavigator).length);
 
@@ -37,15 +38,15 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
             }, {});
     };
 
-    const {selectedFepLeft} = useFepsLeft();
     const filteredClients = userClients.filter(client => client.navigator === selectedNavigator).filter(client => {
-        let currentName;
-        if (!client.name){
-            currentName = client.firstName + " " + client.lastName;
-        } else {
-            currentName = client.name;
-        }
-        const matchesSearch = currentName.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
+        // let currentName;
+        // if (!client.name){
+        //     currentName = client.firstName + " " + client.lastName;
+        // } else {
+        //     currentName = client.name;
+        // }
+        const matchesSearch = client.first_name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
+          || client.last_name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
         const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
         const matchesGroup = selectedFepLeft.age === 'All' || client.group === selectedFepLeft.age;
         return matchesSearch && matchesStatus && matchesGroup;

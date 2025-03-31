@@ -1,7 +1,6 @@
 import {ThumbsUp, SmileySad, Fire, Question, User} from "phosphor-react";
 import moment from "moment";
 
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }

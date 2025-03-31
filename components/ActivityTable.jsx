@@ -13,12 +13,9 @@ export default function ActivityTable({
                                         client,
                                         setLoading,
                                         loading,
-                                        fetching,
-                                        setFetching,
                                         selectedClient
                                       }) {
   const [openNote, setOpenNote] = useState(0);
-  // const [clientNotes, setClientNotes] = useState([])
   const [selectedNavigator, setSelectedNavigator] = useState('');
   const [, setIsMounted] = useState(false);
   const [open, setOpen] = useState(false);
@@ -49,21 +46,21 @@ export default function ActivityTable({
 
   useEffect(() => {
     getNotes().then();
-  }, [fetching, selectedClient]);
+  }, [setNotes, selectedClient]);
 
-  const saveNote = async (noteData) => {
-    const note = await fetch(`/api/notes/`, {
+  const saveNote = async () => {
+    const res = await fetch(`/api/notes/`, {
       method: 'POST',
-      body: JSON.stringify(noteData),
+      body: JSON.stringify(note),
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    const data = await note.json();
+    const data = await res.json();
     setNotes(prevState => {
-      setFetching(prevState => !prevState);
       return [data, ...prevState];
     });
+    await getNotes().then();
   };
 
   function createStatement(action) {
@@ -122,7 +119,7 @@ export default function ActivityTable({
                     </div>
                     <div className={`w-1/3 flex flex-col`}>
                       <span className={`text-lg font-medium`}>Add a Note</span>
-                      <textarea className={`textarea textarea-accent min-h-40 mt-4 mb-2 relative`}
+                      <textarea name={`client-activity-note`} className={`textarea textarea-accent min-h-40 mt-4 mb-2 relative`}
                                 placeholder={`Enter your notes here...`}
                                 onChange={(e) => setNote(prevState => {
                                   return {
@@ -136,11 +133,11 @@ export default function ActivityTable({
                           setNote({
                             noteContent: '',
                             noteAuthor: selectedNavigator,
-                            activityId: '',
+                            // activityId: '',
                             createdAt: new Date(),
-                            mood: ''
+                            // mood: ''
                           });
-                          setOpenNote(0);
+                          // setOpenNote(0);
                         }}>Save
                         </button>
                         {/*<div className={``}><MoodSelect mood={note.mood} setNote={setNote}/></div>*/}
@@ -153,80 +150,6 @@ export default function ActivityTable({
           }
         </ul>
       </div>
-
-      {/*<div className="overflow-x-auto w-full border border-base-300">*/}
-      {/*  /!*<div className={`flex divide-x divide-base-content/5 border-b border-base-300`}>*!/*/}
-      {/*  /!*  <div className={`w-1/5 pl-6 py-2`}>Who</div>*!/*/}
-      {/*  /!*  <div className={`w-1/5 pl-6 py-2`}>What</div>*!/*/}
-      {/*  /!*  <div className={`w-1/5 pl-6 py-2`}>When</div>*!/*/}
-      {/*  /!*  <div className={`w-1/5 pl-6 py-2`}>Where</div>*!/*/}
-      {/*  /!*  <div className={`w-1/5 pl-6 py-2`}>Note Count</div>*!/*/}
-      {/*  /!*</div>*!/*/}
-      {/*  {*/}
-      {/*    actions.map((action, i) => (*/}
-      {/*      <div className={``} key={i + 1}>*/}
-      {/*        <div key={i + 1} onClick={() => {*/}
-      {/*          setNote(prevState => {*/}
-      {/*            return {*/}
-      {/*              ...prevState,*/}
-      {/*              activityId: action?._id,*/}
-      {/*              noteAuthor: selectedNavigator,*/}
-      {/*              clientId: client._id*/}
-      {/*            };*/}
-      {/*          });*/}
-      {/*          setOpenNote(prevState => {*/}
-      {/*            return prevState === i + 1 ? 0 : i + 1;*/}
-      {/*          });*/}
-      {/*        }}*/}
-      {/*             className={`hover:bg-accent/60 hover:text-accent-content ${openNote === i + 1 ? `bg-accent text-accent-content` : ``}} cursor-pointer flex divide-x divide-base-content/5 border-b border-base-300`}>*/}
-      {/*          /!*<div className={`w-1/5 pl-6 py-2`}>{action?.who || action?.fep}</div>*!/*/}
-      {/*          /!*<div className={`w-1/5 pl-6 py-2`}>{action?.what || action?.path}</div>*!/*/}
-      {/*          /!*<div className={`w-1/5 pl-6 py-2`}>{moment(action?.when).format('M/D/Y')}</div>*!/*/}
-      {/*          /!*<div className={`w-1/5 pl-6 py-2`}>{action?.where}</div>*!/*/}
-      {/*          /!*<div className={`w-1/5 pl-6 py-2`}>{notes.filter(note => note.activityId === action._id).length}</div>*!/*/}
-      {/*          /!*<div className={`w-1/5 pl-6 py-2`}>{action?.who || action?.fep}</div>*!/*/}
-      {/*          <div className={`w-full pl-6 py-2`}>{createStatement(action)}</div>*/}
-      {/*        </div>*/}
-      {/*        <div className={`bg-base-200  ${openNote === i + 1 ? `block` : `hidden`}`}>*/}
-      {/*          <div className={`flex p-6`}>*/}
-      {/*            <div className={`flex-1 p mr-10 h-fit`}>*/}
-      {/*              <span className={`text-lg font-medium`}>Activity Notes</span>*/}
-      {/*              <div className={`mt-4`}>*/}
-      {/*                <NoteFeed notes={notes} setNotes={setNotes} activityIdFromPage={action?._id} />*/}
-      {/*              </div>*/}
-      {/*            </div>*/}
-      {/*            <div className={`w-1/3 flex flex-col`}>*/}
-      {/*              <span className={`text-lg font-medium`}>Add a Note</span>*/}
-      {/*              <textarea className={`textarea textarea-accent min-h-40 mt-4 mb-2 relative`}*/}
-      {/*                        placeholder={`Enter your notes here...`}*/}
-      {/*                        onChange={(e) => setNote(prevState => {*/}
-      {/*                          return {*/}
-      {/*                            ...prevState,*/}
-      {/*                            noteContent: e.target.value*/}
-      {/*                          };*/}
-      {/*                        })} value={note.noteContent} />*/}
-      {/*              <div className={`flex justify-between items-center`}>*/}
-      {/*                <button disabled={note.noteContent === ''} className={`btn btn-secondary w-1/4`} onClick={() => {*/}
-      {/*                  handleNote();*/}
-      {/*                  setNote({*/}
-      {/*                    noteContent: '',*/}
-      {/*                    noteAuthor: selectedNavigator,*/}
-      {/*                    activityId: '',*/}
-      {/*                    createdAt: new Date(),*/}
-      {/*                    mood: ''*/}
-      {/*                  });*/}
-      {/*                  setOpenNote(0);*/}
-      {/*                }}>Save*/}
-      {/*                </button>*/}
-      {/*                /!*<div className={``}><MoodSelect mood={note.mood} setNote={setNote}/></div>*!/*/}
-      {/*              </div>*/}
-      {/*            </div>*/}
-      {/*          </div>*/}
-      {/*        </div>*/}
-      {/*      </div>*/}
-      {/*    ))*/}
-      {/*  }*/}
-      {/*</div>*/}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import ActivityTable from "/components/ActivityTable";
 import {useClients} from "/contexts/ClientsContext";
 import ClientProfilePersonalOrganization from '@/components/ClientProfilePersonalOrganization';
 import ClientProfileProgress from '@/components/ClientProfileProgress';
-import moment from 'moment';
+import ClientProfileTABEOrientation from '@/components/ClientProfileTABEOrientation';
 
 export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
@@ -25,10 +25,6 @@ export default function ClientProfileDetails() {
         }
     }
 
-    function hasValidKey(obj, key) {
-        return obj && Object.prototype.hasOwnProperty.call(obj, key) && !!obj[key];
-    }
-
     useEffect(() => {
         if(selectedClient && selectedClient.trackable) {
             setHasTrackable(selectedClient.trackable.items)
@@ -41,74 +37,8 @@ export default function ClientProfileDetails() {
        getActions().then()
     }, [selectedClient])
 
-    const skeletonPlaceholder = () => {
-        return (
-          <div className={`w-1/2 h-full`}>
-              <div className="font-semibold mb-4 w-18 h-[19px] bg-base-300 rounded"/>
-              <div className={`flex justify-start gap-10`}>
-                  <div>
-                      <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
-                      <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
-                  </div>
-                  <div>
-                      <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
-                      <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
-                  </div>
-              </div>
-          </div>
-        )
-    }
-
     return (
         <div className="mb-12 ml-6">
-            <ClientProfilePersonalOrganization/>
-            {
-              selectedClient && (hasValidKey(selectedClient, "tabe") || hasValidKey(selectedClient, "orientation")) && (
-                <div className={`flex justify-items-start divide-x divide-base-content/10 w-full mt-6 bg-base-200 rounded-lg p-6 ${hasValidKey(selectedClient, 'tabe') || hasValidKey(selectedClient, 'orientation') ? 'visible' : 'hidden'}`}>
-                    {
-                        hasValidKey(selectedClient, 'tabe') ? (
-                            <div className={`w-1/2 pr-4 `}>
-                                <div className="font-semibold mb-2">TABE</div>
-                                <div className={`flex justify-start gap-10`}>
-                                    <div>
-                                        <div className={`text-sm font-light`}>Referred Date</div>
-                                        {moment(selectedClient.tabe.referredDate).format('MMMM Do, YYYY')}
-                                    </div>
-                                    <div>
-                                        <div className={`text-sm font-light`}>Completed Date</div>
-                                        {
-                                            selectedClient.tabe.completedDate ? <div>{moment(selectedClient.tabe.completedDate).format('MMMM Do, YYYY')}</div> : <div className={`text-secondary underline`}>Enter complete date</div>
-                                        }
-
-                                    </div>
-                                </div>
-                            </div>
-                      ) : <div className={`w-1/2`}>{skeletonPlaceholder()}</div>
-                    }
-                    {
-                        hasValidKey(selectedClient.orientation, 'dateReferred') ? (
-                          <div className={`w-1/2 pl-8 `}>
-                              <div className="font-semibold mb-2">Orientation</div>
-                              <div className={`flex justify-start gap-10`}>
-                                  <div>
-                                      <div className={`text-sm font-light`}>Referred Date</div>
-                                      {moment(selectedClient.orientation.dateReferred).format('MMMM Do, YYYY')}
-                                  </div>
-                                  <div>
-                                      <div className={`text-sm font-light`}>Completed Date</div>
-                                      {
-                                          selectedClient.orientation.completedDate ? <div>{moment(selectedClient.orientation.completedDate).format('MMMM Do, YYYY')}</div> : <div className={`text-secondary underline`}>Enter complete date</div>
-                                      }
-
-                                  </div>
-                              </div>
-                          </div>
-                        ) : <div className={`pl-4`}>{skeletonPlaceholder()}</div>
-                    }
-                </div>
-              )
-            }
-
             <ClientProfileProgress hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
             <ActivityTable
               selectedClient={selectedClient}
@@ -120,6 +50,9 @@ export default function ClientProfileDetails() {
               notes={notes}
               setNotes={setNotes}
               client={selectedClient}/>
+            <ClientProfileTABEOrientation/>
+            <ClientProfilePersonalOrganization/>
+
         </div>
     );
 }

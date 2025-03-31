@@ -24,7 +24,7 @@ export default function LeftNavEntire({setEditing}) {
                         <p className={` leading-4 tracking-[2px]`}>SUCCESS TRACKER</p>
                     </div>
                 </div>
-                <input type="text" onChange={(e) => {
+                <input name={`client-search`} type="text" onChange={(e) => {
                     setSelectedFepLeft(prev => {
                         return {
                             ...prev,
