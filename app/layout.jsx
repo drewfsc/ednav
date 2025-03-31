@@ -42,13 +42,13 @@ function ThemeWrapper({ children }) {
   }, []);
 
   return (
-    <html lang="en" data-theme={selectedTheme} suppressHydrationWarning>
+    <html lang="en" data-theme={selectedTheme} suppressHydrationWarning className={`font-light font-family-sans tracking-wider transition-all duration-500`}>
     <head>
       <title></title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
-    <body>{isMounted && children}</body>
+    <body className={`font-serif`}>{isMounted && children}</body>
     </html>
   );
 }

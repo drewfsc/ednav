@@ -1,8 +1,7 @@
 @import "tailwindcss";
 /*@import 'react-datepicker/dist/react-datepicker.css';*/
 @plugin "daisyui" {
-    /*themes: nord --default;*/
-    themes: nord --light, dim --default --prefersDark, abyss, silk, autumn, garden;
+    themes: all;
 }
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {
@@ -26,6 +25,10 @@
     border: none;
     box-shadow: none;
 }
+
+/*body {*/
+/*    font-family: 'Helvetica Neue', sans-serif;*/
+/*}*/
 
 @layer base {
     :root {

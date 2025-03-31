@@ -16,11 +16,11 @@ export default function LeftNavEntire({setEditing}) {
         <div className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-2 gap-4 drop-shadow-lg z-50  relative`}>
             <div>
                 <div className={`mb-4`}>
-                    <div className={`text-[43px] font-black italic`}>
-                        <a href={`/`}><span className={`text-info z-10 relative`}>ED</span><span
-                            className={`text-warning -m-[8px] z-0 relative`}>NAV</span></a>
+                    <div className={`text-[57px] font-black italic antialiased`}>
+                        <a href={`/`}><span className={`text-secondary z-10 relative drop-shadow-lg shadow-black`}>ED</span><span
+                            className={`text-accent -ml-[12px] z-0 relative`}>NAV</span></a>
                     </div>
-                    <div className={`uppercase text-base-content font-light -mt-4 tracking-widest text-[13px]`}>
+                    <div className={`uppercase text-base-content font-light -mt-3 tracking-widest text-[18px]`}>
                         <p className={` leading-4 tracking-[2px]`}>SUCCESS TRACKER</p>
                     </div>
                 </div>

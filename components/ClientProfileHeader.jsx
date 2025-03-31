@@ -34,7 +34,7 @@ export default function ClientProfileHeader({setEditing}) {
                 setSelectedClient(null)
             }}
                  className={``}>
-                <XCircle size={33} color={`white`}/>
+                <XCircle size={33} color={`fill-neutral`}/>
             </div>
         </div>
     );
