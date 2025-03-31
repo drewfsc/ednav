@@ -43,7 +43,7 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
             <progress className="progress progress-success w-full" value={calculateCompletionPercentage(selectedClient?.trackable.items)} max="100"></progress>
             <div className={`flex gap-3 flex-wrap mt-4`}>
               {
-                hasTrackableCopy?.map((item, index) => {
+                hasTrackable?.map((item, index) => {
                   // console.log(item.name, item.completed);
                   return (
                     <button key={index} disabled={hasTrackableCopy[index]?.completed} className={`text-nowrap cursor-pointer disabled:cursor-not-allowed`} onClick={() => {
