@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 
 const saveSelectionToMongoDB = async (data) => {
-    await fetch('/api/activities', {
+    const res = await fetch('/api/activities', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    })
+    }).then(res => res.json());
+    return res;
+
 }
 
 const ActivityDynamicSelect = ({client, setActions, questions}) => {
@@ -57,14 +59,33 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
             }
             setTrackable({ type: selectedValue, length: items.length, items: items });
         }
+        console.log(Object.values(newObject)[0]);
+        if (newObject && Object.keys(newObject).length === 0) {
+            console.log("empty object");
+            setCurrentOptions([]);
+            setFinalSelection(selectedValue);
 
+            const action = await saveSelectionToMongoDB({
+                path: newPath,
+                selection: selectedValue,
+                clientId: client._id,
+                clientEmail: client.email,
+                clientName: client.name,
+                fep: client.fep,
+                trackable: trackable,
+                selectedDate: selectedDate,
+                timestamp: new Date(),
+            });
+            console.log(action);
+            // const savedAction = await action.json();
+            // await setActions(prev => [...prev, savedAction]);
+            // return;
+        }
         if (newObject && typeof newObject === 'object') {
             setFinalSelection(null);
             if (Array.isArray(newObject)) {
                 setMultiSelectOptions(newObject);
                 setCurrentOptions([]);
-
-
             } else {
                 setMultiSelectOptions(null);
                 setCurrentOptions(Object.keys(newObject));

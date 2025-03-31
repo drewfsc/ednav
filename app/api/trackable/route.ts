@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getCollection } from "@/lib/mongodb"
 import { ObjectId } from 'mongodb';
 
-// POST to add a new action
 export async function POST(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -10,12 +9,36 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
     const clientsCollection = await getCollection("clients")
+    // @ts-ignore
+    const query = { _id: new ObjectId(clientId) }
 
-    const user = await clientsCollection.findOne({_id: clientId ? new ObjectId(clientId) : undefined})
+    const user = await clientsCollection.findOne(query)
     let dataRes
     if (user) {
         user.trackable = body.trackable
         dataRes = await clientsCollection.updateOne({_id: clientId ? new ObjectId(clientId) : undefined}, { $set: { trackable: body.trackable }})
+    }
+    if (body.trackable?.items?.some((item: { name: string; completed: boolean }) => item.name.toLowerCase() === "orientation" && item.completed)) {
+      dataRes = await clientsCollection.updateOne(
+        query,
+        {
+          $set:
+            {
+              orientation: {dateReferred: new Date().toISOString(), completedDate: null},
+            }
+        }
+      )
+    }
+    if (body.trackable?.items?.some((item: { name: string; completed: boolean }) => item.name.toLowerCase() === "tabe" && item.completed)) {
+      dataRes = await clientsCollection.updateOne(
+        query,
+        {
+          $set:
+            {
+              tabe: {dateReferred: new Date().toISOString(), completedDate: null},
+            }
+        }
+      )
     }
 
     return NextResponse.json({ message: "Action added successfully", dataRes, user }, { status: 201 })

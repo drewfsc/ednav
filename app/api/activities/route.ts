@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST to add a new action
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

@@ -44,7 +44,7 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
             <div className={`flex gap-3 flex-wrap mt-4`}>
               {
                 hasTrackable.map((item, index) => (
-                  <span key={index} className={`text-nowrap cursor-pointer`} onClick={() => {
+                  <button key={index} disabled={item.completed} className={`text-nowrap cursor-pointer disabled:cursor-not-allowed`} onClick={() => {
                     const hasTrackableState = !hasTrackable[index].completed;
                     setHasTrackable(prevState => {
                       const newItems = [...prevState];
@@ -54,7 +54,7 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
                     })
                   }}>
                               {item.completed ? <span className={`text-xs border rounded-full pr-2 flex items-center justify-center border-success`}><span className={`mr-1`}><CheckCircleIcon className={`w-6 h-6 text-success`}/></span>{item.name}</span> : <span className={`text-xs border rounded-full pr-2 flex items-center justify-center border-base-content/40`}><span className={`mr-1`}><span className={`w-5 h-5 m-[2px] text-base-content/40 block border rounded-full`}/></span>{item.name}</span>}
-                          </span>
+                          </button>
                 ))
               }
             </div>
