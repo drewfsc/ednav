@@ -77,10 +77,10 @@ function ClientProfilePersonalOrganization() {
                 <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                   <dt className="font-light capitalize">{f}</dt>
                   <dd className={`visible ${editingPersonal ? 'hidden' : 'visible'}`}>
-                    {f === 'dob' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : splitCamelCase(selectedClient[f])}
+                    {f === 'dob' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : selectedClient[f]}
                   </dd>
                   <dd className={`${!editingPersonal ? 'hidden' : ''}`}>
-                    <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={splitCamelCase(f)}/>
+                    <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={f}/>
                   </dd>
                 </div>
               ))

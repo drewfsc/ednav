@@ -44,9 +44,6 @@ export default function LeftNavigation({ setEditing}) {
                     navStatus.map((item, i) => (
                         <li className={`mb-1`} key={i}>
                             <a onClick={() => setSelectedFepLeft(prevState => {
-                                console.log(prevState)
-                                console.log(item[0])
-                                console.log(selectedFepLeft.status)
                                 return {
                                     ...prevState,
                                     status: item[0]

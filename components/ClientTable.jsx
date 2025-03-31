@@ -13,6 +13,21 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
     const [grouped, setGrouped] = useState(false);
     const [, setTableClients] = useState(userClients.filter(client => client.navigator === selectedNavigator).length);
 
+    const getBGColor = (status) => {
+        switch (status) {
+            case "Active":
+                return "bg-error text-error-content";
+            case "Inactive":
+                return "bg-warning text-warning-content";
+            case "In Progress":
+                return "bg-success text-success-content";
+            case "Graduated":
+                return "bg-info text-info-content";
+            default:
+                return "bg-primary text-primary-content";
+        }
+    }
+
     const handleGroupChange = () => {
         setGrouped(!grouped);
         if (!grouped) {
@@ -39,12 +54,6 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
     };
 
     const filteredClients = userClients.filter(client => client.navigator === selectedNavigator).filter(client => {
-        // let currentName;
-        // if (!client.name){
-        //     currentName = client.firstName + " " + client.lastName;
-        // } else {
-        //     currentName = client.name;
-        // }
         const matchesSearch = client.first_name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
           || client.last_name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
         const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
@@ -77,7 +86,7 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
                             </div>
                             <div>
                                 <div className={`cursor-pointer`} onClick={handleGroupChange}>
-                                    <ToggleGroup className={` px-3 py-1 rounded-full border ${grouped ? 'border-error text-error' : 'border-base-content/30 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
+                                    <ToggleGroup className={` px-3 py-1 rounded-full border ${grouped ? 'border-error text-error' : 'border-base-content/10 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
                                     <GroupIcon className={`w-6 h-6 `} /><span>{grouped ? 'Group' : 'Group'}</span>
                                 </ToggleGroup></div>
                             </div>
@@ -87,8 +96,8 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
                             {grouped ? (
                                 Object.entries(groupedClients).map(([status, clients], idx) => (
                                     <React.Fragment key={status}>
-                                        <tr className="bg-gray-200 border-l-6 border-l-base-200 border-b-1 border-b-base-300">
-                                            <td colSpan="5" className="py-2 px-4 font-bold">{status} ({clients.length})</td>
+                                        <tr className={`${getBGColor(status)} border-l-6 border-b-1 border-b-base-300`}>
+                                            <td colSpan="5" className="py-2 px-4 text-sm">{status} ({clients.length})</td>
                                         </tr>
                                         {clients.map((person, i) => (
                                             <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} setFetching={setFetching} />

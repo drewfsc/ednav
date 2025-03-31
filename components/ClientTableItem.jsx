@@ -45,7 +45,7 @@ export default function ClientTableItem({ person, i, setEditing}) {
                 setEditing("client");
             }
         }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer border-l-4 border-base-100 ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
-            <td className="whitespace-nowrap text-sm font-medium">
+            <td className="whitespace-nowrap text-sm">
                 <span className={`ml-4`}>{!person.name ? person.first_name + " " + person.last_name : person.name}</span>
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">

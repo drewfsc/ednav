@@ -1,5 +1,5 @@
 import React from 'react';
-import {XCircle} from "phosphor-react";
+import { XSquare } from 'phosphor-react';
 import {useClients} from "/contexts/ClientsContext";
 
 export default function ClientProfileHeader({setEditing}) {
@@ -34,7 +34,7 @@ export default function ClientProfileHeader({setEditing}) {
                 setSelectedClient(null)
             }}
                  className={``}>
-                <XCircle size={33} color={`fill-neutral`}/>
+                <XSquare size={33} className={`text-base-content`}/>
             </div>
         </div>
     );
