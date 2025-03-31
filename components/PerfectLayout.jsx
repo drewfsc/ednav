@@ -36,12 +36,12 @@ export default function PerfectLayout() {
       <div className={`h-screen overflow-hidden flex`}>
         <div className="flex max-h-screen overflow-hidden w-full">
           <div className={`flex flex-row h-screen w-full`}>
-            <div className={`flex w-[540px]`}>
+            <div className={`flex w-[640px]`}>
               <div className={`w-[230px]`}>
                 <LeftNavEntire setEditing={setEditing} />
               </div>
               <div
-                className={`bg-base-100 w-[310px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
+                className={`bg-base-100 w-[410px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
                 <ClientTable userClients={userClients} setEditing={setEditing} setFetching={setFetching}/>
               </div>
             </div>

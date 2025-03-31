@@ -12,7 +12,6 @@ function NavigatorSelector() {
         "Morgan Sole",
         "Kecia Thompson-Gorgon",
         "Andrew McCauley",
-        "Drew McCauley",
         "Sara Jackson"
     ];
 

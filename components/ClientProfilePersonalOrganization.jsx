@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useClients } from '@/contexts/ClientsContext';
-import moment from 'moment';
+// import moment from 'moment';
 import InputLabel from '@/components/InputLabel';
 
 function ClientProfilePersonalOrganization() {
@@ -77,7 +77,7 @@ function ClientProfilePersonalOrganization() {
                 <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                   <dt className="font-light capitalize">{f}</dt>
                   <dd className={`visible ${editingPersonal ? 'hidden' : 'visible'}`}>
-                    {f === 'dob' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : selectedClient[f]}
+                    {/*{f === 'dob' ? <div className={``}>{moment(selectedClient[f]).calendar()}</div> : selectedClient[f]}*/}
                   </dd>
                   <dd className={`${!editingPersonal ? 'hidden' : ''}`}>
                     <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={f}/>
@@ -101,7 +101,7 @@ function ClientProfilePersonalOrganization() {
                 <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
                   <dt className="font-light capitalize">{f}</dt>
                   <dd className={`visible ${editingOrganization ? 'hidden' : 'visible'}`}>
-                    {f === 'dateReferred' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : selectedClient[f]}
+                    {/*{f === 'dateReferred' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : selectedClient[f]}*/}
                     {/*<div className={``}>{selectedClient[f]}</div>*/}
                   </dd>
                   <dd className={`${!editingOrganization ? 'hidden' : ''}`}>
