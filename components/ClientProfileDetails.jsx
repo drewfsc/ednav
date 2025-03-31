@@ -11,6 +11,8 @@ export default function ClientProfileDetails() {
     const [notes, setNotes] = useState([])
     const [fetching, setFetching] = useState(false);
     const [hasTrackable, setHasTrackable] = useState([]);
+    const [hasTrackableUpdated, setHasTrackableUpdated] = useState(false);
+    const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
     const [updated, setUpdated] = useState(false);
 
     const getActions = async () => {
@@ -28,6 +30,11 @@ export default function ClientProfileDetails() {
     useEffect(() => {
         if(selectedClient && selectedClient.trackable) {
             setHasTrackable(selectedClient.trackable.items)
+            if (!hasTrackableUpdated){
+                const copy = JSON.parse(JSON.stringify(selectedClient.trackable.items))
+                setHasTrackableCopy(copy)
+                setHasTrackableUpdated(true)
+            }
         } else {
             setHasTrackable([])
         }
@@ -39,7 +46,7 @@ export default function ClientProfileDetails() {
 
     return (
         <div className="mb-12 ml-6">
-            <ClientProfileProgress hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
+            <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
             <ActivityTable
               selectedClient={selectedClient}
               setHasTrackable={setHasTrackable}
