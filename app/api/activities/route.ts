@@ -35,9 +35,41 @@ export async function POST(request: NextRequest) {
     if (!body.createdAt) {
       body.createdAt = new Date().toISOString()
     }
+    const query = { _id: new ObjectId(body.clientId) }
     let user
+    user = await clientsCollection.updateOne(query, { $set: { lastActivity: new Date().toISOString() } })
     if (body.trackable) {
-       user = await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { trackable: body.trackable }})
+       user = await clientsCollection.updateOne(
+         query,
+         {
+           $set:
+             {
+               trackable: body.trackable,
+             }
+         }
+       )
+    }
+    if (body.trackable?.items?.some((item: { name: string; completed: boolean }) => item.name.toLowerCase() === "orientation" && item.completed)) {
+      user = await clientsCollection.updateOne(
+        query,
+        {
+          $set:
+            {
+              orientation: {dateReferred: new Date().toISOString(), completedDate: null},
+            }
+        }
+      )
+    }
+    if (body.trackable?.items?.some((item: { name: string; completed: boolean }) => item.name.toLowerCase() === "tabe" && item.completed)) {
+      user = await clientsCollection.updateOne(
+        query,
+        {
+          $set:
+            {
+              tabe: {dateReferred: new Date().toISOString(), completedDate: null},
+            }
+        }
+      )
     }
 
     const result = await actionsCollection.insertOne(body)
@@ -48,4 +80,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Failed to add action" }, { status: 500 })
   }
 }
-

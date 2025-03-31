@@ -19,7 +19,7 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
     const [multiSelectValues, setMultiSelectValues] = useState([]);
     const [selectedValue, setSelectedValue] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [trackable, setTrackable] = useState({});
+    const [trackable, setTrackable] = useState(null);
 
     useEffect(() => {
         if (client?.group) {
@@ -47,26 +47,24 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
         setCurrentObject(newObject);
 
         if (selectedValue === 'GED' || selectedValue === 'HSED') {
-            let items = []
-            if (newObject && newObject.length > 0) {
-                items = newObject.map(item => {
-                    return {
-                        name: item,
-                        completed: false,
-                    }
-                });
+            const nextLevel = Object.values(newObject)[0]; // go one level deeper
+            let items = [];
+            if (Array.isArray(nextLevel) && nextLevel.length > 0) {
+                items = nextLevel.map(item => ({
+                    name: item,
+                    completed: false,
+                }));
             }
-            setTrackable({ type: selectedValue, length: newObject.length, items: items });
-            // console.log("trackable", trackable);
+            setTrackable({ type: selectedValue, length: items.length, items: items });
         }
 
         if (newObject && typeof newObject === 'object') {
-            console.log("1", Array.isArray(newObject), newObject);
             setFinalSelection(null);
             if (Array.isArray(newObject)) {
-                console.log("2", Array.isArray(newObject), newObject);
                 setMultiSelectOptions(newObject);
                 setCurrentOptions([]);
+
+
             } else {
                 setMultiSelectOptions(null);
                 setCurrentOptions(Object.keys(newObject));
@@ -97,10 +95,14 @@ const ActivityDynamicSelect = ({client, setActions, questions}) => {
     const handleMultiSelectChange = (option, index) => {
         setMultiSelectValues((prev) => {
             if (prev.includes(option)) {
-                trackable.items[index].completed = false;
+                if(trackable){
+                    trackable.items[index].completed = false;
+                }
                 return prev.filter(item => item !== option);
             } else {
-                trackable.items[index].completed = true;
+                if(trackable){
+                    trackable.items[index].completed = true;
+                }
                 return [...prev, option];
             }
         });
