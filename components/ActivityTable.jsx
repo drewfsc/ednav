@@ -13,7 +13,7 @@ export default function ActivityTable({
                                         client,
                                         setLoading,
                                         loading,
-                                        selectedClient
+                                        selectedClient,
                                       }) {
   const [openNote, setOpenNote] = useState(0);
   const [selectedNavigator, setSelectedNavigator] = useState('');
@@ -90,8 +90,7 @@ export default function ActivityTable({
       <div className={`w-full transition-all duration-500`}>
         <ul className="font-normal ">
           {
-            [...actions]
-              .sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
+              actions?.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
               .map((action, i) => (
               <li key={i} className={`mb-6 border-l-2 border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>

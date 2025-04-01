@@ -9,7 +9,6 @@ export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
     const [actions, setActions] = useState([]);
     const [notes, setNotes] = useState([])
-    const [fetching, setFetching] = useState(false);
     const [hasTrackable, setHasTrackable] = useState([]);
     const [hasTrackableUpdated, setHasTrackableUpdated] = useState(false);
     const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
@@ -48,10 +47,10 @@ export default function ClientProfileDetails() {
         <div className="mb-12 ml-6 w-full transition-all duration-500">
             <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
             <ActivityTable
-              selectedClient={selectedClient}
+              hasTrackable={hasTrackable}
               setHasTrackable={setHasTrackable}
-              fetching={fetching}
-              setFetching={setFetching}
+              hasTrackableUpdated={hasTrackableUpdated}
+              setHasTrackableUpdated={setHasTrackableUpdated}
               actions={actions}
               setActions={setActions}
               notes={notes}
