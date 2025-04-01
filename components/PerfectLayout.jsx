@@ -45,10 +45,10 @@ export default function PerfectLayout() {
               </div>
             </div>
             <div className={`flex h-screen w-full transition-all duration-500`}>
-              <div className={`bg-base-100  relative overflow-hidden transition-all duration-500 w-full ${editing === 'client' ? 'w-full   translate-x-0' : '-translate-x-[4000px] collapse w-0'}`}>
+              <div className={`bg-base-100  relative overflow-hidden transition-all duration-500  ${editing === 'client' ? 'w-full   translate-x-0' : '-translate-x-[4000px] collapse w-0'}`}>
                 <ClientProfile client={selectedClient} setEditing={setEditing} />
               </div>
-              <div className={`bg-base-100 relative overflow-hidden transition-all duration-500  ${editing === 'add-client' ? 'w-full  translate-x-0' : 'translate-x-[4000px] collapse w-0'}`}>
+              <div className={`bg-base-100 relative overflow-hidden transition-all duration-500   ${editing === 'add-client' ? 'w-full  translate-x-0' : 'translate-x-[4000px] collapse w-0'}`}>
                 {editing === 'add-client' && <AddClientForm client={selectedClient} setEditing={setEditing} />}
               </div>
             </div>
