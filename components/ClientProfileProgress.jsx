@@ -35,12 +35,12 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
     <div>
       {
         selectedClient && Object.hasOwn(selectedClient, 'trackable') && (
-          <div className={`flex-col w-full gap-6 mt-6 bg-base-200 rounded-lg p-6`}>
+          <div className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}>
             <div className={`flex items-center justify-between  mt-0 mb-2`}>
               <div>{selectedClient?.trackable.type} Progress - {calculateCompletionPercentage(selectedClient?.trackable.items)}%</div>
               <div onClick={handleTrackableUpdate} className={` cursor-pointer text-sm text-secondary font-light underline ${updated ? 'visible' : 'hidden'}`}>Save Progress</div>
             </div>
-            <progress className="progress progress-success w-full" value={calculateCompletionPercentage(selectedClient?.trackable.items)} max="100"></progress>
+            <progress className="progress progress-success" value={calculateCompletionPercentage(selectedClient?.trackable.items)} max="100"></progress>
             <div className={`flex gap-3 flex-wrap mt-4`}>
               {
                 hasTrackableCopy?.map((item, index) => {

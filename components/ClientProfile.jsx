@@ -26,13 +26,13 @@ export default function ClientProfile({client, setEditing, setFetching}) {
     if (!isMounted) return null;
 
     return (
-        <div className="w-full h-screen overflow-y-scroll no-scrollbar relative">
+        <div className=" h-screen overflow-y-scroll no-scrollbar relative w-full">
             <ClientProfileHeader setEditing={setEditing} client={client}/>
-            <div className="w-full">
-                <div className="w-full ">
+            <div className="">
+                <div className=" ">
                     <div className={`items-center gap-4`}>
                         <div className={`flex gap-10 pt-16 pr-6`}>
-                            <div className={`flex-1 ${tabState === "Profile" ? '' : 'hidden'}`}>
+                            <div className={`w-full mr-6 ${tabState === "Profile" ? '' : 'hidden'}`}>
                                 <ClientProfileDetails setFetching={setFetching} client={client}/>
                             </div>
                         </div>

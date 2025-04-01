@@ -35,71 +35,71 @@ function ClientProfileTabeOrientation() {
 
   }
 
-  const handleOrientationSave = async () => {
-    const res = await fetch(`/api/orientation`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        _id: selectedClient._id,
-        completedDate: dateValue,
-      }),
-      method: 'POST'
-    })
-    const data = await res.json();
-    if (data.error) {
-      console.error(data.error);
-    }else {
-      console.log("data", data);
-      setDateValue('');
-      setOrientationOpen(false);
-    }
-
-  }
+  // const handleOrientationSave = async () => {
+  //   const res = await fetch(`/api/orientation`, {
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       _id: selectedClient._id,
+  //       completedDate: dateValue,
+  //     }),
+  //     method: 'POST'
+  //   })
+  //   const data = await res.json();
+  //   if (data.error) {
+  //     console.error(data.error);
+  //   }else {
+  //     console.log("data", data);
+  //     setDateValue('');
+  //     setOrientationOpen(false);
+  //   }
+  //
+  // }
 
   function hasValidKey(obj, key) {
     return obj && Object.prototype.hasOwnProperty.call(obj, key) && !!obj[key];
   }
 
-  const skeletonPlaceholder = () => {
-    return (
-      <div className={`w-1/2 h-full mr-8`}>
-        <div className="font-semibold mb-4 w-18 h-[19px] bg-base-300 rounded"/>
-        <div className={`flex justify-start gap-10`}>
-          <div>
-            <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
-            <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
-          </div>
-          <div>
-            <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
-            <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // const skeletonPlaceholder = () => {
+  //   return (
+  //     <div className={`w-1/2 h-full mr-8`}>
+  //       <div className="font-semibold mb-4 w-18 h-[19px] bg-base-300 rounded"/>
+  //       <div className={`flex justify-start gap-10`}>
+  //         <div>
+  //           <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
+  //           <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
+  //         </div>
+  //         <div>
+  //           <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
+  //           <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
-    <div>
+    <div className="w-full mt-6 text-sm">
       {
         selectedClient && (hasValidKey(selectedClient, "tabe") || hasValidKey(selectedClient, "orientation")) && (
-          <div className={`flex justify-items-start divide-x divide-base-content/10 w-full mt-6 bg-base-200 rounded-lg p-6 ${hasValidKey(selectedClient, 'tabe') || hasValidKey(selectedClient, 'orientation') ? 'visible' : 'hidden'}`}>
+          <div className={`grid grid-cols-3 xl:grid-cols-3 w-full border-1 border-base-300/30 bg-base-200/40 shadow-xl rounded-lg py-4 px-4 ${hasValidKey(selectedClient, 'tabe') || hasValidKey(selectedClient, 'orientation') ? 'visible' : 'hidden'}`}>
             {
               hasValidKey(selectedClient, 'tabe') ? (
-                <div className={`w-1/2 mr-8`}>
-                  <div className="font-semibold mb-2">TABE</div>
-                  <div className={`flex justify-start gap-10`}>
+                <div className={`px-4 border-r-1 border-base-content/10`}>
+                  <div className={`grid grid-cols-1 gap-2`}>
+                    <div className="font-semibold">TABE</div>
                     <div>
-                      <div className={`text-sm font-light`}>Date Referred</div>
+                      <div className={`text-xs font-light`}>Date Referred</div>
                       {moment(selectedClient.tabe.dateReferred).format('MMMM Do, YYYY')}
                     </div>
                     <div>
-                      <div className={`text-sm font-light ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Date Completed</div>
+                      <div className={`text-xs font-light ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Date Completed</div>
                       {
                         selectedClient.tabe.completedDate
                           ? <div>{moment(selectedClient.tabe.completedDate).format('MMMM Do, YYYY')}</div>
                           : (<div>
-                              <div onClick={() => setTabeOpen(!tabeOpen)} className={`text-secondary underline cursor-pointer font-light ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter complete date</div>
+                              <div onClick={() => setTabeOpen(!tabeOpen)} className={`text-secondary underline cursor-pointer ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter date</div>
                             <div className={`flex gap-4 items-baseline ${tabeOpen ? 'visible' : 'invisible h-0 collapse overflow-hidden'}`}>
                               <InputLabel className={``} type={`date`} name={`tabe`}
                                            value={dateValue} handleChange={handleChange} label="Date Completed" />
@@ -112,28 +112,28 @@ function ClientProfileTabeOrientation() {
                     </div>
                   </div>
                 </div>
-              ) : <div className={`w-1/2`}>{skeletonPlaceholder()}</div>
+              ) : ""
             }
             {
               hasValidKey(selectedClient, 'orientation') ? (
-                <div className={`w-1/2 ml-8`}>
-                  <div className="font-semibold mb-2">Orientation</div>
-                  <div className={`flex justify-start gap-10`}>
+                <div className={`px-4 border-r-1 border-base-content/10`}>
+                  <div className={`grid grid-cols-1 gap-2`}>
+                    <div className="font-semibold">Orientation</div>
                     <div>
-                      <div className={`text-sm font-light`}>Date Referred</div>
-                      {moment(selectedClient.orientation.dateReferred).format('MMMM Do, YYYY')}
+                      <div className={`text-xs font-light`}>Date Referred</div>
+                      {moment(selectedClient?.orientation.dateReferred).format('MMMM Do, YYYY')}
                     </div>
                     <div>
-                      <div className={`text-sm font-light ${orientationOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Date Completed</div>
+                      <div className={`text-xs font-light ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Date Completed</div>
                       {
-                        selectedClient.orientation.completedDate
+                        selectedClient?.orientation.completedDate
                           ? <div>{moment(selectedClient.orientation.completedDate).format('MMMM Do, YYYY')}</div>
                           : (<div>
-                            <div onClick={() => setOrientationOpen(!orientationOpen)} className={`text-secondary underline cursor-pointer font-light ${orientationOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter complete date</div>
+                            <div onClick={() => setOrientationOpen(!orientationOpen)} className={`text-secondary underline cursor-pointer ${orientationOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter date</div>
                             <div className={`flex gap-4 items-baseline ${orientationOpen ? 'visible' : 'invisible h-0 collapse overflow-hidden'}`}>
-                              <InputLabel className={``} type={`date`} name={`orientation`}
+                              <InputLabel className={``} type={`date`} name={`tabe`}
                                           value={dateValue} handleChange={handleChange} label="Date Completed" />
-                              <button onClick={handleOrientationSave} className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${orientationOpen ? 'visible' : 'invisible'}`}>Save</button>
+                              <button onClick={handleTabeSave} className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${orientationOpen ? 'visible' : 'invisible'}`}>Save</button>
 
                             </div>
                           </div>)
@@ -142,7 +142,37 @@ function ClientProfileTabeOrientation() {
                     </div>
                   </div>
                 </div>
-              ) : <div className={`w-1/2`}>{skeletonPlaceholder()}</div>
+              ) : ""
+            }
+            {
+              hasValidKey(selectedClient, 'tabe') ? (
+                <div className={`flex justify-center items-start px-6`}>
+                  <div className={`grid grid-cols-1 gap-2`}>
+                    <div className="font-semibold">Transcripts</div>
+                    <div>
+                      <div className={`text-xs font-light`}>Date Obtained</div>
+                      {moment(selectedClient.tabe.dateReferred).format('MMMM Do, YYYY')}
+                    </div>
+                    {/*<div>*/}
+                    {/*  <div className={`text-xs font-light ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Date Completed</div>*/}
+                    {/*  {*/}
+                    {/*    selectedClient.tabe.completedDate*/}
+                    {/*      ? <div>{moment(selectedClient.tabe.completedDate).format('MMMM Do, YYYY')}</div>*/}
+                    {/*      : (<div>*/}
+                    {/*        <div onClick={() => setTabeOpen(!tabeOpen)} className={`text-secondary underline cursor-pointer ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter date</div>*/}
+                    {/*        <div className={`flex gap-4 items-baseline ${tabeOpen ? 'visible' : 'invisible h-0 collapse overflow-hidden'}`}>*/}
+                    {/*          <InputLabel className={``} type={`date`} name={`tabe`}*/}
+                    {/*                      value={dateValue} handleChange={handleChange} label="Date Completed" />*/}
+                    {/*          <button onClick={handleTabeSave} className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${tabeOpen ? 'visible' : 'invisible'}`}>Save</button>*/}
+
+                    {/*        </div>*/}
+                    {/*      </div>)*/}
+                    {/*  }*/}
+
+                    {/*</div>*/}
+                  </div>
+                </div>
+              ) : ""
             }
           </div>
         )

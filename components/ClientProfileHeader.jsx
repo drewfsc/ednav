@@ -21,7 +21,7 @@ export default function ClientProfileHeader({setEditing}) {
 
     return (
         <div
-            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-300 text-base-content`}>
+            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-300 text-base-content w-full transition-all duration-500`}>
             <div className={` flex justify-between gap-4 items-center divide-x divide-accent-content/30`}>
                 <div
                     className={`font-bold pr-4`}>{selectedClient && !selectedClient?.name ? selectedClient?.first_name + " " + selectedClient?.last_name : selectedClient?.name}</div>

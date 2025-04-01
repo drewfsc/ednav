@@ -33,20 +33,19 @@ export default function PerfectLayout() {
   return (
     <div className={`w-full h-screen overflow-hidden relative bg-base-100`}>
       {/*<SuccessMessage/>*/}
-      <div className={`h-screen overflow-hidden flex`}>
-        <div className="flex max-h-screen overflow-hidden w-full">
+      <div className={`h-screen overflow-hidden flex w-full`}>
+        <div className="flex h-screen overflow-hidden w-full">
           <div className={`flex flex-row h-screen w-full`}>
-            <div className={`flex w-[640px]`}>
-              <div className={`w-[230px]`}>
+            <div className={`flex w-fit h-screen`}>
+              <div className={`w-[230px] transition-all duration-500`}>
                 <LeftNavEntire setEditing={setEditing} />
               </div>
-              <div
-                className={`bg-base-100 w-[410px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
+              <div className={`bg-base-100 w-[230px] xl:w-[310px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg  transition-all duration-500`}>
                 <ClientTable userClients={userClients} setEditing={setEditing} setFetching={setFetching}/>
               </div>
             </div>
-            <div className={`flex h-screen w-full`}>
-              <div className={`bg-base-100 relative overflow-hidden transition-all duration-500 ${editing === 'client' ? ' w-full  translate-x-0' : '-translate-x-[4000px] collapse w-0'}`}>
+            <div className={`flex h-screen w-full transition-all duration-500`}>
+              <div className={`bg-base-100  relative overflow-hidden transition-all duration-500 w-full ${editing === 'client' ? 'w-full   translate-x-0' : '-translate-x-[4000px] collapse w-0'}`}>
                 <ClientProfile client={selectedClient} setEditing={setEditing} />
               </div>
               <div className={`bg-base-100 relative overflow-hidden transition-all duration-500  ${editing === 'add-client' ? 'w-full  translate-x-0' : 'translate-x-[4000px] collapse w-0'}`}>

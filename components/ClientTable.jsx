@@ -67,14 +67,34 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
 
     const groupedClients = groupByClientStatus(filteredClients);
 
+    function getScreenWidth() {
+        return window.innerWidth;
+    }
+
+    function useScreenWidth() {
+        const [screenWidth, setScreenWidth] = useState(getScreenWidth());
+
+        useEffect(() => {
+            function handleResize() {
+                setScreenWidth(getScreenWidth());
+            }
+            console.log(screenWidth)
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, [screenWidth]);
+
+        return screenWidth;
+    }
+    const screenWidth = useScreenWidth();
+
     // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
 
     return (
-        <div className="flex-1">
+        <div className="w-full overflow-hidden">
             <div className="mt-0 overflow-y-scroll no-scrollbar">
                 <div className="h-auto">
-                    <div className="inline-block min-w-full py-0 h-full align-middle relative">
+                    <div className="inline-block w-full py-0 h-full align-middle relative">
                         <div
                             className="h-16 fixed top-0 bg-base-200 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
                             <div>
@@ -86,17 +106,17 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
                             </div>
                             <div>
                                 <div className={`cursor-pointer`} onClick={handleGroupChange}>
-                                    <ToggleGroup className={` px-3 py-1 rounded-full border ${grouped ? 'border-error text-error' : 'border-base-content/10 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
-                                    <GroupIcon className={`w-6 h-6 `} /><span>{grouped ? 'Group' : 'Group'}</span>
+                                    <ToggleGroup className={`flex items-center justify-center w-8 h-8 rounded-full border gap-0 ${grouped ? 'border-error text-error' : 'border-base-content/10 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
+                                    <GroupIcon className={`w-5 h-5  `} /><span>{grouped && screenWidth > 1024 ? 'Group' : ''}</span>
                                 </ToggleGroup></div>
                             </div>
                         </div>
-                        <table className="min-w-full mt-16">
+                        <table className="w-full mt-16">
                             <tbody className="">
                             {grouped ? (
                                 Object.entries(groupedClients).map(([status, clients], idx) => (
                                     <React.Fragment key={status}>
-                                        <tr className={`${getBGColor(status)} border-l-6 border-b-1 border-b-base-300`}>
+                                        <tr className={`${getBGColor(status)} border-b-1 border-b-base-300`}>
                                             <td colSpan="5" className="py-2 px-4 text-sm">{status} ({clients.length})</td>
                                         </tr>
                                         {clients.map((person, i) => (

@@ -63,14 +63,16 @@ function ClientProfilePersonalOrganization() {
   }
 
   return (
-    <div className="flex w-full gap-6 mt-6">
-      <div className={`w-1/2 bg-base-200 p-6 rounded-lg`}>
-        <div className="font-semibold mb-4">Personal
+    <div className="grid grid-cols-1 xl:grid-cols-2 w-full gap-6 mt-6">
+
+      {/*PERSONAL*/}
+      <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}>
+        <div className="font-semibold mb-4 w-full">Personal
           <span onClick={handleEditingPersonal} className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}>
             {editingPersonal ? 'Save' : 'Edit'}
           </span>
         </div>
-        <div className="text-sm">
+        <div className="text-sm w-full">
           <dl className="divide-y divide-base-content/10 w-full">
             {
               selectedClient && personalFields.map((f) => (
@@ -88,7 +90,9 @@ function ClientProfilePersonalOrganization() {
           </dl>
         </div>
       </div>
-      <div className={`w-1/2 bg-base-200 p-6 rounded-lg`}>
+
+      {/*ORGANIZATION*/}
+      <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}>
         <div className="font-semibold mt-0 mb-4">Organization
           <span onClick={handleEditingOrganization} className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}>
             {editingOrganization ? 'Save' : 'Edit'}

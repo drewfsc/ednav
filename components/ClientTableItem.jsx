@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {useClients} from "/contexts/ClientsContext";
 
 export default function ClientTableItem({ person, i, setEditing}) {
@@ -35,6 +35,28 @@ export default function ClientTableItem({ person, i, setEditing}) {
         }
     }
 
+    function getScreenWidth() {
+        return window.innerWidth;
+    }
+
+    function useScreenWidth() {
+        const [screenWidth, setScreenWidth] = useState(getScreenWidth());
+
+        useEffect(() => {
+            function handleResize() {
+                setScreenWidth(getScreenWidth());
+            }
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, [screenWidth]);
+
+        return screenWidth;
+    }
+
+    const screenWidth = useScreenWidth();
+    const personStatus = person.clientStatus;
+    const statusAbbr1 = personStatus.substring(0, 1);
+
     return (
         <tr key={person.email + i}  onClick={() => {
             if (selectedClient?._id === person._id) {
@@ -44,12 +66,12 @@ export default function ClientTableItem({ person, i, setEditing}) {
                 setSelectedClient(person);
                 setEditing("client");
             }
-        }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer border-l-4 border-base-100 ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
+        }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer transition-all duration-500  ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
             <td className="whitespace-nowrap text-sm">
                 <span className={`ml-4`}>{!person.name ? person.first_name + " " + person.last_name : person.name}</span>
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
-                <div className={`${getBadgeColor(person.clientStatus)}`}>{person.clientStatus}</div>
+                <div className={`w-[15px] lg:w-fit ${getBadgeColor(person.clientStatus)}`}>{(screenWidth < 1280 ? statusAbbr1 : "") + (screenWidth >= 1280 ? personStatus : "")}</div>
             </td>
         </tr>
     );

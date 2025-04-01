@@ -77,7 +77,7 @@ export default function ActivityTable({
   };
 
   return (
-    <div className={`flex-1 bg-base-200 p-6 rounded-lg mt-6`}>
+    <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg mt-6 w-full`}>
       <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={client}
                      open={open} setOpen={setOpen} loading={loading} setLoading={setLoading} />
       <div className={`flex justify-start items-center gap-4 mb-6`}>
@@ -87,7 +87,7 @@ export default function ActivityTable({
                                                         }}>Add an activity</span></div>
       </div>
 
-      <div className={``}>
+      <div className={`w-full transition-all duration-500`}>
         <ul className="font-normal ">
           {
             [...actions]

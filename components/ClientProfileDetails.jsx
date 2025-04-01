@@ -45,7 +45,7 @@ export default function ClientProfileDetails() {
     }, [selectedClient])
 
     return (
-        <div className="mb-12 ml-6">
+        <div className="mb-12 ml-6 w-full transition-all duration-500">
             <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
             <ActivityTable
               selectedClient={selectedClient}
