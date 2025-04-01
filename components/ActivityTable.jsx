@@ -65,7 +65,6 @@ export default function ActivityTable({
 
   function createStatement(action) {
     if (!action || !action.path || action.path.length < 2) return '';
-
     const [, ...relevantPath] = action.path;
     const sentenceCore = relevantPath.join(' ');
     const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';

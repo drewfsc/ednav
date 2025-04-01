@@ -9,7 +9,6 @@ export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
     const [actions, setActions] = useState([]);
     const [notes, setNotes] = useState([])
-    const [fetching, setFetching] = useState(false);
     const [hasTrackable, setHasTrackable] = useState([]);
     const [hasTrackableUpdated, setHasTrackableUpdated] = useState(false);
     const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
@@ -42,7 +41,7 @@ export default function ClientProfileDetails() {
 
     useEffect( () => {
        getActions().then()
-    }, [selectedClient])
+    }, [setActions])
 
     return (
         <div className="mb-12 ml-6 w-full transition-all duration-500">
@@ -50,8 +49,6 @@ export default function ClientProfileDetails() {
             <ActivityTable
               selectedClient={selectedClient}
               setHasTrackable={setHasTrackable}
-              fetching={fetching}
-              setFetching={setFetching}
               actions={actions}
               setActions={setActions}
               notes={notes}
