@@ -35,49 +35,9 @@ function ClientProfileTabeOrientation() {
 
   }
 
-  // const handleOrientationSave = async () => {
-  //   const res = await fetch(`/api/orientation`, {
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       _id: selectedClient._id,
-  //       completedDate: dateValue,
-  //     }),
-  //     method: 'POST'
-  //   })
-  //   const data = await res.json();
-  //   if (data.error) {
-  //     console.error(data.error);
-  //   }else {
-  //     console.log("data", data);
-  //     setDateValue('');
-  //     setOrientationOpen(false);
-  //   }
-  //
-  // }
-
   function hasValidKey(obj, key) {
     return obj && Object.prototype.hasOwnProperty.call(obj, key) && !!obj[key];
   }
-
-  // const skeletonPlaceholder = () => {
-  //   return (
-  //     <div className={`w-1/2 h-full mr-8`}>
-  //       <div className="font-semibold mb-4 w-18 h-[19px] bg-base-300 rounded"/>
-  //       <div className={`flex justify-start gap-10`}>
-  //         <div>
-  //           <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
-  //           <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
-  //         </div>
-  //         <div>
-  //           <div className={`text-sm font-light w-24 h-4 bg-base-300 rounded mb-1.5`}/>
-  //           <div className={`text-sm font-light w-36 h-6 bg-base-300 rounded`}/>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
   return (
     <div className="w-full mt-6 text-sm">
