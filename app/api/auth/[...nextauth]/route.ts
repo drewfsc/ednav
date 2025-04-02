@@ -9,7 +9,8 @@ async function fetchAdditionalData(email: string) {
   const user = await db.collection('users').findOne({ email });
   return {
     email,
-    name: user?.name,
+    first_name,
+    last_name,
     level: user?.level,
   };
 }
