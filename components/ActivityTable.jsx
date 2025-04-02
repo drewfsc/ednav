@@ -81,7 +81,7 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
           {
             actions?.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
               .map((action, i) => (
-              <li key={i} className={`mb-6 border-l-2 border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
+              <li key={i} className={`mb-6 border-l-2]]][[[[[[[[]]]]]]][[[[[]] border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
                 <div className="font-light">{createStatement(action)}</div>
                 <div className={`text-xs underline text-secondary/50 hover:text-secondary`} onClick={() => {
