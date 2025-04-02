@@ -2,19 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
-// import MoodSelect from "@/components/MoodSelect";
 import ActivityModal from '/components/ActivityModal';
 
-export default function ActivityTable({
-                                        actions,
-                                        setActions,
-                                        notes,
-                                        setNotes,
-                                        client,
-                                        setLoading,
-                                        loading,
-                                        selectedClient,
-                                      }) {
+export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading,  selectedClient }) {
   const [openNote, setOpenNote] = useState(0);
   const [selectedNavigator, setSelectedNavigator] = useState('');
   const [, setIsMounted] = useState(false);
@@ -89,7 +79,7 @@ export default function ActivityTable({
       <div className={`w-full transition-all duration-500`}>
         <ul className="font-normal ">
           {
-              actions?.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
+            actions?.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
               .map((action, i) => (
               <li key={i} className={`mb-6 border-l-2 border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
@@ -110,7 +100,6 @@ export default function ActivityTable({
                 <div className={` ${openNote === i + 1 ? `block` : `hidden`}`}>
                   <div className={`flex p-2`}>
                     <div className={`flex-1 mr-10 h-fit`}>
-                      {/*<span className={`text-lg font-medium`}>Activity Notes</span>*/}
                       <div className={``}>
                         <NoteFeed notes={notes} setNotes={setNotes} activityIdFromPage={action?._id} />
                       </div>
@@ -119,26 +108,24 @@ export default function ActivityTable({
                       <span className={`text-lg font-medium`}>Add a Note</span>
                       <textarea name={`client-activity-note`} className={`textarea textarea-accent min-h-40 mt-4 mb-2 relative`}
                                 placeholder={`Enter your notes here...`}
-                                onChange={(e) => setNote(prevState => {
-                                  return {
-                                    ...prevState,
-                                    noteContent: e.target.value
-                                  };
-                                })} value={note.noteContent} />
+                                onChange={(e) => {
+                                  setNote(prevState => {
+                                    return {
+                                      ...prevState,
+                                      noteContent: e.target.value
+                                    };
+                                  });
+                                }} value={note.noteContent} />
                       <div className={`flex justify-between items-center`}>
                         <button disabled={note.noteContent === ''} className={`btn btn-secondary w-1/4`} onClick={() => {
                           handleNote();
                           setNote({
                             noteContent: '',
                             noteAuthor: selectedNavigator,
-                            // activityId: '',
                             createdAt: new Date(),
-                            // mood: ''
                           });
-                          // setOpenNote(0);
                         }}>Save
                         </button>
-                        {/*<div className={``}><MoodSelect mood={note.mood} setNote={setNote}/></div>*/}
                       </div>
                     </div>
                   </div>
