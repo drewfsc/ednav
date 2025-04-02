@@ -85,7 +85,7 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
                 <div className="font-light">{createStatement(action)}</div>
                 <div className={`text-xs underline text-secondary/50 hover:text-secondary`} onClick={() => {
-                  setNote(prevState => {
+                  setNote((prevState) => {
                     return {
                       ...prevState,
                       activityId: action?._id,
