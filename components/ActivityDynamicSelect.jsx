@@ -1,28 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { updateCategoryState } from "../lib/updateCategoryState"
+import { useClients } from '../contexts/ClientsContext';
 
-const getContextualLabel = (data, keywordGroups) => {
-  const flatValues = Object.values(data).flat(Infinity).join(' ').toLowerCase();
-  for (const group of keywordGroups) {
-    const { keywords, label } = group;
-    if (keywords.some(word => flatValues.includes(word.toLowerCase()))) {
-      return label;
-    }
-  }
-  return null;
-};
-
-const saveSelectionToMongoDB = async (data) => {
-  return await fetch('/api/activities', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(res => res.json());
-
-};
-
-const ActivityDynamicSelect = ({ client, setActions, questions }) => {
+const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) => {
   const [selectedPath, setSelectedPath] = useState([]);
   const [currentOptions, setCurrentOptions] = useState(Object.keys(questions));
   const [, setCurrentObject] = useState(questions);
@@ -32,6 +12,25 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [trackable, setTrackable] = useState(null);
+  const [category , setCategory] = useState("");
+  const {selectedClient} = useClients();
+
+  const saveSelectionToMongoDB = async (data) => {
+    return await fetch('/api/activities', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json()).then(
+      (result) => {
+        console.log(result);
+        setActions(prev => [...prev, result]);
+      },
+      (error) => {
+        console.log(error);
+      })
+  };
 
   useEffect(() => {
     if (client?.group) {
@@ -43,6 +42,10 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       }
     }
   }, [client]);
+
+  useEffect( () => {
+    getActions().then()
+  }, [selectedClient, setActions])
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
@@ -58,52 +61,12 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
     const newObject = newPath.reduce((acc, key) => (acc && acc[key] ? acc[key] : null), questions);
     setCurrentObject(newObject);
 
-    const keywordGroups = [
-      {
-        keywords: ['enrolled', 'graduated', 'inactive', 'needs', 'referred', 'completed', 'advanced', 'advancement', 'support', 'service'],
-        label: 'actions'
-      },
-      {
-        keywords: ['GED', 'HSED', 'school', 'college', 'university', 'tutoring', 'academy', 'diploma', 'learning', 'education', 'tutoring', 'academy'],
-        label: 'educational facility'
-      },
-      {
-        keywords: [
-          'food',
-          'legal', 'help',
-          'medical', 'treatment',
-          'mental health', 'treatment',
-          'money',
-          'shelter',
-          'transportation'],
-        label: 'needs'
-      },
-      {keywords: [
-          'Career Assessment',
-          'Civics',
-          'Math',
-          'Orientation',
-          'RLA',
-          'ROI',
-          'Science',
-          'Social Studies',
-          'TABE',
-          'Ready',
-          'RLA',
-          '17-16',
-          'Civics',
-          'Employability',
-          'Transcript',
-          'Health',
-          'Journey Letter'
-        ], label: 'educational needs'}
-    ];
-    const categoryType = getContextualLabel(newObject, keywordGroups) || selectedValue;
-
-    if (!getContextualLabel(newObject, keywordGroups)) {
+    const newCategory = updateCategoryState(newObject, null, category);
+    if (!newCategory) {
       console.warn("⚠️ No category match for path:", newPath.join(" > "));
       console.warn("🔍 Object contents:", JSON.stringify(newObject, null, 2));
     }
+    setCategory(newCategory);
 
 // 🎨 Optional: insert logic here to style or behave differently by categoryType
 // e.g., setCategoryTheme(categoryType), or iconMap[categoryType], etc.
@@ -117,7 +80,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
           completed: false
         }));
       }
-      setTrackable({ type: categoryType, length: items.length, items: items });
+      setTrackable({ type: category, length: items.length, items: items });
     }
     console.log(Object.values(newObject)[0]);
     if (newObject && Object.keys(newObject).length === 0) {
@@ -224,7 +187,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       )}
 
       {currentOptions.length > 0 && (
-        <label className="flex flex-col space-y-2 text-sm font-light mt-6">Type of activity:
+        <label className="flex flex-col space-y-2 text-sm font-light mt-6 capitalize">{category}
           <select
             name={currentOptions[0]}
             className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}

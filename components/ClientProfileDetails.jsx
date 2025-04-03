@@ -14,17 +14,22 @@ export default function ClientProfileDetails() {
     const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
     const [updated, setUpdated] = useState(false);
 
-    const getActions = async () => {
+    let getActions;
+    getActions = async () => {
         if (!selectedClient) return;
         try {
             await fetch(`/api/activities?clientId=${selectedClient._id}`)
               .then(response => response.json())
               .then(data => setActions(data))
-              .catch(error => console.error('Error fetching client activities:', error))
+              .catch(error => console.error('Error fetching client activities:', error));
         } catch (error) {
-            console.error("Error fetching client activities:", error);
+            console.error('Error fetching client activities:', error);
         }
-    }
+    };
+
+    useEffect( () => {
+        getActions().then()
+    }, [selectedClient, setActions])
     
     useEffect(() => {
         if(selectedClient && selectedClient.trackable) {
@@ -39,14 +44,11 @@ export default function ClientProfileDetails() {
         }
     }, [actions])
 
-    useEffect( () => {
-       getActions().then()
-    }, [selectedClient])
-
     return (
         <div className="mb-12 ml-6 w-full transition-all duration-500">
             <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
             <ActivityTable
+              getActions={getActions}
               hasTrackable={hasTrackable}
               setHasTrackable={setHasTrackable}
               hasTrackableUpdated={hasTrackableUpdated}
@@ -58,7 +60,6 @@ export default function ClientProfileDetails() {
               client={selectedClient}/>
             <ClientProfileTABEOrientation/>
             <ClientProfilePersonalOrganization/>
-
         </div>
     );
 }

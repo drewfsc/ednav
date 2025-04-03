@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import ActivityDynamicSelect from "./ActivityDynamicSelect";
 
-export default function ActivityModal({ open, setOpen, setActions, client}) {
+export default function ActivityModal({ open, setOpen, setActions, client, getActions}) {
     const [questions, setQuestions] = useState([]);
 
     const getQuestions = async () => {
@@ -39,7 +39,7 @@ export default function ActivityModal({ open, setOpen, setActions, client}) {
                                     Add an activity
                                 </DialogTitle>
                                 <div className="">
-                                    { questions && <ActivityDynamicSelect setActions={setActions} client={client} questions={questions} />}
+                                    { questions && <ActivityDynamicSelect setActions={setActions} client={client} questions={questions} getActions={getActions} />}
                                 </div>
                             </div>
                         </div>

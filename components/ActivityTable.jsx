@@ -4,11 +4,12 @@ import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
 import ActivityModal from '/components/ActivityModal';
 
-export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading,  selectedClient }) {
+export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading,  selectedClient, getActions }) {
   const [openNote, setOpenNote] = useState(0);
   const [selectedNavigator, setSelectedNavigator] = useState('');
   const [, setIsMounted] = useState(false);
   const [open, setOpen] = useState(false);
+  const [localActions, setLocalActions] = useState([]);
   const [note, setNote] = React.useState(
     {
       noteContent: '',
@@ -27,6 +28,10 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
     }
   }, []);
 
+  // useEffect( () => {
+  //      setLocalActions(actions)
+  // }, [setLocalActions, localActions]);
+
   const getNotes = async () => {
     if (!client) return;
     const response = await fetch(`/api/notes?clientId=${client._id}`);
@@ -36,7 +41,8 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
 
   useEffect(() => {
     getNotes().then();
-  }, [setNotes, selectedClient]);
+
+  }, [setNotes, selectedClient, actions, setActions]);
 
   const saveNote = async () => {
     const res = await fetch(`/api/notes/`, {
@@ -68,7 +74,7 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
   return (
     <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg mt-6 w-full`}>
       <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={client}
-                     open={open} setOpen={setOpen} loading={loading} setLoading={setLoading} />
+                     open={open} setOpen={setOpen} loading={loading} setLoading={setLoading} getActions={getActions} />
       <div className={`flex justify-start items-center gap-4 mb-6`}>
         <div className={`font-bold`}>Activity Log <span className={`text-secondary/50 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
                                                         onClick={() => {
@@ -81,7 +87,7 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
           {
             actions?.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
               .map((action, i) => (
-              <li key={i} className={`mb-6 border-l-2]]][[[[[[[[]]]]]]][[[[[]] border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
+              <li key={i} className={`mb-6 border-l-2 border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
                 <div className="font-light">{createStatement(action)}</div>
                 <div className={`text-xs underline text-secondary/50 hover:text-secondary`} onClick={() => {
