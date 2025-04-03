@@ -25,7 +25,7 @@ export default function ClientProfileDetails() {
             console.error("Error fetching client activities:", error);
         }
     }
-
+    
     useEffect(() => {
         if(selectedClient && selectedClient.trackable) {
             setHasTrackable(selectedClient.trackable.items)
