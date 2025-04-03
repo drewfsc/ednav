@@ -3,7 +3,7 @@ import React from 'react';
 export default function InputLabel({name, handleChange, type, value, label, options}) {
   if (type === 'textarea') {
     return (
-      <div className="relative col-span-2">
+      <div className="relative ">
         <label
           htmlFor={name}
           className="absolute z-10 -top-2 left-2 inline-block rounded-lg  px-1 text-xs font-medium text-base-content bg-base-300"

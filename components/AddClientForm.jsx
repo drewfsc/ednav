@@ -177,15 +177,15 @@ const AddClientForm = () => {
     };
 
     return (
-        <div className="px-10 py-6 space-y-4 relative">
-            <div className="flex justify-between items-center text-2xl font-light">Add a Client</div>
+        <div className="p-8 space-y-6 relative">
+            <div className="flex justify-between items-center text-2xl mb-8 font-light">Add a Client</div>
             <div onClick={() => {
                 setEditing("")
                 setSelectedClient(null)
             }} className="absolute top-6 right-10"><XCircle size={36}/></div>
             <form onSubmit={handleSubmit}>
 
-                <div className="space-y-4 grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-6">
                     {formFields.map((field) => {
                     return (
                       <InputLabel key={field.name} label={field.label} name={field.name} formData={formData}
