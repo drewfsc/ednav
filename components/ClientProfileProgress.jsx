@@ -45,7 +45,7 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
               {
                 hasTrackable?.map((item, index) => {
                   return (
-                    <button key={index} disabled={hasTrackableCopy[index]?.completed} className={`text-nowrap cursor-pointer disabled:cursor-not-allowed`} onClick={() => {
+                    <button key={index} disabled={hasTrackableCopy[index]?.completed === true} className={`text-nowrap cursor-pointer disabled:cursor-not-allowed`} onClick={() => {
                       const hasTrackableState = !hasTrackable[index].completed;
                       setHasTrackable(prevState => {
                         const newItems = [...prevState];
