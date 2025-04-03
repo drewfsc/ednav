@@ -387,7 +387,8 @@
         "Open Doors for Refugees": {},
         "Test Prep Champions": {},
         "ADVOCAP": {}
-      }
+      },
+      "school": []
     },
     "graduated from": {
       "Blackhawk Technical College": {
@@ -492,6 +493,41 @@
         "ADRC": {},
         "WIOA": {}
       }
+    },
+    "educational activity": {
+      "GED":  [
+        "Career Assessment",
+        "Civics",
+        "Math",
+        "Orientation",
+        "RLA",
+        "ROI",
+        "Science",
+        "Social Studies",
+        "TABE",
+        "GED Ready - Math",
+        "GED Ready - RLA",
+        "GED Ready - Science",
+        "GED Ready - Social Studies"
+      ],
+      "HSED":[
+        "17-16",
+        "Career Assessment",
+        "Civics",
+        "Employability",
+        "HS Transcript",
+        "Health",
+        "Journey Letter",
+        "Math",
+        "Orientation",
+        "RLA",
+        "ROI",
+        "Science",
+        "Social Studies",
+        "TABE"
+      ],
+      "high school": {},
+      "college": {}
     }
   },
   "youth": {

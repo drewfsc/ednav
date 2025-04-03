@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const actionsCollection = await getCollection("actions")
     const clientsCollection = await getCollection("clients")
+    const notesCollection = await getCollection("notes")
 
     // Add timestamp if not provided
     if (!body.createdAt) {
@@ -73,8 +74,9 @@ export async function POST(request: NextRequest) {
 
     const result = await actionsCollection.insertOne(body)
     const userActions = await actionsCollection.find({ clientId: body.clientId }).sort({ createdAt: -1 }).toArray()
+    const notes = await notesCollection.find({ clientId: body.clientId }).sort({ createdAt: -1 }).toArray()
 
-    return NextResponse.json({ message: "Action added successfully",userActions, _id: result, user }, { status: 201 })
+    return NextResponse.json({ message: "Action added successfully",userActions, notes, _id: result, user }, { status: 201 })
   } catch (error) {
     console.error("Error adding action:", error)
     return NextResponse.json({ error: "Failed to add action" }, { status: 500 })

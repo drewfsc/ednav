@@ -4,7 +4,7 @@ import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
 import ActivityModal from '/components/ActivityModal';
 
-export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading, selectedClient, getActions }) {
+export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading, getActions, getNotes }) {
   const [openNote, setOpenNote] = useState(0);
   const [selectedNavigator, setSelectedNavigator] = useState('');
   const [, setIsMounted] = useState(false);
@@ -36,19 +36,6 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
     }
   }, []);
 
-  const getNotes = async () => {
-    if (!client) return;
-    const response = await fetch(`/api/notes?clientId=${client._id}`);
-    const data = await response.json();
-    await setNotes(prevState => {
-      return [...prevState, ...data];
-    });
-  };
-
-  useEffect(() => {
-    getNotes().then();
-  }, [setNotes, selectedClient]);
-
   const saveNote = async () => {
     const res = await fetch(`/api/notes/`, {
       method: 'POST',
@@ -61,11 +48,11 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
     setNotes(prevState => {
       return [data, ...prevState];
     });
-    await getNotes().then();
   };
 
-  const handleNote = () => {
-    saveNote().then(data => console.log(data));
+  const handleNote = async () => {
+    await saveNote().then(data => console.log(data));
+    await getNotes().then();
   };
 
   return (

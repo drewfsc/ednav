@@ -14,6 +14,19 @@ export default function ClientProfileDetails() {
     const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
     const [updated, setUpdated] = useState(false);
 
+    const getNotes = async () => {
+        if (!selectedClient) return;
+        const response = await fetch(`/api/notes?clientId=${selectedClient._id}`);
+        const data = await response.json();
+        setNotes(prevState => {
+            return [...prevState, ...data];
+        });
+    };
+
+    useEffect(() => {
+        getNotes().then();
+    }, [setNotes, selectedClient]);
+
     let getActions;
     getActions = async () => {
         if (!selectedClient) return;
@@ -21,6 +34,7 @@ export default function ClientProfileDetails() {
             await fetch(`/api/activities?clientId=${selectedClient._id}`)
               .then(response => response.json())
               .then(data => {
+                  console.log(data)
                   setActions(data);
               })
               .catch(error => console.error('Error fetching client activities:', error));
@@ -50,6 +64,7 @@ export default function ClientProfileDetails() {
         <div className="mb-12 ml-6 w-full transition-all duration-500">
             <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
             <ActivityTable
+              getNotes={getNotes}
               getActions={getActions}
               hasTrackable={hasTrackable}
               setHasTrackable={setHasTrackable}

@@ -11,6 +11,7 @@ function NavigatorSelector() {
         "Rachael Banerdt",
         "Morgan Sole",
         "Kecia Thompson-Gorgon",
+      "Marissa Foth",
         "Andrew McCauley",
         "Sara Jackson"
     ];
