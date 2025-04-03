@@ -4,12 +4,11 @@ import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
 import ActivityModal from '/components/ActivityModal';
 
-export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading,  selectedClient, getActions }) {
+export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading, selectedClient, getActions }) {
   const [openNote, setOpenNote] = useState(0);
   const [selectedNavigator, setSelectedNavigator] = useState('');
   const [, setIsMounted] = useState(false);
   const [open, setOpen] = useState(false);
-  const [localActions, setLocalActions] = useState([]);
   const [note, setNote] = React.useState(
     {
       noteContent: '',
@@ -20,6 +19,15 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
       clientId: client?._id
     }
   );
+
+  function createStatement(action) {
+    if (!action || !action.path || action.path.length < 2) return '';
+    const [, ...relevantPath] = action.path;
+    const sentenceCore = relevantPath.join(' ');
+    const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';
+    return `${action.fep} noted that the client ${sentenceCore}${selection}.`;
+  }
+
   useEffect(() => {
     setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
     if (typeof window !== 'undefined') {
@@ -28,21 +36,18 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
     }
   }, []);
 
-  // useEffect( () => {
-  //      setLocalActions(actions)
-  // }, [setLocalActions, localActions]);
-
   const getNotes = async () => {
     if (!client) return;
     const response = await fetch(`/api/notes?clientId=${client._id}`);
     const data = await response.json();
-    await setNotes(data);
+    await setNotes(prevState => {
+      return [...prevState, ...data];
+    });
   };
 
   useEffect(() => {
     getNotes().then();
-
-  }, [setNotes, selectedClient, actions, setActions]);
+  }, [setNotes, selectedClient]);
 
   const saveNote = async () => {
     const res = await fetch(`/api/notes/`, {
@@ -58,14 +63,6 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
     });
     await getNotes().then();
   };
-
-  function createStatement(action) {
-    if (!action || !action.path || action.path.length < 2) return '';
-    const [, ...relevantPath] = action.path;
-    const sentenceCore = relevantPath.join(' ');
-    const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';
-    return `${action.fep} noted that the client ${sentenceCore}${selection}.`;
-  }
 
   const handleNote = () => {
     saveNote().then(data => console.log(data));

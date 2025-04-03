@@ -78,7 +78,6 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
             function handleResize() {
                 setScreenWidth(getScreenWidth());
             }
-            console.log(screenWidth)
             window.addEventListener('resize', handleResize);
             return () => window.removeEventListener('resize', handleResize);
         }, [screenWidth]);

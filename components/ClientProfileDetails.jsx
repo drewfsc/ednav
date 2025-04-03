@@ -20,7 +20,9 @@ export default function ClientProfileDetails() {
         try {
             await fetch(`/api/activities?clientId=${selectedClient._id}`)
               .then(response => response.json())
-              .then(data => setActions(data))
+              .then(data => {
+                  setActions(data);
+              })
               .catch(error => console.error('Error fetching client activities:', error));
         } catch (error) {
             console.error('Error fetching client activities:', error);

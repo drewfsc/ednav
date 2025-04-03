@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { updateCategoryState } from "../lib/updateCategoryState"
-import { useClients } from '../contexts/ClientsContext';
 
-const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) => {
+const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   const [selectedPath, setSelectedPath] = useState([]);
   const [currentOptions, setCurrentOptions] = useState(Object.keys(questions));
   const [, setCurrentObject] = useState(questions);
@@ -13,9 +12,17 @@ const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) =>
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [trackable, setTrackable] = useState(null);
   const [category , setCategory] = useState("");
-  const {selectedClient} = useClients();
+
+  function createStatement(action) {
+    if (!action || !action.path || action.path.length < 2) return '';
+    const [, ...relevantPath] = action.path;
+    const sentenceCore = relevantPath.join(' ');
+    const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';
+    return `${action.fep} noted that the client ${sentenceCore}${selection}.`;
+  }
 
   const saveSelectionToMongoDB = async (data) => {
+    data.statement = createStatement(data);
     return await fetch('/api/activities', {
       method: 'POST',
       headers: {
@@ -25,11 +32,12 @@ const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) =>
     }).then(res => res.json()).then(
       (result) => {
         console.log(result);
-        setActions(prev => [...prev, result]);
+        setActions(result.userActions);
       },
       (error) => {
         console.log(error);
       })
+
   };
 
   useEffect(() => {
@@ -42,10 +50,6 @@ const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) =>
       }
     }
   }, [client]);
-
-  useEffect( () => {
-    getActions().then()
-  }, [selectedClient, setActions])
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
@@ -68,9 +72,6 @@ const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) =>
     }
     setCategory(newCategory);
 
-// 🎨 Optional: insert logic here to style or behave differently by categoryType
-// e.g., setCategoryTheme(categoryType), or iconMap[categoryType], etc.
-
     if (selectedValue === 'GED' || selectedValue === 'HSED') {
       const nextLevel = Object.values(newObject)[0]; // go one level deeper
       let items = [];
@@ -89,15 +90,15 @@ const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) =>
       setFinalSelection(selectedValue);
 
       const action = await saveSelectionToMongoDB({
-        path: newPath,
-        selection: selectedValue,
-        clientId: client._id,
         clientEmail: client.email,
+        clientId: client._id,
         clientName: client.name,
         fep: client.fep,
-        trackable: trackable,
+        path: newPath,
         selectedDate: selectedDate,
-        timestamp: new Date()
+        selection: selectedValue,
+        timestamp: new Date(),
+        trackable: trackable
       });
       console.log(action);
       // const savedAction = await action.json();
@@ -121,15 +122,15 @@ const ActivityDynamicSelect = ({ client, setActions, questions, getActions }) =>
       setFinalSelection(selectedValue);
 
       const action = await saveSelectionToMongoDB({
-        path: newPath,
-        selection: selectedValue,
-        clientId: client._id,
         clientEmail: client.email,
+        clientId: client._id,
         clientName: client.name,
         fep: client.fep,
-        trackable: trackable,
-        selectedDate: selectedDate,  // Include date selection
-        timestamp: new Date()
+        path: newPath,
+        selectedDate: selectedDate,
+        selection: selectedValue,
+        timestamp: new Date(),  // Include date selection
+        trackable: trackable
       });
       const savedAction = await action.json();
       await setActions([...setActions, savedAction]);
