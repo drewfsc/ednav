@@ -8,6 +8,7 @@ import { FepsLeftProvider } from '../contexts/FepsLeftContext';
 import { LocationsProvider } from '../contexts/LocationsContext';
 import { NavigatorProvider } from '../contexts/NavigatorsContext';
 import { SessionProvider } from 'next-auth/react';
+import { ClientListProvider } from '../contexts/ClientListContext';
 
 export default function RootLayout({ children }) {
 
@@ -19,9 +20,11 @@ export default function RootLayout({ children }) {
             <EditingProvider>
               <FepsLeftProvider>
                 <LocationsProvider>
+                  <ClientListProvider>
                   <NavigatorProvider>
                     {children}
                   </NavigatorProvider>
+                  </ClientListProvider>
                 </LocationsProvider>
               </FepsLeftProvider>
             </EditingProvider>

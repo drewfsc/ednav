@@ -5,13 +5,15 @@ import ClientTableItem from "/components/ClientTableItem";
 import {GroupIcon} from "lucide-react";
 import {ToggleGroup} from "/components/ui/toggle-group";
 import { useNavigators } from '../contexts/NavigatorsContext';
+import { useClientList } from '../contexts/ClientListContext';
 
-export default function ClientTable({setEditing, userClients, setFetching}) {
+export default function ClientTable({setEditing, setFetching}) {
     const [isMounted, setIsMounted] = useState(false);
+    const {clientList, setClientList} = useClientList();
     const {selectedNavigator} = useNavigators();
     const {selectedFepLeft} = useFepsLeft();
     const [grouped, setGrouped] = useState(false);
-    const [, setTableClients] = useState(userClients.filter(client => client.navigator === selectedNavigator).length);
+    const [, setTableClients] = useState([]);
 
     const getBGColor = (status) => {
         switch (status) {
@@ -31,9 +33,8 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
     const handleGroupChange = () => {
         setGrouped(!grouped);
         if (!grouped) {
-            // Convert the groupedClients object to an array for rendering
-            const groupedArray = Object.entries(groupedClients).flatMap(([status, clients]) =>
-                clients.map(client => ({ ...client, groupStatus: status }))
+            const groupedArray = Object.entries(groupedClients).flatMap(([status]) =>
+                clientList.map(client => ({ ...client, groupStatus: status }))
             );
             setTableClients(groupedArray);
         } else {
@@ -53,7 +54,7 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
             }, {});
     };
 
-    const filteredClients = userClients.filter(client => {
+    const filteredClients = clientList.filter(client => {
         if ( selectedNavigator !== "All" ) { return client.navigator === selectedNavigator } return client}).filter(client => {
         const matchesSearch = client.first_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
           || client.last_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
@@ -97,10 +98,14 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
                   <div
                     className="h-16 fixed top-0 bg-base-200 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
                       <div>
-                                <span className={`font-bold`} >{filteredClients
-                                  .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All")
-                                  .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All").length}</span>
-                          {selectedFepLeft.status !== "All" ? " "+selectedFepLeft.status.toLowerCase() : null} {selectedFepLeft.age !== "All" ? selectedFepLeft.age.toLowerCase() : null} clients
+                          <span className={`font-bold`} >
+                            {
+                                // filteredClients
+                                  // .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All")
+                                  // .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All").length
+                            }
+                          </span>
+                      {selectedFepLeft.status !== "All" ? " "+selectedFepLeft.status.toLowerCase() : null} {selectedFepLeft.age !== "All" ? selectedFepLeft.age.toLowerCase() : null} clients
                       </div>
                       <div>
                           <div className={`cursor-pointer`} onClick={handleGroupChange}>

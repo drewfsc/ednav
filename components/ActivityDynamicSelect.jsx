@@ -136,14 +136,15 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
 
   const handleMultiSelectChange = (option, index) => {
     setMultiSelectValues((prev) => {
+
       if (prev.includes(option)) {
-        if (trackable) {
-          trackable.items[index].completed = false;
+        if(trackable && trackable.items.length > 0) {
+          trackable.items[index].completed = !trackable.items[index].completed;
         }
         return prev.filter(item => item !== option);
       } else {
-        if (trackable) {
-          trackable.items[index].completed = true;
+        if (!trackable || !trackable?.items) {
+          trackable.items[index].completed = false;
         }
         return [...prev, option];
       }

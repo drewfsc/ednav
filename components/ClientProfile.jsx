@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 import ClientProfileDetails from "./ClientProfileDetails";
 import ClientProfileHeader from "/components/ClientProfileHeader";
 
-export default function ClientProfile({client, setEditing, setFetching}) {
+export default function ClientProfile({client, setEditing}) {
     const [isMounted, setIsMounted] = useState(false);
     const [, setSelectedNavigator] = useState("");
 
@@ -33,7 +33,7 @@ export default function ClientProfile({client, setEditing, setFetching}) {
                     <div className={`items-center gap-4`}>
                         <div className={`flex gap-10 pt-16 pr-6`}>
                             <div className={`w-full mr-6 ${tabState === "Profile" ? '' : 'hidden'}`}>
-                                <ClientProfileDetails setFetching={setFetching} client={client}/>
+                                <ClientProfileDetails/>
                             </div>
                         </div>
                     </div>

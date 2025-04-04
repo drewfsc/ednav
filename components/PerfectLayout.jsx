@@ -1,21 +1,21 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import LeftNavEntire from '/components/LeftNavEntire';
 import ClientTable from '/components/ClientTable';
-import { useEditing } from '/contexts/EditingContext';
-import ClientProfile from './ClientProfile';
-import { useClients } from '/contexts/ClientsContext';
 import AddClientForm from './AddClientForm';
-import { useSession } from 'next-auth/react';
+import ClientProfile from './ClientProfile';
+import { useEditing } from '/contexts/EditingContext';
+import { useClients } from '/contexts/ClientsContext';
 import { useNavigators } from '@/contexts/NavigatorsContext';
+import { useClientList } from '@/contexts/ClientListContext';
 
 export default function PerfectLayout() {
   const session = useSession();
-  const { editing, setEditing } = useEditing();
-  const { selectedClient } = useClients();
+  const {editing, setEditing } = useEditing();
+  const {selectedClient} = useClients();
   const {selectedNavigator,setSelectedNavigator} = useNavigators();
   const [userClients, setUserClients] = useState([]);
-  const [, setFetching] = useState(false);
 
   useEffect(() => {
     if (session.data.user?.["level"] === 'navigator') {
@@ -24,9 +24,17 @@ export default function PerfectLayout() {
   }, []);
 
   useEffect(() => {
+    let clientArray = [];
+
     fetch('/api/clients')
       .then(res => res.json())
-      .then(data => setUserClients(data))
+      .then(data => {
+        data.map(client => {
+          clientArray.push(client);
+        })
+      }).then(() => {
+        setUserClients(clientArray);
+    })
       .catch(err => console.log(err));
   }, [selectedNavigator]);
 
@@ -40,7 +48,7 @@ export default function PerfectLayout() {
             <LeftNavEntire setEditing={setEditing} />
           </div>
           <div className={`bg-base-100 w-[250px] box-border 2xl:w-[320px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
-            <ClientTable userClients={userClients} setEditing={setEditing} setFetching={setFetching}/>
+            <ClientTable userClients={JSON.stringify(userClients)} setEditing={setEditing}/>
           </div>
         </div>
 
