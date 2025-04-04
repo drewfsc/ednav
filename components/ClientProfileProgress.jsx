@@ -34,7 +34,7 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
   return (
     <div>
       {
-        hasTrackable && (
+        hasTrackable && hasTrackableCopy && (
           <div className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}>
             <div className={`flex items-center justify-between  mt-0 mb-2`}>
               <div>{selectedClient?.trackable?.type} Progress - {calculateCompletionPercentage(selectedClient?.trackable?.items)}%</div>
@@ -45,16 +45,28 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
               {
                 hasTrackable?.map((item, index) => {
                   return (
-                    <button key={index} disabled={hasTrackableCopy[index]?.completed === true} className={`text-nowrap cursor-pointer disabled:cursor-not-allowed`} onClick={() => {
-                      const hasTrackableState = !hasTrackable[index].completed;
-                      setHasTrackable(prevState => {
-                        const newItems = [...prevState];
-                        newItems[index].completed = hasTrackableState;
-                        setUpdated(true);
-                        return newItems;
-                      })
-                    }}>
-                      {item.completed ? <span className={`text-xs border rounded-full pr-2 flex items-center justify-center border-success`}><span className={`mr-1`}><CheckCircleIcon className={`w-6 h-6 text-success`}/></span>{item.name}</span> : <span className={`text-xs border rounded-full pr-2 flex items-center justify-center border-base-content/40`}><span className={`mr-1`}><span className={`w-5 h-5 m-[2px] text-base-content/40 block border rounded-full`}/></span>{item.name}</span>}
+                    <button key={index}
+                            disabled={hasTrackableCopy[index]?.completed === true}
+                            className={`text-nowrap cursor-pointer disabled:cursor-not-allowed`}
+                            onClick={() => {
+                              const hasTrackableState = !hasTrackable[index].completed;
+                              setHasTrackable(prevState => {
+                                const newItems = [...prevState];
+                                newItems[index].completed = hasTrackableState;
+                                setUpdated(true);
+                                return newItems;
+                              })
+                            }}>
+                      {item.completed === true ?
+                        <span className={`text-xs border rounded-full pr-2 flex items-center justify-center border-success`}>
+                          <span className={`mr-1`}>
+                            <CheckCircleIcon className={`w-6 h-6 text-success`}/>
+                          </span>{item.name}</span> :
+                        <span className={`text-xs border rounded-full pr-2 flex items-center justify-center border-base-content/40`}>
+                          <span className={`mr-1`}>
+                            <span className={`w-5 h-5 m-[2px] text-base-content/40 block border rounded-full`}/></span>
+                          {item.name}
+                        </span>}
                     </button>
                   )
                 })

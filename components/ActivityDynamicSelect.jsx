@@ -18,7 +18,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
     const [, ...relevantPath] = action.path;
     const sentenceCore = relevantPath.join(' ');
     const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';
-    return `${action.fep} noted that the client ${sentenceCore}${selection}.`;
+    return `${action.navigator !== "undefined" ? action.navigator : "An education navigator"} noted that the client ${sentenceCore}${selection}.`;
   }
 
   const saveSelectionToMongoDB = async (data) => {
@@ -31,7 +31,6 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       body: JSON.stringify(data)
     }).then(res => res.json()).then(
       (result) => {
-        console.log(result);
         setActions(result.userActions);
       },
       (error) => {
@@ -83,27 +82,24 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       }
       setTrackable({ type: category, length: items.length, items: items });
     }
-    console.log(Object.values(newObject)[0]);
     if (newObject && Object.keys(newObject).length === 0) {
-      console.log('empty object');
+
       setCurrentOptions([]);
       setFinalSelection(selectedValue);
 
-      const action = await saveSelectionToMongoDB({
+      await saveSelectionToMongoDB({
         clientEmail: client.email,
         clientId: client._id,
         clientName: client.name,
         fep: client.fep,
+        navigator: client.navigator,
         path: newPath,
         selectedDate: selectedDate,
         selection: selectedValue,
         timestamp: new Date(),
         trackable: trackable
       });
-      console.log(action);
-      // const savedAction = await action.json();
-      // await setActions(prev => [...prev, savedAction]);
-      // return;
+      return;
     }
     if (newObject && typeof newObject === 'object') {
       setFinalSelection(null);
@@ -126,6 +122,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
         clientId: client._id,
         clientName: client.name,
         fep: client.fep,
+        navigator: client.navigator,
         path: newPath,
         selectedDate: selectedDate,
         selection: selectedValue,
@@ -161,6 +158,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       clientEmail: client.email,
       clientName: client.name,
       fep: client.fep,
+      navigator: client.navigator,
       trackable: trackable,
       selectedDate: selectedDate,  // Include date selection
       timestamp: new Date()

@@ -58,20 +58,22 @@ export default function ClientTableItem({ person, i, setEditing}) {
     const statusAbbr1 = personStatus.substring(0, 1);
 
     return (
-        <tr key={person.email + i}  onClick={() => {
-            if (selectedClient?._id === person._id) {
-                setSelectedClient(null);
-                setEditing("");
-            } else {
-                setSelectedClient(person);
-                setEditing("client");
-            }
-        }} className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer transition-all duration-500  ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
-            <td className="whitespace-nowrap text-sm">
-                <span className={`ml-4`}>{!person.name ? person.first_name + " " + person.last_name : person.name}</span>
+        <tr key={person.email + i}
+            onClick={() => {
+                if (selectedClient?._id === person._id) {
+                    setSelectedClient(null);
+                    setEditing("");
+                } else {
+                    setSelectedClient(person);
+                    setEditing("client");
+                }
+            }}
+            className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
+            <td className="text-sm w-1/2 truncate">
+                <span className={`ml-4`}>{person.first_name + " " + person.last_name}</span>
             </td>
-            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
-                <div className={`w-[15px] lg:w-fit ${getBadgeColor(person.clientStatus)}`}>{(screenWidth < 1280 ? statusAbbr1 : "") + (screenWidth >= 1280 ? personStatus : "")}</div>
+            <td className="whitespace-nowrap pl- pr-6 py-4 w-1/2 truncate text-sm text-gray-500 text-right">
+                <div className={`w-[15px] mr-4 2xl:w-fit ${getBadgeColor(person.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>
             </td>
         </tr>
     );

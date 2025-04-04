@@ -20,14 +20,6 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
     }
   );
 
-  function createStatement(action) {
-    if (!action || !action.path || action.path.length < 2) return '';
-    const [, ...relevantPath] = action.path;
-    const sentenceCore = relevantPath.join(' ');
-    const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';
-    return `${action.fep} noted that the client ${sentenceCore}${selection}.`;
-  }
-
   useEffect(() => {
     setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
     if (typeof window !== 'undefined') {
@@ -73,7 +65,7 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
               .map((action, i) => (
               <li key={i} className={`mb-6 border-l-2 border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
-                <div className="font-light">{createStatement(action)}</div>
+                <div className="font-light">{action.statement || "Activity could not be found, sorry."}</div>
                 <div className={`text-xs underline text-secondary/50 hover:text-secondary`} onClick={() => {
                   setNote((prevState) => {
                     return {

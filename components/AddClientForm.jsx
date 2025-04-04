@@ -1,3 +1,5 @@
+// components/AddClientForm.jsx
+
 "use client"
 import React, {useEffect, useState} from "react";
 import {adultSchools, youthSchools} from "/lib/schools";
@@ -6,7 +8,7 @@ import { useClients } from '@/contexts/ClientsContext';
 import InputLabel from '@/components/InputLabel';
 import { useEditing } from '@/contexts/EditingContext';
 
-const AddClientForm = () => {
+function AddClientForm() {
 
     const [feps, setFeps] = useState([]);
     const [, setNavigators] = useState([]);
@@ -86,7 +88,7 @@ const AddClientForm = () => {
         await data.forEach(fep => {
             feps.push(fep.name)
         })
-           setFeps(feps)
+        setFeps(feps)
 
     }
 
@@ -176,36 +178,82 @@ const AddClientForm = () => {
         }, 2000); // Simulate API call
     };
 
+    const deriveStatusFromClientData = (obj, path = []) => {
+        let isInProgress = false;
+        let isInactive = false;
+
+        const check = (node, currentPath) => {
+            if (typeof node !== 'object' || node === null) return;
+
+            for (const [key, value] of Object.entries(node)) {
+                const newPath = [...currentPath, key];
+
+                if (key === 'inactive' && value && Object.keys(value).length > 0) {
+                    isInactive = true;
+                }
+
+                if (
+                  newPath.includes('enrolled in') &&
+                  newPath.includes('educational activity') &&
+                  Array.isArray(value) &&
+                  value.length > 0
+                ) {
+                    isInProgress = true;
+                }
+
+                if (typeof value === 'object') {
+                    check(value, newPath);
+                }
+            }
+        };
+
+        check(obj, path);
+
+        if (isInactive) return 'Inactive';
+        if (isInProgress) return 'In Progress';
+        return '';
+    };
+
+    useEffect(() => {
+        const newStatus = deriveStatusFromClientData(formData);
+        if (newStatus && newStatus !== formData.clientStatus) {
+            setFormData((prev) => ({ ...prev, status: newStatus }));
+        }
+    }, [formData]);
+
     return (
-        <div className="p-8 space-y-6 relative">
-            <div className="flex justify-between items-center text-2xl mb-8 font-light">Add a Client</div>
-            <div onClick={() => {
-                setEditing("")
-                setSelectedClient(null)
-            }} className="absolute top-6 right-10"><XCircle size={36}/></div>
-            <form onSubmit={handleSubmit}>
+      <div className={`overflow-y-scroll h-screen`}>
+          <div>Status: {formData.clientStatus}</div>
+          <div className="p-8 space-y-6 relative">
+              <div className="flex justify-between items-center text-2xl mb-8 font-light">Add a Client</div>
+              <div onClick={() => {
+                  setEditing("")
+                  setSelectedClient(null)
+              }} className="absolute top-6 right-10"><XCircle size={36}/></div>
+              <form onSubmit={handleSubmit}>
 
-                <div className="grid grid-cols-1 gap-6">
-                    {formFields.map((field) => {
-                    return (
-                      <InputLabel key={field.name} label={field.label} name={field.name} formData={formData}
-                                  handleChange={handleChange} text={field.label} type={field.type}
-                                  required={field.required} options={field.options} value={field.value} />
-                    );
-                })}
-                </div>
+                  <div className="grid grid-cols-1 gap-6">
+                      {formFields.map((field) => {
+                          return (
+                            <InputLabel key={field.name} label={field.label} name={field.name}
+                                        handleChange={handleChange} type={field.type}
+                                        required={field.required} options={field.options} value={field.value} />
+                          );
+                      })}
+                  </div>
 
-                {/*/!* Submit Button with Loading Spinner *!/*/}
-                <button type="submit" className="bg-green-500 text-white p-2 rounded-md mt-6 px-6">
-                    {loading ? (
+                  {/*/!* Submit Button with Loading Spinner *!/*/}
+                  <button type="submit" className="bg-green-500 text-white p-2 rounded-md mt-6 px-6">
+                      {loading ? (
                         <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white mx-auto max-h-10"></div>
-                    ) : (
+                      ) : (
                         "Submit"
-                    )}
-                </button>
-            </form>
-        </div>
-    );
-};
+                      )}
+                  </button>
+              </form>
+          </div>
+      </div>
+          );
+}
 
 export default AddClientForm;

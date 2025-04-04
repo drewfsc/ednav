@@ -34,7 +34,6 @@ export default function ClientProfileDetails() {
             await fetch(`/api/activities?clientId=${selectedClient._id}`)
               .then(response => response.json())
               .then(data => {
-                  console.log(data)
                   setActions(data);
               })
               .catch(error => console.error('Error fetching client activities:', error));
@@ -62,7 +61,8 @@ export default function ClientProfileDetails() {
 
     return (
         <div className="mb-12 ml-6 w-full transition-all duration-500">
-            <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable} setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated}/>
+            {selectedClient && selectedClient.group === "Adult" && <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable}
+                                    setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated} />}
             <ActivityTable
               getNotes={getNotes}
               getActions={getActions}

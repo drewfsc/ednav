@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/*@import 'react-datepicker/dist/react-datepicker.css';*/
 @plugin "daisyui" {
     themes: all;
 }
@@ -25,10 +24,6 @@
     border: none;
     box-shadow: none;
 }
-
-/*body {*/
-/*    font-family: 'Helvetica Neue', sans-serif;*/
-/*}*/
 
 @layer base {
     :root {

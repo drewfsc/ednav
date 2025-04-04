@@ -18,7 +18,7 @@ export default function PerfectLayout() {
   const [, setFetching] = useState(false);
 
   useEffect(() => {
-    if (session.data.user?.level === 'navigator') {
+    if (session.data.user?.["level"] === 'navigator') {
       setSelectedNavigator(session.data.user.name)
     }
   }, []);
@@ -33,18 +33,19 @@ export default function PerfectLayout() {
   return (
     <div className={`w-full h-screen overflow-hidden relative bg-base-100`}>
       <div className={` w-full flex flex-row h-screen`}>
+
         {/*NAV AND CLIENT TABLE*/}
-        <div className={`flex h-screen max-w-fit`}>
-          <div className={`w-[230px] transition-all duration-500`}>
+        <div className={`flex h-screen`}>
+          <div className={`w-[230px] box-border`}>
             <LeftNavEntire setEditing={setEditing} />
           </div>
-          <div className={`bg-base-100 w-[230px] xl:w-[310px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg  transition-all duration-500`}>
+          <div className={`bg-base-100 w-[250px] box-border 2xl:w-[320px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
             <ClientTable userClients={userClients} setEditing={setEditing} setFetching={setFetching}/>
           </div>
         </div>
 
-        {/*CLIENTPROFILE AND ADDNEWCLIENTFORM*/}
-        <div className={`flex h-screen flex-grow bg-base-100 overflow-hidden border-1 border-base-300/60 transition-all duration-500`}>
+        {/*CLIENT PROFILE AND ADD NEW CLIENT FORM*/}
+        <div className={`flex h-screen flex-grow bg-base-100 overflow-hidden border-1 border-base-300/60`}>
           <div className={`relative ${editing === 'client' ? 'w-full translate-x-0' : '-translate-x-[4000px] collapse w-0'}`}>
             <ClientProfile client={selectedClient} setEditing={setEditing} />
           </div>

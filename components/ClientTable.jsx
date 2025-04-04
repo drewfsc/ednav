@@ -53,9 +53,10 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
             }, {});
     };
 
-    const filteredClients = userClients.filter(client => client.navigator === selectedNavigator).filter(client => {
-        const matchesSearch = client.first_name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
-          || client.last_name.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
+    const filteredClients = userClients.filter(client => {
+        if ( selectedNavigator !== "All" ) { return client.navigator === selectedNavigator } return client}).filter(client => {
+        const matchesSearch = client.first_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
+          || client.last_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
         const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
         const matchesGroup = selectedFepLeft.age === 'All' || client.group === selectedFepLeft.age;
         return matchesSearch && matchesStatus && matchesGroup;
@@ -90,57 +91,54 @@ export default function ClientTable({setEditing, userClients, setFetching}) {
     if (!isMounted) return null;
 
     return (
-        <div className="w-full overflow-hidden">
-            <div className="mt-0 overflow-y-scroll no-scrollbar">
-                <div className="h-auto">
-                    <div className="inline-block w-full py-0 h-full align-middle relative">
-                        <div
-                            className="h-16 fixed top-0 bg-base-200 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
-                            <div>
+      <div className="mt-0 overflow-y-scroll no-scrollbar">
+          <div className="h-auto">
+              <div className="inline-block w-full py-0 h-full align-middle relative">
+                  <div
+                    className="h-16 fixed top-0 bg-base-200 text-base-content flex justify-between items-center pr-4 pl-6 w-full">
+                      <div>
                                 <span className={`font-bold`} >{filteredClients
-                                    .filter(client => client.navigator === selectedNavigator)
-                                    .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All")
-                                    .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All").length}</span>
-                                {selectedFepLeft.status !== "All" ? " "+selectedFepLeft.status.toLowerCase() : null} {selectedFepLeft.age !== "All" ? selectedFepLeft.age.toLowerCase() : null} clients
-                            </div>
-                            <div>
-                                <div className={`cursor-pointer`} onClick={handleGroupChange}>
-                                    <ToggleGroup className={`flex items-center justify-center w-8 h-8 rounded-full border gap-0 ${grouped ? 'border-error text-error' : 'border-base-content/10 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
-                                    <GroupIcon className={`w-5 h-5  `} /><span>{grouped && screenWidth > 1024 ? 'Group' : ''}</span>
-                                </ToggleGroup></div>
-                            </div>
-                        </div>
-                        <table className="w-full mt-16">
-                            <tbody className="">
-                            {grouped ? (
-                                Object.entries(groupedClients).map(([status, clients], idx) => (
-                                    <React.Fragment key={status}>
-                                        <tr className={`${getBGColor(status)} border-b-1 border-b-base-300`}>
-                                            <td colSpan="5" className="py-2 px-4 text-sm">{status} ({clients.length})</td>
-                                        </tr>
-                                        {clients.map((person, i) => (
-                                            <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} setFetching={setFetching} />
-                                        ))}
-                                    </React.Fragment>
-                                ))
-                            ) : (
-                                filteredClients?.length > 0 ? (
-                                    filteredClients?.map((person, i) => (
-                                        <ClientTableItem key={i} person={person} i={i} setEditing={setEditing}/>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="5" className="text-center py-4 text-sm text-gray-500">
-                                            No clients found.
-                                        </td>
-                                    </tr>
-                                )
-                            )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                  .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All")
+                                  .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All").length}</span>
+                          {selectedFepLeft.status !== "All" ? " "+selectedFepLeft.status.toLowerCase() : null} {selectedFepLeft.age !== "All" ? selectedFepLeft.age.toLowerCase() : null} clients
+                      </div>
+                      <div>
+                          <div className={`cursor-pointer`} onClick={handleGroupChange}>
+                              <ToggleGroup className={`flex items-center justify-center w-8 h-8 rounded-full border gap-0 ${grouped ? 'border-error text-error' : 'border-base-content/10 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
+                                  <GroupIcon className={`w-5 h-5  `} /><span>{grouped && screenWidth > 1024 ? 'Group' : ''}</span>
+                              </ToggleGroup></div>
+                      </div>
+                  </div>
+                  <table className="w-[250px] 2xl:w-[320px] mt-16">
+                      <tbody className="">
+                      {grouped ? (
+                        Object.entries(groupedClients).map(([status, clients], idx) => (
+                          <React.Fragment key={status}>
+                              <tr className={`${getBGColor(status)} border-b-1 border-b-base-300`}>
+                                  <td colSpan="5" className="py-2 px-4 text-sm">{status} ({clients.length})</td>
+                              </tr>
+                              {clients.map((person, i) => (
+                                <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} setFetching={setFetching} />
+                              ))}
+                          </React.Fragment>
+                        ))
+                      ) : (
+                        filteredClients?.length > 0 ? (
+                          filteredClients?.map((person, i) => (
+                            <ClientTableItem key={i} person={person} i={i} setEditing={setEditing}/>
+                          ))
+                        ) : (
+                          <tr>
+                              <td colSpan="5" className="text-center py-4 text-sm text-gray-500">
+                                  No clients found.
+                              </td>
+                          </tr>
+                        )
+                      )}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
     );
 }
