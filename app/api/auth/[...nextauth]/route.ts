@@ -12,6 +12,7 @@ async function fetchAdditionalData(email: string) {
     first_name: user?.first_name ?? '',
     last_name: user?.last_name ?? '',
     level: user?.level ?? null,
+    id: user?._id ?? null,
   };
 }
 

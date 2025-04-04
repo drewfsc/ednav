@@ -8,7 +8,6 @@ import ClientProfile from './ClientProfile';
 import { useEditing } from '/contexts/EditingContext';
 import { useClients } from '/contexts/ClientsContext';
 import { useNavigators } from '@/contexts/NavigatorsContext';
-import { useClientList } from '@/contexts/ClientListContext';
 
 export default function PerfectLayout() {
   const session = useSession();

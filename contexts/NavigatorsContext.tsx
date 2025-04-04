@@ -5,14 +5,33 @@ type Navigator = {
 }
 
 type NavigatorsContextType = {
-    selectedNavigator: string | null;
+    selectedNavigator: {
+        name: String,
+        pinned: Array<string>,
+        preferences: {
+            theme: String,
+            lastAgeFilter: String,
+            lastStatusFilter: String
+        },
+        notifications: {
+            unread: Array<string>,
+            read: Array<string>
+        },
+        streak: {
+            active: Boolean,
+            streak: Number,
+            lastDate: String,
+            longestStreak: Number,
+            longestStreakDate: Number
+        }
+    };
     setSelectedNavigator: Dispatch<SetStateAction<Navigator | null>>;
 };
 
 const NavigatorContext = createContext<NavigatorsContextType | undefined>(undefined);
 
 export const NavigatorProvider = ({ children }: { children: ReactNode }) => {
-    const [selectedNavigator, setSelectedNavigator] = useState<"" | null>(null);
+    const [selectedNavigator, setSelectedNavigator] = useState<{} | null>(null);
 
     return (
         // @ts-ignore

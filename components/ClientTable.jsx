@@ -7,13 +7,15 @@ import {ToggleGroup} from "/components/ui/toggle-group";
 import { useNavigators } from '../contexts/NavigatorsContext';
 import { useClientList } from '../contexts/ClientListContext';
 
-export default function ClientTable({setEditing, setFetching}) {
-    const [isMounted, setIsMounted] = useState(false);
-    const {clientList, setClientList} = useClientList();
+export default function ClientTable({setEditing}) {
+
+    const {clientList} = useClientList();
     const {selectedNavigator} = useNavigators();
     const {selectedFepLeft} = useFepsLeft();
+    const [isMounted, setIsMounted] = useState(false);
     const [grouped, setGrouped] = useState(false);
     const [, setTableClients] = useState([]);
+    const [pinned, setPinned] = useState([]);
 
     const getBGColor = (status) => {
         switch (status) {
@@ -44,7 +46,7 @@ export default function ClientTable({setEditing, setFetching}) {
 
     const groupByClientStatus = (clients) => {
         return clients
-            .filter(client => client.navigator === selectedNavigator)
+            .filter(client => client.navigator === selectedNavigator.name)
             .sort((a, b) => (a.clientStatus > b.clientStatus ? 1 : -1))
             .reduce((groups, client) => {
                 const status = client.clientStatus || "Unknown";
@@ -55,7 +57,7 @@ export default function ClientTable({setEditing, setFetching}) {
     };
 
     const filteredClients = clientList.filter(client => {
-        if ( selectedNavigator !== "All" ) { return client.navigator === selectedNavigator } return client}).filter(client => {
+        if ( selectedNavigator !== "All" ) { return client.navigator === selectedNavigator?.name } return client}).filter(client => {
         const matchesSearch = client.first_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
           || client.last_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
         const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
@@ -123,7 +125,7 @@ export default function ClientTable({setEditing, setFetching}) {
                                   <td colSpan="5" className="py-2 px-4 text-sm">{status} ({clients.length})</td>
                               </tr>
                               {clients.map((person, i) => (
-                                <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} setFetching={setFetching} />
+                                <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing}/>
                               ))}
                           </React.Fragment>
                         ))

@@ -6,6 +6,16 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
   const {selectedClient} = useClients();
 
   const handleTrackableUpdate = async () => {
+    const graduated = hasTrackable.filter(item => item.completed === true).length === hasTrackable.length;
+    if (graduated) {
+      console.log("graduated");
+      setHasTrackable(prevState => {
+        return [...prevState,
+          {'programComplete': true }
+          ]
+      })
+    }
+    console.log("graduated", graduated);
     const res = await fetch(`/api/trackable?clientId=${selectedClient._id}`, {
       headers: {
         'Content-Type': 'application/json'

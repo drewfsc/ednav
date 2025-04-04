@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useClients} from "/contexts/ClientsContext";
+import { PinIcon } from 'lucide-react';
 
 export default function ClientTableItem({ person, i, setEditing}) {
 
@@ -69,11 +70,11 @@ export default function ClientTableItem({ person, i, setEditing}) {
                 }
             }}
             className={`hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
-            <td className="text-sm w-1/2 truncate">
+            <td className="text-sm truncate">
                 <span className={`ml-4`}>{person.first_name + " " + person.last_name}</span>
             </td>
-            <td className="whitespace-nowrap pl- pr-6 py-4 w-1/2 truncate text-sm text-gray-500 text-right">
-                <div className={`w-[15px] mr-4 2xl:w-fit ${getBadgeColor(person.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>
+            <td className=" truncate text-sm text-gray-500 text-right flex justify-end">
+                <div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>
             </td>
         </tr>
     );
