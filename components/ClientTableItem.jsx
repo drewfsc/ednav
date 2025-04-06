@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {useClients} from "/contexts/ClientsContext";
+import { PinIcon } from 'lucide-react';
+import { useNavigators } from '../contexts/NavigatorsContext';
+import { useEditing } from '../contexts/EditingContext';
 
-export default function ClientTableItem({ person, i, setEditing, statusCollapse}) {
+export default function ClientTableItem({ person, i, statusCollapse}) {
 
     const {selectedClient, setSelectedClient} = useClients(null);
+    const {selectedNavigator} = useNavigators();
+    const {setEditing} = useEditing();
 
     const getBadgeColor = (status) => {
         switch (status) {
@@ -68,12 +73,13 @@ export default function ClientTableItem({ person, i, setEditing, statusCollapse}
                     setEditing("client");
                 }
             }}
-            className={`${statusCollapse.includes(person.clientStatus) ? 'hidden' : 'visible'} hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border ${selectedClient?._id === person._id ? getBorderColor(selectedClient.clientStatus) : ''} ${selectedClient?._id === person._id ? 'bg-base-300 text-base-content' : ''}`}>
+            className={`${statusCollapse?.includes(person?.clientStatus) ? 'hidden' : 'visible'} hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ''} ${selectedClient?._id === person?._id ? 'bg-base-300 text-base-content' : ''}`}>
             <td className="text-sm truncate whitespace-normal">
                 <span className={`ml-4`}>{person.first_name + " " + person.last_name}</span>
             </td>
+            <td className="text-sm truncate whitespace-normal"><PinIcon size={16} className={`${selectedNavigator?.pinned.includes(person?._id) ? 'visible' : 'hidden'} text-primary/70`}/></td>
             <td className=" truncate text-sm text-gray-500 text-right flex justify-end">
-                <div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>
+                <div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>
             </td>
         </tr>
     );

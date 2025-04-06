@@ -2,9 +2,13 @@ import React from 'react';
 import { XSquare } from 'phosphor-react';
 import {useClients} from "/contexts/ClientsContext";
 import ClientProfilePin from './ClientProfilePin';
+import { useEditing } from '../contexts/EditingContext';
 
-export default function ClientProfileHeader({setEditing}) {
+export default function ClientProfileHeader() {
+
     const {selectedClient, setSelectedClient} = useClients();
+    const {setEditing} = useEditing();
+
     const getBadgeColor = (status) => {
         switch (status) {
             case "Active":
@@ -19,7 +23,6 @@ export default function ClientProfileHeader({setEditing}) {
                 return "badge badge-primary text-primary-content text-xs px-3";
         }
     }
-
 
     return (
         <div
