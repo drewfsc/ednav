@@ -21,7 +21,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
     const data = {
       clientEmail: client.email,
       clientId: client._id,
-      clientName: client.name,
+      clientName: client.name || client.first_name + ' ' + client.last_name,
       fep: client.fep,
       navigator: client.navigator,
       selectedDate: selectedDate,
@@ -32,10 +32,10 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
     };
     if (multi) {
       data.path = selectedPath;
-      data.statement = generateSentence(client.navigator, client.name, multiSelectValues, selectedPath);
+      data.statement = generateSentence(client.navigator, client.name || client.first_name + ' ' + client.last_name, multiSelectValues, selectedPath);
     } else {
       data.path = newPath;
-      data.statement = generateSentence(client.navigator, client.name, null, newPath);
+      data.statement = generateSentence(client.navigator, client.name || client.first_name + ' ' + client.last_name, null, newPath);
     }
 
     return await fetch('/api/activities', {
@@ -46,15 +46,9 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
       body: JSON.stringify(data)
     }).then(res => res.json()).then(
       async (result) => {
-
-        await setSelectedClient(prev => {
-          return {
-            ...prev,
-            clientStatus: result.wholeUser.clientStatus,
-          };
-        });
-        setActions(result.userActions);
-        setSelectedLocation(result.wholeUser._id.toString());
+        await setSelectedClient(result.wholeUser);
+        await setActions(result.userActions);
+        await setSelectedLocation(result.wholeUser._id);
       },
       (error) => {
         console.log(error);
