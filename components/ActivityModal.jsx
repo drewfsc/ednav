@@ -39,7 +39,7 @@ export default function ActivityModal({ open, setOpen, setActions, client, getAc
                                     Add an activity
                                 </DialogTitle>
                                 <div className="">
-                                    { questions && <ActivityDynamicSelect setActions={setActions} client={client} questions={questions} getActions={getActions} />}
+                                    { questions && <ActivityDynamicSelect setActions={setActions} client={client} questions={questions} getActions={getActions} setOpen={setOpen} />}
                                 </div>
                             </div>
                         </div>

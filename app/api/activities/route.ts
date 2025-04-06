@@ -93,8 +93,9 @@ export async function POST(request: NextRequest) {
     const result = await actionsCollection.insertOne(body)
     const userActions = await actionsCollection.find({ clientId: body.clientId }).sort({ createdAt: -1 }).toArray()
     const notes = await notesCollection.find({ clientId: body.clientId }).sort({ createdAt: -1 }).toArray()
+    const wholeUser = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
 
-    return NextResponse.json({ message: "Action added successfully",userActions, notes, _id: result, user }, { status: 201 })
+    return NextResponse.json({ message: "Action added successfully",wholeUser, userActions, notes, _id: result, user }, { status: 201 })
   } catch (error) {
     console.error("Error adding action:", error)
     return NextResponse.json({ error: "Failed to add action" }, { status: 500 })

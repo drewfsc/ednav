@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { updateCategoryState } from "../lib/updateCategoryState"
 import { useClients } from '../contexts/ClientsContext';
 import { useLocations } from '../contexts/LocationsContext';
-
-const ActivityDynamicSelect = ({ client, setActions, questions }) => {
+import { generateSentence } from '../utils/generateSentence.tsx';
+const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
   const [selectedPath, setSelectedPath] = useState([]);
   const [currentOptions, setCurrentOptions] = useState(Object.keys(questions));
   const [, setCurrentObject] = useState(questions);
@@ -13,32 +12,32 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [trackable, setTrackable] = useState(null);
-  const [category , setCategory] = useState("");
-  const {setSelectedClient} = useClients();
-  const {setSelectedLocation} = useLocations();
+  const { selectedClient, setSelectedClient } = useClients();
+  const { setSelectedLocation } = useLocations();
 
-  function createStatement(action) {
-    if (!action || !action.path || action.path.length < 2) return '';
-    const [, ...relevantPath] = action.path;
-    const sentenceCore = relevantPath.join(' ');
-    const selection = action.selections?.length ? ` in ${action.selections.join(', ')}` : '';
-    return `${action.navigator !== "undefined" ? action.navigator : "An education navigator"} noted that the client ${sentenceCore}${selection}.`;
-  }
+  const saveSelectionToMongoDB = async (newPath, multi) => {
+    setOpen(false);
 
-  const saveSelectionToMongoDB = async (data) => {
-    data.statement = createStatement(data);
-    let newStatus = null;
-    switch (true) {
-      case data.path.includes('enrolled in'):
-        newStatus = "In Progress";
-        break;
-      case data.path.includes('graduated from'):
-        newStatus = "Graduated";
-        break;
-      case data.path.includes('inactive'):
-        newStatus = "Inactive";
-        break;
+    const data = {
+      clientEmail: client.email,
+      clientId: client._id,
+      clientName: client.name,
+      fep: client.fep,
+      navigator: client.navigator,
+      selectedDate: selectedDate,
+      selection: selectedValue,
+      timestamp: new Date(),
+      trackable: trackable,
+      selections: multi ? multiSelectValues : null
+    };
+    if (multi) {
+      data.path = selectedPath;
+      data.statement = generateSentence(client.navigator, client.name, multiSelectValues, selectedPath);
+    } else {
+      data.path = newPath;
+      data.statement = generateSentence(client.navigator, client.name, null, newPath);
     }
+
     return await fetch('/api/activities', {
       method: 'POST',
       headers: {
@@ -46,21 +45,20 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       },
       body: JSON.stringify(data)
     }).then(res => res.json()).then(
-      (result) => {
-        setActions(result.userActions);
-        setSelectedLocation(data.path[0]);
-        setSelectedClient(prev => {
+      async (result) => {
+
+        await setSelectedClient(prev => {
           return {
             ...prev,
-            clientStatus: newStatus || prev.clientStatus,
-            trackable: trackable,
-            path: selectedPath,
-          }
-        })
+            clientStatus: result.wholeUser.clientStatus,
+          };
+        });
+        setActions(result.userActions);
+        setSelectedLocation(result.wholeUser._id.toString());
       },
       (error) => {
         console.log(error);
-      })
+      });
   };
 
   useEffect(() => {
@@ -80,20 +78,18 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
 
   const handleAdvance = async () => {
     if (!selectedValue) return;
+    let newArray = [...selectedPath];
+    if (selectedClient.trackable?.type === 'GED' || selectedClient.trackable?.type === 'HSED') {
+      console.log('GED!!');
+      const itemsToRemove = ['GED', 'HSED'];
+      newArray = selectedPath.filter(item => !itemsToRemove.includes(item));
+    }
 
-    const newPath = [...selectedPath, selectedValue];
+    const newPath = [...newArray, selectedValue];
     setSelectedPath(newPath);
     setSelectedValue('');
-
     const newObject = newPath.reduce((acc, key) => (acc && acc[key] ? acc[key] : null), questions);
     setCurrentObject(newObject);
-
-    const newCategory = updateCategoryState(newObject, null, category);
-    if (!newCategory) {
-      console.warn("⚠️ No category match for path:", newPath.join(" > "));
-      console.warn("🔍 Object contents:", JSON.stringify(newObject, null, 2));
-    }
-    setCategory(newCategory);
 
     if (selectedValue === 'GED' || selectedValue === 'HSED') {
       const nextLevel = Object.values(newObject); // go one level deeper
@@ -112,18 +108,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       setCurrentOptions([]);
       setFinalSelection(selectedValue);
 
-      await saveSelectionToMongoDB({
-        clientEmail: client.email,
-        clientId: client._id,
-        clientName: client.name,
-        fep: client.fep,
-        navigator: client.navigator,
-        path: newPath,
-        selectedDate: selectedDate,
-        selection: selectedValue,
-        timestamp: new Date(),
-        trackable: trackable
-      });
+      await saveSelectionToMongoDB(newPath, false);
       return;
     }
     if (newObject && typeof newObject === 'object') {
@@ -142,18 +127,10 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       setCurrentOptions([]);
       setFinalSelection(selectedValue);
 
-      const action = await saveSelectionToMongoDB({
-        clientEmail: client.email,
-        clientId: client._id,
-        clientName: client.name,
-        fep: client.fep,
-        navigator: client.navigator,
-        path: newPath,
-        selectedDate: selectedDate,
-        selection: selectedValue,
-        timestamp: new Date(),  // Include date selection
-        trackable: trackable
-      });
+      const action = await saveSelectionToMongoDB(newPath, false);
+      console.log(
+        action
+      );
       const savedAction = await action.json();
       await setActions([...setActions, savedAction]);
     }
@@ -163,21 +140,26 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
     console.log(option, index);
     setMultiSelectValues((prev) => {
       if (prev.includes(option)) {
-        if(trackable && trackable.items.length > 0) {
+        if (trackable && trackable.items.length > 0) {
           trackable.items[index].completed = !trackable.items[index].completed;
         }
         return prev.filter(item => item !== option);
       } else {
         if (!trackable || !trackable?.items) {
-          trackable.items[index].completed = false;
+          if (trackable && trackable.items) {
+            trackable.items[index].completed = false;
+          }
         }
         return [...prev, option];
       }
     });
-    if(trackable && trackable.items.length > 0) {
+    if (trackable && trackable?.items.length > 0 && trackable?.type !== 'GED' || trackable?.type !== 'HSED') {
       setTrackable(prev => {
+        if (!prev?.items) return prev;
+
         const updatedItems = [...prev.items];
         updatedItems[index] = { ...updatedItems[index], completed: !updatedItems[index].completed };
+
         return {
           ...prev,
           items: updatedItems
@@ -187,20 +169,20 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   };
 
   const handleMultiSelectAdvance = async () => {
-    const dataToSave = {
-      path: selectedPath,
-      selections: multiSelectValues,
-      clientId: client._id,
-      clientEmail: client.email,
-      clientName: client.name,
-      fep: client.fep,
-      navigator: client.navigator,
-      trackable: trackable,
-      selectedDate: selectedDate,  // Include date selection
-      timestamp: new Date()
-    };
+    // const dataToSave = {
+    //   path: selectedPath,
+    //   selections: multiSelectValues,
+    //   clientId: client._id,
+    //   clientEmail: client.email,
+    //   clientName: client.name,
+    //   fep: client.fep,
+    //   navigator: client.navigator,
+    //   trackable: trackable,
+    //   selectedDate: selectedDate,  // Include date selection
+    //   timestamp: new Date()
+    // };
 
-    await saveSelectionToMongoDB(dataToSave);
+    await saveSelectionToMongoDB(null, true);
 
     setMultiSelectOptions(null);
     setCurrentOptions([]);
@@ -222,7 +204,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
       )}
 
       {currentOptions.length > 0 && (
-        <label className="flex flex-col space-y-2 text-sm font-light mt-6 capitalize">{category}
+        <label className="flex flex-col space-y-2 text-sm font-light mt-6 capitalize">
           <select
             name={currentOptions[0]}
             className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}

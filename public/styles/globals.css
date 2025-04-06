@@ -118,3 +118,7 @@ body {
     padding: 0;
     font-family: 'Helvetica Neue', sans-serif;
 }
+
+span.activity {
+    font-weight: 600;
+}

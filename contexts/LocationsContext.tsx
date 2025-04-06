@@ -6,7 +6,7 @@ type Location = {
 
 type LocationsContext = {
     selectedLocation: Location | null;
-    setSelectedLocation: (location: Location | null) => void;
+    setSelectedLocation: React.Dispatch<React.SetStateAction<Location | null>>;
 };
 
 const LocationsContext = createContext<LocationsContext | undefined>(undefined);
