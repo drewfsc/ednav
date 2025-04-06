@@ -15,15 +15,16 @@ export default function ClientTable({setEditing}) {
     const [isMounted, setIsMounted] = useState(false);
     const [grouped, setGrouped] = useState(false);
     const [, setTableClients] = useState([]);
+    const [statusCollapse, setStatusCollapse] = useState([])
     const [pinned, setPinned] = useState([]);
 
     const getBGColor = (status) => {
         switch (status) {
-            case "Active":
-                return "bg-error text-error-content";
             case "Inactive":
-                return "bg-warning text-warning-content";
+                return "bg-error text-error-content";
             case "In Progress":
+                return "bg-warning text-warning-content";
+            case "Active":
                 return "bg-success text-success-content";
             case "Graduated":
                 return "bg-info text-info-content";
@@ -32,8 +33,18 @@ export default function ClientTable({setEditing}) {
         }
     }
 
+    const handleCollapseChange = (status) => {
+        setStatusCollapse(prevState => {
+            if (prevState.includes(status)) {
+                return prevState.filter(item => item !== status)
+            }
+            return [...prevState, status]
+        })
+    }
+
     const handleGroupChange = () => {
         setGrouped(!grouped);
+        setStatusCollapse([])
         if (!grouped) {
             const groupedArray = Object.entries(groupedClients).flatMap(([status]) =>
                 clientList.map(client => ({ ...client, groupStatus: status }))
@@ -46,7 +57,10 @@ export default function ClientTable({setEditing}) {
 
     const groupByClientStatus = (clients) => {
         return clients
-            .filter(client => client.navigator === selectedNavigator.name)
+            .filter(client => {
+                if(selectedNavigator.name !== "All") return client.navigator === selectedNavigator?.name
+                return client
+            })
             .sort((a, b) => (a.clientStatus > b.clientStatus ? 1 : -1))
             .reduce((groups, client) => {
                 const status = client.clientStatus || "Unknown";
@@ -57,7 +71,7 @@ export default function ClientTable({setEditing}) {
     };
 
     const filteredClients = clientList.filter(client => {
-        if ( selectedNavigator !== "All" ) { return client.navigator === selectedNavigator?.name } return client}).filter(client => {
+        if ( selectedNavigator?.name !== "All" ) { return client.navigator === selectedNavigator?.name } return client}).filter(client => {
         const matchesSearch = client.first_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
           || client.last_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());
         const matchesStatus = selectedFepLeft.status === 'All' || client.clientStatus === selectedFepLeft.status;
@@ -102,9 +116,9 @@ export default function ClientTable({setEditing}) {
                       <div>
                           <span className={`font-bold`} >
                             {
-                                // filteredClients
-                                  // .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All")
-                                  // .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All").length
+                                filteredClients
+                                  .filter(client => selectedFepLeft.age !== "All" ? client.group === selectedFepLeft.age : "All")
+                                  .filter(client => selectedFepLeft.status !== "All" ? client.clientStatus === selectedFepLeft.status : "All").length
                             }
                           </span>
                       {selectedFepLeft.status !== "All" ? " "+selectedFepLeft.status.toLowerCase() : null} {selectedFepLeft.age !== "All" ? selectedFepLeft.age.toLowerCase() : null} clients
@@ -112,7 +126,7 @@ export default function ClientTable({setEditing}) {
                       <div>
                           <div className={`cursor-pointer`} onClick={handleGroupChange}>
                               <ToggleGroup className={`flex items-center justify-center w-8 h-8 rounded-full border gap-0 ${grouped ? 'border-error text-error' : 'border-base-content/10 text-base-content/30'}`} type={`single`} onToggle={handleGroupChange} title={`Group`} >
-                                  <GroupIcon className={`w-5 h-5  `} /><span>{grouped && screenWidth > 1024 ? 'Group' : ''}</span>
+                                  <GroupIcon className={`w-5 h-5  `} /><span>{grouped && screenWidth > 1536 ? '' : ''}</span>
                               </ToggleGroup></div>
                       </div>
                   </div>
@@ -122,17 +136,21 @@ export default function ClientTable({setEditing}) {
                         Object.entries(groupedClients).map(([status, clients], idx) => (
                           <React.Fragment key={status}>
                               <tr className={`${getBGColor(status)} border-b-1 border-b-base-300`}>
-                                  <td colSpan="5" className="py-2 px-4 text-sm">{status} ({clients.length})</td>
+                                  <td  className="py-2 px-4 text-sm whitespace-normal">{status} ({clients.length})</td>
+                                  <td className={`text-2xl cursor-pointer text-right pr-5 m-0`} onClick={() => {
+                                      handleCollapseChange(status)
+                                  }}>{statusCollapse.includes(status) ? "+" : "-"}</td>
                               </tr>
-                              {clients.map((person, i) => (
-                                <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing}/>
-                              ))}
+
+                                  {clients.map((person, i) => (
+                                    <ClientTableItem key={`${idx}-${i}`} person={person} i={i} setEditing={setEditing} statusCollapse={statusCollapse}/>
+                                  ))}
                           </React.Fragment>
                         ))
                       ) : (
                         filteredClients?.length > 0 ? (
                           filteredClients?.map((person, i) => (
-                            <ClientTableItem key={i} person={person} i={i} setEditing={setEditing}/>
+                            <ClientTableItem key={i} person={person} i={i} setEditing={setEditing} statusCollapse={statusCollapse}/>
                           ))
                         ) : (
                           <tr>

@@ -9,19 +9,18 @@ function NavigatorSelector() {
 
   const navigatorNames = [
     { name: 'All', id: '' },
-    { name: 'Me', id: session.data.user?.id },
-    { name: 'Stacy Martinez', id: '67b4410753573b52275ce0c9' },
-    { name: 'Hailey Jester', id: '67b4414e53573b52275ce0ca' },
+    { name: 'Andrew McCauley', id: '677e2852b19820275b00c061' },
     { name: 'Ashleigh Chesney', id: '67b4418653573b52275ce0cb' },
-    { name: 'Rich Basche', id: '67b441ad53573b52275ce0cc' },
-    { name: 'Rachael Banerdt', id: '67b441dc53573b52275ce0cd' },
-    { name: 'Morgan Sole', id: '67b4418653573b52275ce0cb' },
+    { name: 'Corine Boelk', id: '67ef15a26f5242a3b5153f32' },
+    { name: 'Hailey Jester', id: '67b4414e53573b52275ce0ca' },
     { name: 'Kecia Thompson-Gordon', id: '67b4424f53573b52275ce0cf' },
     { name: 'Marissa Foth', id: '67e9614a74cc11c0dff9e172' },
-    { name: 'Corine Boelk', id: '67ef15a26f5242a3b5153f32' },
-    { name: 'Andrew McCauley', id: '677e2852b19820275b00c061' },
+    { name: 'Morgan Sole', id: '67b4418653573b52275ce0cb' },
+    { name: 'Rachael Banerdt', id: '67b441dc53573b52275ce0cd' },
+    { name: 'Rich Basche', id: '67b441ad53573b52275ce0cc' },
+    { name: 'Sara Jackson', id: '67eaa1d0f0d0003549891ba9' },
+    { name: 'Stacy Martinez', id: '67b4410753573b52275ce0c9' },
     { name: 'Trevor Brunette', id: '67eab2ceb13b898d7f56ec21' },
-    { name: 'Sara Jackson', id: '67eaa1d0f0d0003549891ba9' }
   ];
 
   const getNavigatorData = async (navigator) => {
@@ -36,7 +35,7 @@ function NavigatorSelector() {
 
   useEffect(() => {
     getNavigatorData(session.data.user.name).then();
-  }, [ session])
+  }, [session])
 
   return (
     <div>
@@ -45,6 +44,11 @@ function NavigatorSelector() {
         value={selectedNavigator?.name}
         className="select select-accent"
         onChange={async (e) => {
+          if(e.target.value === "All") return setSelectedNavigator(
+            {
+              name: 'All',
+            }
+          )
           const response = await fetch(`/api/education-navigators?navigator=${e.target.value}`);
           const data = await response.json();
           await setSelectedNavigator(data);

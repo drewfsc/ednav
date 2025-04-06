@@ -8,11 +8,11 @@ export default function ClientProfileHeader({setEditing}) {
     const getBadgeColor = (status) => {
         switch (status) {
             case "Active":
-                return "badge badge-error text-error-content text-xs px-3 ";
+                return "badge badge-success text-success-content text-xs px-3 ";
             case "Inactive":
-                return "badge badge-warning text-warning-content text-xs px-3";
+                return "badge badge-error text-error-content text-xs px-3";
             case "In Progress":
-                return "badge badge-success text-success-content text-xs px-3";
+                return "badge badge-warning text-warning-content text-xs px-3";
             case "Graduated":
                 return "badge badge-info text-info-content text-xs px-3";
             default:

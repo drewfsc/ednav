@@ -13,19 +13,19 @@ export default function LeftNavigation({ setEditing}) {
     ], [
         "Active",
         "active",
-        "bg-error shadow-lg",
-        "hover:bg-error",
+        "bg-success shadow-lg",
+        "hover:bg-success",
     ], [
         "Inactive",
         "inactive",
-        "bg-warning shadow-lg",
-        "hover:bg-warning"
+        "bg-error shadow-lg",
+        "hover:bg-error"
     ],
     [
         "In Progress",
         "in-progress",
-        "bg-success shadow-lg",
-        "hover:bg-success"
+        "bg-warning shadow-lg",
+        "hover:bg-warning"
     ],
     [
         "Graduated",
