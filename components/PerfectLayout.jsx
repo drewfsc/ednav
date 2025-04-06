@@ -16,11 +16,11 @@ export default function PerfectLayout() {
   const {selectedNavigator,setSelectedNavigator} = useNavigators();
   const [userClients, setUserClients] = useState([]);
 
-  useEffect(() => {
-    if (session.data.user?.["level"] === 'navigator') {
-      setSelectedNavigator(session.data.user.name)
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (session.data.user?.["level"] === 'navigator') {
+  //     setSelectedNavigator(session.data.user.name)
+  //   }
+  // }, []);
 
   useEffect(() => {
     let clientArray = [];

@@ -1,8 +1,10 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
+import {useLocations} from './LocationsContext';
 
 const ClientListContext = createContext();
 
 export const ClientListProvider = ({ children }) => {
+    const { selectedLocation } = useLocations();
     const [clientList, setClientList] = useState([]);
 
     useEffect(() => {
@@ -15,9 +17,8 @@ export const ClientListProvider = ({ children }) => {
                 console.error('Failed to fetch ClientLists', err);
             }
         };
-
         fetchClientLists().then();
-    }, []);
+    }, [selectedLocation]);
 
     return (
       <ClientListContext.Provider value={{ clientList, setClientList }}>

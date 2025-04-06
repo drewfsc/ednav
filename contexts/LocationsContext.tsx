@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type Location = {
-    "name": "Dashboard",
+    "name": "",
 }
 
 type LocationsContext = {

@@ -70,7 +70,7 @@ export default function ClientTable({setEditing}) {
             }, {});
     };
 
-    const filteredClients = clientList.filter(client => {
+    const filteredClients = clientList?.filter(client => {
         if ( selectedNavigator?.name !== "All" ) { return client.navigator === selectedNavigator?.name } return client}).filter(client => {
         const matchesSearch = client.first_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase())
           || client.last_name?.toLowerCase().includes(selectedFepLeft.searchTerm.toLowerCase());

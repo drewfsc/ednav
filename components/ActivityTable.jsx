@@ -100,7 +100,7 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
                                 }} value={note.noteContent} />
                       <div className={`flex justify-between items-center`}>
                         <button disabled={note.noteContent === ''} className={`btn btn-secondary w-1/4`} onClick={() => {
-                          handleNote();
+                          handleNote().then();
                           setNote({
                             noteContent: '',
                             noteAuthor: selectedNavigator,

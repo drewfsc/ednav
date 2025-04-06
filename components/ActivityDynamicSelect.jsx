@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { updateCategoryState } from "../lib/updateCategoryState"
+import { useClients } from '../contexts/ClientsContext';
+import { useLocations } from '../contexts/LocationsContext';
 
 const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   const [selectedPath, setSelectedPath] = useState([]);
@@ -12,6 +14,8 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [trackable, setTrackable] = useState(null);
   const [category , setCategory] = useState("");
+  const {setSelectedClient} = useClients();
+  const {setSelectedLocation} = useLocations();
 
   function createStatement(action) {
     if (!action || !action.path || action.path.length < 2) return '';
@@ -23,6 +27,18 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
 
   const saveSelectionToMongoDB = async (data) => {
     data.statement = createStatement(data);
+    let newStatus = null;
+    switch (true) {
+      case data.path.includes('enrolled in'):
+        newStatus = "In Progress";
+        break;
+      case data.path.includes('graduated from'):
+        newStatus = "Graduated";
+        break;
+      case data.path.includes('inactive'):
+        newStatus = "Inactive";
+        break;
+    }
     return await fetch('/api/activities', {
       method: 'POST',
       headers: {
@@ -32,11 +48,17 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
     }).then(res => res.json()).then(
       (result) => {
         setActions(result.userActions);
+        setSelectedLocation(data.path[0]);
+        setSelectedClient(prev => {
+          return {
+            ...prev,
+            clientStatus: newStatus || prev.clientStatus,
+          }
+        })
       },
       (error) => {
         console.log(error);
       })
-
   };
 
   useEffect(() => {
@@ -72,7 +94,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
     setCategory(newCategory);
 
     if (selectedValue === 'GED' || selectedValue === 'HSED') {
-      const nextLevel = Object.values(newObject)[0]; // go one level deeper
+      const nextLevel = Object.values(newObject); // go one level deeper
       let items = [];
       if (Array.isArray(nextLevel) && nextLevel.length > 0) {
         items = nextLevel.map(item => ({
@@ -80,8 +102,9 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
           completed: false
         }));
       }
-      setTrackable({ type: category, length: items.length, items: items });
+      setTrackable({ type: selectedValue, length: items.length, items: items });
     }
+
     if (newObject && Object.keys(newObject).length === 0) {
 
       setCurrentOptions([]);
@@ -135,8 +158,8 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
   };
 
   const handleMultiSelectChange = (option, index) => {
+    console.log(option, index);
     setMultiSelectValues((prev) => {
-
       if (prev.includes(option)) {
         if(trackable && trackable.items.length > 0) {
           trackable.items[index].completed = !trackable.items[index].completed;
@@ -149,6 +172,16 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
         return [...prev, option];
       }
     });
+    if(trackable && trackable.items.length > 0) {
+      setTrackable(prev => {
+        const updatedItems = [...prev.items];
+        updatedItems[index] = { ...updatedItems[index], completed: !updatedItems[index].completed };
+        return {
+          ...prev,
+          items: updatedItems
+        };
+      });
+    }
   };
 
   const handleMultiSelectAdvance = async () => {

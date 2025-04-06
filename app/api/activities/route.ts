@@ -35,6 +35,24 @@ export async function POST(request: NextRequest) {
     if (!body.createdAt) {
       body.createdAt = new Date().toISOString()
     }
+    if(body.path.includes("graduated from")) {
+      const client = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
+      if (client) {
+        await clientsCollection.updateOne({_id: new ObjectId(body.clientId)}, { $set: { clientStatus: "Graduated" }})
+      }
+    }
+    if(body.path.includes("enrolled in")) {
+      const client = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
+      if (client) {
+        await clientsCollection.updateOne({_id: new ObjectId(body.clientId)}, { $set: { clientStatus: "In Progress" }})
+      }
+    }
+    if(body.path.includes("inactive")) {
+      const client = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
+      if (client) {
+        await clientsCollection.updateOne({_id: new ObjectId(body.clientId)}, { $set: { clientStatus: "Inactive" }})
+      }
+    }
     const query = { _id: new ObjectId(body.clientId) }
     let user
     user = await clientsCollection.updateOne(query, { $set: { lastActivity: new Date().toISOString() } })
