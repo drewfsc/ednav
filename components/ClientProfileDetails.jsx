@@ -57,7 +57,7 @@ export default function ClientProfileDetails() {
         } else {
             setHasTrackable([])
         }
-    }, [actions])
+    }, [actions, selectedClient])
 
     return (
         <div className="mb-12 ml-6 w-full transition-all duration-500">

@@ -53,6 +53,8 @@ const ActivityDynamicSelect = ({ client, setActions, questions }) => {
           return {
             ...prev,
             clientStatus: newStatus || prev.clientStatus,
+            trackable: trackable,
+            path: selectedPath,
           }
         })
       },
