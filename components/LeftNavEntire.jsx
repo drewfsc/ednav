@@ -37,15 +37,15 @@ export default function LeftNavEntire({setEditing}) {
                 </LocationsProvider>
             </div>
 
-            <div className={`mb-6`}>
-                <div className={`flex flex-col mb-4 p-3 bg-base-200 rounded-lg`}>
+            <div className={`mb-2`}>
+                {session.data.user.level !== 'navigator' ? <NavigatorSelector/> : null}
+                <ThemeSwitcher/>
+                <div className={`flex flex-col mt-8 p-3 bg-base-200 rounded-lg`}>
                     <div className={`text-sm`}>{session.data.user.name}</div>
                     <div className={`text-xs`}>{session.data.user.email}</div>
                     <div className={`text-xs mb-4`}>{session.data.user.level}</div>
                     {session.status === 'authenticated' ? <SignOutButton /> : <SignInButton />}
                 </div>
-                {session.data.user.level !== 'navigator' ? <NavigatorSelector/> : null}
-                <ThemeSwitcher/>
             </div>
 
         </div>

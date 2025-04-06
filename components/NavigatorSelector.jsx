@@ -1,14 +1,11 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigators } from '/contexts/NavigatorsContext';
 import { useSession } from 'next-auth/react';
 
 function NavigatorSelector() {
-  const [isMounted, setIsMounted] = useState(false);
   const { selectedNavigator, setSelectedNavigator } = useNavigators();
   const session = useSession();
-  const [selectValue, setSelectValue] = useState('');
-  const [adminSelectValue, setAdminSelectValue] = useState(false);
 
   const navigatorNames = [
     { name: 'All', id: '' },
@@ -27,70 +24,30 @@ function NavigatorSelector() {
     { name: 'Sara Jackson', id: '67eaa1d0f0d0003549891ba9' }
   ];
 
-  const getNavigatorData = async () => {
-
+  const getNavigatorData = async (navigator) => {
     try {
-      const response = await fetch(`/api/education-navigators?navigator=${selectValue}`);
+      const response = await fetch(`/api/education-navigators?navigator=${navigator}`);
       const data = await response.json();
       await setSelectedNavigator(data);
     } catch (error) {
       console.log(error);
     }
-    // console.log("1 getNavigatorData - navigatorId:", navigatorId);
-    // if (!session.data.user.status === "authenticated") return;
-
-    // if (session.data.user.level === "admin" || session.data.user.level === "IT"){
-    //   console.log("2 getNavigatorData admin or IT", session)
-    //   // const response = await fetch(`/api/education-navigators?navigator=${navigatorId}`);
-    //   const response = await fetch(`/api/education-navigators?navigator=${'677e2852b19820275b00c061'}`);
-    //   const data = await response.json();
-    //   await setSelectedNavigator(data);
-    // }else if(session.data.user.level === "navigator") {
-    //   console.log("3 getNavigatorData - navigator", selectedNavigator)
-    //   // const response = await fetch(`/api/education-navigators?navigator=${session.data.user.name}`);
-    //   const response = await fetch(`/api/education-navigators?navigator=${'677e2852b19820275b00c061'}`);
-    //   const data = await response.json();
-    //   await setSelectedNavigator(data);
-    // }
   }
 
   useEffect(() => {
-    getNavigatorData(selectValue).then();
-  }, [selectValue, session])
-
-  const handleNavigatorChange = async (e) => {
-    await e.preventDefault();
-    console.log("4 handleNavigatorChange", e.target.value)
-    // const isAdmin = session.data.user.level === "admin" || session.data.user.level === "IT"
-    // if (isAdmin) {
-    //   await setSelectValue(e.target.value);
-    // }else{
-    //   await setSelectValue(session.data.user.name);
-    // }
-    await getNavigatorData(e.target.value).then();
-  }
-
-  useEffect(() => {
-    setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
-    if (typeof window !== 'undefined') {
-      if(session){
-        getNavigatorData(selectValue).then();
-      }
-    }
-  }, []);
-
-  if (!isMounted) return null; // ✅ Prevent rendering until hydration completes
+    getNavigatorData(session.data.user.name).then();
+  }, [ session])
 
   return (
     <div>
       <select
         id="navigator-select"
-        value={selectValue || ""}
+        value={selectedNavigator?.name}
         className="select select-accent"
         onChange={async (e) => {
           const response = await fetch(`/api/education-navigators?navigator=${e.target.value}`);
           const data = await response.json();
-          await setSelectedNavigator(data[0]);
+          await setSelectedNavigator(data);
         }}
       >
         <option value="" disabled>Select a navigator</option>

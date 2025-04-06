@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const navigator = url.searchParams.get("navigator") || "";
   console.log(navigator)
   const navigatorsCollection = await getCollection("users");
-  const navigators = await navigatorsCollection.find({name: navigator}).toArray();
+  const navigators = await navigatorsCollection.findOne({name: navigator});
   return NextResponse.json(navigators, { status:200} )
   // try {
   //   if (!navigator) {
