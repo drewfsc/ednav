@@ -67,7 +67,11 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
       if (questions[autoSelection]) {
         setSelectedPath([autoSelection]);
         setCurrentObject(questions[autoSelection]);
-        setCurrentOptions(Object.keys(questions[autoSelection]));
+        let options = Object.keys(questions[autoSelection]);
+        if (selectedClient?.trackable?.type === 'GED' || selectedClient?.trackable?.type === 'HSED') {
+          options = options.filter(opt => opt !== 'GED' && opt !== 'HSED');
+        }
+        setCurrentOptions(options);
       }
     }
   }, [client]);
@@ -118,7 +122,11 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
         setCurrentOptions([]);
       } else {
         setMultiSelectOptions(null);
-        setCurrentOptions(Object.keys(newObject));
+        let options = Object.keys(newObject);
+        if (selectedClient?.trackable?.type === 'GED' || selectedClient?.trackable?.type === 'HSED') {
+          options = options.filter(opt => opt !== 'GED' && opt !== 'HSED');
+        }
+        setCurrentOptions(options);
       }
     } else if (Array.isArray(newObject)) {
       setMultiSelectOptions(newObject.completed);
