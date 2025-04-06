@@ -5,7 +5,7 @@ import { getCollection } from "@/lib/mongodb";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const navigator = url.searchParams.get("navigator") || "";
-  console.log(navigator)
+  // console.log(navigator)
   const navigatorsCollection = await getCollection("users");
   const navigators = await navigatorsCollection.findOne({name: navigator});
   return NextResponse.json(navigators, { status:200} )
