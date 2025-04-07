@@ -122,3 +122,10 @@ body {
 span.activity {
     font-weight: 600;
 }
+&:focus, &:focus-within {
+     /*--input-color: var(--color-base-content); */
+     box-shadow: none !important;
+     outline: 0;
+    outline-offset: 0;
+    isolation: isolate;
+}

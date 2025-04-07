@@ -26,7 +26,7 @@ export default function ClientProfileHeader() {
 
     return (
         <div
-            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-300 text-base-content w-full transition-all duration-500`}>
+            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-200 text-base-content w-full transition-all duration-500`}>
             <div className={` flex justify-between gap-4 items-center divide-x divide-accent-content/30`}>
                 <ClientProfilePin/>
                 <div

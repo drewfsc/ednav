@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb"
 export async function GET(request) {
   const url = await new URL(request.url);
   const {navigator, clientId} = await url.searchParams;
+  const grouped = url.searchParams.get("grouped") || undefined;
   let clients = [];
   try {
     const collection = await getCollection("clients")
@@ -12,8 +13,19 @@ export async function GET(request) {
       clients = await collection.find({navigator: navigator}).toArray()
     } else if (clientId) {
       clients = await collection.findOne({_id: new ObjectId(clientId)})
+    } else if (grouped === "true") {
+      clients = await collection.aggregate([
+        // { $match: { navigator: nav } },
+        {
+          $group: {
+            _id: "$clientStatus",
+            clients: { $push: "$$ROOT" }
+          }
+        }
+      ]).toArray()
     } else {
       clients = await collection.find({}).toArray()
+
     }
 
     return NextResponse.json(clients, { status: 200 })

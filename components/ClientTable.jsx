@@ -4,6 +4,8 @@ import {useFepsLeft} from "/contexts/FepsLeftContext";
 import ClientTableItem from "/components/ClientTableItem";
 import { useNavigators } from '../contexts/NavigatorsContext';
 import { useClientList } from '../contexts/ClientListContext';
+import { Eye, EyeClosed } from 'phosphor-react';
+import SearchField from './SearchField';
 
 export default function ClientTable() {
 
@@ -13,6 +15,7 @@ export default function ClientTable() {
     const [isMounted, setIsMounted] = useState(false);
     const [statusCollapse, setStatusCollapse] = useState([])
     const [viewMode, setViewMode] = useState(null);
+    const [sortMode, setSortMode] = useState(null);
 
     const toggleGrouped = () => {
         setViewMode("grouped");
@@ -20,6 +23,14 @@ export default function ClientTable() {
 
     const togglePinned = () => {
         setViewMode("pinned");
+    };
+
+    const toggleAlpha = () => {
+        setViewMode("alpha");
+    };
+
+    const toggleDate = () => {
+        setViewMode("date");
     };
 
     const getBGColor = (status) => {
@@ -98,65 +109,65 @@ export default function ClientTable() {
     if (!isMounted) return null;
 
     return (
-      <div className="mt-0 overflow-y-scroll no-scrollbar">
-          <div className="h-auto">
-              <div className="inline-block w-full py-0 h-full align-middle relative">
-                  <div
-                    className="h-16 fixed top-0 bg-base-200 text-base-content flex justify-between items-center pr-4 pl-6 w-full text-sm">
-                      <div>
-                          <span className={`font-bold`} >
-                            {
-                                Array.isArray(clientsToShow)
-                                  ? clientsToShow
-                                    .filter(client => selectedFepLeft.age === "All" || client.group === selectedFepLeft.age)
-                                    .filter(client => selectedFepLeft.status === "All" || client.clientStatus === selectedFepLeft.status).length
-                                  : Object.values(clientsToShow)
-                                    .flat()
-                                    .filter(client => selectedFepLeft.age === "All" || client.group === selectedFepLeft.age)
-                                    .filter(client => selectedFepLeft.status === "All" || client.clientStatus === selectedFepLeft.status).length
-                            }
-                          </span>
-                      {selectedFepLeft.status !== "All" ? " "+selectedFepLeft.status.toLowerCase() : null} {selectedFepLeft.age !== "All" ? selectedFepLeft.age.toLowerCase() : null} clients
-                      </div>
-                      <div className="filter">
-                          <input onClick={() => {
-                              setViewMode(null)
-                          }} className="btn btn-xs filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
-                          <input onClick={togglePinned} className={`btn btn-xs ${viewMode === "pinned" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Pins"/>
-                          <input onClick={toggleGrouped} className={`btn btn-xs ${viewMode === "grouped" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Groups"/>
+      <div className={`relative flex flex-col h-full w-full`}>
+          <div className="fixed flex-col top-0 bg-secondary/60 backdrop-blur-sm text-base-content flex justify-between items-center  w-full text-sm shadow-lg">
+              <SearchField/>
+              <div className="flex justify-around items-center w-full divide-x divide-base-content/30 px-1.5">
+                  <div className="filter my-1/5 w-1/2 flex justify-start">
+                      <input onClick={() => {
+                          setSortMode(null)
+                      }} className="btn btn-xs filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
+                      <input onClick={toggleAlpha} className={`btn btn-xs font-normal ${sortMode === "alpha" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="A-Z"/>
+                      <input onClick={toggleDate} className={`btn btn-xs font-normal ${sortMode === "date" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Recent"/>
+                  </div>
+                  <div className="filter my-1.5 w-1/2 flex justify-end">
+                      <input onClick={() => {
+                          setViewMode(null)
+                      }} className="btn btn-xs filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
+                      <input onClick={togglePinned} className={`btn btn-xs font-normal ${viewMode === "pinned" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Pins"/>
+                      <input onClick={toggleGrouped} className={`btn btn-xs font-normal ${viewMode === "grouped" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Groups"/>
+                  </div>
+              </div>
+          </div>
+          <div className="mt-0 overflow-y-scroll no-scrollbar">
+              <div className="h-auto">
+                  <div className="w-full h-full">
+                      <div className={``}>
+                          <table className="w-[250px] 2xl:w-[320px] mt-[98px] table-none">
+                              <tbody className="">
+                              {viewMode === 'grouped' ? (
+                                Object.entries(clientsToShow).map(([status, clients], idx) => (
+                                  <React.Fragment key={status}>
+                                      <tr className={`${getBGColor(status)} `}>
+                                          <td className="py-2 text-sm flex justify-between items-center cursor-pointer w-[250px] 2xl:w-[320px]">
+                                              <span className={`w-5/7 text-left pl-3`}>{status}</span>
+                                              <span className={`w-1/7 pr-6`} onClick={() => handleCollapseChange(status)}>
+                                              {!statusCollapse.includes(status) ? <Eye size={20} className={getBGColor(status)}/> : <EyeClosed size={20} className={getBGColor(status)}/>}
+                                          </span>
+                                          </td>
+                                      </tr>
+                                      {clients.map((person, i) => (
+                                        <ClientTableItem key={`${idx}-${i}`} person={person} i={i} statusCollapse={statusCollapse} />
+                                      ))}
+                                  </React.Fragment>
+                                ))
+                              ) : (
+                                Array.isArray(clientsToShow) && clientsToShow.length > 0 ? (
+                                  clientsToShow.map((person, i) => (
+                                    <ClientTableItem key={i} person={person} i={i} statusCollapse={statusCollapse} />
+                                  ))
+                                ) : (
+                                  <tr>
+                                      <td colSpan="5" className="text-center py-4 text-sm text-gray-500">
+                                          No clients found.
+                                      </td>
+                                  </tr>
+                                )
+                              )}
+                              </tbody>
+                          </table>
                       </div>
                   </div>
-                  <table className="w-[250px] 2xl:w-[320px] mt-16">
-                      <tbody className="">
-                      {viewMode === 'grouped' ? (
-                        Object.entries(clientsToShow).map(([status, clients], idx) => (
-                          <React.Fragment key={status}>
-                              <tr className={`${getBGColor(status)} border-b-1 border-b-base-300`}>
-                                  <td className="py-2 px-4 text-sm">{status} ({clients.length})</td>
-                                  <td className="text-2xl cursor-pointer text-right pr-5" onClick={() => handleCollapseChange(status)}>
-                                      {statusCollapse.includes(status) ? "+" : "-"}
-                                  </td>
-                              </tr>
-                              {clients.map((person, i) => (
-                                <ClientTableItem key={`${idx}-${i}`} person={person} i={i} statusCollapse={statusCollapse} />
-                              ))}
-                          </React.Fragment>
-                        ))
-                      ) : (
-                        Array.isArray(clientsToShow) && clientsToShow.length > 0 ? (
-                          clientsToShow.map((person, i) => (
-                            <ClientTableItem key={i} person={person} i={i} statusCollapse={statusCollapse} />
-                          ))
-                        ) : (
-                          <tr>
-                              <td colSpan="5" className="text-center py-4 text-sm text-gray-500">
-                                  No clients found.
-                              </td>
-                          </tr>
-                        )
-                      )}
-                      </tbody>
-                  </table>
               </div>
           </div>
       </div>

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFepsLeft } from '../contexts/FepsLeftContext';
 import { useEditing } from '../contexts/EditingContext';
 
@@ -7,6 +7,18 @@ export default function LeftNavigation() {
 
   const { selectedFepLeft, setSelectedFepLeft } = useFepsLeft();
   const { setEditing } = useEditing();
+  const [, setMenuData] = useState([])
+
+  const getGroupedClients = async () => {
+    const clients = await fetch(`/api/clients?grouped=true&navigator=Andrew%20McCauley`);
+    const data = await clients.json();
+    await setMenuData(data);
+    await console.log(data);
+  }
+
+  useEffect(() => {
+    getGroupedClients().then();
+  }, [])
 
   const navStatus = [
     [
@@ -44,6 +56,18 @@ export default function LeftNavigation() {
   return (
     <div>
       <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+        {/*{*/}
+        {/*  Object.keys(menuData).map((item, i) => (*/}
+        {/*    <li className={`mb-1`} key={i}>*/}
+        {/*      <a onClick={() => setSelectedFepLeft(prevState => {*/}
+        {/*        return {*/}
+        {/*          ...prevState,*/}
+        {/*          status: item?._id*/}
+        {/*        };*/}
+        {/*      })}>{item[i]?.clients?.length}</a>*/}
+        {/*    </li>*/}
+        {/*  ))*/}
+        {/*}*/}
         {
           navStatus.map((item, i) => (
             <li className={`mb-1`} key={i}>
@@ -53,7 +77,9 @@ export default function LeftNavigation() {
                   status: item[0]
                 };
               })}
-                 className={`${item[3]} capitalize ${selectedFepLeft.status === item[0] || selectedFepLeft.status === '' ? item[2] : ''}`}>{item[0]}</a>
+                 className={`${item[3]} capitalize ${selectedFepLeft.status === item[0] || selectedFepLeft.status === '' ? item[2] : ''}`}>
+                {item[0]}
+              </a>
             </li>
           ))
         }

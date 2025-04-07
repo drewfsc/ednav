@@ -3,14 +3,12 @@ import React from 'react';
 import ThemeSwitcher from "./ThemeSwitcher"
 import NavigatorSelector from "/components/NavigatorSelector";
 import LeftNavigation from "/components/LeftNavigation";
-import {useFepsLeft} from "/contexts/FepsLeftContext";
 import { useSession } from 'next-auth/react';
 import { SignOutButton } from './sign-out';
 import SignInButton from './sign-in';
 
 export default function LeftNavEntire({setEditing}) {
     const session = useSession();
-    const {setSelectedFepLeft} = useFepsLeft();
     return (
         <div className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-2 gap-4 drop-shadow-lg z-50 no-scrollbar overflow-y-scroll relative`}>
             <div>
@@ -23,14 +21,7 @@ export default function LeftNavEntire({setEditing}) {
                         <p className={` leading-4 tracking-[2px]`}>SUCCESS TRACKER</p>
                     </div>
                 </div>
-                <input name={`client-search`} type="text" onChange={(e) => {
-                    setSelectedFepLeft(prev => {
-                        return {
-                            ...prev,
-                            searchTerm: e.target.value
-                        }
-                    })
-                }} placeholder="Search by name..." className="input w-full mb-4"/>
+                {/*<SearchField/>*/}
                 <LeftNavigation setEditing={setEditing}/>
             </div>
 

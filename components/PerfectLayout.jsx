@@ -11,7 +11,7 @@ export default function PerfectLayout() {
   const {editing } = useEditing();
 
   return (
-    <div className={`w-full h-screen overflow-hidden relative bg-base-100`}>
+    <div className={`w-full h-screen overflow-hidden relative`}>
       <div className={`w-full flex flex-row h-screen`}>
 
         {/*NAV AND CLIENT TABLE*/}
@@ -19,7 +19,7 @@ export default function PerfectLayout() {
           <div className={`w-[230px] box-border`}>
             <LeftNavEntire />
           </div>
-          <div className={`bg-base-100 w-[250px] box-border 2xl:w-[320px] overflow-y-scroll no-scrollbar flex-col h-screen border-r border-base-300 z-40 relative drop-shadow-lg `}>
+          <div className={`w-[250px] box-border 2xl:w-[320px] overflow-y-scroll no-scrollbar flex-col h-screen z-40 relative drop-shadow-lg `}>
             <ClientTable/>
           </div>
         </div>
