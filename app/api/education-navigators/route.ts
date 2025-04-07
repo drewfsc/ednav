@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import { getCollection } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
-// import { ObjectId } from 'mongodb';
-
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const navigator = url.searchParams.get('navigator') || '';
@@ -13,10 +11,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  // const url = new URL(request.url);
-  // const navigatorId = url.searchParams.get('navigator') || '';
   const body = await request.json(); // body.item = item to toggle
-
   try {
     const users = await getCollection('users');
     const navObjectId = new ObjectId(body.navigator);

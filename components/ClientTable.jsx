@@ -15,11 +15,11 @@ export default function ClientTable() {
     const [viewMode, setViewMode] = useState(null);
 
     const toggleGrouped = () => {
-        setViewMode(prev => (prev === 'grouped' ? null : 'grouped'));
+        setViewMode("grouped");
     };
 
     const togglePinned = () => {
-        setViewMode(prev => (prev === 'pinned' ? null : 'pinned'));
+        setViewMode("pinned");
     };
 
     const getBGColor = (status) => {
@@ -94,8 +94,6 @@ export default function ClientTable() {
         setIsMounted(true);
     }, []);
 
-    // const groupedClients = viewMode === 'grouped' && typeof clientsToShow === 'object' ? clientsToShow : {};
-
     // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
 
@@ -124,8 +122,8 @@ export default function ClientTable() {
                           <input onClick={() => {
                               setViewMode(null)
                           }} className="btn btn-xs filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
-                          <input onClick={togglePinned} className="btn btn-xs" type="radio" name="metaframeworks" aria-label="Pins"/>
-                          <input onClick={toggleGrouped} className="btn btn-xs" type="radio" name="metaframeworks" aria-label="Groups"/>
+                          <input onClick={togglePinned} className={`btn btn-xs ${viewMode === "pinned" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Pins"/>
+                          <input onClick={toggleGrouped} className={`btn btn-xs ${viewMode === "grouped" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Groups"/>
                       </div>
                   </div>
                   <table className="w-[250px] 2xl:w-[320px] mt-16">
@@ -157,34 +155,6 @@ export default function ClientTable() {
                           </tr>
                         )
                       )}
-                      {/*{viewMode === 'grouped' ? (*/}
-                      {/*  Object.entries(clientsToShow).map(([status, clients], idx) => (*/}
-                      {/*    <React.Fragment key={status}>*/}
-                      {/*        <tr className={`${getBGColor(status)} border-b-1 border-b-base-300`}>*/}
-                      {/*            <td  className="py-2 px-4 text-sm whitespace-normal">{status} ({clientsToShow.length})</td>*/}
-                      {/*            <td className={`text-2xl cursor-pointer text-right pr-5 m-0`} onClick={() => {*/}
-                      {/*                handleCollapseChange(status)*/}
-                      {/*            }}>{statusCollapse.includes(status) ? "+" : "-"}</td>*/}
-                      {/*        </tr>*/}
-
-                      {/*            {clientsToShow.map((person, i) => (*/}
-                      {/*              <ClientTableItem key={`${idx}-${i}`} person={person} i={i} statusCollapse={statusCollapse}/>*/}
-                      {/*            ))}*/}
-                      {/*    </React.Fragment>*/}
-                      {/*  ))*/}
-                      {/*) : (*/}
-                      {/*  clientsToShow?.length > 0 ? (*/}
-                      {/*    clientsToShow?.map((person, i) => (*/}
-                      {/*      <ClientTableItem key={i} person={person} i={i} statusCollapse={statusCollapse}/>*/}
-                      {/*    ))*/}
-                      {/*  ) : (*/}
-                      {/*    <tr>*/}
-                      {/*        <td colSpan="5" className="text-center py-4 text-sm text-gray-500">*/}
-                      {/*            No clients found.*/}
-                      {/*        </td>*/}
-                      {/*    </tr>*/}
-                      {/*  )*/}
-                      {/*)}*/}
                       </tbody>
                   </table>
               </div>

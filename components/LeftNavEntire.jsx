@@ -3,7 +3,6 @@ import React from 'react';
 import ThemeSwitcher from "./ThemeSwitcher"
 import NavigatorSelector from "/components/NavigatorSelector";
 import LeftNavigation from "/components/LeftNavigation";
-import {LocationsProvider} from "/contexts/LocationsContext";
 import {useFepsLeft} from "/contexts/FepsLeftContext";
 import { useSession } from 'next-auth/react';
 import { SignOutButton } from './sign-out';
@@ -32,9 +31,7 @@ export default function LeftNavEntire({setEditing}) {
                         }
                     })
                 }} placeholder="Search by name..." className="input w-full mb-4"/>
-                <LocationsProvider>
                 <LeftNavigation setEditing={setEditing}/>
-                </LocationsProvider>
             </div>
 
             <div className={`mb-2`}>

@@ -4,23 +4,35 @@ import { ObjectId } from 'mongodb';
 
 // GET activities, optionally filtered by clientId
 export async function GET(request: NextRequest) {
+  const url = new URL(request.url);
+  const clientId = url.searchParams.get('clientId');
   try {
-    const { searchParams } = new URL(request.url)
-    const clientId = searchParams.get("clientId")
+    const actionsCollection = await getCollection("actions")
+    const notesCollection = await getCollection("notes")
+    const actionRes = await actionsCollection.aggregate([
+      { $match: { clientId } },
+      {
+        $sort: { count: -1 }
+      }
+    ]).toArray();
+    const notesRes = await notesCollection.aggregate([
+      { $match: { clientId } },
+      {
+        $group: {
+          _id: '$activityId',
+          records: { $push: '$$ROOT' },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { count: -1 }
+      }
+    ]).toArray()
 
-    const collection = await getCollection("actions")
-
-    let query = {}
-    if (clientId) {
-      query = { clientId }
-    }
-
-    const actions = await collection.find(query).sort({ createdAt: -1 }).toArray()
-
-    return NextResponse.json(actions, { status: 200 })
+    return NextResponse.json({ success: true, data: actionRes, notesRes }, { status: 200 });
   } catch (error) {
-    console.error("Error fetching activities:", error)
-    return NextResponse.json({ error: "Failed to fetch activities" }, { status: 500 })
+    console.error('Aggregation error:', error);
+    return NextResponse.json({ success: false, error: error instanceof Error ? error.message : 'An unknown error occurred' }, { status: 500 });
   }
 }
 

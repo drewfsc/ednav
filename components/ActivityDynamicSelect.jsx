@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useClients } from '../contexts/ClientsContext';
-import { useLocations } from '../contexts/LocationsContext';
+import { useActivities } from '../contexts/ActivityContext';
 import { generateSentence } from '../utils/generateSentence.tsx';
-const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
+
+const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const [selectedPath, setSelectedPath] = useState([]);
   const [currentOptions, setCurrentOptions] = useState(Object.keys(questions));
   const [, setCurrentObject] = useState(questions);
@@ -12,18 +13,18 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [trackable, setTrackable] = useState(null);
-  const { selectedClient, setSelectedClient } = useClients();
-  const { setSelectedLocation } = useLocations();
+  const {selectedActivity, setSelectedActivity} = useActivities()
+  const {selectedClient, setSelectedClient} = useClients();
 
   const saveSelectionToMongoDB = async (newPath, multi) => {
     setOpen(false);
 
     const data = {
-      clientEmail: client.email,
-      clientId: client._id,
-      clientName: client.name || client.first_name + ' ' + client.last_name,
-      fep: client.fep,
-      navigator: client.navigator,
+      clientEmail: selectedClient.email,
+      clientId: selectedClient._id,
+      clientName: selectedClient.name || selectedClient.first_name + ' ' + selectedClient.last_name,
+      fep: selectedClient.fep,
+      navigator: selectedClient.navigator,
       selectedDate: selectedDate,
       selection: selectedValue,
       timestamp: new Date(),
@@ -32,10 +33,10 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
     };
     if (multi) {
       data.path = selectedPath;
-      data.statement = generateSentence(client.navigator, client.name || client.first_name + ' ' + client.last_name, multiSelectValues, selectedPath);
+      data.statement = generateSentence(selectedClient?.navigator, selectedClient?.name || selectedClient?.first_name + ' ' + selectedClient?.last_name, multiSelectValues, selectedPath);
     } else {
       data.path = newPath;
-      data.statement = generateSentence(client.navigator, client.name || client.first_name + ' ' + client.last_name, null, newPath);
+      data.statement = generateSentence(selectedClient?.navigator, selectedClient?.name || selectedClient?.first_name + ' ' + selectedClient?.last_name, null, newPath);
     }
 
     return await fetch('/api/activities', {
@@ -47,8 +48,10 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
     }).then(res => res.json()).then(
       async (result) => {
         await setSelectedClient(result.wholeUser);
-        await setActions(result.userActions);
-        await setSelectedLocation(result.wholeUser._id);
+        await setSelectedActivity(prev => ({
+          ...prev,
+          activities: result.actionRes
+        }));
       },
       (error) => {
         console.log(error);
@@ -56,8 +59,8 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
   };
 
   useEffect(() => {
-    if (client?.group) {
-      const autoSelection = client.group.toLowerCase();
+    if (selectedClient?.group) {
+      const autoSelection = selectedClient.group.toLowerCase();
       if (questions[autoSelection]) {
         setSelectedPath([autoSelection]);
         setCurrentObject(questions[autoSelection]);
@@ -68,7 +71,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
         setCurrentOptions(options);
       }
     }
-  }, [client]);
+  }, [selectedClient]);
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
@@ -134,7 +137,7 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
         action
       );
       const savedAction = await action.json();
-      await setActions([...setActions, savedAction]);
+      await setSelectedActivity([...selectedActivity.activities, savedAction]);
     }
   };
 
@@ -171,29 +174,16 @@ const ActivityDynamicSelect = ({ client, setActions, questions, setOpen }) => {
   };
 
   const handleMultiSelectAdvance = async () => {
-    // const dataToSave = {
-    //   path: selectedPath,
-    //   selections: multiSelectValues,
-    //   clientId: client._id,
-    //   clientEmail: client.email,
-    //   clientName: client.name,
-    //   fep: client.fep,
-    //   navigator: client.navigator,
-    //   trackable: trackable,
-    //   selectedDate: selectedDate,  // Include date selection
-    //   timestamp: new Date()
-    // };
-
     await saveSelectionToMongoDB(null, true);
-
     setMultiSelectOptions(null);
     setCurrentOptions([]);
     setFinalSelection('Completed Multi-Select');
   };
+
   const showDatePicker = selectedPath.length === 1; // Show DatePicker only at the beginning
+
   return (
     <div className="px-0 py-4 max-w-60 mx-auto">
-
       {showDatePicker && (
         <label className="flex flex-col space-y-2 text-sm font-light">Date of activity:
           <input

@@ -3,9 +3,10 @@ import {useClients} from "/contexts/ClientsContext";
 import { PinIcon } from 'lucide-react';
 import { useNavigators } from '../contexts/NavigatorsContext';
 import { useEditing } from '../contexts/EditingContext';
+import { useActivities } from '../contexts/ActivityContext';
 
 export default function ClientTableItem({ person, i, statusCollapse}) {
-
+    const {setSelectedActivity} = useActivities()
     const {selectedClient, setSelectedClient} = useClients(null);
     const {selectedNavigator} = useNavigators();
     const {setEditing} = useEditing();
@@ -40,6 +41,16 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
         }
     }
 
+    const getActivities = async (person) => {
+        const res = await fetch('/api/activities?clientId=' + person._id)
+        const json = await res.json();
+        await setSelectedActivity(prev => ({
+            ...prev,
+            activities: json.data
+        }))
+        // await console.log(person, person._id, selectedActivity)
+    }
+
     function getScreenWidth() {
         return window.innerWidth;
     }
@@ -70,6 +81,7 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
                     setEditing("");
                 } else {
                     setSelectedClient(person);
+                    getActivities(person).then();
                     setEditing("client");
                 }
             }}

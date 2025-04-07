@@ -5,7 +5,7 @@ import { ThemesProvider, useThemes } from '../contexts/ThemesContext';
 import { ClientsProvider } from '../contexts/ClientsContext';
 import { EditingProvider } from '../contexts/EditingContext';
 import { FepsLeftProvider } from '../contexts/FepsLeftContext';
-import { LocationsProvider } from '../contexts/LocationsContext';
+import { ActivityProvider } from '../contexts/ActivityContext';
 import { NavigatorProvider } from '../contexts/NavigatorsContext';
 import { SessionProvider } from 'next-auth/react';
 import { ClientListProvider } from '../contexts/ClientListContext';
@@ -19,13 +19,13 @@ export default function RootLayout({ children }) {
           <ClientsProvider>
             <EditingProvider>
               <FepsLeftProvider>
-                <LocationsProvider>
+                <ActivityProvider>
                   <ClientListProvider>
                   <NavigatorProvider>
                     {children}
                   </NavigatorProvider>
                   </ClientListProvider>
-                </LocationsProvider>
+                </ActivityProvider>
               </FepsLeftProvider>
             </EditingProvider>
           </ClientsProvider>

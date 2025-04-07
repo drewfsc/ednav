@@ -1,117 +1,35 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
 import ActivityModal from '/components/ActivityModal';
-import { useNavigators } from '../contexts/NavigatorsContext';
-import { useClients } from '../contexts/ClientsContext';
+import { useActivities } from '../contexts/ActivityContext';
 
-export default function ActivityTable({ actions, setActions, setLoading, loading, getActions }) {
-  const [openNote, setOpenNote] = useState(0);
-  const {selectedNavigator} = useNavigators();
-  const {selectedClient} = useClients();
+export default function ActivityTable() {
+  const {selectedActivity} = useActivities()
   const [open, setOpen] = useState(false);
-  const [notes, setNotes] = useState([]);
-  const [note, setNote] = React.useState(
-    {
-      noteContent: '',
-      noteAuthor: selectedNavigator?.name,
-      activityId: '',
-      mood: 'User',
-      createdAt: new Date(),
-      clientId: selectedClient?._id
-    }
-  );
 
-  const getNotes = async () => {
-    if (!selectedClient) return;
-    const response = await fetch(`/api/notes?clientId=${selectedClient._id}`);
-    return await response.json()
-  };
-
-  const saveNote = async () => {
-    const res = await fetch(`/api/notes/`, {
-      method: 'POST',
-      body: JSON.stringify(note),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await res.json();
-    console.log(data);
-  };
-
-  const handleNote = async () => {
-    await saveNote().then();
-    await getNotes().then( data => setNotes(data));
-  };
-
-  useEffect(() => {
-    getNotes().then( data => setNotes(data) )
-      .catch( err => console.log(err));
-  }, [selectedClient?._id])
 
   return (
-    <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg mt-6 w-full`}>
-      <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={selectedClient}
-                     open={open} setOpen={setOpen} loading={loading} setLoading={setLoading} getActions={getActions} />
-      <div className={`flex justify-start items-center gap-4 mb-6`}>
-        <div className={`font-bold`}>Activity Log <span className={`text-secondary/50 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
-                                                        onClick={() => {
-                                                          setOpen(true);
-                                                        }}>Add an activity</span></div>
+    <div className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}>
+      <ActivityModal open={open} setOpen={setOpen}/>
+      <div className={`flex justify-between items-center gap-4 mb-10`}>
+        <div className={`text-2xl`}>Activity Log </div>
+        <button className={`btn btn-sm btn-primary`}
+              onClick={() => {
+                setOpen(true);
+              }}>Add an activity</button>
       </div>
 
       <div className={`w-full transition-all duration-500`}>
         <ul className="font-normal ">
           {
-            actions?.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
+            selectedActivity && selectedActivity.activities && selectedActivity?.activities.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
               .map((action, i) => (
-              <li key={i} className={`mb-6 border-l-2 border-base-content/20 hover:border-accent cursor-pointer pl-3`}>
+              <li key={i} className={`mt-10 mb-10`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
-                <div className="font-light">{action.statement || "Activity could not be found, sorry."}</div>
-                <div className={`text-xs underline text-secondary/50 hover:text-secondary`} onClick={() => {
-                  setNote((prevState) => {
-                    return {
-                      ...prevState,
-                      activityId: action?._id,
-                    };
-                  });
-                  setOpenNote(prevState => {
-                    return prevState === i + 1 ? 0 : i + 1;
-                  });
-                }}>Comment</div>
-                <div className={` ${openNote === i + 1 ? `block` : `hidden`}`}>
-                  <div className={`flex p-2`}>
-                    <div className={`flex-1 mr-10 h-fit`}>
-                      <div className={``}>
-                        <NoteFeed notes={notes} setNotes={setNotes} activityIdFromPage={action?._id} />
-                      </div>
-                    </div>
-                    <div className={`w-1/3 flex flex-col`}>
-                      <span className={`text-lg font-medium`}>Add a Note</span>
-                      <textarea name={`client-activity-note`} className={`textarea textarea-accent min-h-40 mt-4 mb-2 relative`}
-                                placeholder={`Enter your notes here...`}
-                                onChange={(e) => {
-                                  setNote(prevState => {
-                                    return {
-                                      ...prevState,
-                                      noteContent: e.target.value
-                                    };
-                                  });
-                                }} value={note.noteContent} />
-                      <div className={`flex justify-between items-center`}>
-                        <button disabled={note.noteContent === ''} className={`btn btn-secondary w-1/4`} onClick={() => {
-                          handleNote().then();
-                          setNote({
-                            noteContent: '',
-                          });
-                        }}>Save
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div className="text-sm">{action.statement || "Activity could not be found, sorry."}</div>
+                <NoteFeed actionId={action?._id} />
               </li>
             ))
           }
