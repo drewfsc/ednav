@@ -1,11 +1,30 @@
 import React, {createContext, useContext, useState, ReactNode, SetStateAction, Dispatch} from "react";
 
 type Navigator = {
-    navigator: "",
+    _id: String,
+    name: String,
+    pinned: Array<string>,
+    preferences: {
+        theme: String,
+        lastAgeFilter: String,
+        lastStatusFilter: String
+    },
+    notifications: {
+        unread: Array<string>,
+        read: Array<string>
+    },
+    streak: {
+        active: Boolean,
+        streak: Number,
+        lastDate: String,
+        longestStreak: Number,
+        longestStreakDate: Number
+    }
 }
 
 type NavigatorsContextType = {
     selectedNavigator: {
+        _id: String,
         name: String,
         pinned: Array<string>,
         preferences: {

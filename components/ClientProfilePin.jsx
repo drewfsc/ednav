@@ -2,11 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useClients } from '../contexts/ClientsContext';
 import { PinIcon } from 'lucide-react';
-// import { useSession } from 'next-auth/react';
 import { useNavigators } from '../contexts/NavigatorsContext';
 
 function ClientProfilePin() {
-  // const session = useSession();
   const {selectedClient} = useClients();
   const {selectedNavigator, setSelectedNavigator} = useNavigators();
   const [, setPinned] = useState([]);
@@ -24,13 +22,12 @@ function ClientProfilePin() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        navigator: selectedNavigator._id,
+        navigator: selectedNavigator?._id,
         clientId: selectedClient?._id,
       })
     })
     const json = await data.json();
     await setSelectedNavigator(json.updatedNavigator)
-    await console.log(selectedNavigator)
   }
 
   async function handlePinClick(event) {

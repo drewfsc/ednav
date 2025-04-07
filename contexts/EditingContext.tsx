@@ -1,11 +1,11 @@
 import React, {createContext, useContext, useState, ReactNode, SetStateAction, Dispatch} from "react";
 
 type Edit = {
-    editing: string,
+    editing: "" | "add-client" | "client" | null,
 }
 
 type EditContextType = {
-    editing: "" | "add-client" | "client";
+    editing: "" | "add-client" | "client" | null;
     setEditing: Dispatch<SetStateAction<Edit | null>>;
 };
 

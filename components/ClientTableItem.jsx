@@ -78,10 +78,12 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
             onClick={() => {
                 if (selectedClient?._id === person._id) {
                     setSelectedClient(null);
+                    // noinspection JSCheckFunctionSignatures
                     setEditing("");
                 } else {
                     setSelectedClient(person);
                     getActivities(person).then();
+                    // noinspection JSCheckFunctionSignatures
                     setEditing("client");
                 }
             }}
@@ -89,7 +91,7 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
             <td className="text-sm truncate whitespace-normal">
                 <span className={`ml-4`}>{person.first_name + " " + person.last_name}</span>
             </td>
-            <td className="text-sm truncate whitespace-normal"><PinIcon size={16} className={`${selectedNavigator?.pinned.includes(person?._id) ? 'visible' : 'hidden'} text-primary/70`}/></td>
+            <td className="text-sm truncate whitespace-normal"><PinIcon size={16} className={`${selectedNavigator && selectedNavigator.pinned && selectedNavigator?.pinned.includes(person?._id) ? 'visible' : 'hidden'} text-primary/70`}/></td>
             <td className=" truncate text-sm text-gray-500 text-right flex justify-end">
                 <div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>
             </td>
