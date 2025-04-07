@@ -5,13 +5,16 @@ import ClientTable from '/components/ClientTable';
 import AddClientForm from './AddClientForm';
 import ClientProfile from './ClientProfile';
 import { useEditing } from '/contexts/EditingContext';
+import { useSession } from 'next-auth/react';
 
 export default function PerfectLayout() {
-
+  const session = useSession();
+  console.log(session);
   const {editing } = useEditing();
 
   return (
     <div className={`w-full h-screen overflow-hidden relative`}>
+      {/*<div className={`py-3 bg-info text-info-content text-center font-light text-sm`}>You are currently in the Development environment. Did you intend to visit <a className={`font-medium underline`} href={`https://staging.ednav.fsc-corp.org`}>Staging</a> or <a className={`font-medium underline`} href={`https://ednav.fsc-corp.org`}>Production</a>?</div>*/}
       <div className={`w-full flex flex-row h-screen`}>
 
         {/*NAV AND CLIENT TABLE*/}

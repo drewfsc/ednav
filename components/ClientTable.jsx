@@ -27,13 +27,15 @@ export default function ClientTable() {
     };
 
     const toggleAlpha = () => {
-        setViewMode("alpha");
-        setStatusCollapse([])
+        setSortMode("alpha");
+        setViewMode(null);
+        setStatusCollapse([]);
     };
 
     const toggleDate = () => {
-        setViewMode("date");
-        setStatusCollapse([])
+        setSortMode("date");
+        setViewMode(null);
+        setStatusCollapse([]);
     };
 
     const getBGColor = (status) => {
@@ -89,8 +91,10 @@ export default function ClientTable() {
     const clientsToShow = useMemo(() => {
         if (!filteredClients) return [];
 
+        let sorted = [...filteredClients];
+
         if (viewMode === 'pinned') {
-            return [...filteredClients].sort((a, b) => {
+            return sorted.sort((a, b) => {
                 const aPinned = pinnedIds.includes(a._id.toString());
                 const bPinned = pinnedIds.includes(b._id.toString());
                 return aPinned === bPinned ? 0 : aPinned ? -1 : 1;
@@ -98,11 +102,21 @@ export default function ClientTable() {
         }
 
         if (viewMode === 'grouped') {
-            return groupByClientStatus(filteredClients); // returns object
+            return groupByClientStatus(filteredClients);
         }
 
-        return filteredClients;
-    }, [filteredClients, viewMode, pinnedIds]);
+        if (sortMode === 'alpha') {
+            sorted.sort((a, b) =>
+              a.name?.localeCompare(b.name)
+            );
+        } else if (sortMode === 'date') {
+            sorted.sort((a, b) =>
+              new Date(b.latestInteraction || 0) - new Date(a.latestInteraction || 0)
+            );
+        }
+
+        return sorted;
+    }, [filteredClients, viewMode, sortMode, pinnedIds]);
 
     useEffect(() => {
         setIsMounted(true);

@@ -24,9 +24,6 @@ const authOptions = {
         const user = await db.collection('users').findOne({ email, password });
         if (!user) return null;
 
-        // const isValid = password && user.password ? await bcrypt.compare(password, user.password) : false;
-        // if (!isValid) return null;
-
         if (user) {
           return {
             id: user._id.toString(),

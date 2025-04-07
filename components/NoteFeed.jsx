@@ -87,8 +87,8 @@ export default function NoteFeed({ actionId }) {
   return (
     <div className={`w-full `}>
       {/*NOTES*/}
-      <ul role="list" className="-mb-8">
-        <div className={`flex-1 mr-10 h-fit`}>
+      <ul role="list" className="">
+        <div className={`flex-1`}>
           {notes && notes?.filter((note) => note.activityId === actionId).map((event, eventIdx) => (
             <li key={event.id + eventIdx.toString()} className={``}>
               <div className="relative pb-8">
@@ -96,7 +96,7 @@ export default function NoteFeed({ actionId }) {
                   <span aria-hidden="true"
                         className={`absolute left-5 top-4 -ml-px h-full w-0.5 bg-base-300 `} />
                 ) : null}
-                <div className="relative flex space-x-3 max-w-4/5">
+                <div className="relative flex space-x-3 max-w-2/3">
                   <div className={``}>
                   <span
                     className={classNames(
@@ -108,14 +108,14 @@ export default function NoteFeed({ actionId }) {
                   </span>
                   </div>
                   <div className="flex flex-1 justify-between space-x-4 ml-2 pt-1.5 ">
-                    <div className={` w-full`}>
+                    <div className={` w-2/3`}>
                       <div
-                        className="flex tracking-wide justify-between text-left text-xs text-base-content/50">
-                        <span>{event.noteAuthor}</span>
-                        <time
-                          dateTime={moment(event.createdAt).format('M/dd/yy')}>{moment(event.createdAt).calendar()}</time>
+                        className="flex flex-col justify-start text-left text-xs text-base-content/50">
+                        <div className={`block text-base-content font-medium`}>{event.noteAuthor}</div>
+                        <div>
+                          <time dateTime={moment(event.createdAt).format('M/dd/yy')}>{moment(event.createdAt).calendar()}</time></div>
                       </div>
-                      <p className="text-sm text-base-content/70 my-1">
+                      <p className="text-sm text-base-content/70 my-1 capitalize">
                         {event.noteContent}{' '}
                       </p>
                     </div>
@@ -128,12 +128,9 @@ export default function NoteFeed({ actionId }) {
         </div>
         {/*NOTE FORM*/}
       </ul>
-      <div className={`flex flex-col justify-between items-start gap-3 ml-13 mt-4 w-2/3 `}>
-        <button className={`btn btn-xs relative z-10 ${openNote === actionId ? 'btn-warning' : "btn-outline"}`} onClick={() => {
-          setOpenNote(prevState => prevState === actionId ? "" : actionId);
-        }}>{openNote === actionId ? "Cancel" : "Add note"}</button>
+      <div className={`flex flex-col justify-start items-start gap-3 ml-0 w-2/3 `}>
         <textarea name={`client-activity-note`}
-                  className={`textarea textarea-accent min-h-20 border-base-300 relative z-0 text-sm  ${openNote === actionId ? 'visible' : "hidden"}`}
+                  className={`textarea textarea-accent min-h-20 border-base-300 relative z-0 text-sm w-2/3  ${openNote === actionId ? 'visible' : "hidden"}`}
                   placeholder={`Enter your notes here...`}
                   onChange={(e) => {
                     setNote({
@@ -145,19 +142,24 @@ export default function NoteFeed({ actionId }) {
                       clientId: selectedClient?._id
                     });
                   }} value={note.noteContent} />
+        <div className={`flex justify-start items-center w-2/3 mt-0`}>
+          <button disabled={note.noteContent === ''} className={`btn btn-xs btn-success disabled:btn-ghost mr-4 ${openNote === actionId ? 'visible' : "hidden"}`} onClick={() => {
+            handleNote().then();
+            setNote({
+              noteContent: '',
+              noteAuthor: selectedNavigator?.name,
+              activityId: actionId,
+              mood: 'User',
+              createdAt: new Date(),
+              clientId: selectedClient?._id
+            });
+          }}>Save
+          </button>
+          <button className={`btn btn-xs relative z-10 ${openNote === actionId ? 'btn-warning' : "btn-outline mt-6"}`} onClick={() => {
+            setOpenNote(prevState => prevState === actionId ? "" : actionId);
+          }}>{openNote === actionId ? "Cancel" : "Add note"}</button>
+        </div>
 
-        <button disabled={note.noteContent === ''} className={`btn btn-xs btn-success disabled:btn-ghost ${openNote === actionId ? 'visible' : "hidden"}`} onClick={() => {
-          handleNote().then();
-          setNote({
-            noteContent: '',
-            noteAuthor: selectedNavigator?.name,
-            activityId: actionId,
-            mood: 'User',
-            createdAt: new Date(),
-            clientId: selectedClient?._id
-          });
-        }}>Save
-        </button>
       </div>
     </div>
 

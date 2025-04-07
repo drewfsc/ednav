@@ -28,7 +28,7 @@ export default function ActivityTable() {
               .map((action, i) => (
               <li key={i} className={`mt-10 mb-10`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
-                <div className="text-sm">{action.statement || "Activity could not be found, sorry."}</div>
+                <div className="text-sm mb-4 capitalize">{action.statement || "Activity could not be found, sorry."}</div>
                 <NoteFeed actionId={action?._id} />
               </li>
             ))
