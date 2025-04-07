@@ -8,24 +8,10 @@ import ClientProfileTABEOrientation from '@/components/ClientProfileTABEOrientat
 export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
     const [actions, setActions] = useState([]);
-    const [notes, setNotes] = useState([])
     const [hasTrackable, setHasTrackable] = useState([]);
     const [hasTrackableUpdated, setHasTrackableUpdated] = useState(false);
     const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
     const [updated, setUpdated] = useState(false);
-
-    const getNotes = async () => {
-        if (!selectedClient) return;
-        const response = await fetch(`/api/notes?clientId=${selectedClient._id}`);
-        const data = await response.json();
-        setNotes(prevState => {
-            return [...prevState, ...data];
-        });
-    };
-
-    useEffect(() => {
-        getNotes().then();
-    }, [setNotes, selectedClient]);
 
     let getActions;
     getActions = async () => {
@@ -64,17 +50,13 @@ export default function ClientProfileDetails() {
             {selectedClient && selectedClient.group === "Adult" && <ClientProfileProgress hasTrackableCopy={hasTrackableCopy} hasTrackable={hasTrackable}
                                     setHasTrackable={setHasTrackable} updated={updated} setUpdated={setUpdated} />}
             <ActivityTable
-              getNotes={getNotes}
               getActions={getActions}
               hasTrackable={hasTrackable}
               setHasTrackable={setHasTrackable}
               hasTrackableUpdated={hasTrackableUpdated}
               setHasTrackableUpdated={setHasTrackableUpdated}
               actions={actions}
-              setActions={setActions}
-              notes={notes}
-              setNotes={setNotes}
-              client={selectedClient}/>
+              setActions={setActions}/>
             <ClientProfileTABEOrientation/>
             <ClientProfilePersonalOrganization/>
         </div>

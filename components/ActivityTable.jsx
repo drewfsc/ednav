@@ -3,30 +3,31 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
 import ActivityModal from '/components/ActivityModal';
+import { useNavigators } from '../contexts/NavigatorsContext';
+import { useClients } from '../contexts/ClientsContext';
 
-export default function ActivityTable({ actions, setActions, notes, setNotes, client, setLoading, loading, getActions, getNotes }) {
+export default function ActivityTable({ actions, setActions, setLoading, loading, getActions }) {
   const [openNote, setOpenNote] = useState(0);
-  const [selectedNavigator, setSelectedNavigator] = useState('');
-  const [, setIsMounted] = useState(false);
+  const {selectedNavigator} = useNavigators();
+  const {selectedClient} = useClients();
   const [open, setOpen] = useState(false);
+  const [notes, setNotes] = useState([]);
   const [note, setNote] = React.useState(
     {
       noteContent: '',
-      noteAuthor: selectedNavigator,
+      noteAuthor: selectedNavigator?.name,
       activityId: '',
       mood: 'User',
       createdAt: new Date(),
-      clientId: client?._id
+      clientId: selectedClient?._id
     }
   );
 
-  useEffect(() => {
-    setIsMounted(true); // ✅ Mark component as mounted before interacting with localStorage
-    if (typeof window !== 'undefined') {
-      const storedNavigator = localStorage.getItem('navigatorName') || '';
-      setSelectedNavigator(storedNavigator);
-    }
-  }, []);
+  const getNotes = async () => {
+    if (!selectedClient) return;
+    const response = await fetch(`/api/notes?clientId=${selectedClient._id}`);
+    return await response.json()
+  };
 
   const saveNote = async () => {
     const res = await fetch(`/api/notes/`, {
@@ -37,19 +38,22 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
       }
     });
     const data = await res.json();
-    setNotes(prevState => {
-      return [data, ...prevState];
-    });
+    console.log(data);
   };
 
   const handleNote = async () => {
-    await saveNote().then(data => console.log(data));
-    await getNotes().then();
+    await saveNote().then();
+    await getNotes().then( data => setNotes(data));
   };
+
+  useEffect(() => {
+    getNotes().then( data => setNotes(data) )
+      .catch( err => console.log(err));
+  }, [selectedClient?._id])
 
   return (
     <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg mt-6 w-full`}>
-      <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={client}
+      <ActivityModal actions={actions} setActions={setActions} notes={notes} setNotes={setNotes} client={selectedClient}
                      open={open} setOpen={setOpen} loading={loading} setLoading={setLoading} getActions={getActions} />
       <div className={`flex justify-start items-center gap-4 mb-6`}>
         <div className={`font-bold`}>Activity Log <span className={`text-secondary/50 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
@@ -71,8 +75,6 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
                     return {
                       ...prevState,
                       activityId: action?._id,
-                      noteAuthor: selectedNavigator,
-                      clientId: client._id
                     };
                   });
                   setOpenNote(prevState => {
@@ -103,8 +105,6 @@ export default function ActivityTable({ actions, setActions, notes, setNotes, cl
                           handleNote().then();
                           setNote({
                             noteContent: '',
-                            noteAuthor: selectedNavigator,
-                            createdAt: new Date(),
                           });
                         }}>Save
                         </button>
