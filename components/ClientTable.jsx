@@ -107,7 +107,7 @@ export default function ClientTable() {
 
         if (sortMode === 'alpha') {
             sorted.sort((a, b) =>
-              a.name?.localeCompare(b.name)
+              a.first_name?.localeCompare(b.first_name)
             );
         } else if (sortMode === 'date') {
             sorted.sort((a, b) =>
