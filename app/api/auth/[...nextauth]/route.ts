@@ -16,7 +16,7 @@ const authOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "email", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "text" }
       },
       async authorize(credentials) {
         const { db } = await connectToDatabase();
