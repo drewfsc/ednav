@@ -1,13 +1,20 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
 import ActivityModal from '/components/ActivityModal';
 import { useActivities } from '../contexts/ActivityContext';
 
-export default function ActivityTable() {
-  const {selectedActivity} = useActivities()
+export default function ActivityTable({actions}) {
+  const {selectedActivity, setSelectedActivity} = useActivities()
   const [open, setOpen] = useState(false);
+  const [, setActivities] = useState([]);
+
+  useEffect(() => {
+    if(window){
+      setActivities(selectedActivity?.activities)
+    }
+  }, [open, setOpen, selectedActivity, setSelectedActivity ]);
 
 
   return (
@@ -24,7 +31,7 @@ export default function ActivityTable() {
       <div className={`w-full transition-all duration-500`}>
         <ul className="font-normal ">
           {
-            selectedActivity && selectedActivity.activities && selectedActivity?.activities.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
+            actions.data && actions?.data.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
               .map((action, i) => (
               <li key={i} className={`mt-10 mb-10`}>
                 <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
