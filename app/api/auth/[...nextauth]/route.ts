@@ -3,7 +3,6 @@ import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import { connectToDatabase } from '@/lib/mongodb';
 import client from '@/lib/db';
-import bcrypt from 'bcryptjs';
 
 async function fetchAdditionalData(email: string) {
   const { db } = await connectToDatabase();
@@ -19,7 +18,7 @@ const authOptions = {
         email: { label: "email", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { db } = await connectToDatabase();
         const { email, password } = credentials ?? {};
         const user = await db.collection('users').findOne({ email, password });
