@@ -281,7 +281,6 @@ function AddClientForm() {
 
   return (
     <div className={`overflow-y-scroll h-screen`}>
-      <div>Status: {formData.clientStatus}</div>
       <div className="p-8 space-y-6 relative">
         <div className="flex justify-between items-center text-2xl mb-8 font-light">Add a Client</div>
         <div onClick={() => {

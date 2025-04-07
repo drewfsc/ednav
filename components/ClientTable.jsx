@@ -23,14 +23,17 @@ export default function ClientTable() {
 
     const togglePinned = () => {
         setViewMode("pinned");
+        setStatusCollapse([])
     };
 
     const toggleAlpha = () => {
         setViewMode("alpha");
+        setStatusCollapse([])
     };
 
     const toggleDate = () => {
         setViewMode("date");
+        setStatusCollapse([])
     };
 
     const getBGColor = (status) => {
@@ -123,6 +126,7 @@ export default function ClientTable() {
                   <div className="filter my-1.5 w-1/2 flex justify-end">
                       <input onClick={() => {
                           setViewMode(null)
+                          setStatusCollapse([])
                       }} className="btn btn-xs filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
                       <input onClick={togglePinned} className={`btn btn-xs font-normal ${viewMode === "pinned" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Pins"/>
                       <input onClick={toggleGrouped} className={`btn btn-xs font-normal ${viewMode === "grouped" ? "bg-primary text-primary-content" : ""}`} type="radio" name="metaframeworks" aria-label="Groups"/>

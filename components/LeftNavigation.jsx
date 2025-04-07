@@ -13,7 +13,6 @@ export default function LeftNavigation() {
     const clients = await fetch(`/api/clients?grouped=true&navigator=Andrew%20McCauley`);
     const data = await clients.json();
     await setMenuData(data);
-    await console.log(data);
   }
 
   useEffect(() => {
@@ -56,18 +55,6 @@ export default function LeftNavigation() {
   return (
     <div>
       <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
-        {/*{*/}
-        {/*  Object.keys(menuData).map((item, i) => (*/}
-        {/*    <li className={`mb-1`} key={i}>*/}
-        {/*      <a onClick={() => setSelectedFepLeft(prevState => {*/}
-        {/*        return {*/}
-        {/*          ...prevState,*/}
-        {/*          status: item?._id*/}
-        {/*        };*/}
-        {/*      })}>{item[i]?.clients?.length}</a>*/}
-        {/*    </li>*/}
-        {/*  ))*/}
-        {/*}*/}
         {
           navStatus.map((item, i) => (
             <li className={`mb-1`} key={i}>

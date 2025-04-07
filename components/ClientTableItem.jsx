@@ -88,15 +88,11 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
                 }
             }}
             className={`${statusCollapse?.includes(person?.clientStatus) ? 'hidden' : 'visible'} hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border text-base-content ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ''} ${selectedClient?._id === person?._id ? 'bg-base-300 text-base-content' : ''}`}>
-            <td className="text-xs truncate w-full flex justify-between items-center">
+            <td className="text-xs truncate flex justify-between items-center w-[250px] 2xl:w-[320px]">
                 <span className={`ml-3 flex-1`}>{person.first_name + " " + person.last_name}</span>
                 <span className={`ml-4`}><PinIcon size={16} className={`${selectedNavigator && selectedNavigator.pinned && selectedNavigator?.pinned.includes(person?._id) ? 'visible' : 'hidden'} text-base-content/70`}/></span>
-                <span className={`ml-4`}><div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div></span>
+                <span className={`mr-1`}><div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div></span>
             </td>
-            {/*<td className="text-sm truncate whitespace-normal w-1/6"><PinIcon size={16} className={`${selectedNavigator && selectedNavigator.pinned && selectedNavigator?.pinned.includes(person?._id) ? 'visible' : 'hidden'} text-primary/70`}/></td>*/}
-            {/*<td className=" truncate text-sm text-gray-500 text-right flex justify-end w-1/6">*/}
-            {/*    <div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div>*/}
-            {/*</td>*/}
         </tr>
     );
 }
