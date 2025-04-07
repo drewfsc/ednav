@@ -1,3 +1,5 @@
+// noinspection JSCheckFunctionSignatures
+
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useFepsLeft } from '../contexts/FepsLeftContext';

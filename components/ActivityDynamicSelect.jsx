@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useClients } from '../contexts/ClientsContext';
 import { useActivities } from '../contexts/ActivityContext';
 import { generateSentence } from '../utils/generateSentence.tsx';
+import Combobox from './Combobox';
+import { youthSchools } from '../lib/schools';
 
 const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const [selectedPath, setSelectedPath] = useState([]);
@@ -50,7 +52,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
         await setSelectedClient(result.wholeUser);
         await setSelectedActivity(prev => ({
           ...prev,
-          activities: result.actionRes
+          activities: result['actionRes']
         }));
       },
       (error) => {
@@ -85,7 +87,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
       const itemsToRemove = ['GED', 'HSED'];
       newArray = selectedPath.filter(item => !itemsToRemove.includes(item));
     }
-
+    console.log(selectedValue, selectedPath)
     const newPath = [...newArray, selectedValue];
     setSelectedPath(newPath);
     setSelectedValue('');
@@ -113,6 +115,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
       return;
     }
     if (newObject && typeof newObject === 'object') {
+      console.log(newObject);
       setFinalSelection(null);
       if (Array.isArray(newObject)) {
         setMultiSelectOptions(newObject);
@@ -133,9 +136,6 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
       setFinalSelection(selectedValue);
 
       const action = await saveSelectionToMongoDB(newPath, false);
-      console.log(
-        action
-      );
       const savedAction = await action.json();
       await setSelectedActivity([...selectedActivity.activities, savedAction]);
     }
@@ -183,7 +183,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const showDatePicker = selectedPath.length === 1; // Show DatePicker only at the beginning
 
   return (
-    <div className="px-0 py-4 max-w-60 mx-auto">
+    <div className="px-0 py-4 max-w-60 mx-auto overflow-y-visible">
       {showDatePicker && (
         <label className="flex flex-col space-y-2 text-sm font-light">Date of activity:
           <input
@@ -197,18 +197,32 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
 
       {currentOptions.length > 0 && (
         <label className="flex flex-col space-y-2 text-sm font-light mt-6 capitalize">
-          <select
-            name={currentOptions[0]}
-            className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}
-            value={selectedValue}
-            onChange={(e) => handleSelectChange(e.target.value)}>
-            <option value="">Select an activity</option>
-            {
-              currentOptions.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))
-            }
-          </select>
+          {currentOptions.includes("Whitnall High School") ? (
+            <Combobox
+              placeholder="Select a school"
+              value={selectedValue}
+              setValue={setSelectedValue}
+              name={youthSchools[0]}
+              label="Attended High School"
+              options={youthSchools}
+              onChange={(e) => handleSelectChange(e.target.value)}
+            />
+          ) : (
+            <select
+              name={currentOptions[0]}
+              className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}
+              value={selectedValue}
+              onChange={(e) => handleSelectChange(e.target.value)}
+            >
+              <option value="">Select an activity</option>
+              {
+                currentOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))
+              }
+            </select>
+          )}
+
           <button
             className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
             onClick={handleAdvance}
