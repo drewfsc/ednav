@@ -7,7 +7,7 @@ import { useClientList } from '../contexts/ClientListContext';
 import { Eye, EyeClosed } from 'phosphor-react';
 import SearchField from './SearchField';
 
-export default function ClientTable() {
+export default function ClientTable({ menuClosed, setMenuClosed}) {
 
     const {clientList} = useClientList();
     const {selectedNavigator} = useNavigators();
@@ -113,9 +113,9 @@ export default function ClientTable() {
 
     return (
       <div className={`relative flex flex-col h-full w-full`}>
-          <div className="fixed flex-col top-0 bg-secondary/60 backdrop-blur-sm text-base-content flex justify-between items-center  w-full text-sm shadow-lg">
-              <SearchField/>
-              <div className="flex justify-around items-center w-full divide-x divide-base-content/30 px-1.5">
+          <div className="fixed flex-col top-0 bg-secondary/60 backdrop-blur-sm text-base-content flex justify-between z-50 w-full text-sm shadow-lg">
+              <SearchField menuClosed={menuClosed}/>
+              <div className="flex justify-around w-full divide-x divide-base-content/30 px-1.5 relative z-20">
                   <div className="filter my-1/5 w-1/2 flex justify-start">
                       <input onClick={() => {
                           setSortMode(null)
@@ -133,17 +133,21 @@ export default function ClientTable() {
                   </div>
               </div>
           </div>
-          <div className="mt-0 overflow-y-scroll no-scrollbar">
+          <div className="absolute top-[18px] left-[10px] z-100 transition-all duration-500 cursor-pointer text-lg font-light text-primary-content/60 hover:text-primary-content" onClick={() => {
+              if(!menuClosed) return setMenuClosed(true)
+              else return setMenuClosed(false)
+          }}>{menuClosed ? ">" : "<"}</div>
+          <div className="mt-0 overflow-y-scroll no-scrollbar relative z-40">
               <div className="h-auto">
                   <div className="w-full h-full">
                       <div className={``}>
-                          <table className="w-[250px] 2xl:w-[320px] mt-[98px] table-none">
+                          <table className={`w-[250px] 2xl:w-[320px] mt-[98px] table-none  ${menuClosed ? 'w-[500px] 2xl:w-[600px]' : ''}`}>
                               <tbody className="">
                               {viewMode === 'grouped' ? (
                                 Object.entries(clientsToShow).map(([status, clients], idx) => (
                                   <React.Fragment key={status}>
                                       <tr className={`${getBGColor(status)} `}>
-                                          <td className="py-2 text-sm flex justify-between items-center cursor-pointer w-[250px] 2xl:w-[320px]">
+                                          <td className={`py-2 text-sm flex justify-between items-center cursor-pointer w-[250px] 2xl:w-[320px]  ${menuClosed ? 'w-[500px] 2xl:w-[600px]' : ''}`}>
                                               <span className={`w-5/7 text-left pl-3`}>{status}</span>
                                               <span className={`w-1/7 pr-6`} onClick={() => handleCollapseChange(status)}>
                                               {!statusCollapse.includes(status) ? <Eye size={20} className={getBGColor(status)}/> : <EyeClosed size={20} className={getBGColor(status)}/>}
@@ -158,7 +162,7 @@ export default function ClientTable() {
                               ) : (
                                 Array.isArray(clientsToShow) && clientsToShow.length > 0 ? (
                                   clientsToShow.map((person, i) => (
-                                    <ClientTableItem key={i} person={person} i={i} statusCollapse={statusCollapse} />
+                                    <ClientTableItem key={i} person={person} i={i} statusCollapse={statusCollapse} menuClosed={menuClosed} />
                                   ))
                                 ) : (
                                   <tr>
