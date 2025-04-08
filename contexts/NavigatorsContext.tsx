@@ -50,7 +50,7 @@ type NavigatorsContextType = {
       longestStreak: Number;
       longestStreakDate: Number;
     };
-  };
+  } | null;
   setSelectedNavigator: Dispatch<SetStateAction<Navigator | null>>;
 };
 
@@ -59,7 +59,9 @@ const NavigatorContext = createContext<NavigatorsContextType | undefined>(
 );
 
 export const NavigatorProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedNavigator, setSelectedNavigator] = useState<{} | null>(null);
+  const [selectedNavigator, setSelectedNavigator] = useState<Navigator | null>(
+    null,
+  );
 
   return (
     // @ts-ignore
