@@ -7,77 +7,64 @@ import React, {
   Dispatch,
 } from "react";
 
-type Navigator = {
-  _id: String;
-  name: String;
-  pinned: Array<string>;
-  preferences: {
-    theme: String;
-    lastAgeFilter: String;
-    lastStatusFilter: String;
-  };
-  notifications: {
-    unread: Array<string>;
-    read: Array<string>;
-  };
-  streak: {
-    active: Boolean;
-    streak: Number;
-    lastDate: String;
-    longestStreak: Number;
-    longestStreakDate: Number;
-  };
-};
+// Extracted reusable types
+interface Preferences {
+  theme: string;
+  lastAgeFilter: string;
+  lastStatusFilter: string;
+}
 
-type NavigatorsContextType = {
-  selectedNavigator: {
-    _id: String;
-    name: String;
-    pinned: Array<string>;
-    preferences: {
-      theme: String;
-      lastAgeFilter: String;
-      lastStatusFilter: String;
-    };
-    notifications: {
-      unread: Array<string>;
-      read: Array<string>;
-    };
-    streak: {
-      active: Boolean;
-      streak: Number;
-      lastDate: String;
-      longestStreak: Number;
-      longestStreakDate: Number;
-    };
-  } | null;
+interface Notifications {
+  unread: string[];
+  read: string[];
+}
+
+interface Streak {
+  active: boolean;
+  streak: number;
+  lastDate: string;
+  longestStreak: number;
+  longestStreakDate: number;
+}
+
+// Navigator type
+export interface Navigator {
+  id: string;
+  name: string;
+  pinned: string[];
+  preferences: Preferences;
+  notifications: Notifications;
+  streak: Streak;
+}
+
+// Context type
+interface NavigatorContextType {
+  selectedNavigator: Navigator | null;
   setSelectedNavigator: Dispatch<SetStateAction<Navigator | null>>;
-};
+}
 
-const NavigatorContext = createContext<NavigatorsContextType | undefined>(
-  undefined,
+// Context and provider
+const NavigatorContext = createContext<NavigatorContextType | undefined>(
+  undefined
 );
 
 export const NavigatorProvider = ({ children }: { children: ReactNode }) => {
   const [selectedNavigator, setSelectedNavigator] = useState<Navigator | null>(
-    null,
+    null
   );
 
   return (
-    // @ts-ignore
-    <NavigatorContext.Provider
-      value={{ selectedNavigator, setSelectedNavigator }}
-    >
+    <NavigatorContext.Provider value={{ selectedNavigator, setSelectedNavigator }}>
       {children}
     </NavigatorContext.Provider>
   );
 };
 
 // Custom hook for consuming context
-export const useNavigators = () => {
+export const useNavigators = (): NavigatorContextType => {
   const context = useContext(NavigatorContext);
   if (!context) {
-    throw new Error("useNavigators must be used within a NavigatorContext");
+    throw new Error("useNavigator must be used within a NavigatorProvider");
   }
   return context;
 };
