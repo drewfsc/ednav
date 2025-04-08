@@ -32,7 +32,7 @@ export default function ClientProfileDetails() {
 
   useEffect(() => {
     getActions().then();
-  }, [selectedClient, getActions, setActions]);
+  }, [selectedClient, setActions]);
 
   useEffect(() => {
     if (selectedClient && selectedClient.trackable) {
