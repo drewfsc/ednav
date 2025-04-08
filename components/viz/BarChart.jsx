@@ -33,8 +33,7 @@ const chartConfig = {
     },
 }
 
-export function BarChartt({metrics}) {
-    console.log(metrics)
+export function BarChartt() {
     return (
         <div className={`border`}>
             <CardHeader>

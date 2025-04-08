@@ -69,8 +69,7 @@ export default function NoteFeed({ actionId }) {
         'Content-Type': 'application/json'
       }
     });
-    const data = await res.json();
-    console.log(data);
+    // const data = await res.json();
   };
 
   const handleNote = async () => {
@@ -80,7 +79,7 @@ export default function NoteFeed({ actionId }) {
 
   useEffect(() => {
     getNotes().then(data => setNotes(data))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }, [selectedClient?._id, actionId]);
 
 

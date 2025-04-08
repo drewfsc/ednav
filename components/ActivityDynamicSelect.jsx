@@ -56,7 +56,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
         }));
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -83,11 +83,9 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
     if (!selectedValue) return;
     let newArray = [...selectedPath];
     if (selectedClient.trackable?.type === 'GED' || selectedClient.trackable?.type === 'HSED') {
-      console.log('GED!!');
       const itemsToRemove = ['GED', 'HSED'];
       newArray = selectedPath.filter(item => !itemsToRemove.includes(item));
     }
-    console.log(selectedValue, selectedPath)
     const newPath = [...newArray, selectedValue];
     setSelectedPath(newPath);
     setSelectedValue('');
@@ -115,7 +113,6 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
       return;
     }
     if (newObject && typeof newObject === 'object') {
-      console.log(newObject);
       setFinalSelection(null);
       if (Array.isArray(newObject)) {
         setMultiSelectOptions(newObject);
@@ -142,7 +139,6 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
   };
 
   const handleMultiSelectChange = (option, index) => {
-    console.log(option, index);
     setMultiSelectValues((prev) => {
       if (prev.includes(option)) {
         if (trackable && trackable.items.length > 0) {

@@ -28,7 +28,6 @@ function ClientProfileTabeOrientation() {
     if (data.error) {
       console.error(data.error);
     } else {
-      console.log('data', data);
       setDateValue('');
       setTabeOpen(false);
     }

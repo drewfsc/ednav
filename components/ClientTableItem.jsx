@@ -49,7 +49,6 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
             ...prev,
             activities: json.data
         }))
-        // await console.log(person, person._id, selectedActivity)
     }
 
     function getScreenWidth() {

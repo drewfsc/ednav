@@ -5,11 +5,8 @@ import ClientTable from '/components/ClientTable';
 import AddClientForm from './AddClientForm';
 import ClientProfile from './ClientProfile';
 import { useEditing } from '/contexts/EditingContext';
-import { useSession } from 'next-auth/react';
 
 export default function PerfectLayout() {
-  const session = useSession();
-  console.log(session);
   const {editing } = useEditing();
 
   return (
