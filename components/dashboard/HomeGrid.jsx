@@ -24,10 +24,10 @@ export default function HomeGrid() {
               <div className="h-60"></div>
               <div className="bg-base-200 p-10 pt-8">
                 <h3 className="text-primary text-sm/4 font-semibold">
-                  Client Tracking
+                  Measurement
                 </h3>
                 <p className="text-base-content mt-2 text-lg font-medium tracking-tight">
-                  Comprehensive progress monitoring
+                  A selection of metrics from our interaction with clients
                 </p>
                 <p className="text-base-content/60 mt-2 max-w-lg text-sm/6">
                   Track every aspect of your clients&apos; educational journey
@@ -72,9 +72,10 @@ export default function HomeGrid() {
                   Comprehensive progress monitoring
                 </p>
                 <p className="text-base-content/60 mt-2 max-w-lg text-sm/6">
-                  Track every aspect of your clients' educational journey in one
-                  place. Monitor GED subject completion, assessment scores, and
-                  attendance patterns to identify where support is most needed.
+                  Track every aspect of your clients&apos; educational journey
+                  in one place. Monitor GED subject completion, assessment
+                  scores, and attendance patterns to identify where support is
+                  most needed.
                 </p>
               </div>
             </div>
