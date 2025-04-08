@@ -22,7 +22,6 @@ export default function ClientProfile({client, setEditing}) {
         setIsMounted(true);
     }, []);
 
-    // ✅ Prevent hydration mismatch by rendering only after mount
     if (!isMounted) return null;
 
     return (

@@ -16,7 +16,6 @@ export default function ActivityTable({actions}) {
     }
   }, [open, setOpen, selectedActivity, setSelectedActivity ]);
 
-
   return (
     <div className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}>
       <ActivityModal open={open} setOpen={setOpen}/>

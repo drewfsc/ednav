@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useClients } from '../contexts/ClientsContext';
 import { PinIcon } from 'lucide-react';
 import { useNavigators } from '../contexts/NavigatorsContext';
@@ -7,11 +7,11 @@ import { useNavigators } from '../contexts/NavigatorsContext';
 function ClientProfilePin() {
   const {selectedClient} = useClients();
   const {selectedNavigator, setSelectedNavigator} = useNavigators();
-  const [, setPinned] = useState([]);
+  // const [, setPinned] = useState([]);
 
   useEffect(() => {
     if (selectedNavigator?.pinned) {
-      setPinned(selectedNavigator?.pinned);
+      // setPinned(selectedNavigator?.pinned);
     }
   }, [])
 
@@ -32,14 +32,14 @@ function ClientProfilePin() {
 
   async function handlePinClick(event) {
     await event.stopPropagation();
-    await setPinned(
-      prev => {
-        if (prev.includes(selectedClient?._id)) {
-          return prev.filter(id => id !== selectedClient?._id)
-        } else {
-          return [...prev, selectedClient?._id]
-        }
-      })
+    // await setPinned(
+    //   prev => {
+    //     if (prev.includes(selectedClient?._id)) {
+    //       return prev.filter(id => id !== selectedClient?._id)
+    //     } else {
+    //       return [...prev, selectedClient?._id]
+    //     }
+    //   })
    await savePinned().then();
   }
 

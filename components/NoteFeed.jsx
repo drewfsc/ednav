@@ -62,14 +62,13 @@ export default function NoteFeed({ actionId }) {
   };
 
   const saveNote = async () => {
-    const res = await fetch(`/api/notes/`, {
+    await fetch(`/api/notes/`, {
       method: 'POST',
       body: JSON.stringify(note),
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    // const data = await res.json();
   };
 
   const handleNote = async () => {
