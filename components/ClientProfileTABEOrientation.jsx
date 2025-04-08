@@ -20,7 +20,7 @@ function ClientProfileTabeOrientation() {
       },
       body: JSON.stringify({
         _id: selectedClient._id,
-        completedDate: dateValue,
+        completionDate: dateValue,
       }),
       method: 'POST'
     });
@@ -41,7 +41,7 @@ function ClientProfileTabeOrientation() {
   return (
     <div className="w-full mt-6 text-sm">
       {
-        selectedClient && (selectedClient.tabe.completedDate || selectedClient.orientation.completedDate || selectedClient.transcripts === "yes") && (
+        selectedClient && (selectedClient.tabe?.completionDate || selectedClient.orientation?.completionDate || selectedClient.transcripts === "yes") && (
           <div
             className={`grid grid-cols-3 xl:grid-cols-3 w-full border-1 border-base-300/30 bg-base-200/40 shadow-xl rounded-lg py-4 px-4 ${hasValidKey(selectedClient, 'tabe') || hasValidKey(selectedClient, 'orientation') ? 'visible' : 'hidden'}`}>
             {
@@ -59,8 +59,8 @@ function ClientProfileTabeOrientation() {
                         Completed
                       </div>
                       {
-                        selectedClient.tabe.completionDate !== ""
-                          ? <div>{moment(selectedClient.tabe.completedDate).format('MMMM Do, YYYY')}</div>
+                        selectedClient.tabe?.completionDate !== ""
+                          ? <div>{moment(selectedClient.tabe?.completionDate).format('MMMM Do, YYYY')}</div>
                           : (<div>
                             <div onClick={() => setTabeOpen(!tabeOpen)}
                                  className={`text-secondary underline cursor-pointer ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter
@@ -96,8 +96,8 @@ function ClientProfileTabeOrientation() {
                         Completed
                       </div>
                       {
-                        selectedClient?.orientation.completedDate
-                          ? <div>{moment(selectedClient.orientation.completedDate).format('MMMM Do, YYYY')}</div>
+                        selectedClient?.orientation?.completionDate
+                          ? <div>{moment(selectedClient.orientation?.completionDate).format('MMMM Do, YYYY')}</div>
                           : (<div>
                             <div onClick={() => setOrientationOpen(!orientationOpen)}
                                  className={`text-secondary underline cursor-pointer ${orientationOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter

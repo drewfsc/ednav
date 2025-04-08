@@ -23,7 +23,14 @@ type Client = {
     'pin': number,
     'region': number,
     'schoolIfEnrolled': string,
-    'tabe': string,
+    'tabe': {
+        "referralDate": string,
+        "completionDate": string,
+    },
+    "orientation": {
+        "referralDate": string,
+        "completionDate": string,
+    }
     "trackable": {
         "type": string,
         "length": number,

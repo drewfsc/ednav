@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         {
           $set:
             {
-              orientation: {dateReferred: new Date().toISOString(), completedDate: null},
+              orientation: {dateReferred: new Date().toISOString(), completionDate: null},
             }
         }
       )
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         {
           $set:
             {
-              tabe: {dateReferred: new Date().toISOString(), completedDate: null},
+              tabe: {dateReferred: new Date().toISOString(), completionDate: null},
             }
         }
       )
