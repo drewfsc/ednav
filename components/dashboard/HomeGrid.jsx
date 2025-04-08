@@ -7,9 +7,7 @@ export default function HomeGrid() {
 
   return (
     <div
-      className={
-        `${!editing ? "" : " overflow-hidden -left-500 right-auto"} absolute top-0 right-0 bottom-0 left-0 py-6 pb-30 sm:py-8`
-      }
+      className={`${!editing ? "" : "right-auto -left-500 overflow-hidden"} absolute top-0 right-0 bottom-0 left-0 py-6 pb-30 sm:py-8`}
     >
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <p className="text-base-content mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty sm:text-5xl">

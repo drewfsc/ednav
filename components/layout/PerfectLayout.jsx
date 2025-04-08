@@ -28,7 +28,11 @@ export default function PerfectLayout() {
         <div
           className={`bg-base-300 border-base-300/60 no-scrollbar relative flex h-screen flex-grow overflow-hidden overflow-y-scroll border-1`}
         >
-          <div className={`relative ${editing === "" || editing === null ? "w-full translate-x-0" : "collapse w-0 translate-x-[4000px]"} transition-all duration-500`}><HomeGrid /></div>
+          <div
+            className={`relative ${editing === "" || editing === null ? "w-full translate-x-0" : "collapse w-0 translate-x-[4000px]"} transition-all duration-500`}
+          >
+            <HomeGrid />
+          </div>
           <div
             className={`relative ${editing === "client" ? "w-full translate-x-0" : "collapse w-0 -translate-x-[4000px]"} transition-all duration-500`}
           >

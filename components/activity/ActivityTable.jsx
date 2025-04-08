@@ -21,7 +21,7 @@ export default function ActivityTable({ actions }) {
       className={`border-base-300/60 bg-base-200/50 mt-6 w-full flex-col gap-6 rounded-lg border-1 p-6 shadow-xl`}
     >
       <ActivityModal open={open} setOpen={setOpen} />
-      <div className={`mb-10 flex items-center justify-between gap-4`}>
+      <div className={`mb-8 flex items-center justify-between gap-4`}>
         <div className={`text-2xl`}>Activity Log </div>
         <button
           className={`btn btn-sm btn-primary`}

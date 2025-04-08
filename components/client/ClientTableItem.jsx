@@ -15,15 +15,15 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
   const getBadgeColor = (status) => {
     switch (status) {
       case "Inactive":
-        return "badge badge-error text-error-content text-xs px-3 ";
+        return "badge badge-error text-error-content";
       case "In Progress":
-        return "badge badge-warning text-warning-content text-xs px-3";
+        return "badge badge-warning text-warning-content";
       case "Active":
-        return "badge badge-success text-success-content text-xs px-3";
+        return "badge badge-success text-success-content";
       case "Graduated":
-        return "badge badge-info text-info-content text-xs px-3";
+        return "badge badge-info text-info-content";
       default:
-        return "badge badge-primary text-primary-content text-xs px-3";
+        return "badge badge-primary text-primary-content";
     }
   };
 
@@ -113,7 +113,7 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
         </span>
         <span className={`mr-1`}>
           <div
-            className={`m-3 w-[15px] text-xs 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}
+            className={`m-3 mx-2 min-w-[15px] text-[11px] 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}
           >
             {(screenWidth < 1536 ? statusAbbr1 : "") +
               (screenWidth >= 1536 ? personStatus : "")}

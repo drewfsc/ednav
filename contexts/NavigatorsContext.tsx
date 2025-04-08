@@ -45,16 +45,18 @@ interface NavigatorContextType {
 
 // Context and provider
 const NavigatorContext = createContext<NavigatorContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const NavigatorProvider = ({ children }: { children: ReactNode }) => {
   const [selectedNavigator, setSelectedNavigator] = useState<Navigator | null>(
-    null
+    null,
   );
 
   return (
-    <NavigatorContext.Provider value={{ selectedNavigator, setSelectedNavigator }}>
+    <NavigatorContext.Provider
+      value={{ selectedNavigator, setSelectedNavigator }}
+    >
       {children}
     </NavigatorContext.Provider>
   );
