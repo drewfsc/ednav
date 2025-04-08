@@ -1,44 +1,56 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import NoteFeed from '/components/NoteFeed';
-import ActivityModal from '/components/activity/ActivityModal';
-import { useActivities } from '@/contexts/ActivityContext';
+"use client";
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import NoteFeed from "/components/NoteFeed";
+import ActivityModal from "/components/activity/ActivityModal";
+import { useActivities } from "@/contexts/ActivityContext";
 
-export default function ActivityTable({actions}) {
-  const {selectedActivity, setSelectedActivity} = useActivities()
+export default function ActivityTable({ actions }) {
+  const { selectedActivity, setSelectedActivity } = useActivities();
   const [open, setOpen] = useState(false);
   const [, setActivities] = useState([]);
 
   useEffect(() => {
-    if(window){
-      setActivities(selectedActivity?.activities)
+    if (window) {
+      setActivities(selectedActivity?.activities);
     }
-  }, [open, setOpen, selectedActivity, setSelectedActivity ]);
+  }, [open, setOpen, selectedActivity, setSelectedActivity]);
 
   return (
-    <div className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}>
-      <ActivityModal open={open} setOpen={setOpen}/>
+    <div
+      className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}
+    >
+      <ActivityModal open={open} setOpen={setOpen} />
       <div className={`flex justify-between items-center gap-4 mb-10`}>
         <div className={`text-2xl`}>Activity Log </div>
-        <button className={`btn btn-sm btn-primary`}
-              onClick={() => {
-                setOpen(true);
-              }}>Add an activity</button>
+        <button
+          className={`btn btn-sm btn-primary`}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Add an activity
+        </button>
       </div>
 
       <div className={`w-full transition-all duration-500`}>
         <ul className="font-normal ">
-          {
-            actions.data && actions?.data.sort((a, b) => new Date(b.selectedDate) - new Date(a.selectedDate))
+          {actions.data &&
+            actions?.data
+              .sort(
+                (a, b) => new Date(b.selectedDate) - new Date(a.selectedDate),
+              )
               .map((action, i) => (
-              <li key={i} className={`mt-10 mb-10`}>
-                <div className="text-xs font-light text-base-content/70 mb-1">{moment(action.selectedDate).calendar()}</div>
-                <div className="text-sm mb-4 capitalize">{action.statement || "Activity could not be found, sorry."}</div>
-                <NoteFeed actionId={action?._id} />
-              </li>
-            ))
-          }
+                <li key={i} className={`mt-10 mb-10`}>
+                  <div className="text-xs font-light text-base-content/70 mb-1">
+                    {moment(action.selectedDate).calendar()}
+                  </div>
+                  <div className="text-sm mb-4 capitalize">
+                    {action.statement || "Activity could not be found, sorry."}
+                  </div>
+                  <NoteFeed actionId={action?._id} />
+                </li>
+              ))}
         </ul>
       </div>
     </div>

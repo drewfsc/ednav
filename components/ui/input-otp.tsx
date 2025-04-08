@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 // import { OTPInput, OTPInputContext } from ""
 // @ts-ignore
-import { Dot } from "lucide-react"
+import { Dot } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 // const InputOTP = React.forwardRef<
 //   React.ElementRef<typeof OTPInput>,
@@ -28,8 +28,8 @@ const InputOTPGroup = React.forwardRef<
   React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("flex items-center", className)} {...props} />
-))
-InputOTPGroup.displayName = "InputOTPGroup"
+));
+InputOTPGroup.displayName = "InputOTPGroup";
 
 // const InputOTPSlot = React.forwardRef<
 //   React.ElementRef<"div">,
@@ -66,7 +66,7 @@ const InputOTPSeparator = React.forwardRef<
   <div ref={ref} role="separator" {...props}>
     <Dot />
   </div>
-))
-InputOTPSeparator.displayName = "InputOTPSeparator"
+));
+InputOTPSeparator.displayName = "InputOTPSeparator";
 
 // export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }

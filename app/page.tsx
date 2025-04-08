@@ -1,12 +1,12 @@
-"use client"
-import { useSession } from 'next-auth/react';
-import PerfectLayout from '../components/layout/PerfectLayout';
-import SignIn from '@/components/sign-in';
+"use client";
+import { useSession } from "next-auth/react";
+import PerfectLayout from "../components/layout/PerfectLayout";
+import SignIn from "@/components/sign-in";
 
 export default function Home() {
   const { status } = useSession();
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return (
       <div className="w-full h-screen flex justify-center items-center">
         <p>Loading...</p>
@@ -14,7 +14,7 @@ export default function Home() {
     );
   }
 
-  if (status !== 'authenticated') {
+  if (status !== "authenticated") {
     return (
       <div className="w-full h-screen flex justify-center items-center">
         <div className="text-center">

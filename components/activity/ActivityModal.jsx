@@ -1,24 +1,29 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
-import ActivityDynamicSelect from './ActivityDynamicSelect';
+"use client";
+import React, { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import ActivityDynamicSelect from "./ActivityDynamicSelect";
 
 export default function ActivityModal({ open, setOpen }) {
   const [questions, setQuestions] = useState([]);
 
   const getQuestions = async () => {
     let cleanedQuestions = {};
-    const response = await fetch('/api/questions');
+    const response = await fetch("/api/questions");
     const questions = await response.json();
-    const {adult, youth} = await questions;
-    cleanedQuestions.adult = adult
-    cleanedQuestions.youth = youth
-    await setQuestions(cleanedQuestions)
-    return cleanedQuestions
-  }
+    const { adult, youth } = await questions;
+    cleanedQuestions.adult = adult;
+    cleanedQuestions.youth = youth;
+    await setQuestions(cleanedQuestions);
+    return cleanedQuestions;
+  };
 
   useEffect(() => {
-    getQuestions().then()
+    getQuestions().then();
   }, []);
 
   return (
@@ -35,11 +40,17 @@ export default function ActivityModal({ open, setOpen }) {
           >
             <div className="px-12 py-8">
               <div>
-                <DialogTitle as="h3" className="text-xl font-light text-base-content  max-w-60 mx-auto">
+                <DialogTitle
+                  as="h3"
+                  className="text-xl font-light text-base-content  max-w-60 mx-auto"
+                >
                   Add an activity
                 </DialogTitle>
                 <div className="">
-                  <ActivityDynamicSelect setOpen={setOpen} questions={questions} />
+                  <ActivityDynamicSelect
+                    setOpen={setOpen}
+                    questions={questions}
+                  />
                 </div>
               </div>
             </div>

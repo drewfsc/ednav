@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
-import { useClients } from '@/contexts/ClientsContext';
-import InputLabel from '@/components/client/InputLabel';
+import React, { useState } from "react";
+import { useClients } from "@/contexts/ClientsContext";
+import InputLabel from "@/components/client/InputLabel";
 
 function ClientProfilePersonalOrganization() {
-  const {selectedClient} = useClients();
+  const { selectedClient } = useClients();
   const [editingPersonal, setEditingPersonal] = useState(false);
   const [editingOrganization, setEditingOrganization] = useState(false);
-  const personalFields = ['email', 'contactNumber', 'dob', 'lastGrade', 'schoolIfEnrolled', 'group'];
-  const organizationFields = ['fep', 'dateReferred', 'pin', 'region', 'officeCity', 'clientStatus'];
+  const personalFields = [
+    "email",
+    "contactNumber",
+    "dob",
+    "lastGrade",
+    "schoolIfEnrolled",
+    "group",
+  ];
+  const organizationFields = [
+    "fep",
+    "dateReferred",
+    "pin",
+    "region",
+    "officeCity",
+    "clientStatus",
+  ];
   const [change, setChange] = useState({
     _id: selectedClient?._id,
     email: selectedClient?.email,
@@ -26,18 +40,18 @@ function ClientProfilePersonalOrganization() {
   });
 
   const handleSubmit = async () => {
-    await fetch('/api/clients', {
-      method: 'POST',
+    await fetch("/api/clients", {
+      method: "POST",
       body: JSON.stringify(change),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-  }
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   const handleChange = (e) => {
-    setChange({...change, [e.target.name]: e.target.value});
-  }
+    setChange({ ...change, [e.target.name]: e.target.value });
+  };
 
   const handleEditingPersonal = () => {
     if (editingPersonal) {
@@ -46,7 +60,7 @@ function ClientProfilePersonalOrganization() {
     } else {
       setEditingPersonal(true);
     }
-  }
+  };
 
   const handleEditingOrganization = () => {
     if (editingOrganization) {
@@ -55,69 +69,100 @@ function ClientProfilePersonalOrganization() {
     } else {
       setEditingOrganization(true);
     }
-  }
+  };
 
   function splitCamelCase(str) {
-    return str.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+    return str.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
   }
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 w-full gap-6 mt-6">
-
       {/*PERSONAL*/}
-      <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}>
-        <div className="font-semibold mb-4 w-full">Personal
-          <span onClick={handleEditingPersonal} className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}>
-            {editingPersonal ? 'Save' : 'Edit'}
+      <div
+        className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}
+      >
+        <div className="font-semibold mb-4 w-full">
+          Personal
+          <span
+            onClick={handleEditingPersonal}
+            className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
+          >
+            {editingPersonal ? "Save" : "Edit"}
           </span>
         </div>
         <div className="text-sm w-full">
           <dl className="divide-y divide-base-content/10 w-full">
-            {
-              selectedClient && personalFields.map((f) => (
-                <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
+            {selectedClient &&
+              personalFields.map((f) => (
+                <div
+                  key={f}
+                  className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6"
+                >
                   <dt className="font-light capitalize">{f}</dt>
-                  <dd className={`visible ${editingPersonal ? 'hidden' : 'visible'}`}>
+                  <dd
+                    className={`visible ${editingPersonal ? "hidden" : "visible"}`}
+                  >
                     {/*{f === 'dob' ? <div className={``}>{moment(selectedClient[f]).calendar()}</div> : selectedClient[f]}*/}
                   </dd>
-                  <dd className={`${!editingPersonal ? 'hidden' : ''}`}>
-                    <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={f}/>
+                  <dd className={`${!editingPersonal ? "hidden" : ""}`}>
+                    <InputLabel
+                      name={f}
+                      handleChange={handleChange}
+                      type="text"
+                      value={change[f]}
+                      label={f}
+                    />
                   </dd>
                 </div>
-              ))
-            }
+              ))}
           </dl>
         </div>
       </div>
 
       {/*ORGANIZATION*/}
-      <div className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}>
-        <div className="font-semibold mt-0 mb-4">Organization
-          <span onClick={handleEditingOrganization} className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}>
-            {editingOrganization ? 'Save' : 'Edit'}
+      <div
+        className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}
+      >
+        <div className="font-semibold mt-0 mb-4">
+          Organization
+          <span
+            onClick={handleEditingOrganization}
+            className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
+          >
+            {editingOrganization ? "Save" : "Edit"}
           </span>
         </div>
         <div className="text-sm w-full">
           <dl className="divide-y divide-base-content/20">
-            {
-              selectedClient && organizationFields.map((f) => (
-                <div key={f} className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6">
+            {selectedClient &&
+              organizationFields.map((f) => (
+                <div
+                  key={f}
+                  className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6"
+                >
                   <dt className="font-light capitalize">{f}</dt>
-                  <dd className={`visible ${editingOrganization ? 'hidden' : 'visible'}`}>
+                  <dd
+                    className={`visible ${editingOrganization ? "hidden" : "visible"}`}
+                  >
                     {/*{f === 'dateReferred' ? <div className={``}>{moment(selectedClient[f]).format('MMMM Do, YYYY')}</div> : selectedClient[f]}*/}
                     {/*<div className={``}>{selectedClient[f]}</div>*/}
                   </dd>
-                  <dd className={`${!editingOrganization ? 'hidden' : ''}`}>
-                    <InputLabel name={f} handleChange={handleChange} type="text" value={change[f]} label={splitCamelCase(f)}/>
+                  <dd className={`${!editingOrganization ? "hidden" : ""}`}>
+                    <InputLabel
+                      name={f}
+                      handleChange={handleChange}
+                      type="text"
+                      value={change[f]}
+                      label={splitCamelCase(f)}
+                    />
                   </dd>
                 </div>
-              ))
-            }
+              ))}
           </dl>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default ClientProfilePersonalOrganization;

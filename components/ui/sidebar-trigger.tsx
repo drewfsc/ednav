@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Menu, ChevronLeft } from "lucide-react"
-import { useSidebar } from "./sidebar"
-import { cn } from "@/lib/utils"
+import { Menu, ChevronLeft } from "lucide-react";
+import { useSidebar } from "./sidebar";
+import { cn } from "@/lib/utils";
 
-interface SidebarTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface SidebarTriggerProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export function SidebarTrigger({ className, ...props }: SidebarTriggerProps) {
-  const { collapsed, setCollapsed, isMobile } = useSidebar()
+  const { collapsed, setCollapsed, isMobile } = useSidebar();
 
   return (
     <button
@@ -19,12 +20,12 @@ export function SidebarTrigger({ className, ...props }: SidebarTriggerProps) {
           setCollapsed((prev) => ({
             ...prev,
             mobile: !prev.mobile,
-          }))
+          }));
         } else {
           setCollapsed((prev) => ({
             ...prev,
             desktop: !prev.desktop,
-          }))
+          }));
         }
       }}
       {...props}
@@ -38,6 +39,5 @@ export function SidebarTrigger({ className, ...props }: SidebarTriggerProps) {
       )}
       {/*<span className="sr-only">Toggle Sidebar</span>*/}
     </button>
-  )
+  );
 }
-

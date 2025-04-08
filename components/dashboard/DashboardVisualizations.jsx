@@ -1,25 +1,25 @@
-import React from 'react';
-import {BarChart, LineChart, PieChart} from "recharts";
+import React from "react";
+import { BarChart, LineChart, PieChart } from "recharts";
 
 export default function DashboardVisualizations() {
-    return (
+  return (
+    <div>
+      <div>
         <div>
-            <div>
-                <div>
-                    <BarChart/>
-                    <LineChart/>
-                    <PieChart/>
-                </div>
-                <div></div>
-                <div></div>
-            </div>
-            <div>
-                <div></div>
-            </div>
-            <div>
-                <div></div>
-                <div></div>
-            </div>
+          <BarChart />
+          <LineChart />
+          <PieChart />
         </div>
-    );
+        <div></div>
+        <div></div>
+      </div>
+      <div>
+        <div></div>
+      </div>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
 }
