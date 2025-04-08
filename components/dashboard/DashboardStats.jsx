@@ -1,4 +1,4 @@
-import SignIn from "./sign-in";
+import SignIn from "../sign-in";
 import React from "react";
 
 export default function DashboardStats({metrics, loading}) {

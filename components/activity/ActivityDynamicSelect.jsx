@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useClients } from '../contexts/ClientsContext';
-import { useActivities } from '../contexts/ActivityContext';
-import { generateSentence } from '../utils/generateSentence.tsx';
-import Combobox from './Combobox';
-import { youthSchools } from '../lib/schools';
+import { useClients } from '../../contexts/ClientsContext';
+import { useActivities } from '../../contexts/ActivityContext';
+import { generateSentence } from '../../lib/generateSentence.tsx';
+import Combobox from '../client/Combobox';
+import { youthSchools } from '../../lib/schools';
 
 const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const [selectedPath, setSelectedPath] = useState([]);

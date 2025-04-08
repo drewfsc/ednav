@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment/moment';
 import { useClients } from '@/contexts/ClientsContext';
-import InputLabel from '@/components/InputLabel';
+import InputLabel from '@/components/client/InputLabel';
 
 function ClientProfileTabeOrientation() {
   const { selectedClient } = useClients();
@@ -50,7 +50,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">TABE</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Referred</div>
-                      {moment(selectedClient.tabe.dateReferred).format('MMMM Do, YYYY')}
+                      {moment(selectedClient.tabe?.referralDate).format('MMMM Do, YYYY')}
                     </div>
                     <div>
                       <div
@@ -87,7 +87,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">Orientation</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Referred</div>
-                      {moment(selectedClient?.orientation.dateReferred).format('MMMM Do, YYYY')}
+                      {moment(selectedClient?.orientation?.referralDate).format('MMMM Do, YYYY')}
                     </div>
                     <div>
                       <div
@@ -124,7 +124,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">Transcripts</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Obtained</div>
-                      {moment(selectedClient.tabe.dateReferred).format('MMMM Do, YYYY')}
+                      {moment(selectedClient.tabe?.referralDate).format('MMMM Do, YYYY')}
                     </div>
                   </div>
                 </div>

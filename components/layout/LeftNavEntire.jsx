@@ -1,11 +1,11 @@
 "use client"
 import React from 'react';
-import ThemeSwitcher from "./ThemeSwitcher"
-import NavigatorSelector from "/components/NavigatorSelector";
-import LeftNavigation from "/components/LeftNavigation";
 import { useSession } from 'next-auth/react';
-import { SignOutButton } from './sign-out';
-import SignInButton from './sign-in';
+import { SignOutButton } from '../sign-out';
+import ThemeSwitcher from "./ThemeSwitcher"
+import NavigatorSelector from "/components/layout/NavigatorSelector";
+import LeftNavigation from "/components/layout/LeftNavigation";
+import SignInButton from '../sign-in';
 
 export default function LeftNavEntire({setEditing}) {
     const session = useSession();

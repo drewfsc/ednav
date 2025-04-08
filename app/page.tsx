@@ -1,13 +1,12 @@
 "use client"
 import { useSession } from 'next-auth/react';
-import PerfectLayout from '../components/PerfectLayout';
+import PerfectLayout from '../components/layout/PerfectLayout';
 import SignIn from '@/components/sign-in';
 
 export default function Home() {
-  const { status, data: session } = useSession();
+  const { status } = useSession();
 
   if (status === 'loading') {
-    // You could show a full-screen spinner, skeleton, or nothing.
     return (
       <div className="w-full h-screen flex justify-center items-center">
         <p>Loading...</p>

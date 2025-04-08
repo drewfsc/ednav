@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '/components/ui/input';
 import { Select, SelectTrigger, SelectContent, SelectItem } from '/components/ui/select';
-import NavigatorSelector from '/components/NavigatorSelector';
+import NavigatorSelector from '/components/layout/NavigatorSelector';
 import ClientTable from "./ClientTable";
-import {useFepsLeft} from "@/contexts/FepsLeftContext";
+import {useFepsLeft} from "../../contexts/FepsLeftContext";
 
 const FilteredClients = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -37,8 +37,7 @@ const FilteredClients = () => {
                 setLoading(false);
             }
         };
-
-        fetchClients();
+        fetchClients().then( );
     }, [selectedNavigator]);
 
     const filteredClients = clients.filter(client => {
@@ -48,44 +47,42 @@ const FilteredClients = () => {
         return matchesSearch && matchesStatus && matchesGroup;
     });
 
-    return (
-        <div className="p-4 space-y-4">
-            <NavigatorSelector value={selectedNavigator} onChange={setSelectedNavigator} />
+    const CLIENT_STATUSES = ['All', 'Active', 'In Progress', 'Graduated', 'Inactive'];
+    const CLIENT_AGE_GROUPS = ['All', 'Adult', 'Youth']
 
-            <div className="flex space-x-4">
-                <Input
-                    placeholder="Search by name"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full"
-                />
+    return <div className="p-4 space-y-4">
+        <NavigatorSelector value={selectedNavigator} onChange={setSelectedNavigator} />
 
-                <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger>Status</SelectTrigger>
-                    <SelectContent>
-                        {['All', 'Active', 'In Progress', 'Graduated', 'Inactive'].map(status => (
-                            <SelectItem key={status} value={status}>{status}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+        <div className="flex space-x-4">
+            <Input
+                placeholder="Search by name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full"
+            />
 
-                <Select value={groupFilter} onValueChange={setGroupFilter}>
-                    <SelectTrigger>Group</SelectTrigger>
-                    <SelectContent>
-                        {['All', 'Adult', 'Youth'].map(group => (
-                            <SelectItem key={group} value={group}>{group}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger>Status</SelectTrigger>
+                <SelectContent>
+                    {
+                        CLIENT_STATUSES ? CLIENT_STATUSES.map((status) => <SelectItem key={status}
+                                                                                      value={status}>{status}</SelectItem>) : undefined
+                    }
+                </SelectContent>
+            </Select>
 
-            {loading ? (
-                <div>Loading clients...</div>
-            ) : (
-                <ClientTable clients={filteredClients} searchTerm={searchTerm} statusFilter={statusFilter} groupFilter={groupFilter} />
-            )}
+            <Select value={groupFilter} onValueChange={setGroupFilter}>
+                <SelectTrigger>Group</SelectTrigger>
+                <SelectContent>
+                    {
+                      CLIENT_AGE_GROUPS ? CLIENT_AGE_GROUPS.map((group) => <SelectItem key={group} value={group}>{group}</SelectItem>) : undefined
+                    })
+                </SelectContent>
+            </Select>
         </div>
-    );
+
+        {loading ? <div>Loading clients...</div> : <ClientTable clients={filteredClients} searchTerm={searchTerm} statusFilter={statusFilter} groupFilter={groupFilter} />}
+    </div>;
 };
 
 export default FilteredClients;

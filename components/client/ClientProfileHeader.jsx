@@ -1,8 +1,8 @@
 import React from 'react';
 import { XSquare } from 'phosphor-react';
 import {useClients} from "/contexts/ClientsContext";
-import { useEditing } from '../contexts/EditingContext';
-import { useNavigators } from '../contexts/NavigatorsContext';
+import { useEditing } from '../../contexts/EditingContext';
+import { useNavigators } from '../../contexts/NavigatorsContext';
 import ClientProfilePin from './ClientProfilePin';
 
 

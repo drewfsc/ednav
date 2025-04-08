@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from 'react';
-import { useClients } from '../contexts/ClientsContext';
+import { useClients } from '../../contexts/ClientsContext';
 import { PinIcon } from 'lucide-react';
-import { useNavigators } from '../contexts/NavigatorsContext';
+import { useNavigators } from '../../contexts/NavigatorsContext';
 
 function ClientProfilePin() {
   const {selectedClient} = useClients();

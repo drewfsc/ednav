@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
-import ClientDescription from "../components/ClientProfileDetails"
-import {useClients} from "../contexts/ClientsContext";
+import ClientDescription from "../client/ClientProfileDetails"
+import {useClients} from "../../contexts/ClientsContext";
 
 export default function DashboardContent({loading}) {
     const {selectedClient} = useClients();

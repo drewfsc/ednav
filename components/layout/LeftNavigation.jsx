@@ -2,8 +2,8 @@
 
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useFepsLeft } from '../contexts/FepsLeftContext';
-import { useEditing } from '../contexts/EditingContext';
+import { useFepsLeft } from '../../contexts/FepsLeftContext';
+import { useEditing } from '../../contexts/EditingContext';
 
 export default function LeftNavigation() {
 

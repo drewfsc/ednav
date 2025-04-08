@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import NoteFeed from '/components/NoteFeed';
-import ActivityModal from '/components/ActivityModal';
-import { useActivities } from '../contexts/ActivityContext';
+import ActivityModal from '/components/activity/ActivityModal';
+import { useActivities } from '@/contexts/ActivityContext';
 
 export default function ActivityTable({actions}) {
   const {selectedActivity, setSelectedActivity} = useActivities()

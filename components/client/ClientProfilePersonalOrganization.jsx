@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useClients } from '@/contexts/ClientsContext';
-// import moment from 'moment';
-import InputLabel from '@/components/InputLabel';
+import InputLabel from '@/components/client/InputLabel';
 
 function ClientProfilePersonalOrganization() {
   const {selectedClient} = useClients();

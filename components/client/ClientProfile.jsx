@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from "react"
 import ClientProfileDetails from "./ClientProfileDetails";
-import ClientProfileHeader from "/components/ClientProfileHeader";
+import ClientProfileHeader from "/components/client/ClientProfileHeader";
 
 export default function ClientProfile({client, setEditing}) {
     const [isMounted, setIsMounted] = useState(false);

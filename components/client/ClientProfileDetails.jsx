@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import ActivityTable from "/components/ActivityTable";
-import {useClients} from "/contexts/ClientsContext";
-import ClientProfilePersonalOrganization from '@/components/ClientProfilePersonalOrganization';
-import ClientProfileProgress from '@/components/ClientProfileProgress';
-import ClientProfileTABEOrientation from '@/components/ClientProfileTABEOrientation';
+import ActivityTable from "@/components/activity/ActivityTable";
+import {useClients} from "@/contexts/ClientsContext";
+import ClientProfilePersonalOrganization from '@/components/client/ClientProfilePersonalOrganization';
+import ClientProfileProgress from '@/components/client/ClientProfileProgress';
+import ClientProfileTABEOrientation from '@/components/client/ClientProfileTABEOrientation';
 
 export default function ClientProfileDetails() {
     const {selectedClient} = useClients();

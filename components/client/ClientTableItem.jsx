@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {useClients} from "/contexts/ClientsContext";
 import { PinIcon } from 'lucide-react';
-import { useNavigators } from '../contexts/NavigatorsContext';
-import { useEditing } from '../contexts/EditingContext';
-import { useActivities } from '../contexts/ActivityContext';
+import { useNavigators } from '../../contexts/NavigatorsContext';
+import { useEditing } from '../../contexts/EditingContext';
+import { useActivities } from '../../contexts/ActivityContext';
 import moment from 'moment/moment';
 
 export default function ClientTableItem({ person, i, statusCollapse}) {
@@ -89,7 +89,7 @@ export default function ClientTableItem({ person, i, statusCollapse}) {
             }}
             className={`${statusCollapse?.includes(person?.clientStatus) ? 'hidden' : 'visible'} border-b border-primary/30 hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border text-base-content ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ''} ${selectedClient?._id === person?._id ? 'bg-base-300 text-base-content' : ''}`}>
             <td className="text-xs truncate flex justify-between items-center w-[250px] 2xl:w-[320px]">
-                <span className={`ml-3 flex-1 flex-col`}>
+                <span className={`ml-4 flex-1 flex-col`}>
                     {person.first_name && person.last_name && <div className={`text-xs font-medium text-base-content/70`}>{person.first_name + " " + person.last_name}</div>}
                     {person.latestInteraction && <div className={`text-[11px] text-base-content/50`}>{moment(latestInteraction, "MM/DD/YYYY").format("MMM Do, YYYY")}</div>}
                 </span>

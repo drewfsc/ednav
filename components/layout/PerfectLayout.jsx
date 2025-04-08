@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import LeftNavEntire from '/components/LeftNavEntire';
-import ClientTable from '/components/ClientTable';
-import AddClientForm from './AddClientForm';
-import ClientProfile from './ClientProfile';
+import LeftNavEntire from '/components/layout/LeftNavEntire';
+import ClientTable from '/components/client/ClientTable';
+import AddClientForm from '../client/AddClientForm';
+import ClientProfile from '../client/ClientProfile';
 import { useEditing } from '/contexts/EditingContext';
 
 export default function PerfectLayout() {

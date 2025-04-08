@@ -14,6 +14,7 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
           ]
       })
     }
+
     const res = await fetch(`/api/trackable?clientId=${selectedClient._id}`, {
       headers: {
         'Content-Type': 'application/json'
