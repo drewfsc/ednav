@@ -193,46 +193,46 @@ function useSidebar() {
   return context;
 }
 
-interface SidebarProviderProps {
-  children: React.ReactNode;
-  defaultCollapsed?: {
-    mobile?: boolean;
-    desktop?: boolean;
-  };
-}
+// interface SidebarProviderProps {
+//   children: React.ReactNode;
+//   defaultCollapsed?: {
+//     mobile?: boolean;
+//     desktop?: boolean;
+//   };
+// }
 
-function SidebarProvider({ children, defaultCollapsed }: SidebarProviderProps) {
-  const [collapsed, setCollapsed] = React.useState({
-    mobile: defaultCollapsed?.mobile ?? true,
-    desktop: defaultCollapsed?.desktop ?? false,
-  });
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return (
-    <SidebarContext.Provider
-      value={{
-        collapsed,
-        setCollapsed,
-        isMobile,
-      }}
-    >
-      {children}
-    </SidebarContext.Provider>
-  );
-}
+// function SidebarProvider({ children, defaultCollapsed }: SidebarProviderProps) {
+//   const [collapsed, setCollapsed] = React.useState({
+//     mobile: defaultCollapsed?.mobile ?? true,
+//     desktop: defaultCollapsed?.desktop ?? false,
+//   });
+//   const [isMobile, setIsMobile] = React.useState(false);
+//
+//   React.useEffect(() => {
+//     const handleResize = () => {
+//       setIsMobile(window.innerWidth < 768);
+//     };
+//
+//     handleResize();
+//     window.addEventListener("resize", handleResize);
+//
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+//
+//   return (
+//     <SidebarContext.Provider
+//       value={{
+//         collapsed,
+//         setCollapsed,
+//         isMobile,
+//       }}
+//     >
+//       {children}
+//     </SidebarContext.Provider>
+//   );
+// }
 
 const sidebarVariants = cva(
   "relative flex h-full flex-col overflow-hidden data-[collapsible=both]:transition-[max-width] data-[collapsible=desktop]:transition-[max-width] data-[collapsible=icon]:transition-[max-width] data-[collapsible=icon]:data-[collapsed=true]:w-[--sidebar-icon-width] data-[collapsible=mobile]:md:transition-[max-width] data-[collapsible=none]:transition-none",
@@ -530,6 +530,6 @@ export {
   SidebarRail,
   SidebarFooter,
   SidebarInset,
-  SidebarProvider,
+  // SidebarProvider,
   SidebarTrigger,
 };
