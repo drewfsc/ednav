@@ -24,14 +24,14 @@ export default function ClientProfile({ client, setEditing }) {
   if (!isMounted) return null;
 
   return (
-    <div className=" h-screen overflow-y-scroll no-scrollbar relative w-full">
+    <div className="no-scrollbar relative h-screen w-full overflow-y-scroll">
       <ClientProfileHeader setEditing={setEditing} client={client} />
       <div className="">
         <div className=" ">
           <div className={`items-center gap-4`}>
             <div className={`flex gap-10 pt-16 pr-6`}>
               <div
-                className={`w-full mr-6 ${tabState === "Profile" ? "" : "hidden"}`}
+                className={`mr-6 w-full ${tabState === "Profile" ? "" : "hidden"}`}
               >
                 <ClientProfileDetails />
               </div>

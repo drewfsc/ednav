@@ -140,11 +140,11 @@ export default function ClientTable() {
   if (!isMounted) return null;
 
   return (
-    <div className={`relative flex flex-col h-full w-full`}>
-      <div className="fixed flex-col top-0 bg-secondary/60 backdrop-blur-sm text-base-content flex justify-between items-center  w-full text-sm shadow-lg">
+    <div className={`relative flex h-full w-full flex-col`}>
+      <div className="bg-secondary/60 text-base-content fixed top-0 flex w-full flex-col items-center justify-between text-sm shadow-lg backdrop-blur-sm">
         <SearchField />
-        <div className="flex justify-around items-center w-full divide-x divide-base-content/30 px-3">
-          <div className="filter my-1/5 w-1/2 flex justify-start">
+        <div className="divide-base-content/30 flex w-full items-center justify-around divide-x px-3">
+          <div className="my-1/5 flex w-1/2 justify-start filter">
             <input
               onClick={() => {
                 setSortMode(null);
@@ -169,7 +169,7 @@ export default function ClientTable() {
               aria-label="Recent"
             />
           </div>
-          <div className="filter my-1.5 w-1/2 flex justify-end">
+          <div className="my-1.5 flex w-1/2 justify-end filter">
             <input
               onClick={() => {
                 setViewMode(null);
@@ -197,19 +197,19 @@ export default function ClientTable() {
           </div>
         </div>
       </div>
-      <div className="mt-0 overflow-y-scroll no-scrollbar">
+      <div className="no-scrollbar mt-0 overflow-y-scroll">
         <div className="h-auto">
-          <div className="w-full h-full">
+          <div className="h-full w-full">
             <div className={``}>
-              <table className="w-[250px] 2xl:w-[320px] mt-[98px] table-none">
+              <table className="table-none mt-[98px] w-[250px] 2xl:w-[320px]">
                 <tbody className="">
                   {viewMode === "grouped" ? (
                     Object.entries(clientsToShow).map(
                       ([status, clients], idx) => (
                         <React.Fragment key={status}>
                           <tr className={`${getBGColor(status)} `}>
-                            <td className="py-2 text-sm flex justify-between items-center cursor-pointer w-[250px] 2xl:w-[320px]">
-                              <span className={`w-5/7 text-left pl-3`}>
+                            <td className="flex w-[250px] cursor-pointer items-center justify-between py-2 text-sm 2xl:w-[320px]">
+                              <span className={`w-5/7 pl-3 text-left`}>
                                 {status}
                               </span>
                               <span
@@ -255,7 +255,7 @@ export default function ClientTable() {
                     <tr>
                       <td
                         colSpan="5"
-                        className="text-center py-4 text-sm text-gray-500"
+                        className="py-4 text-center text-sm text-gray-500"
                       >
                         No clients found.
                       </td>

@@ -71,7 +71,7 @@ const FilteredClients = () => {
   const CLIENT_AGE_GROUPS = ["All", "Adult", "Youth"];
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4 p-4">
       <NavigatorSelector
         value={selectedNavigator}
         onChange={setSelectedNavigator}

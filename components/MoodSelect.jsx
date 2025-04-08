@@ -45,7 +45,7 @@ export default function MoodSelect({ mood, setNote }) {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton
-          className={` justify-center  rounded-full block w-[43px] h-[43px] ${getIconBGColor(mood)} text-center pl-3 pr-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50`}
+          className={`block h-[43px] w-[43px] justify-center rounded-full ${getIconBGColor(mood)} py-2 pr-4 pl-3 text-center text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset hover:bg-gray-50`}
         >
           {/*<ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />*/}
           <div className={`mr-2`}>{getIconColor(mood)}</div>
@@ -53,7 +53,7 @@ export default function MoodSelect({ mood, setNote }) {
       </div>
       <MenuItems
         transition
-        className="absolute right-0 z-10 mt-2 w-12 px-2 origin-top-right divide-y divide-gray-100 rounded-full bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+        className="absolute right-0 z-10 mt-2 w-12 origin-top-right divide-y divide-gray-100 rounded-full bg-white px-2 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[enter]:ease-out data-[leave]:duration-75 data-[leave]:ease-in"
       >
         {Object.keys(icons).map((icon) => (
           <div key={icon.toString()} className="py-1">
@@ -68,7 +68,7 @@ export default function MoodSelect({ mood, setNote }) {
                       };
                     });
                   }}
-                  className={`flex items-center justify-center p-1 text-sm ${getIconBGColor(icon.toString())} rounded-full cursor-pointer hover:bg-gray-100`}
+                  className={`flex items-center justify-center p-1 text-sm ${getIconBGColor(icon.toString())} cursor-pointer rounded-full hover:bg-gray-100`}
                 >
                   {getIconColor(icon)}
                 </div>

@@ -90,17 +90,17 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
           setEditing("client");
         }
       }}
-      className={`${statusCollapse?.includes(person?.clientStatus) ? "hidden" : "visible"} hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border text-base-content ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ""} ${selectedClient?._id === person?._id ? "bg-base-300 text-base-content" : ""}`}
+      className={`${statusCollapse?.includes(person?.clientStatus) ? "hidden" : "visible"} hover:bg-base-200 hover:text-base-content hover:border-base-200 text-base-content box-border cursor-pointer ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ""} ${selectedClient?._id === person?._id ? "bg-base-300 text-base-content" : ""}`}
     >
-      <td className="text-xs truncate flex justify-between items-center w-[250px] 2xl:w-[320px]">
+      <td className="flex w-[250px] items-center justify-between truncate text-xs 2xl:w-[320px]">
         <span className={`ml-4 flex-1 flex-col`}>
           {person.first_name && person.last_name && (
-            <div className={`text-xs font-medium text-base-content/70`}>
+            <div className={`text-base-content/70 text-xs font-medium`}>
               {person.first_name + " " + person.last_name}
             </div>
           )}
           {person.latestInteraction && (
-            <div className={`text-[11px] text-base-content/50`}>
+            <div className={`text-base-content/50 text-[11px]`}>
               {moment(latestInteraction, "MM/DD/YYYY").format("MMM Do, YYYY")}
             </div>
           )}
@@ -113,7 +113,7 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
         </span>
         <span className={`mr-1`}>
           <div
-            className={`w-[15px] m-3 2xl:w-fit text-xs ${getBadgeColor(person?.clientStatus)}`}
+            className={`m-3 w-[15px] text-xs 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}
           >
             {(screenWidth < 1536 ? statusAbbr1 : "") +
               (screenWidth >= 1536 ? personStatus : "")}

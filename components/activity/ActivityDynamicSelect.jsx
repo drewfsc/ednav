@@ -213,14 +213,14 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const showDatePicker = selectedPath.length === 1; // Show DatePicker only at the beginning
 
   return (
-    <div className="px-0 py-4 max-w-60 mx-auto overflow-y-visible">
+    <div className="mx-auto max-w-60 overflow-y-visible px-0 py-4">
       {showDatePicker && (
         <label className="flex flex-col space-y-2 text-sm font-light">
           Date of activity:
           <input
             type="date"
             name="date"
-            className="w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3"
+            className="border-base-content text-base-content placeholder:text-base-content mt-2 w-full rounded border px-3 py-1"
             value={selectedDate.toISOString().split("T")[0]}
             onChange={(e) => setSelectedDate(new Date(e.target.value))}
           />
@@ -228,7 +228,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
       )}
 
       {currentOptions.length > 0 && (
-        <label className="flex flex-col space-y-2 text-sm font-light mt-6 capitalize">
+        <label className="mt-6 flex flex-col space-y-2 text-sm font-light capitalize">
           {currentOptions.includes("Whitnall High School") ? (
             <Combobox
               placeholder="Select a school"
@@ -242,7 +242,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
           ) : (
             <select
               name={currentOptions[0]}
-              className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}
+              className={`border-base-content text-base-content placeholder:text-base-content mt-2 w-full rounded border px-3 py-1`}
               value={selectedValue}
               onChange={(e) => handleSelectChange(e.target.value)}
             >
@@ -256,7 +256,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
           )}
 
           <button
-            className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
+            className="mt-4 rounded-lg bg-blue-500 p-2 text-white"
             onClick={handleAdvance}
             disabled={!selectedValue}
           >
@@ -267,14 +267,14 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
 
       {multiSelectOptions && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2">
+          <h3 className="mb-2 text-lg font-semibold">
             Select Multiple Options
           </h3>
           <div className="grid grid-cols-1 gap-2">
             {multiSelectOptions.map((option, index) => (
               <label
                 key={`${option}-${index}`}
-                className="flex items-center space-x-2 cursor-pointer"
+                className="flex cursor-pointer items-center space-x-2"
               >
                 <input
                   type="checkbox"
@@ -287,7 +287,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
             ))}
           </div>
           <button
-            className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
+            className="mt-4 rounded-lg bg-blue-500 p-2 text-white"
             onClick={handleMultiSelectAdvance}
             disabled={multiSelectValues.length === 0}
           >

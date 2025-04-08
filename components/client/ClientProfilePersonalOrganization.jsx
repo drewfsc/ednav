@@ -76,27 +76,27 @@ function ClientProfilePersonalOrganization() {
   }
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 w-full gap-6 mt-6">
+    <div className="mt-6 grid w-full grid-cols-1 gap-6 xl:grid-cols-2">
       {/*PERSONAL*/}
       <div
-        className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}
+        className={`border-base-300/30 bg-base-200/40 rounded-lg border-1 p-6 shadow-xl`}
       >
-        <div className="font-semibold mb-4 w-full">
+        <div className="mb-4 w-full font-semibold">
           Personal
           <span
             onClick={handleEditingPersonal}
-            className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
+            className={`text-secondary/70 hover:text-secondary ml-2 cursor-pointer text-xs font-normal underline`}
           >
             {editingPersonal ? "Save" : "Edit"}
           </span>
         </div>
-        <div className="text-sm w-full">
-          <dl className="divide-y divide-base-content/10 w-full">
+        <div className="w-full text-sm">
+          <dl className="divide-base-content/10 w-full divide-y">
             {selectedClient &&
               personalFields.map((f) => (
                 <div
                   key={f}
-                  className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6"
+                  className="text-base-content grid grid-cols-2 gap-4 py-2 text-sm/6"
                 >
                   <dt className="font-light capitalize">{f}</dt>
                   <dd
@@ -121,24 +121,24 @@ function ClientProfilePersonalOrganization() {
 
       {/*ORGANIZATION*/}
       <div
-        className={` border-1 border-base-300/30 bg-base-200/40 shadow-xl p-6 rounded-lg`}
+        className={`border-base-300/30 bg-base-200/40 rounded-lg border-1 p-6 shadow-xl`}
       >
-        <div className="font-semibold mt-0 mb-4">
+        <div className="mt-0 mb-4 font-semibold">
           Organization
           <span
             onClick={handleEditingOrganization}
-            className={`text-secondary/70 text-xs hover:text-secondary cursor-pointer underline font-normal ml-2`}
+            className={`text-secondary/70 hover:text-secondary ml-2 cursor-pointer text-xs font-normal underline`}
           >
             {editingOrganization ? "Save" : "Edit"}
           </span>
         </div>
-        <div className="text-sm w-full">
-          <dl className="divide-y divide-base-content/20">
+        <div className="w-full text-sm">
+          <dl className="divide-base-content/20 divide-y">
             {selectedClient &&
               organizationFields.map((f) => (
                 <div
                   key={f}
-                  className="py-2 grid grid-cols-2 gap-4 text-base-content text-sm/6"
+                  className="text-base-content grid grid-cols-2 gap-4 py-2 text-sm/6"
                 >
                   <dt className="font-light capitalize">{f}</dt>
                   <dd

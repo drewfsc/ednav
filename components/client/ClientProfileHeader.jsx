@@ -27,15 +27,15 @@ export default function ClientProfileHeader() {
 
   return (
     <div
-      className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-200 text-base-content w-full transition-all duration-500`}
+      className={`bg-base-200 text-base-content absolute right-0 left-0 flex h-16 w-full items-center justify-between px-6 font-extralight shadow-lg transition-all duration-500`}
     >
       <div
-        className={` flex justify-between gap-4 items-center divide-x divide-accent-content/30`}
+        className={`divide-accent-content/30 flex items-center justify-between gap-4 divide-x`}
       >
         {selectedNavigator && selectedNavigator.name !== "All" ? (
           <ClientProfilePin />
         ) : null}
-        <div className={`font-bold pr-4`}>
+        <div className={`pr-4 font-bold`}>
           {selectedClient && !selectedClient?.name
             ? selectedClient?.first_name + " " + selectedClient?.last_name
             : selectedClient?.name}

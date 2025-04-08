@@ -40,16 +40,16 @@ export default function MetricsHome() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="text-center">
-            <h2 className="text-balance text-8xl font-light uppercase">
-              <span className={`italic font-bold`}>
-                <span className={`text-info z-10 relative drop-shadow-lg`}>
+            <h2 className="text-8xl font-light text-balance uppercase">
+              <span className={`font-bold italic`}>
+                <span className={`text-info relative z-10 drop-shadow-lg`}>
                   ED
                 </span>
-                <span className={`text-warning -ml-4 mr-0 z-0 relative`}>
+                <span className={`text-warning relative z-0 mr-0 -ml-4`}>
                   NAV
                 </span>
               </span>{" "}
-              <span className={`text-4xl font-light uppercase block`}>
+              <span className={`block text-4xl font-light uppercase`}>
                 Success Tracker
               </span>
             </h2>

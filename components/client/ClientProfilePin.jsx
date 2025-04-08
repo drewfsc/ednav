@@ -45,9 +45,9 @@ function ClientProfilePin() {
 
   return (
     <div>
-      <button className={` p-2 pr-4`} onClick={handlePinClick}>
+      <button className={`p-2 pr-4`} onClick={handlePinClick}>
         <PinIcon
-          className={` hover:text-base-content/80 ${selectedNavigator && selectedNavigator.pinned?.length > 0 && selectedNavigator.pinned?.includes(selectedClient?._id) ? "text-base-content" : "text-base-content/20"}`}
+          className={`hover:text-base-content/80 ${selectedNavigator && selectedNavigator.pinned?.length > 0 && selectedNavigator.pinned?.includes(selectedClient?._id) ? "text-base-content" : "text-base-content/20"}`}
         />
       </button>
     </div>

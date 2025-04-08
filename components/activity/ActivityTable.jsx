@@ -18,10 +18,10 @@ export default function ActivityTable({ actions }) {
 
   return (
     <div
-      className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}
+      className={`border-base-300/60 bg-base-200/50 mt-6 w-full flex-col gap-6 rounded-lg border-1 p-6 shadow-xl`}
     >
       <ActivityModal open={open} setOpen={setOpen} />
-      <div className={`flex justify-between items-center gap-4 mb-10`}>
+      <div className={`mb-10 flex items-center justify-between gap-4`}>
         <div className={`text-2xl`}>Activity Log </div>
         <button
           className={`btn btn-sm btn-primary`}
@@ -34,7 +34,7 @@ export default function ActivityTable({ actions }) {
       </div>
 
       <div className={`w-full transition-all duration-500`}>
-        <ul className="font-normal ">
+        <ul className="font-normal">
           {actions.data &&
             actions?.data
               .sort(
@@ -42,10 +42,10 @@ export default function ActivityTable({ actions }) {
               )
               .map((action, i) => (
                 <li key={i} className={`mt-10 mb-10`}>
-                  <div className="text-xs font-light text-base-content/70 mb-1">
+                  <div className="text-base-content/70 mb-1 text-xs font-light">
                     {moment(action.selectedDate).calendar()}
                   </div>
-                  <div className="text-sm mb-4 capitalize">
+                  <div className="mb-4 text-sm capitalize">
                     {action.statement || "Activity could not be found, sorry."}
                   </div>
                   <NoteFeed actionId={action?._id} />

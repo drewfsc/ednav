@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 function SearchField() {
   const { selectedFepLeft, setSelectedFepLeft } = useFepsLeft();
   return (
-    <div className={`flex items-center justify-center relative z-0`}>
+    <div className={`relative z-0 flex items-center justify-center`}>
       <div
         onClick={() => {
           setSelectedFepLeft((prevState) => {
@@ -15,9 +15,9 @@ function SearchField() {
             };
           });
         }}
-        className={`fixed right-0 h-fit w-fit mr-3 rounded-full border-secondary-content z-20 flex justify-between items-center border cursor-pointer ${selectedFepLeft.searchTerm ? "visible" : "invisible"}`}
+        className={`border-secondary-content fixed right-0 z-20 mr-3 flex h-fit w-fit cursor-pointer items-center justify-between rounded-full border ${selectedFepLeft.searchTerm ? "visible" : "invisible"}`}
       >
-        <X className={`text-secondary-content w-6 h-6 font-light`} />
+        <X className={`text-secondary-content h-6 w-6 font-light`} />
       </div>
       <input
         name={`client-search`}
@@ -32,7 +32,7 @@ function SearchField() {
         }}
         value={selectedFepLeft.searchTerm}
         placeholder="Search by name..."
-        className="input w-[250px] 2xl:w-[320px] rounded-none py-[31px] focus:border-0 outline-none ring-0 focus:ring-0 border-0 bg-secondary shadow-none text-secondary-content"
+        className="input bg-secondary text-secondary-content w-[250px] rounded-none border-0 py-[31px] shadow-none ring-0 outline-none focus:border-0 focus:ring-0 2xl:w-[320px]"
       />
     </div>
   );

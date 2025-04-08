@@ -81,7 +81,7 @@ export default function NoteFeed({ actionId }) {
   }, [selectedClient?._id, actionId, getNotes]);
 
   return (
-    <div className={`w-full `}>
+    <div className={`w-full`}>
       {/*NOTES*/}
       <ul role="list" className="">
         <div className={`flex-1`}>
@@ -94,25 +94,25 @@ export default function NoteFeed({ actionId }) {
                     {eventIdx !== notes.length - 1 ? (
                       <span
                         aria-hidden="true"
-                        className={`absolute left-5 top-4 -ml-px h-full w-0.5 bg-base-300 `}
+                        className={`bg-base-300 absolute top-4 left-5 -ml-px h-full w-0.5`}
                       />
                     ) : null}
-                    <div className="relative flex space-x-3 max-w-2/3">
+                    <div className="relative flex max-w-2/3 space-x-3">
                       <div className={``}>
                         <span
                           className={classNames(
                             getIconBGColor(event.mood),
-                            "flex ml-1 mt-1 size-8 items-center justify-center rounded-full ring-2 ring-base-300",
+                            "ring-base-300 mt-1 ml-1 flex size-8 items-center justify-center rounded-full ring-2",
                           )}
                         >
                           {getIconColor(event.mood)}
                         </span>
                       </div>
-                      <div className="flex flex-1 justify-between space-x-4 ml-2 pt-1.5 ">
-                        <div className={` w-2/3`}>
-                          <div className="flex flex-col justify-start text-left text-xs text-base-content/50">
+                      <div className="ml-2 flex flex-1 justify-between space-x-4 pt-1.5">
+                        <div className={`w-2/3`}>
+                          <div className="text-base-content/50 flex flex-col justify-start text-left text-xs">
                             <div
-                              className={`block text-base-content font-medium`}
+                              className={`text-base-content block font-medium`}
                             >
                               {event.noteAuthor}
                             </div>
@@ -126,7 +126,7 @@ export default function NoteFeed({ actionId }) {
                               </time>
                             </div>
                           </div>
-                          <p className="text-sm text-base-content/70 my-1 capitalize">
+                          <p className="text-base-content/70 my-1 text-sm capitalize">
                             {event.noteContent}{" "}
                           </p>
                         </div>
@@ -139,11 +139,11 @@ export default function NoteFeed({ actionId }) {
         {/*NOTE FORM*/}
       </ul>
       <div
-        className={`flex flex-col justify-start items-start gap-3 ml-0 w-2/3 `}
+        className={`ml-0 flex w-2/3 flex-col items-start justify-start gap-3`}
       >
         <textarea
           name={`client-activity-note`}
-          className={`textarea textarea-accent min-h-20 border-base-300 relative z-0 text-sm w-2/3  ${openNote === actionId ? "visible" : "hidden"}`}
+          className={`textarea textarea-accent border-base-300 relative z-0 min-h-20 w-2/3 text-sm ${openNote === actionId ? "visible" : "hidden"}`}
           placeholder={`Enter your notes here...`}
           onChange={(e) => {
             setNote({
@@ -157,7 +157,7 @@ export default function NoteFeed({ actionId }) {
           }}
           value={note.noteContent}
         />
-        <div className={`flex justify-start items-center w-2/3 mt-0`}>
+        <div className={`mt-0 flex w-2/3 items-center justify-start`}>
           <button
             disabled={note.noteContent === ""}
             className={`btn btn-xs btn-success disabled:btn-ghost mr-4 ${openNote === actionId ? "visible" : "hidden"}`}

@@ -33,7 +33,7 @@ export default function LeftNavigation() {
 
   return (
     <div>
-      <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+      <ul className="menu menu-vertical bg-base-100 mb-4 w-full rounded">
         {navStatus.map((item, i) => (
           <li className={`mb-1`} key={i}>
             <a
@@ -52,7 +52,7 @@ export default function LeftNavigation() {
           </li>
         ))}
       </ul>
-      <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+      <ul className="menu menu-vertical bg-base-100 mb-4 w-full rounded">
         {navAgeGroup.map((item, i) => (
           <li className={`mb-1`} key={i}>
             <a
@@ -71,13 +71,13 @@ export default function LeftNavigation() {
           </li>
         ))}
       </ul>
-      <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+      <ul className="menu menu-vertical bg-base-100 mb-4 w-full rounded">
         <li>
           <a
             onClick={() => {
               setEditing("add-client");
             }}
-            className={`hover:bg-base-200 `}
+            className={`hover:bg-base-200`}
           >
             Add New Client +
           </a>

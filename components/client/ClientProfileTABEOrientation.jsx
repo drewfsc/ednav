@@ -38,16 +38,16 @@ function ClientProfileTabeOrientation() {
   }
 
   return (
-    <div className="w-full mt-6 text-sm">
+    <div className="mt-6 w-full text-sm">
       {selectedClient &&
         (selectedClient.tabe?.completionDate ||
           selectedClient.orientation?.completionDate ||
           selectedClient.transcripts === "yes") && (
           <div
-            className={`grid grid-cols-3 xl:grid-cols-3 w-full border-1 border-base-300/30 bg-base-200/40 shadow-xl rounded-lg py-4 px-4 ${hasValidKey(selectedClient, "tabe") || hasValidKey(selectedClient, "orientation") ? "visible" : "hidden"}`}
+            className={`border-base-300/30 bg-base-200/40 grid w-full grid-cols-3 rounded-lg border-1 px-4 py-4 shadow-xl xl:grid-cols-3 ${hasValidKey(selectedClient, "tabe") || hasValidKey(selectedClient, "orientation") ? "visible" : "hidden"}`}
           >
             {hasValidKey(selectedClient, "tabe") ? (
-              <div className={`px-4 border-r-1 border-base-content/10`}>
+              <div className={`border-base-content/10 border-r-1 px-4`}>
                 <div className={`grid grid-cols-1 gap-2`}>
                   <div className="font-semibold">TABE</div>
                   <div>
@@ -58,7 +58,7 @@ function ClientProfileTabeOrientation() {
                   </div>
                   <div>
                     <div
-                      className={`text-xs font-light ${tabeOpen ? "invisible h-0 collapse overflow-hidden" : "visible"}`}
+                      className={`text-xs font-light ${tabeOpen ? "collapse invisible h-0 overflow-hidden" : "visible"}`}
                     >
                       Date Completed
                     </div>
@@ -72,12 +72,12 @@ function ClientProfileTabeOrientation() {
                       <div>
                         <div
                           onClick={() => setTabeOpen(!tabeOpen)}
-                          className={`text-secondary underline cursor-pointer ${tabeOpen ? "invisible h-0 collapse overflow-hidden" : "visible"}`}
+                          className={`text-secondary cursor-pointer underline ${tabeOpen ? "collapse invisible h-0 overflow-hidden" : "visible"}`}
                         >
                           Enter date
                         </div>
                         <div
-                          className={`flex gap-4 items-baseline ${tabeOpen ? "visible" : "invisible h-0 collapse overflow-hidden"}`}
+                          className={`flex items-baseline gap-4 ${tabeOpen ? "visible" : "collapse invisible h-0 overflow-hidden"}`}
                         >
                           <InputLabel
                             className={``}
@@ -89,7 +89,7 @@ function ClientProfileTabeOrientation() {
                           />
                           <button
                             onClick={handleTabeSave}
-                            className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${tabeOpen ? "visible" : "invisible"}`}
+                            className={`text-secondary/50 hover:text-secondary inline text-xs font-light underline ${tabeOpen ? "visible" : "invisible"}`}
                           >
                             Save
                           </button>
@@ -103,7 +103,7 @@ function ClientProfileTabeOrientation() {
               ""
             )}
             {hasValidKey(selectedClient, "orientation") ? (
-              <div className={`px-4 border-r-1 border-base-content/10`}>
+              <div className={`border-base-content/10 border-r-1 px-4`}>
                 <div className={`grid grid-cols-1 gap-2`}>
                   <div className="font-semibold">Orientation</div>
                   <div>
@@ -114,7 +114,7 @@ function ClientProfileTabeOrientation() {
                   </div>
                   <div>
                     <div
-                      className={`text-xs font-light ${tabeOpen ? "invisible h-0 collapse overflow-hidden" : "visible"}`}
+                      className={`text-xs font-light ${tabeOpen ? "collapse invisible h-0 overflow-hidden" : "visible"}`}
                     >
                       Date Completed
                     </div>
@@ -128,12 +128,12 @@ function ClientProfileTabeOrientation() {
                       <div>
                         <div
                           onClick={() => setOrientationOpen(!orientationOpen)}
-                          className={`text-secondary underline cursor-pointer ${orientationOpen ? "invisible h-0 collapse overflow-hidden" : "visible"}`}
+                          className={`text-secondary cursor-pointer underline ${orientationOpen ? "collapse invisible h-0 overflow-hidden" : "visible"}`}
                         >
                           Enter date
                         </div>
                         <div
-                          className={`flex gap-4 items-baseline ${orientationOpen ? "visible" : "invisible h-0 collapse overflow-hidden"}`}
+                          className={`flex items-baseline gap-4 ${orientationOpen ? "visible" : "collapse invisible h-0 overflow-hidden"}`}
                         >
                           <InputLabel
                             className={``}
@@ -145,7 +145,7 @@ function ClientProfileTabeOrientation() {
                           />
                           <button
                             onClick={handleTabeSave}
-                            className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${orientationOpen ? "visible" : "invisible"}`}
+                            className={`text-secondary/50 hover:text-secondary inline text-xs font-light underline ${orientationOpen ? "visible" : "invisible"}`}
                           >
                             Save
                           </button>
@@ -159,7 +159,7 @@ function ClientProfileTabeOrientation() {
               ""
             )}
             {hasValidKey(selectedClient, "tabe") ? (
-              <div className={`flex justify-center items-start px-6`}>
+              <div className={`flex items-start justify-center px-6`}>
                 <div className={`grid grid-cols-1 gap-2`}>
                   <div className="font-semibold">Transcripts</div>
                   <div>

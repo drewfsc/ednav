@@ -10,10 +10,10 @@ export default function InputLabel({
 }) {
   if (type === "textarea") {
     return (
-      <div className="relative ">
+      <div className="relative">
         <label
           htmlFor={name}
-          className="absolute z-10 -top-2 left-2 inline-block rounded-lg  px-1 text-xs font-medium text-base-content bg-base-300"
+          className="text-base-content bg-base-300 absolute -top-2 left-2 z-10 inline-block rounded-lg px-1 text-xs font-medium"
         >
           {label}
         </label>
@@ -23,7 +23,7 @@ export default function InputLabel({
           placeholder={label}
           value={value}
           onChange={handleChange}
-          className="input w-full border p-2 rounded-md relative z-0 min-h-32"
+          className="input relative z-0 min-h-32 w-full rounded-md border p-2"
         />
       </div>
     );
@@ -32,7 +32,7 @@ export default function InputLabel({
       <div className="relative">
         <label
           htmlFor={name}
-          className="absolute z-10 -top-2 left-2 inline-block rounded-lg px-1 text-xs font-medium text-base-content bg-base-300"
+          className="text-base-content bg-base-300 absolute -top-2 left-2 z-10 inline-block rounded-lg px-1 text-xs font-medium"
         >
           {label}
         </label>
@@ -42,7 +42,7 @@ export default function InputLabel({
           id={name}
           value={value}
           onChange={handleChange}
-          className="input w-full border p-2 rounded-md relative z-0"
+          className="input relative z-0 w-full rounded-md border p-2"
         >
           <option value="">{label}</option>
           {options &&
@@ -59,7 +59,7 @@ export default function InputLabel({
       <div className="relative">
         <label
           htmlFor={name}
-          className="absolute z-10 -top-2 left-2 inline-block rounded-lg  px-1 text-xs font-medium text-base-content bg-base-300"
+          className="text-base-content bg-base-300 absolute -top-2 left-2 z-10 inline-block rounded-lg px-1 text-xs font-medium"
         >
           {label}
         </label>
@@ -71,7 +71,7 @@ export default function InputLabel({
           placeholder={label}
           value={value}
           onChange={handleChange}
-          className="input w-full border p-2 rounded-md relative z-0"
+          className="input relative z-0 w-full rounded-md border p-2"
         />
       </div>
     );

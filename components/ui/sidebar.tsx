@@ -36,7 +36,7 @@ const SidebarGroupLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("px-2 py-1.5 text-sm font-semibold leading-none", className)}
+    className={cn("px-2 py-1.5 text-sm leading-none font-semibold", className)}
     {...props}
   />
 ));
@@ -144,7 +144,7 @@ const SidebarMenuAction = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      "absolute right-1.5 top-1.5 grid h-6 w-6 place-items-center rounded-md border border-base-300 bg-base-100 text-base-content opacity-0 transition-opacity group-hover/sidebar-menu-item:opacity-100",
+      "border-base-300 bg-base-100 text-base-content absolute top-1.5 right-1.5 grid h-6 w-6 place-items-center rounded-md border opacity-0 transition-opacity group-hover/sidebar-menu-item:opacity-100",
       showOnHover && "group-hover/sidebar-menu-item:opacity-100",
       className,
     )}
@@ -159,7 +159,7 @@ const SidebarSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("h-px w-full bg-base-300", className)}
+    className={cn("bg-base-300 h-px w-full", className)}
     {...props}
   />
 ));
@@ -352,7 +352,7 @@ const SidebarRail = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "absolute right-0 top-0 h-full w-[12px] translate-x-1/2 cursor-col-resize touch-none select-none bg-transparent opacity-0 transition-opacity group-hover/sidebar:opacity-100",
+        "absolute top-0 right-0 h-full w-[12px] translate-x-1/2 cursor-col-resize touch-none bg-transparent opacity-0 transition-opacity select-none group-hover/sidebar:opacity-100",
         className,
       )}
       onPointerDown={(e) => {
@@ -411,7 +411,7 @@ const SidebarTrigger = React.forwardRef<
     <button
       ref={ref}
       className={cn(
-        "h-8 w-8 rounded-md border bg-muted p-1 text-muted-foreground",
+        "bg-muted text-muted-foreground h-8 w-8 rounded-md border p-1",
         className,
       )}
       onClick={() => {
@@ -467,7 +467,7 @@ const SidebarMenuBadge = React.forwardRef<
   <span
     ref={ref}
     className={cn(
-      "ml-auto inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+      "focus:ring-ring ml-auto inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none",
       className,
     )}
     {...props}
@@ -502,7 +502,7 @@ const SidebarMenuSubButton = React.forwardRef<
   <button
     ref={ref}
     className={cn(
-      "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-base-200 data-[active=true]:bg-base-200",
+      "hover:bg-base-200 data-[active=true]:bg-base-200 flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors",
       className,
     )}
     {...props}

@@ -11,7 +11,7 @@ export default function VisualVolume({ themes, theme, setTheme }) {
         min={0}
         max={28}
         value={theme}
-        className="range "
+        className="range"
         step="1"
       />
       {/*<div className="flex justify-between px-2.5 mt-2 text-xs">*/}
@@ -21,7 +21,7 @@ export default function VisualVolume({ themes, theme, setTheme }) {
       {/*        ))*/}
       {/*    }*/}
       {/*</div>*/}
-      <div className="flex justify-between px-2.5 mt-2 text-xs w-full">
+      <div className="mt-2 flex w-full justify-between px-2.5 text-xs">
         {themes.map((t, i) => (
           <span key={i}>{t}</span>
         ))}

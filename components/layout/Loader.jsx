@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Loader = () => {
   return (
@@ -7,7 +7,7 @@ const Loader = () => {
       <div className="loader" />
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .loader {
@@ -51,6 +51,7 @@ const StyledWrapper = styled.div`
     //z-index: 1000;
     z-index: 1;
     filter: blur(30px);
-  }`;
+  }
+`;
 
 export default Loader;

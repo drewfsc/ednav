@@ -11,24 +11,24 @@ export default function LeftNavEntire({ setEditing }) {
   const session = useSession();
   return (
     <div
-      className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-2 gap-4 drop-shadow-lg z-50 no-scrollbar overflow-y-scroll relative`}
+      className={`bg-base-300 no-scrollbar relative z-50 flex h-full flex-col justify-between gap-4 overflow-y-scroll px-4 pt-2 pb-8 drop-shadow-lg`}
     >
       <div>
         <div className={`mb-4`}>
           <div className={`text-[57px] font-black italic antialiased`}>
             <a href={`/`}>
               <span
-                className={`text-secondary z-10 relative drop-shadow-lg shadow-black`}
+                className={`text-secondary relative z-10 shadow-black drop-shadow-lg`}
               >
                 ED
               </span>
-              <span className={`text-accent -ml-[12px] z-0 relative`}>NAV</span>
+              <span className={`text-accent relative z-0 -ml-[12px]`}>NAV</span>
             </a>
           </div>
           <div
-            className={`uppercase text-base-content font-light -mt-3 tracking-widest text-[18px]`}
+            className={`text-base-content -mt-3 text-[18px] font-light tracking-widest uppercase`}
           >
-            <p className={` leading-4 tracking-[2px]`}>SUCCESS TRACKER</p>
+            <p className={`leading-4 tracking-[2px]`}>SUCCESS TRACKER</p>
           </div>
         </div>
         {/*<SearchField/>*/}
@@ -40,10 +40,10 @@ export default function LeftNavEntire({ setEditing }) {
           <NavigatorSelector />
         ) : null}
         <ThemeSwitcher />
-        <div className={`flex flex-col mt-8 p-3 bg-base-200 rounded-lg`}>
+        <div className={`bg-base-200 mt-8 flex flex-col rounded-lg p-3`}>
           <div className={`text-sm`}>{session.data.user.name}</div>
           <div className={`text-xs`}>{session.data.user.email}</div>
-          <div className={`text-xs mb-4`}>{session.data.user["level"]}</div>
+          <div className={`mb-4 text-xs`}>{session.data.user["level"]}</div>
           {session.status === "authenticated" ? (
             <SignOutButton />
           ) : (

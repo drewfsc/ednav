@@ -36,7 +36,7 @@ export default function ComboboxField({ options, label, value, setValue }) {
       </Label>
       <div className="relative mt-2">
         <ComboboxInput
-          className="block w-full rounded-md bg-white py-1.5 pl-3 pr-12 text-base text-gray-900 outline-0 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-0 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          className="block w-full rounded-md bg-white py-1.5 pr-12 pl-3 text-base text-gray-900 outline-0 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-0 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           onChange={(event) => setQuery(event.target.value)}
           onBlur={() => setQuery("")}
           displayValue={value}
@@ -54,12 +54,12 @@ export default function ComboboxField({ options, label, value, setValue }) {
               <ComboboxOption
                 key={option}
                 value={option}
-                className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white data-[focus]:outline-none"
+                className="group relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none data-[focus]:bg-indigo-600 data-[focus]:text-white data-[focus]:outline-none"
               >
                 <span className="block truncate group-data-[selected]:font-semibold">
                   {option}
                 </span>
-                <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
+                <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[focus]:text-white group-data-[selected]:flex">
                   <CheckIcon className="size-5" aria-hidden="true" />
                 </span>
               </ComboboxOption>

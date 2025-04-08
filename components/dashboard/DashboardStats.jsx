@@ -5,47 +5,47 @@ export default function DashboardStats({ metrics, loading }) {
   return loading ? (
     <div>Loading...</div>
   ) : (
-    <dl className="mx-auto flex justify-center items-center w-full h-full divide-x divide-base-content">
-      <div className="flex flex-wrap flex-1/4 h-auto items-center text-center justify-center gap-x-0 gap-y-0 px-4 sm:px-6 xl:px-8  text-base-content">
-        <dd className=" w-full flex-none text-3xl text-center font-medium text-base-content">
+    <dl className="divide-base-content mx-auto flex h-full w-full items-center justify-center divide-x">
+      <div className="text-base-content flex h-auto flex-1/4 flex-wrap items-center justify-center gap-x-0 gap-y-0 px-4 text-center sm:px-6 xl:px-8">
+        <dd className="text-base-content w-full flex-none text-center text-3xl font-medium">
           {metrics.referrals[0].count}
         </dd>
-        <dt className="text-center w-full">Referred</dt>
-        <span className={`text-xs -mt-1`}>last month</span>
+        <dt className="w-full text-center">Referred</dt>
+        <span className={`-mt-1 text-xs`}>last month</span>
         <SignIn />
       </div>
 
-      <div className="flex flex-wrap flex-1/4 h-auto items-center text-center justify-center gap-x-0 gap-y-0 px-4 sm:px-6 xl:px-8  text-base-content">
-        <dd className=" w-full flex-none text-3xl text-center font-medium text-base-content">
+      <div className="text-base-content flex h-auto flex-1/4 flex-wrap items-center justify-center gap-x-0 gap-y-0 px-4 text-center sm:px-6 xl:px-8">
+        <dd className="text-base-content w-full flex-none text-center text-3xl font-medium">
           GitHub
         </dd>
-        <dt className="text-center w-full">Referred</dt>
-        <span className={`text-xs -mt-1`}>last month</span>
+        <dt className="w-full text-center">Referred</dt>
+        <span className={`-mt-1 text-xs`}>last month</span>
         <SignIn />
       </div>
 
-      <div className="flex flex-wrap flex-1/4 h-auto items-center text-center justify-center gap-x-0 gap-y-0 px-4 sm:px-6 xl:px-8  text-base-content">
-        <dd className=" w-full flex-none text-3xl text-center font-medium text-base-content">
+      <div className="text-base-content flex h-auto flex-1/4 flex-wrap items-center justify-center gap-x-0 gap-y-0 px-4 text-center sm:px-6 xl:px-8">
+        <dd className="text-base-content w-full flex-none text-center text-3xl font-medium">
           {metrics.graduations[0].count}
         </dd>
-        <dt className="text-center w-full">Graduations</dt>
-        <span className={`text-xs -mt-1`}>last month</span>
+        <dt className="w-full text-center">Graduations</dt>
+        <span className={`-mt-1 text-xs`}>last month</span>
       </div>
 
-      <div className="flex flex-wrap flex-1/4 h-auto items-center text-center justify-center gap-x-0 gap-y-0 px-4 sm:px-6 xl:px-8  text-base-content">
-        <dd className=" w-full flex-none text-3xl text-center font-medium text-base-content">
+      <div className="text-base-content flex h-auto flex-1/4 flex-wrap items-center justify-center gap-x-0 gap-y-0 px-4 text-center sm:px-6 xl:px-8">
+        <dd className="text-base-content w-full flex-none text-center text-3xl font-medium">
           {metrics.enrollments[0].count}
         </dd>
-        <dt className="text-center w-full">Enrollments</dt>
-        <span className={`text-xs -mt-1`}>last month</span>
+        <dt className="w-full text-center">Enrollments</dt>
+        <span className={`-mt-1 text-xs`}>last month</span>
       </div>
 
-      <div className="flex flex-wrap flex-1/4 h-auto items-center text-center justify-center gap-x-0 gap-y-0 px-4 sm:px-6 xl:px-8  text-base-content invisible md:visible">
-        <dd className=" w-full flex-none text-3xl text-center font-medium">
+      <div className="text-base-content invisible flex h-auto flex-1/4 flex-wrap items-center justify-center gap-x-0 gap-y-0 px-4 text-center sm:px-6 md:visible xl:px-8">
+        <dd className="w-full flex-none text-center text-3xl font-medium">
           {metrics.clients}
         </dd>
-        <dt className=" text-center w-full">Total</dt>
-        <span className={`text-xs -mt-1`}>clients</span>
+        <dt className="w-full text-center">Total</dt>
+        <span className={`-mt-1 text-xs`}>clients</span>
       </div>
     </dl>
   );

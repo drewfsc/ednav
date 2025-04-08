@@ -327,9 +327,9 @@ function AddClientForm() {
   }, [formData]);
 
   return (
-    <div className={`overflow-y-scroll h-screen`}>
-      <div className="p-8 space-y-6 relative">
-        <div className="flex justify-between items-center text-2xl mb-8 font-light">
+    <div className={`h-screen overflow-y-scroll`}>
+      <div className="relative space-y-6 p-8">
+        <div className="mb-8 flex items-center justify-between text-2xl font-light">
           Add a Client
         </div>
         <div
@@ -362,7 +362,7 @@ function AddClientForm() {
           {/*/!* Submit Button with Loading Spinner *!/*/}
           <button
             type="submit"
-            className="bg-green-500 text-white p-2 rounded-md mt-6 px-6"
+            className="mt-6 rounded-md bg-green-500 p-2 px-6 text-white"
           >
             &quot;Submit&quot;
           </button>
