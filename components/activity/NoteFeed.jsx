@@ -1,8 +1,8 @@
 import { ThumbsUp, SmileySad, Fire, Question, User } from "phosphor-react";
 import moment from "moment";
-import { useClients } from "../contexts/ClientsContext";
+import { useClients } from "../../contexts/ClientsContext";
 import { useEffect, useState } from "react";
-import { useNavigators } from "../contexts/NavigatorsContext";
+import { useNavigators } from "../../contexts/NavigatorsContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

@@ -5,12 +5,13 @@ import ClientTable from "/components/client/ClientTable";
 import AddClientForm from "../client/AddClientForm";
 import ClientProfile from "../client/ClientProfile";
 import { useEditing } from "/contexts/EditingContext";
+import HomeGrid from "@/components/dashboard/HomeGrid";
 
 export default function PerfectLayout() {
   const { editing } = useEditing();
 
   return (
-    <div className={`w-full h-screen overflow-hidden relative`}>
+    <div className={`w-full h-screen overflow-hidden relative bg-base-100`}>
       {/*<div className={`py-3 bg-info text-info-content text-center font-light text-sm`}>You are currently in the Development environment. Did you intend to visit <a className={`font-medium underline`} href={`https://staging.ednav.fsc-corp.org`}>Staging</a> or <a className={`font-medium underline`} href={`https://ednav.fsc-corp.org`}>Production</a>?</div>*/}
       <div className={`w-full flex flex-row h-screen`}>
         {/*NAV AND CLIENT TABLE*/}
@@ -27,8 +28,9 @@ export default function PerfectLayout() {
 
         {/*CLIENT PROFILE AND ADD NEW CLIENT FORM*/}
         <div
-          className={`flex h-screen flex-grow bg-base-100 overflow-hidden border-1 border-base-300/60`}
+          className={`flex h-screen flex-grow bg-base-300 overflow-hidden border-1 border-base-300/60 relative overflow-y-scroll no-scrollbar`}
         >
+          <HomeGrid/>
           <div
             className={`relative ${editing === "client" ? "w-full translate-x-0" : "-translate-x-[4000px] collapse w-0"}`}
           >

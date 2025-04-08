@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import NoteFeed from "/components/NoteFeed";
+import NoteFeed from "/components/activity/NoteFeed";
 import ActivityModal from "/components/activity/ActivityModal";
 import { useActivities } from "@/contexts/ActivityContext";
 

@@ -4,10 +4,10 @@ import Credentials from "next-auth/providers/credentials";
 import { connectToDatabase } from "@/lib/mongodb";
 import client from "@/lib/db";
 
-async function fetchAdditionalData(email: string) {
-  const { db } = await connectToDatabase();
-  return await db.collection("users").findOne({ email });
-}
+// async function fetchAdditionalData(email: string) {
+//   const { db } = await connectToDatabase();
+//   return await db.collection("users").findOne({ email });
+// }
 
 const authOptions = {
   adapter: MongoDBAdapter(client),
@@ -43,11 +43,11 @@ const authOptions = {
     updateAge: 24 * 60 * 60,
   },
   callbacks: {
-    "session": async ({ session }: { session: any; user: any }) => {
-      const additionalData = await fetchAdditionalData(session.user.email);
-      session.user = { ...session.user, ...additionalData };
-      return session;
-    },
+    // async session({ session }: { session: any }) {
+    //   const additionalData = await fetchAdditionalData(session.user.email);
+    //   (session as any).user = { ...(session as any).user, ...additionalData };
+    //   return session;
+    // },
   },
 };
 NextAuth(authOptions);

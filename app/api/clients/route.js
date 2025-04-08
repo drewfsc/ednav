@@ -16,7 +16,6 @@ export async function GET(request) {
     } else if (grouped === "true") {
       clients = await collection
         .aggregate([
-          // { $match: { navigator: nav } },
           {
             $group: {
               _id: "$clientStatus",
@@ -42,17 +41,17 @@ export async function GET(request) {
 // POST to add a new client
 export async function POST(request) {
   try {
-    const body = await request.json(); // Correctly parse request body
+    const body = await request.json();
     const collection = await getCollection("clients");
 
     // If _id exists, it's an update operation
     if (body._id) {
-      const id = body._id;
+      // const id = body._id;
       body.name = body.first_name + " " + body.last_name;
       const { _id, ...updateData } = body;
 
       const result = await collection.updateOne(
-        { _id: new ObjectId(id) },
+        { _id: new ObjectId(body._id) },
         { $set: updateData },
       );
 

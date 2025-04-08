@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const clientId = url.searchParams.get("clientId")?.split(",") || [];
   const activityId = url.searchParams.get("activityId")?.split(",") || [];
 
-  let notes: any[] = [];
+  let notes: Array<Record<string, any>> = [];
   try {
     const collection = await getCollection("notes");
     if (clientId) {

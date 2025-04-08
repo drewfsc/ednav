@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const clientsCollection = await getCollection("clients");
     // const actionsCollection = await getCollection("actions")
-    // @ts-ignore
+    // @ts-expect-error
     const query = { _id: new ObjectId(clientId) };
 
     const user = await clientsCollection.findOne(query);
