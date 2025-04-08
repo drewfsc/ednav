@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEditing } from "@/contexts/EditingContext";
 import { ShadcnPieChart } from "@/components/dashboard/ShadcnPieChart";
+import { ShadcnBarChart } from "@/components/dashboard/ShadcnBarChart";
 
 export default function HomeGrid() {
   const session = useSession();
@@ -39,7 +40,9 @@ export default function HomeGrid() {
           <div className="relative lg:col-span-3">
             <div className="bg-base-100 absolute inset-px rounded-lg lg:rounded-tr-[2rem]" />
             <div className="relative flex h-full flex-col justify-end overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
-              <div className="h-60"></div>
+              <div className="h-full px-3 py-12">
+                <ShadcnBarChart />
+              </div>
               <div className="bg-base-200 p-10 pt-8">
                 <h3 className="text-primary text-sm/4 font-semibold">
                   Documentation

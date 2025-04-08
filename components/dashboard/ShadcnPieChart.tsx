@@ -78,12 +78,12 @@ export function ShadcnPieChart() {
       <ChartStyle id={id} config={chartConfig} />
       <Select value={activeMonth} onValueChange={setActiveMonth}>
         <SelectTrigger
-          className="mr-8 ml-auto h-7 w-[130px] rounded-lg pl-2.5"
+          className="border-base-300 mr-8 ml-auto h-7 w-[130px] rounded bg-white pl-2.5"
           aria-label="Select a value"
         >
           <SelectValue placeholder="Select month" />
         </SelectTrigger>
-        <SelectContent align="end" className="rounded-xl">
+        <SelectContent align="end" className="rounded border-none bg-white">
           {months.map((key) => {
             const config = chartConfig[key as keyof typeof chartConfig];
 
@@ -95,7 +95,7 @@ export function ShadcnPieChart() {
               <SelectItem
                 key={key}
                 value={key}
-                className="rounded-lg [&_span]:flex"
+                className="rounded border-none bg-white [&_span]:flex"
               >
                 <div className="flex items-center gap-2 text-xs">
                   <span
