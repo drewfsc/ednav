@@ -201,7 +201,7 @@ export default function ClientTable() {
         </div>
       </div>
       <div className="no-scrollbar mt-0 overflow-y-scroll scroll-smooth">
-        <table className="table-none mt-[120px] w-[300px] 2xl:w-[420px]">
+        <table className="table-none mt-[113px] w-[300px] 2xl:w-[420px]">
           <tbody className="divide-base-content/5 divide-y">
             {viewMode === "grouped" ? (
               Object.entries(clientsToShow).map(([status, clients], idx) => (

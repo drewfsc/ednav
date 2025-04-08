@@ -106,7 +106,7 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
           setEditing("client");
         }
       }}
-      className={`${statusCollapse?.includes(person?.clientStatus) ? "hidden" : "visible"} hover:bg-base-300 hover:text-base-content hover:border-base-200 text-base-content box-border cursor-pointer transition-all duration-500 ${selectedClient?._id === person._id ? getBGColor(person?.clientStatus) : ""} ${selectedClient?._id === person?._id ? "bg-accent text-accent-content sticky top-[110px] bottom-0 shadow-xl" : ""}`}
+      className={`${statusCollapse?.includes(person?.clientStatus) ? "hidden" : "visible"} hover:bg-base-300 hover:text-base-content hover:border-base-200 text-base-content box-border cursor-pointer transition-all duration-500 ${selectedClient?._id === person._id ? getBGColor(person?.clientStatus) : ""} ${selectedClient?._id === person?._id ? "bg-accent text-accent-content sticky top-[113px] bottom-0 shadow-xl" : ""}`}
     >
       <td className="flex w-[300px] items-center justify-between truncate text-xs 2xl:w-[420px]">
         <span className={`ml-4 flex-1 flex-col`}>
