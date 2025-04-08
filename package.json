@@ -9,7 +9,9 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
-    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.8.0",
@@ -72,23 +74,37 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.6",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-onboarding": "^8.6.12",
+    "@storybook/blocks": "^8.6.12",
+    "@storybook/experimental-addon-test": "^8.6.12",
+    "@storybook/experimental-nextjs-vite": "^8.6.12",
+    "@storybook/react": "^8.6.12",
+    "@storybook/test": "^8.6.12",
     "@types/cookie": "^0.6.0",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20",
     "@types/pikaday": "^1.7.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitest/browser": "^3.1.1",
+    "@vitest/coverage-v8": "^3.1.1",
     "autoprefixer": "^10.4.21",
     "daisyui": "^5.0.3",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-storybook": "^0.12.0",
+    "playwright": "^1.51.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "storybook": "^8.6.12",
     "styled-components": "^6.1.17",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "4.0",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.1.1"
   }
 }

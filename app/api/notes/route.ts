@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCollection } from "@/lib/mongodb";
-import { ObjectId } from "mongodb";
+import { ObjectId, WithId, Document } from "mongodb";
 
 // GET all notes
 export async function GET(request: NextRequest) {
@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const clientId = url.searchParams.get("clientId")?.split(",") || [];
   const activityId = url.searchParams.get("activityId")?.split(",") || [];
 
-  let notes: Array<Record<string, any>> = [];
+  let notes: WithId<Document>[] = [];
   try {
     const collection = await getCollection("notes");
     if (clientId) {

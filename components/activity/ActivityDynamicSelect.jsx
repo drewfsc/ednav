@@ -93,7 +93,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
         setCurrentOptions(options);
       }
     }
-  }, [selectedClient]);
+  }, [selectedClient, questions]);
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);

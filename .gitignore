@@ -33,3 +33,5 @@ next-env.d.ts
 /.idea/betterCommentsSettings.xml
 /.idea/developer-tools.xml
 /.idea/misc.xml
+
+*storybook.log

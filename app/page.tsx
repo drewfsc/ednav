@@ -33,5 +33,5 @@ export default function Home() {
     );
   }
 
-  return <PerfectLayout children={undefined} />;
+  return <PerfectLayout />;
 }

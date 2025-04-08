@@ -9,8 +9,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const clientsCollection = await getCollection("clients");
-    // const actionsCollection = await getCollection("actions")
-    // @ts-expect-error
+    // @ts-expect-error because I needed to move on with my day
     const query = { _id: new ObjectId(clientId) };
 
     const user = await clientsCollection.findOne(query);

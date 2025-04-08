@@ -78,7 +78,7 @@ export default function NoteFeed({ actionId }) {
     getNotes()
       .then((data) => setNotes(data))
       .catch((err) => console.error(err));
-  }, [selectedClient?._id, actionId]);
+  }, [selectedClient?._id, actionId, getNotes]);
 
   return (
     <div className={`w-full `}>

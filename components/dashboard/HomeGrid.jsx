@@ -25,7 +25,7 @@ export default function HomeGrid() {
                   Comprehensive progress monitoring
                 </p>
                 <p className="mt-2 max-w-lg text-sm/6 text-base-content/60">
-                  Track every aspect of your clients' educational journey in one place. Monitor GED subject completion, assessment scores, and attendance patterns to identify where support is most needed.
+                  Track every aspect of your clients&apos; educational journey in one place. Monitor GED subject completion, assessment scores, and attendance patterns to identify where support is most needed.
                 </p>
               </div>
             </div>

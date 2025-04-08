@@ -48,7 +48,7 @@ export async function POST(request) {
     if (body._id) {
       // const id = body._id;
       body.name = body.first_name + " " + body.last_name;
-      const { _id, ...updateData } = body;
+      const { ...updateData } = body;
 
       const result = await collection.updateOne(
         { _id: new ObjectId(body._id) },
