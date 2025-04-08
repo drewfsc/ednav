@@ -27,20 +27,35 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
     }
   };
 
-  const getBorderColor = (status) => {
+  const getBGColor = (status) => {
     switch (status) {
-      case "Active":
-        return "border-error";
       case "Inactive":
-        return "border-warning";
+        return "bg-error hover:bg-error text-error-content";
       case "In Progress":
-        return "border-success";
+        return "bg-warning hover:bg-warning text-warning-content";
+      case "Active":
+        return "bg-success hover:bg-success text-success-content";
       case "Graduated":
-        return "border-info";
+        return "bg-info hover:bg-info text-info-content";
       default:
-        return "border-primary";
+        return "bg-primary hover:bg-primary text-primary-content";
     }
   };
+
+  // const getBorderColor = (status) => {
+  //   switch (status) {
+  //     case "Active":
+  //       return "border-error";
+  //     case "Inactive":
+  //       return "border-warning";
+  //     case "In Progress":
+  //       return "border-success";
+  //     case "Graduated":
+  //       return "border-info";
+  //     default:
+  //       return "border-primary";
+  //   }
+  // };
 
   const getActivities = async (person) => {
     const res = await fetch("/api/activities?clientId=" + person._id);
@@ -62,6 +77,7 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
       function handleResize() {
         setScreenWidth(getScreenWidth());
       }
+
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }, [screenWidth]);
@@ -90,30 +106,34 @@ export default function ClientTableItem({ person, i, statusCollapse }) {
           setEditing("client");
         }
       }}
-      className={`${statusCollapse?.includes(person?.clientStatus) ? "hidden" : "visible"} hover:bg-base-200 hover:text-base-content hover:border-base-200 text-base-content box-border cursor-pointer ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ""} ${selectedClient?._id === person?._id ? "bg-base-300 text-base-content" : ""}`}
+      className={`${statusCollapse?.includes(person?.clientStatus) ? "hidden" : "visible"} hover:bg-base-300 hover:text-base-content hover:border-base-200 text-base-content box-border cursor-pointer transition-all duration-500 ${selectedClient?._id === person._id ? getBGColor(person?.clientStatus) : ""} ${selectedClient?._id === person?._id ? "bg-accent text-accent-content sticky top-[110px] bottom-0 shadow-xl" : ""}`}
     >
-      <td className="flex w-[250px] items-center justify-between truncate text-xs 2xl:w-[320px]">
+      <td className="flex w-[300px] items-center justify-between truncate text-xs 2xl:w-[420px]">
         <span className={`ml-4 flex-1 flex-col`}>
           {person.first_name && person.last_name && (
-            <div className={`text-base-content/70 text-xs font-medium`}>
+            <div
+              className={`text-xs font-medium ${selectedClient?._id === person._id ? "text-black" : "text-base-content"} ${selectedClient?._id === person?._id ? "" : "text-base-content"}`}
+            >
               {person.first_name + " " + person.last_name}
             </div>
           )}
           {person.latestInteraction && (
-            <div className={`text-base-content/50 text-[11px]`}>
+            <div className={`-mt-1-[3px] text-[11px]`}>
               {moment(latestInteraction, "MM/DD/YYYY").format("MMM Do, YYYY")}
             </div>
           )}
         </span>
-        <span className={`ml-4`}>
+        <span
+          className={`ml-4 ${selectedClient?._id === person._id ? "text-black" : "text-base-content"}`}
+        >
           <PinIcon
-            size={16}
-            className={`${selectedNavigator && selectedNavigator.pinned && selectedNavigator?.pinned.includes(person?._id) ? "visible" : "hidden"} text-base-content/70`}
+            size={20}
+            className={`${selectedNavigator && selectedNavigator.pinned && selectedNavigator?.pinned?.includes(person?._id) ? "visible" : "hidden"}`}
           />
         </span>
-        <span className={`mr-1`}>
+        <span className={`mr-3 ml-2`}>
           <div
-            className={`m-3 mx-2 min-w-[15px] text-[11px] 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}
+            className={`m-4 mx-2 w-[15px] text-[11px] 2xl:w-[80px] ${selectedClient?._id === person._id ? "badge border-0 bg-white text-black" : getBadgeColor(person?.clientStatus)}`}
           >
             {(screenWidth < 1536 ? statusAbbr1 : "") +
               (screenWidth >= 1536 ? personStatus : "")}

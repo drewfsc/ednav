@@ -45,14 +45,16 @@ export default function HomeGrid() {
               <div className="h-60"></div>
               <div className="bg-base-200 p-10 pt-8">
                 <h3 className="text-primary text-sm/4 font-semibold">
-                  Releases
+                  Documentation
                 </h3>
                 <p className="text-base-content mt-2 text-lg font-medium tracking-tight">
-                  Push to deploy
+                  Streamlined record-keeping
                 </p>
                 <p className="text-base-content/60 mt-2 max-w-lg text-sm/6">
-                  Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus
-                  massa, laoreet dapibus ex elit vitae odio.
+                  Easily document client interactions, needs assessments, and
+                  service referrals with our intuitive interface. Generate
+                  required reports with a single click, saving hours of
+                  administrative work.
                 </p>
               </div>
             </div>
@@ -63,13 +65,16 @@ export default function HomeGrid() {
             <div className="relative flex h-full flex-col justify-start overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
               <div className="h-60"></div>
               <div className="bg-base-200 p-10 pt-8">
-                <h3 className="text-primary text-sm/4 font-semibold">Speed</h3>
+                <h3 className="text-primary text-sm/4 font-semibold">
+                  Client Tracking
+                </h3>
                 <p className="text-base-content mt-2 text-lg font-medium tracking-tight">
-                  Built for power users
+                  Comprehensive progress monitoring
                 </p>
                 <p className="text-base-content/60 mt-2 max-w-lg text-sm/6">
-                  Sed congue eros non finibus molestie. Vestibulum euismod
-                  augue.
+                  Track every aspect of your clients' educational journey in one
+                  place. Monitor GED subject completion, assessment scores, and
+                  attendance patterns to identify where support is most needed.
                 </p>
               </div>
             </div>
@@ -81,14 +86,16 @@ export default function HomeGrid() {
               <div className="h-60"></div>
               <div className="bg-base-200 p-10 pt-8">
                 <h3 className="text-primary text-sm/4 font-semibold">
-                  Integrations
+                  Documentation
                 </h3>
                 <p className="text-base-content mt-2 text-lg font-medium tracking-tight">
-                  Connect your favorite tools
+                  Streamlined record-keeping
                 </p>
                 <p className="text-base-content/60 mt-2 max-w-lg text-sm/6">
-                  Maecenas at augue sed elit dictum vulputate, in nisi aliquam
-                  maximus arcu.
+                  Easily document client interactions, needs assessments, and
+                  service referrals with our intuitive interface. Generate
+                  required reports with a single click, saving hours of
+                  administrative work.
                 </p>
               </div>
             </div>
@@ -100,14 +107,16 @@ export default function HomeGrid() {
               <div className="h-60"></div>
               <div className="bg-base-200 p-10 pt-8">
                 <h3 className="text-primary text-sm/4 font-semibold">
-                  Network
+                  Analytics
                 </h3>
                 <p className="text-base-content mt-2 text-lg font-medium tracking-tight">
-                  Globally distributed CDN
+                  Data-driven decision making
                 </p>
                 <p className="text-base-content/60 mt-2 max-w-lg text-sm/6">
-                  Aenean vulputate justo commodo auctor vehicula in malesuada
-                  semper.
+                  Visualize client progress trends and program outcomes with
+                  customizable dashboards. Identify patterns in service delivery
+                  and use insights to improve your educational support
+                  strategies.
                 </p>
               </div>
             </div>

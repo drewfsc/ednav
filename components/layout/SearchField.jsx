@@ -32,7 +32,7 @@ function SearchField() {
         }}
         value={selectedFepLeft.searchTerm}
         placeholder="Search by name..."
-        className="input bg-secondary text-secondary-content w-[250px] rounded-none border-0 py-[31px] shadow-none ring-0 outline-none focus:border-0 focus:ring-0 2xl:w-[320px]"
+        className="input bg-base-300 text-base-content w-[300px] rounded-none border-0 py-[33px] ring-0 outline-none focus:border-0 focus:ring-0 2xl:w-[420px]"
       />
     </div>
   );

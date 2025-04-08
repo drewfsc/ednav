@@ -18,7 +18,7 @@ export default function PerfectLayout() {
             <LeftNavEntire />
           </div>
           <div
-            className={`no-scrollbar relative z-40 box-border h-screen w-[250px] flex-col overflow-y-scroll drop-shadow-lg 2xl:w-[320px]`}
+            className={`no-scrollbar relative z-40 box-border h-screen w-[300px] flex-col overflow-y-scroll drop-shadow-lg 2xl:w-[420px]`}
           >
             <ClientTable />
           </div>

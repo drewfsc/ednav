@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useFepsLeft } from "/contexts/FepsLeftContext";
 import ClientTableItem from "/components/client/ClientTableItem";
 import { useNavigators } from "../../contexts/NavigatorsContext";
@@ -18,11 +18,14 @@ export default function ClientTable() {
 
   const toggleGrouped = () => {
     setViewMode("grouped");
+    setStatusCollapse([]);
+    setSortMode(null);
   };
 
   const togglePinned = () => {
     setViewMode("pinned");
     setStatusCollapse([]);
+    setSortMode(null);
   };
 
   const toggleAlpha = () => {
@@ -141,29 +144,29 @@ export default function ClientTable() {
 
   return (
     <div className={`relative flex h-full w-full flex-col`}>
-      <div className="bg-secondary/60 text-base-content fixed top-0 flex w-full flex-col items-center justify-between text-sm shadow-lg backdrop-blur-sm">
+      <div className="bg-neutral text-base-content fixed top-0 flex w-full flex-col items-center justify-between text-sm shadow-lg backdrop-blur-sm">
         <SearchField />
         <div className="divide-base-content/30 flex w-full items-center justify-around divide-x px-3">
-          <div className="my-1/5 flex w-1/2 justify-start filter">
+          <div className="my-3 flex w-1/2 justify-start filter">
             <input
               onClick={() => {
                 setSortMode(null);
               }}
-              className="btn btn-xs filter-reset"
+              className="btn btn-xs btn-ghost bg-base-300 hover:bg-base-content filter-reset"
               type="radio"
               name="metaframeworks"
               aria-label="All"
             />
             <input
               onClick={toggleAlpha}
-              className={`btn btn-xs font-normal ${sortMode === "alpha" ? "bg-primary text-primary-content" : ""}`}
+              className={`btn btn-xs btn-ghost bg-base-300 hover:bg-base-content ${sortMode === "alpha" ? "bg-primary text-primary-content" : ""}`}
               type="radio"
               name="metaframeworks"
               aria-label="A-Z"
             />
             <input
               onClick={toggleDate}
-              className={`btn btn-xs font-normal ${sortMode === "date" ? "bg-primary text-primary-content" : ""}`}
+              className={`btn btn-xs btn-ghost bg-base-300 hover:bg-base-content ${sortMode === "date" ? "bg-primary text-primary-content" : ""}`}
               type="radio"
               name="metaframeworks"
               aria-label="Recent"
@@ -175,21 +178,21 @@ export default function ClientTable() {
                 setViewMode(null);
                 setStatusCollapse([]);
               }}
-              className="btn btn-xs filter-reset"
+              className="btn btn-xs btn-ghost bg-base-300 hover:bg-base-content filter-reset"
               type="radio"
               name="metaframeworks"
               aria-label="All"
             />
             <input
               onClick={togglePinned}
-              className={`btn btn-xs font-normal ${viewMode === "pinned" ? "bg-primary text-primary-content" : ""}`}
+              className={`btn btn-xs btn-ghost bg-base-300 hover:bg-base-content ${viewMode === "pinned" ? "bg-primary text-primary-content" : ""}`}
               type="radio"
               name="metaframeworks"
               aria-label="Pins"
             />
             <input
               onClick={toggleGrouped}
-              className={`btn btn-xs font-normal ${viewMode === "grouped" ? "bg-primary text-primary-content" : ""}`}
+              className={`btn btn-xs btn-ghost bg-base-300 hover:bg-base-content ${viewMode === "grouped" ? "bg-primary text-primary-content" : ""}`}
               type="radio"
               name="metaframeworks"
               aria-label="Groups"
@@ -197,75 +200,58 @@ export default function ClientTable() {
           </div>
         </div>
       </div>
-      <div className="no-scrollbar mt-0 overflow-y-scroll">
-        <div className="h-auto">
-          <div className="h-full w-full">
-            <div className={``}>
-              <table className="table-none mt-[98px] w-[250px] 2xl:w-[320px]">
-                <tbody className="">
-                  {viewMode === "grouped" ? (
-                    Object.entries(clientsToShow).map(
-                      ([status, clients], idx) => (
-                        <React.Fragment key={status}>
-                          <tr className={`${getBGColor(status)} `}>
-                            <td className="flex w-[250px] cursor-pointer items-center justify-between py-2 text-sm 2xl:w-[320px]">
-                              <span className={`w-5/7 pl-3 text-left`}>
-                                {status}
-                              </span>
-                              <span
-                                className={`w-1/7 pr-6`}
-                                onClick={() => handleCollapseChange(status)}
-                              >
-                                {!statusCollapse.includes(status) ? (
-                                  <Eye
-                                    size={20}
-                                    className={getBGColor(status)}
-                                  />
-                                ) : (
-                                  <EyeClosed
-                                    size={20}
-                                    className={getBGColor(status)}
-                                  />
-                                )}
-                              </span>
-                            </td>
-                          </tr>
-                          {clients.map((person, i) => (
-                            <ClientTableItem
-                              key={`${idx}-${i}`}
-                              person={person}
-                              i={i}
-                              statusCollapse={statusCollapse}
-                            />
-                          ))}
-                        </React.Fragment>
-                      ),
-                    )
-                  ) : Array.isArray(clientsToShow) &&
-                    clientsToShow.length > 0 ? (
-                    clientsToShow.map((person, i) => (
-                      <ClientTableItem
-                        key={i}
-                        person={person}
-                        i={i}
-                        statusCollapse={statusCollapse}
-                      />
-                    ))
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan="5"
-                        className="py-4 text-center text-sm text-gray-500"
+      <div className="no-scrollbar mt-0 overflow-y-scroll scroll-smooth">
+        <table className="table-none mt-[120px] w-[300px] 2xl:w-[420px]">
+          <tbody className="divide-base-content/5 divide-y">
+            {viewMode === "grouped" ? (
+              Object.entries(clientsToShow).map(([status, clients], idx) => (
+                <React.Fragment key={status}>
+                  <tr className={`${getBGColor(status)} `}>
+                    <td className="flex w-[250px] cursor-pointer items-center justify-between py-2 text-sm 2xl:w-[320px]">
+                      <span className={`w-5/7 pl-3 text-left`}>{status}</span>
+                      <span
+                        className={`w-1/7 pr-6`}
+                        onClick={() => handleCollapseChange(status)}
                       >
-                        No clients found.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                        {!statusCollapse.includes(status) ? (
+                          <Eye size={20} className={getBGColor(status)} />
+                        ) : (
+                          <EyeClosed size={20} className={getBGColor(status)} />
+                        )}
+                      </span>
+                    </td>
+                  </tr>
+                  {clients.map((person, i) => (
+                    <ClientTableItem
+                      key={`${idx}-${i}`}
+                      person={person}
+                      i={i}
+                      statusCollapse={statusCollapse}
+                    />
+                  ))}
+                </React.Fragment>
+              ))
+            ) : Array.isArray(clientsToShow) && clientsToShow.length > 0 ? (
+              clientsToShow.map((person, i) => (
+                <ClientTableItem
+                  key={i}
+                  person={person}
+                  i={i}
+                  statusCollapse={statusCollapse}
+                />
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="5"
+                  className="py-4 text-center text-sm text-gray-500"
+                >
+                  No clients found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
