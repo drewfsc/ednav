@@ -22,9 +22,9 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
     const data = {
       clientEmail: selectedClient.email,
       clientId: selectedClient._id,
-      clientName: selectedClient.name || selectedClient.first_name + ' ' + selectedClient.last_name,
+      clientName: selectedClient.name || selectedClient['first_name'] + ' ' + selectedClient['last_name'],
       fep: selectedClient.fep,
-      navigator: selectedClient.navigator,
+      navigator: selectedClient['navigator'],
       selectedDate: selectedDate,
       selection: selectedValue,
       timestamp: new Date(),
@@ -33,10 +33,10 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
     };
     if (multi) {
       data.path = selectedPath;
-      data.statement = generateSentence(selectedClient?.navigator, selectedClient?.name || selectedClient?.first_name + ' ' + selectedClient?.last_name, multiSelectValues, selectedPath);
+      data.statement = generateSentence(selectedClient['navigator'], selectedClient?.name || selectedClient['first_name'] + ' ' + selectedClient['last_name'], multiSelectValues, selectedPath);
     } else {
       data.path = newPath;
-      data.statement = generateSentence(selectedClient?.navigator, selectedClient?.name || selectedClient?.first_name + ' ' + selectedClient?.last_name, null, newPath);
+      data.statement = generateSentence(selectedClient['navigator'], selectedClient?.name || selectedClient['first_name'] + ' ' + selectedClient['last_name'], null, newPath);
     }
 
     return await fetch('/api/activities', {
@@ -50,7 +50,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
         await setSelectedClient(result.wholeUser);
         await setSelectedActivity(prev => ({
           ...prev,
-          activities: result.actionRes
+          activities: result['actionRes']
         }));
       },
       (error) => {

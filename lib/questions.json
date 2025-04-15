@@ -33,165 +33,6 @@
         "TABE"
       ],
       "high school": {
-        "9th grade": {
-          "Abundant Life Christian School": {},
-          "Adams-Friendship High School": {},
-          "Afro Urban Institute": {},
-          "Albany High School": {},
-          "Algoma High School": {},
-          "Alliance High School": {},
-          "Alma High School": {},
-          "Almond-Bancroft High School": {},
-          "Altoona High School": {},
-          "Amery High School": {},
-          "Amherst High School": {},
-          "Antigo High School": {},
-          "Appleton East High School": {},
-          "Appleton North High School": {},
-          "Appleton West High School": {},
-          "Aquinas High School": {},
-          "Arcadia High School": {},
-          "Argyle High School": {},
-          "Arrowhead High School": {},
-          "Ashland High School": {},
-          "Ashwaubenon High School": {},
-          "Assumption High School": {},
-          "Athens High School": {},
-          "Auburndale High School": {},
-          "Augusta High School": {},
-          "Badger High School": {},
-          "Baldwin-Woodville High School": {},
-          "Bangor High School": {},
-          "Baraboo High School": {},
-          "Bay Port High School": {},
-          "Bayfield High School": {},
-          "Beaver Dam High School": {},
-          "Belleville High School": {},
-          "Belmont High School": {},
-          "Beloit Memorial High School": {},
-          "Berlin High School": {},
-          "Big Foot High School": {},
-          "Black River Falls High School": {},
-          "Bonduel High School": {},
-          "Brookfield Academy": {},
-          "Brookfield Central High School": {},
-          "Brookfield East High School": {},
-          "Brown Deer High School": {},
-          "Burlington High School": {},
-          "Cashton High School": {},
-          "Cedarburg High School": {},
-          "Chetek-Weyerhaeuser High School": {},
-          "Chilton High School": {},
-          "Chippewa Falls High School": {},
-          "Colby High School": {},
-          "Columbus High School": {},
-          "Cumberland High School": {},
-          "D.C. Everest High School": {},
-          "De Pere High School": {},
-          "Deerfield High School": {},
-          "Delavan-Darien High School": {},
-          "Denmark High School": {},
-          "Durand High School": {},
-          "East Troy High School": {},
-          "Eau Claire Memorial High School": {},
-          "Eau Claire North High School": {},
-          "Edgerton High School": {},
-          "Elkhorn Area High School": {},
-          "Ellsworth High School": {},
-          "Evansville High School": {},
-          "Fond du Lac High School": {},
-          "Fort Atkinson High School": {},
-          "Fox Valley Lutheran High School": {},
-          "Franklin High School": {},
-          "Germantown High School": {},
-          "Grafton High School": {},
-          "Green Bay East High School": {},
-          "Green Bay Preble High School": {},
-          "Green Bay Southwest High School": {},
-          "Green Bay West High School": {},
-          "Hamilton High School": {},
-          "Hartford Union High School": {},
-          "Holmen High School": {},
-          "Homestead High School": {},
-          "Hudson High School": {},
-          "Janesville Craig High School": {},
-          "Janesville Parker High School": {},
-          "Kaukauna High School": {},
-          "Kettle Moraine High School": {},
-          "Kimberly High School": {},
-          "La Crosse Central High School": {},
-          "La Crosse Logan High School": {},
-          "Lake Geneva Badger High School": {},
-          "Lodi High School": {},
-          "Luxemburg-Casco High School": {},
-          "Madison East High School": {},
-          "Madison La Follette High School": {},
-          "Madison Memorial High School": {},
-          "Madison West High School": {},
-          "Marinette High School": {},
-          "Marshfield High School": {},
-          "McFarland High School": {},
-          "Menasha High School": {},
-          "Menomonee Falls High School": {},
-          "Menomonie High School": {},
-          "Milton High School": {},
-          "Milwaukee Hamilton High School": {},
-          "Milwaukee King High School": {},
-          "Milwaukee Marshall High School": {},
-          "Milwaukee Riverside High School": {},
-          "Milwaukee South Division High School": {},
-          "Milwaukee Vincent High School": {},
-          "Neenah High School": {},
-          "New Berlin Eisenhower High School": {},
-          "New Berlin West High School": {},
-          "New Richmond High School": {},
-          "Nicolet High School": {},
-          "Notre Dame Academy": {},
-          "Oconomowoc High School": {},
-          "Oregon High School": {},
-          "Oshkosh North High School": {},
-          "Oshkosh West High School": {},
-          "Port Washington High School": {},
-          "Pulaski High School": {},
-          "Racine Case High School": {},
-          "Racine Horlick High School": {},
-          "Racine Park High School": {},
-          "Reedsburg Area High School": {},
-          "Rice Lake High School": {},
-          "River Falls High School": {},
-          "Sheboygan North High School": {},
-          "Sheboygan South High School": {},
-          "Slinger High School": {},
-          "South Milwaukee High School": {},
-          "Sparta High School": {},
-          "Stevens Point High School": {},
-          "Stoughton High School": {},
-          "Sun Prairie East High School": {},
-          "Sun Prairie West High School": {},
-          "Superior High School": {},
-          "Tomah High School": {},
-          "Two Rivers High School": {},
-          "Union Grove High School": {},
-          "Watertown High School": {},
-          "Waukesha North High School": {},
-          "Waukesha South High School": {},
-          "Waukesha West High School": {},
-          "Waunakee High School": {},
-          "Waupaca High School": {},
-          "Waupun High School": {},
-          "Wausau East High School": {},
-          "Wausau West High School": {},
-          "West Allis Central High School": {},
-          "West Bend East High School": {},
-          "West Bend West High School": {},
-          "West De Pere High School": {},
-          "West Salem High School": {},
-          "Whitewater High School": {},
-          "Whitnall High School": {},
-          "Wisconsin Dells High School": {},
-          "Wisconsin Rapids Lincoln High School": {},
-          "Xavier High School": {}
-        },
         "10th grade": {
           "Abundant Life Christian School": {},
           "Adams-Friendship High School": {},
@@ -668,213 +509,8 @@
           "Wisconsin Dells High School": {},
           "Wisconsin Rapids Lincoln High School": {},
           "Xavier High School": {}
-        }
-      },
-      "tech school": {
-        "Blackhawk Technical College": {
-          "GED": {},
-          "HSED": {}
         },
-        "Fox Valley Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Lakeshore Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Madison Area Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Medford Adult Diploma Academy": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Mid-State Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Northcentral Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Northeast Wisconsin Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Northwoods Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Omega School": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Oneida Community Educational Center": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Western Technical College": {
-          "GED": {},
-          "HSED": {}
-        },
-        "Western Tech": {
-          "GED": {},
-          "HSED": {}
-        }
-      }
-    },
-    "enrolled in": {
-      "GED": [
-        "Career Assessment",
-        "Civics",
-        "Math",
-        "Orientation",
-        "RLA",
-        "ROI",
-        "Science",
-        "Social Studies",
-        "TABE",
-        "GED Ready - Math",
-        "GED Ready - RLA",
-        "GED Ready - Science",
-        "GED Ready - Social Studies"
-      ],
-      "HSED": [
-        "17-16",
-        "Career Assessment",
-        "Civics",
-        "Employability",
-        "HS Transcript",
-        "Health",
-        "Journey Letter",
-        "Math",
-        "Orientation",
-        "RLA",
-        "ROI",
-        "Science",
-        "Social Studies",
-        "TABE"
-      ],
-      "tutoring": {
-        "Catholic Multicultural Center": {},
-        "ESL": {},
-        "GED.com": {},
-        "Kahoot.com": {},
-        "Literacy Network": {},
-        "Literacy Green Bay": {},
-        "Open Doors for Refugees": {},
-        "Test Prep Champions": {},
-        "ADVOCAP": {}
-      },
-      "school": []
-    },
-    "graduated from": {
-      "Blackhawk Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Fox Valley Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Lakeshore Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Madison Area Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Medford Adult Diploma Academy": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Mid-State Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Northcentral Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Northeast Wisconsin Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Northwoods Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Omega School": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Oneida Community Educational Center": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Western Technical College": {
-        "GED": {},
-        "HSED": {}
-      },
-      "Western Tech": {
-        "GED": {},
-        "HSED": {}
-      }
-    },
-    "inactive": {
-      "Graduated": {},
-      "No contact with EN for 60 days": {},
-      "No show to warm hand off 3x": {},
-      "Participant Declined Assistance": {},
-      "Participant Request (Barriers)": {},
-      "Participant decline prior to meeting EN": {},
-      "Participant request (Employment)": {},
-      "W-2 Case Closed": {}
-    },
-    "needs": [
-      "career assessment",
-      "food",
-      "legal help",
-      "medical treatment",
-      "mental health treatment",
-      "money",
-      "shelter",
-      "transportation",
-      "transcripts",
-      "school supplies",
-      "registration fee",
-      "text book fee",
-      "GED tests",
-      "other"
-    ],
-    "referred to": {
-      "Blackhawk Technical College": {},
-      "Fox Valley Technical College": {},
-      "Lakeshore Technical College": {},
-      "Madison Area Technical College": {},
-      "Medford Adult Diploma Academy": {},
-      "Mid-State Technical College": {},
-      "Northcentral Technical College": {},
-      "Northeast Wisconsin Technical College": {},
-      "Northwoods Technical College": {},
-      "Omega School": {},
-      "Oneida Community Educational Center": {},
-      "Western Technical College": {},
-      "Western Tech": {},
-      "tutoring": {
-        "Catholic Multicultural Center": {},
-        "ESL": {},
-        "GED.com": {},
-        "Kahoot.com": {},
-        "Literacy Network": {},
-        "Literacy Green Bay": {},
-        "Open Doors for Refugees": {},
-        "Test Prep Champions": {},
-        "ADVOCAP": {},
-        "school": {
+        "9th grade": {
           "Abundant Life Christian School": {},
           "Adams-Friendship High School": {},
           "Afro Urban Institute": {},
@@ -1034,955 +670,1351 @@
           "Xavier High School": {}
         }
       },
+      "tech school": {
+        "Blackhawk Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Fox Valley Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Lakeshore Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Madison Area Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Medford Adult Diploma Academy": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Mid-State Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Northcentral Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Northeast Wisconsin Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Northwoods Technical College": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Omega School": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Oneida Community Educational Center": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Western Tech": {
+          "GED": {},
+          "HSED": {}
+        },
+        "Western Technical College": {
+          "GED": {},
+          "HSED": {}
+        }
+      }
+    },
+    "enrolled in": {
+      "Blackhawk Technical College": {},
+      "Fox Valley Technical College": {},
+      "Lakeshore Technical College": {},
+      "Madison Area Technical College": {},
+      "Medford Adult Diploma Academy": {},
+      "Mid-State Technical College": {},
+      "Northcentral Technical College": {},
+      "Northeast Wisconsin Technical College": {},
+      "Northwoods Technical College": {},
+      "Omega School": {},
+      "Oneida Community Educational Center": {},
+      "Western Tech": {},
+      "Western Technical College": {}
+    },
+    "graduated from": {
+      "Blackhawk Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Fox Valley Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Lakeshore Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Madison Area Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Medford Adult Diploma Academy": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Mid-State Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Northcentral Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Northeast Wisconsin Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Northwoods Technical College": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Omega School": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Oneida Community Educational Center": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Western Tech": {
+        "GED": {},
+        "HSED": {}
+      },
+      "Western Technical College": {
+        "GED": {},
+        "HSED": {}
+      }
+    },
+    "inactive": {
+      "Graduated": {},
+      "No contact with EN for 60 days": {},
+      "No show to warm hand off 3x": {},
+      "Participant Declined Assistance": {},
+      "Participant Request (Barriers)": {},
+      "Participant decline prior to meeting EN": {},
+      "Participant request (Employment)": {},
+      "W-2 Case Closed": {}
+    },
+    "needs": [
+      "career assessment",
+      "food",
+      "legal help",
+      "medical treatment",
+      "mental health treatment",
+      "money",
+      "shelter",
+      "transportation",
+      "transcripts",
+      "school supplies",
+      "registration fee",
+      "text book fee",
+      "GED tests",
+      "other"
+    ],
+    "referred to": {
+      "Blackhawk Technical College": {},
+      "Fox Valley Technical College": {},
+      "Lakeshore Technical College": {},
+      "Madison Area Technical College": {},
+      "Medford Adult Diploma Academy": {},
+      "Mid-State Technical College": {},
+      "Northcentral Technical College": {},
+      "Northeast Wisconsin Technical College": {},
+      "Northwoods Technical College": {},
+      "Omega School": {},
+      "Oneida Community Educational Center": {},
+      "Western Tech": {},
+      "Western Technical College": {},
       "resource": {
         "ADRC": {},
         "WIOA": {}
+      },
+      "tutoring": {
+        "ADVOCAP": {},
+        "Catholic Multicultural Center": {},
+        "ESL": {},
+        "GED.com": {},
+        "Kahoot.com": {},
+        "Literacy Green Bay": {},
+        "Literacy Network": {},
+        "Open Doors for Refugees": {},
+        "Test Prep Champions": {},
+        "school": {
+          "Abundant Life Christian School": {},
+          "Adams-Friendship High School": {},
+          "Afro Urban Institute": {},
+          "Albany High School": {},
+          "Algoma High School": {},
+          "Alliance High School": {},
+          "Alma High School": {},
+          "Almond-Bancroft High School": {},
+          "Altoona High School": {},
+          "Amery High School": {},
+          "Amherst High School": {},
+          "Antigo High School": {},
+          "Appleton East High School": {},
+          "Appleton North High School": {},
+          "Appleton West High School": {},
+          "Aquinas High School": {},
+          "Arcadia High School": {},
+          "Argyle High School": {},
+          "Arrowhead High School": {},
+          "Ashland High School": {},
+          "Ashwaubenon High School": {},
+          "Assumption High School": {},
+          "Athens High School": {},
+          "Auburndale High School": {},
+          "Augusta High School": {},
+          "Badger High School": {},
+          "Baldwin-Woodville High School": {},
+          "Bangor High School": {},
+          "Baraboo High School": {},
+          "Bay Port High School": {},
+          "Bayfield High School": {},
+          "Beaver Dam High School": {},
+          "Belleville High School": {},
+          "Belmont High School": {},
+          "Beloit Memorial High School": {},
+          "Berlin High School": {},
+          "Big Foot High School": {},
+          "Black River Falls High School": {},
+          "Bonduel High School": {},
+          "Brookfield Academy": {},
+          "Brookfield Central High School": {},
+          "Brookfield East High School": {},
+          "Brown Deer High School": {},
+          "Burlington High School": {},
+          "Cashton High School": {},
+          "Cedarburg High School": {},
+          "Chetek-Weyerhaeuser High School": {},
+          "Chilton High School": {},
+          "Chippewa Falls High School": {},
+          "Colby High School": {},
+          "Columbus High School": {},
+          "Cumberland High School": {},
+          "D.C. Everest High School": {},
+          "De Pere High School": {},
+          "Deerfield High School": {},
+          "Delavan-Darien High School": {},
+          "Denmark High School": {},
+          "Durand High School": {},
+          "East Troy High School": {},
+          "Eau Claire Memorial High School": {},
+          "Eau Claire North High School": {},
+          "Edgerton High School": {},
+          "Elkhorn Area High School": {},
+          "Ellsworth High School": {},
+          "Evansville High School": {},
+          "Fond du Lac High School": {},
+          "Fort Atkinson High School": {},
+          "Fox Valley Lutheran High School": {},
+          "Franklin High School": {},
+          "Germantown High School": {},
+          "Grafton High School": {},
+          "Green Bay East High School": {},
+          "Green Bay Preble High School": {},
+          "Green Bay Southwest High School": {},
+          "Green Bay West High School": {},
+          "Hamilton High School": {},
+          "Hartford Union High School": {},
+          "Holmen High School": {},
+          "Homestead High School": {},
+          "Hudson High School": {},
+          "Janesville Craig High School": {},
+          "Janesville Parker High School": {},
+          "Kaukauna High School": {},
+          "Kettle Moraine High School": {},
+          "Kimberly High School": {},
+          "La Crosse Central High School": {},
+          "La Crosse Logan High School": {},
+          "Lake Geneva Badger High School": {},
+          "Lodi High School": {},
+          "Luxemburg-Casco High School": {},
+          "Madison East High School": {},
+          "Madison La Follette High School": {},
+          "Madison Memorial High School": {},
+          "Madison West High School": {},
+          "Marinette High School": {},
+          "Marshfield High School": {},
+          "McFarland High School": {},
+          "Menasha High School": {},
+          "Menomonee Falls High School": {},
+          "Menomonie High School": {},
+          "Milton High School": {},
+          "Milwaukee Hamilton High School": {},
+          "Milwaukee King High School": {},
+          "Milwaukee Marshall High School": {},
+          "Milwaukee Riverside High School": {},
+          "Milwaukee South Division High School": {},
+          "Milwaukee Vincent High School": {},
+          "Neenah High School": {},
+          "New Berlin Eisenhower High School": {},
+          "New Berlin West High School": {},
+          "New Richmond High School": {},
+          "Nicolet High School": {},
+          "Notre Dame Academy": {},
+          "Oconomowoc High School": {},
+          "Oregon High School": {},
+          "Oshkosh North High School": {},
+          "Oshkosh West High School": {},
+          "Port Washington High School": {},
+          "Pulaski High School": {},
+          "Racine Case High School": {},
+          "Racine Horlick High School": {},
+          "Racine Park High School": {},
+          "Reedsburg Area High School": {},
+          "Rice Lake High School": {},
+          "River Falls High School": {},
+          "Sheboygan North High School": {},
+          "Sheboygan South High School": {},
+          "Slinger High School": {},
+          "South Milwaukee High School": {},
+          "Sparta High School": {},
+          "Stevens Point High School": {},
+          "Stoughton High School": {},
+          "Sun Prairie East High School": {},
+          "Sun Prairie West High School": {},
+          "Superior High School": {},
+          "Tomah High School": {},
+          "Two Rivers High School": {},
+          "Union Grove High School": {},
+          "Watertown High School": {},
+          "Waukesha North High School": {},
+          "Waukesha South High School": {},
+          "Waukesha West High School": {},
+          "Waunakee High School": {},
+          "Waupaca High School": {},
+          "Waupun High School": {},
+          "Wausau East High School": {},
+          "Wausau West High School": {},
+          "West Allis Central High School": {},
+          "West Bend East High School": {},
+          "West Bend West High School": {},
+          "West De Pere High School": {},
+          "West Salem High School": {},
+          "Whitewater High School": {},
+          "Whitnall High School": {},
+          "Wisconsin Dells High School": {},
+          "Wisconsin Rapids Lincoln High School": {},
+          "Xavier High School": {}
+        }
       }
     }
   },
   "youth": {
     "attending": {
-      "Abundant Life Christian School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Adams-Friendship High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Afro Urban Institute": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Albany High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Algoma High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Alliance High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Alma High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Almond-Bancroft High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Altoona High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Amery High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Amherst High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Antigo High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Appleton East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Appleton North High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Appleton West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Aquinas High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Arcadia High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Argyle High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Arrowhead High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Ashland High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Ashwaubenon High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Assumption High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Athens High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Auburndale High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Augusta High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Badger High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Baldwin-Woodville High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Bangor High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Baraboo High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Bay Port High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Bayfield High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Beaver Dam High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Belleville High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Belmont High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Beloit Memorial High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Berlin High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Big Foot High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Black River Falls High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Bonduel High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Brookfield Academy": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Brookfield Central High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Brookfield East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Brown Deer High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Burlington High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Cashton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Cedarburg High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Chetek-Weyerhaeuser High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Chilton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Chippewa Falls High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Colby High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Columbus High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Cumberland High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "D.C. Everest High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "De Pere High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Deerfield High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Delavan-Darien High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Denmark High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Durand High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "East Troy High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Eau Claire Memorial High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Eau Claire North High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Edgerton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Elkhorn Area High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Ellsworth High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Evansville High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Fond du Lac High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Fort Atkinson High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Fox Valley Lutheran High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Franklin High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Germantown High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Grafton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Green Bay East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Green Bay Preble High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Green Bay Southwest High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Green Bay West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Hamilton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Hartford Union High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Holmen High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Homestead High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Hudson High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Janesville Craig High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Janesville Parker High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Kaukauna High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Kettle Moraine High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Kimberly High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "La Crosse Central High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "La Crosse Logan High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Lake Geneva Badger High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Lodi High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Luxemburg-Casco High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Madison East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Madison La Follette High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Madison Memorial High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Madison West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Marinette High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Marshfield High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "McFarland High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Menasha High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Menomonee Falls High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Menomonie High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milwaukee Hamilton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milwaukee King High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milwaukee Marshall High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milwaukee Riverside High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milwaukee South Division High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Milwaukee Vincent High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Neenah High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "New Berlin Eisenhower High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "New Berlin West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "New Richmond High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Nicolet High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Notre Dame Academy": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Oconomowoc High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Oregon High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Oshkosh North High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Oshkosh West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Port Washington High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Pulaski High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Racine Case High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Racine Horlick High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Racine Park High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Reedsburg Area High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Rice Lake High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "River Falls High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Sheboygan North High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Sheboygan South High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Slinger High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "South Milwaukee High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Sparta High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Stevens Point High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Stoughton High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Sun Prairie East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Sun Prairie West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Superior High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Tomah High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Two Rivers High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Union Grove High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Watertown High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Waukesha North High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Waukesha South High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Waukesha West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Waunakee High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Waupaca High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Waupun High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Wausau East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Wausau West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "West Allis Central High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "West Bend East High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "West Bend West High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "West De Pere High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "West Salem High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Whitewater High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Whitnall High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Wisconsin Dells High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Wisconsin Rapids Lincoln High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
-      },
-      "Xavier High School": {
-        "9th grade": {},
-        "10th grade": {},
-        "11th grade": {},
-        "12th grade": {}
+      "high school": {
+        "Abundant Life Christian School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Adams-Friendship High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Afro Urban Institute": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Albany High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Algoma High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Alliance High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Alma High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Almond-Bancroft High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Altoona High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Amery High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Amherst High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Antigo High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Appleton East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Appleton North High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Appleton West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Aquinas High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Arcadia High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Argyle High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Arrowhead High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Ashland High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Ashwaubenon High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Assumption High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Athens High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Auburndale High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Augusta High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Badger High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Baldwin-Woodville High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Bangor High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Baraboo High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Bay Port High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Bayfield High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Beaver Dam High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Belleville High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Belmont High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Beloit Memorial High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Berlin High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Big Foot High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Black River Falls High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Bonduel High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Brookfield Academy": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Brookfield Central High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Brookfield East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Brown Deer High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Burlington High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Cashton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Cedarburg High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Chetek-Weyerhaeuser High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Chilton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Chippewa Falls High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Colby High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Columbus High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Cumberland High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "D.C. Everest High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "De Pere High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Deerfield High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Delavan-Darien High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Denmark High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Durand High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "East Troy High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Eau Claire Memorial High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Eau Claire North High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Edgerton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Elkhorn Area High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Ellsworth High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Evansville High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Fond du Lac High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Fort Atkinson High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Fox Valley Lutheran High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Franklin High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Germantown High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Grafton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Green Bay East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Green Bay Preble High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Green Bay Southwest High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Green Bay West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Hamilton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Hartford Union High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Holmen High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Homestead High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Hudson High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Janesville Craig High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Janesville Parker High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Kaukauna High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Kettle Moraine High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Kimberly High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "La Crosse Central High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "La Crosse Logan High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Lake Geneva Badger High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Lodi High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Luxemburg-Casco High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Madison East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Madison La Follette High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Madison Memorial High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Madison West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Marinette High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Marshfield High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "McFarland High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Menasha High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Menomonee Falls High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Menomonie High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milwaukee Hamilton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milwaukee King High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milwaukee Marshall High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milwaukee Riverside High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milwaukee South Division High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Milwaukee Vincent High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Neenah High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "New Berlin Eisenhower High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "New Berlin West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "New Richmond High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Nicolet High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Notre Dame Academy": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Oconomowoc High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Oregon High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Oshkosh North High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Oshkosh West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Port Washington High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Pulaski High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Racine Case High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Racine Horlick High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Racine Park High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Reedsburg Area High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Rice Lake High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "River Falls High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Sheboygan North High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Sheboygan South High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Slinger High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "South Milwaukee High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Sparta High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Stevens Point High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Stoughton High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Sun Prairie East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Sun Prairie West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Superior High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Tomah High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Two Rivers High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Union Grove High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Watertown High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Waukesha North High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Waukesha South High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Waukesha West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Waunakee High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Waupaca High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Waupun High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Wausau East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Wausau West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "West Allis Central High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "West Bend East High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "West Bend West High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "West De Pere High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "West Salem High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Whitewater High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Whitnall High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Wisconsin Dells High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Wisconsin Rapids Lincoln High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        },
+        "Xavier High School": {
+          "10th grade": {},
+          "11th grade": {},
+          "12th grade": {},
+          "9th grade": {}
+        }
+      },
+      "middle school": {
+        "ADAMS-FRIENDSHIP MIDDLE": {},
+        "ALMOND-BANCROFT MIDDLE": {},
+        "BENJAMIN FRANKLIN JUNIOR HIGH": {},
+        "BERLIN MIDDLE": {},
+        "BESSIE ALLEN MIDDLE": {},
+        "BLACK RIVER FALLS MIDDLE": {},
+        "CARMEN MIDDLE SCHOOL SOUTH": {},
+        "CENTRAL MIDDLE": {},
+        "CLARKE MIDDLE": {},
+        "CUBA CITY MIDDLE": {},
+        "DEERFIELD MIDDLE": {},
+        "ELKHART LAKE MIDDLE": {},
+        "ELKHORN AREA MIDDLE": {},
+        "FALL CREEK MIDDLE": {},
+        "GLACIER CREEK MIDDLE": {},
+        "GREENVILLE MIDDLE": {},
+        "INDIAN MOUND MIDDLE": {},
+        "IOWA-GRANT ELEMENTARY/MIDDLE": {},
+        "J C MCKENNA MIDDLE": {},
+        "JACK YOUNG MIDDLE": {},
+        "KEWASKUM MIDDLE": {},
+        "LENA MIDDLE": {},
+        "LINCOLN MIDDLE": {},
+        "LUCK MIDDLE": {},
+        "MARKESAN MIDDLE": {},
+        "MARSHFIELD MIDDLE": {},
+        "MENOMINEE INDIAN MIDDLE": {},
+        "MEYER MIDDLE": {},
+        "MILTON MIDDLE": {},
+        "NEILLSVILLE MIDDLE": {},
+        "NEW AUBURN MIDDLE": {},
+        "NEW GLARUS MIDDLE": {},
+        "PARK VIEW MIDDLE": {},
+        "PESHTIGO MIDDLE": {},
+        "PRAIRIE RIVER MIDDLE": {},
+        "PRAIRIE VIEW MIDDLE": {},
+        "RIB LAKE MIDDLE": {},
+        "RICHLAND MIDDLE": {},
+        "RIPON MIDDLE": {},
+        "RIVER RIDGE MIDDLE": {},
+        "RIVERSIDE MIDDLE": {},
+        "SENNETT MIDDLE": {},
+        "SLINGER MIDDLE": {},
+        "SPRING HARBOR MIDDLE": {},
+        "THEISEN MIDDLE": {},
+        "TOMORROW RIVER COMMUNITY MIDDLE (TRCMS)": {},
+        "TRILLIUM MIDDLE": {},
+        "UNITY MIDDLE": {},
+        "VIROQUA MIDDLE": {},
+        "WASHINGTON MIDDLE": {},
+        "WAUNAKEE MIDDLE": {},
+        "WAUPACA MIDDLE": {},
+        "WAYNE BARTELS MIDDLE": {},
+        "WEBSTER MIDDLE": {},
+        "WEST HIGH": {},
+        "WESTFIELD AREA MIDDLE": {},
+        "WHITE LAKE MIDDLE": {},
+        "WISCONSIN HEIGHTS MIDDLE": {}
       }
     },
     "completed": {
@@ -2007,19 +2039,19 @@
         "Northwoods Technical College": {},
         "Omega School": {},
         "Oneida Community Educational Center": {},
-        "Western Technical College": {},
-        "Western Tech": {}
+        "Western Tech": {},
+        "Western Technical College": {}
       },
       "Tutoring": {
+        "ADVOCAP": {},
         "Catholic Multicultural Center": {},
         "ESL": {},
         "GED.com": {},
         "Kahoot.com": {},
-        "Literacy Network": {},
         "Literacy Green Bay": {},
+        "Literacy Network": {},
         "Open Doors for Refugees": {},
         "Test Prep Champions": {},
-        "ADVOCAP": {},
         "other": {
           "textInput": {}
         }
@@ -2053,19 +2085,19 @@
         "Northwoods Technical College": {},
         "Omega School": {},
         "Oneida Community Educational Center": {},
-        "Western Technical College": {},
-        "Western Tech": {}
+        "Western Tech": {},
+        "Western Technical College": {}
       },
       "Tutoring": {
+        "ADVOCAP": {},
         "Catholic Multicultural Center": {},
         "ESL": {},
         "GED.com": {},
         "Kahoot.com": {},
-        "Literacy Network": {},
         "Literacy Green Bay": {},
+        "Literacy Network": {},
         "Open Doors for Refugees": {},
         "Test Prep Champions": {},
-        "ADVOCAP": {},
         "school": {
           "Abundant Life Christian School": {},
           "Adams-Friendship High School": {},
@@ -2247,3 +2279,4 @@
     ]
   }
 }
+

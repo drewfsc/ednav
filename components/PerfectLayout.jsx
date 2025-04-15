@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+import { useEditing } from '/contexts/EditingContext';
 import LeftNavEntire from '/components/LeftNavEntire';
 import ClientTable from '/components/ClientTable';
 import AddClientForm from './AddClientForm';
 import ClientProfile from './ClientProfile';
-import { useEditing } from '/contexts/EditingContext';
+
 
 export default function PerfectLayout() {
   const [menuClosed, setMenuClosed] = useState(false);
@@ -16,7 +17,8 @@ export default function PerfectLayout() {
       <div className={`w-full flex flex-row h-screen`}>
 
         {/*NAV AND CLIENT TABLE*/}
-        <div className={`flex h-screen border transition-all duration-400  ${menuClosed ? '-translate-x-[230px]' : 'translate-x-0'}`}>
+        <div
+          className={`flex h-screen transition-all duration-400  ${menuClosed ? '-translate-x-[230px]' : 'translate-x-0'}`}>
 
           <div className={`w-[230px] box-border transition-all duration-300 ${!menuClosed ? 'overflow-hidden w-0 collapse' : ''}`}>
             <LeftNavEntire />
@@ -27,7 +29,7 @@ export default function PerfectLayout() {
         </div>
 
         {/*CLIENT PROFILE AND ADD NEW CLIENT FORM*/}
-        <div className={`flex h-screen flex-1 bg-base-100 overflow-hidden  ${menuClosed ? '' : 'translate-x-0'}`}>
+        <div className={`flex h-screen flex-1 bg-base-100 overflow-hidden  ${menuClosed ? 'w-full' : 'translate-x-0'}`}>
           <div className={` transition-all duration-400 relative ${editing === 'client' ? 'w-full translate-x-0' : '-translate-x-[4000px] collapse w-0'}`}>
              <ClientProfile />
           </div>
