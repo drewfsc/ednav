@@ -33,5 +33,9 @@ next-env.d.ts
 /.idea/betterCommentsSettings.xml
 /.idea/developer-tools.xml
 /.idea/misc.xml
-
-*storybook.log
+public/fonts/JetBrainsMono-Regular.woff2
+public/fonts/JetBrainsSans-Regular.woff2
+.DS_Store
+vitest.config.ts
+.idea/nx-console.xml
+.gitignore
