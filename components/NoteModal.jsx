@@ -1,17 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
+
 import { useClients } from '../contexts/ClientsContext';
 import { useNavigators } from '../contexts/NavigatorsContext';
-import Comments from './Comments';
 
 export default function NoteModal({ open, setOpen }) {
   const { selectedClient } = useClients();
   const { selectedNavigator } = useNavigators();
   const [notes, setNotes] = useState([]);
   const [openNote, setOpenNote] = useState('');
-  const [openComment, setOpenComment] = useState('');
-
   const [note, setNote] = useState(
     {
       noteContent: '',
@@ -21,29 +19,27 @@ export default function NoteModal({ open, setOpen }) {
     }
   );
 
-  const handleSave = async (e) => {
-    e.preventDefault();
-    const updatedNote = {
-      ...note,
-      clientId: selectedClient?._id
-    };
+  const handleSave = async () => {
+    console.log(note);
+    note.clientId = selectedClient?._id;
     const response = await fetch('/api/notes', {
       method: 'POST',
-      body: JSON.stringify({ note: updatedNote })
+      body: JSON.stringify({ note })
     });
     const data = await response.json();
+    console.log(data);
     setOpen('');
-    setNote((prev) => ({ ...prev, noteContent: '' }));
-  }
+    setNote(prev => ({ ...prev, noteContent: '' }));
+  };
 
-  // const handleCancel = () => {
-  //   setOpen("");
-  //   setNote((prev) => ({ ...prev, noteContent: '' })  );
-  // } 
+  const handleCancel = () => {
+    setOpen('');
+    setNote(prev => ({ ...prev, noteContent: '' }));
+  };
 
-  // const handleChange = (e) => {
-  //   setNote((prev) => ({ ...prev, noteContent: e.target.value })  );
-  // }
+  const handleChange = (e) => {
+    setNote(prev => ({ ...prev, noteContent: e.target.value }));
+  };
 
   return (
     <Dialog open={open === 'note'} onClose={() => setOpen('')} className="relative z-60">
@@ -63,17 +59,14 @@ export default function NoteModal({ open, setOpen }) {
                   Add a note
                 </DialogTitle>
                 <div className="flex flex-col mt-4 gap-4">
-                  <form onSubmit={handleSave}>
-                    <textarea
-                      className="textarea textarea-bordered w-full"
-                      placeholder="Note" value={note.noteContent}
-                      onChange={handleChange} />
+                  <textarea className="textarea textarea-bordered w-full" placeholder="Note" value={note.noteContent}
+                            onChange={handleChange}></textarea>
+                  <div className="flex gap-2">
                     <button disabled={note.noteContent.length === 0} onClick={handleSave}
                             className="btn btn-sm btn-primary w-fit">Save
                     </button>
                     <button onClick={handleCancel} className="btn btn-sm btn-secondary w-fit">Cancel</button>
-                  </form>
-                  <Comments />
+                  </div>
                 </div>
               </div>
             </div>

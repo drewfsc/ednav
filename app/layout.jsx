@@ -45,7 +45,8 @@ function ThemeWrapper({ children }) {
   }, []);
 
   return (
-    <html lang="en" data-theme={selectedTheme} suppressHydrationWarning className={`font-family-sans tracking-wider transition-all duration-500`}>
+    <html suppressContentEditableWarning lang="en" data-theme={selectedTheme} suppressHydrationWarning
+          className={`font-family-sans tracking-wider transition-all duration-500`}>
     <head>
       <title></title>
       <meta charSet="utf-8" />

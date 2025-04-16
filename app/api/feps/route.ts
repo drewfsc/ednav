@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { getCollection } from "@/lib/mongodb";
+import { NextResponse } from 'next/server';
+import { getCollection } from '@/lib/mongodb';
 
 // GET all FEPs with aggregated activities and clients
 export async function GET() {
@@ -11,18 +11,16 @@ export async function GET() {
         // Fetch all FEPs
         const feps = await fepsCollection.find({}).toArray();
 
-        // Process each FEP to aggregate activities and clients
         const enrichedFeps = await Promise.all(
             feps.map(async (fep) => {
-                // Fetch activities where the FEP was involved, sorted by most recent first
                 const actions = await actionsCollection
-                    .find({ who: fep.name }) // Assuming 'who' field in activities matches FEP name
-                    .sort({ when: -1 }) // Sort activities by 'when' in descending order (most recent first)
+                  .find({ who: fep.name })
+                  .sort({ when: -1 })
                     .toArray();
 
                 // Fetch clients associated with the FEP
                 const clients = await clientsCollection
-                    .find({ fep: fep.name }) // Assuming 'fep' field in clients matches FEP name
+                  .find({ fep: fep.name })
                     .toArray();
 
                 return {
