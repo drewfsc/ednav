@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment/moment';
 import { useClients } from '@/contexts/ClientsContext';
-import InputLabel from '@/components/InputLabel';
+import InputVariants from '@/components/InputVariants';
 
 function ClientProfileTabeOrientation() {
   const { selectedClient } = useClients();
@@ -68,7 +68,7 @@ function ClientProfileTabeOrientation() {
                             </div>
                             <div
                               className={`flex gap-4 items-baseline ${tabeOpen ? 'visible' : 'invisible h-0 collapse overflow-hidden'}`}>
-                              <InputLabel className={``} type={`date`} name={`tabe`}
+                              <InputVariants className={``} type={`date`} name={`tabe`}
                                           value={dateValue} handleChange={handleChange} label="Date Completed" />
                               <button onClick={handleTabeSave}
                                       className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${tabeOpen ? 'visible' : 'invisible'}`}>Save

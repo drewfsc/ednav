@@ -16,7 +16,8 @@ export default function PerfectLayout() {
       <div className={`w-full flex flex-row h-screen`}>
 
         {/*NAV AND CLIENT TABLE*/}
-        <div className={`flex h-screen border transition-all duration-400  ${menuClosed ? '-translate-x-[230px]' : 'translate-x-0'}`}>
+        <div
+          className={`flex h-screen transition-all duration-400  ${menuClosed ? '-translate-x-[230px]' : 'translate-x-0'}`}>
 
           <div className={`w-[230px] box-border transition-all duration-300 ${!menuClosed ? 'overflow-hidden w-0 collapse' : ''}`}>
             <LeftNavEntire />

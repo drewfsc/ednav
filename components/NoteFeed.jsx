@@ -1,165 +1,85 @@
-import { ThumbsUp, SmileySad, Fire, Question, User } from 'phosphor-react';
-import moment from 'moment';
+'use client';
+import React, { useState } from 'react';
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { useClients } from '../contexts/ClientsContext';
-import { useEffect, useState } from 'react';
 import { useNavigators } from '../contexts/NavigatorsContext';
+import Comments from './Comments';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
-
-export default function NoteFeed({ actionId }) {
+export default function NoteModal({ open, setOpen }) {
   const { selectedClient } = useClients();
   const { selectedNavigator } = useNavigators();
   const [notes, setNotes] = useState([]);
   const [openNote, setOpenNote] = useState('');
+  const [openComment, setOpenComment] = useState('');
 
   const [note, setNote] = useState(
     {
       noteContent: '',
       noteAuthor: selectedNavigator?.name,
-      activityId: actionId,
-      mood: 'User',
       createdAt: new Date(),
       clientId: selectedClient?._id
     }
   );
 
-  const getIconBGColor = (status) => {
-    switch (status) {
-      case 'ThumbsUp':
-        return 'bg-primary text-primary-content';
-      case 'SmileySad':
-        return 'bg-accent text-accent-content';
-      case 'Fire':
-        return 'bg-error text-error-content';
-      case 'Question':
-        return 'bg-info text-info-content';
-      default:
-        return 'bg-success text-success-content';
-    }
-  };
-
-  const getIconColor = (status) => {
-    switch (status) {
-      case 'ThumbsUp':
-        return <ThumbsUp size={24} className="text-primary-content" />;
-      case 'SmileySad':
-        return <SmileySad size={24} className="text-accent-content" />;
-      case 'Fire':
-        return <Fire size={24} className="text-error-content" />;
-      case 'Question':
-        return <Question size={24} className="text-info-content" />;
-      default:
-        return <User size={24} className="text-success-content" />;
-    }
-  };
-
-  const getNotes = async () => {
-    if (!selectedClient) return;
-    const response = await fetch(`/api/notes?clientId=${selectedClient._id}`);
-    return await response.json();
-  };
-
-  const saveNote = async () => {
-    const res = await fetch(`/api/notes/`, {
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const updatedNote = {
+      ...note,
+      clientId: selectedClient?._id
+    };
+    const response = await fetch('/api/notes', {
       method: 'POST',
-      body: JSON.stringify(note),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: JSON.stringify({ note: updatedNote })
     });
-    const data = await res.json();
-    console.log(data);
-  };
+    const data = await response.json();
+    setOpen('');
+    setNote((prev) => ({ ...prev, noteContent: '' }));
+  }
 
-  const handleNote = async () => {
-    await saveNote().then();
-    await getNotes().then(data => setNotes(data));
-  };
+  // const handleCancel = () => {
+  //   setOpen("");
+  //   setNote((prev) => ({ ...prev, noteContent: '' })  );
+  // } 
 
-  useEffect(() => {
-    getNotes().then(data => setNotes(data))
-      .catch(err => console.log(err));
-  }, [selectedClient?._id, actionId]);
-
+  // const handleChange = (e) => {
+  //   setNote((prev) => ({ ...prev, noteContent: e.target.value })  );
+  // }
 
   return (
-    <div className={`w-full `}>
-      {/*NOTES*/}
-      <ul role="list" className="-mb-8">
-        <div className={`flex-1 mr-10 h-fit`}>
-          {notes && notes?.filter((note) => note.activityId === actionId).map((event, eventIdx) => (
-            <li key={event.id + eventIdx.toString()} className={``}>
-              <div className="relative pb-8">
-                {eventIdx !== notes.length - 1 ? (
-                  <span aria-hidden="true"
-                        className={`absolute left-5 top-4 -ml-px h-full w-0.5 bg-base-300 `} />
-                ) : null}
-                <div className="relative flex space-x-3 max-w-4/5">
-                  <div className={``}>
-                  <span
-                    className={classNames(
-                      getIconBGColor(event.mood),
-                      'flex ml-1 mt-1 size-8 items-center justify-center rounded-full ring-2 ring-base-300'
-                    )}
-                  >
-                    {getIconColor(event.mood)}
-                  </span>
-                  </div>
-                  <div className="flex flex-1 justify-between space-x-4 ml-2 pt-1.5 ">
-                    <div className={` w-full`}>
-                      <div
-                        className="flex tracking-wide justify-between text-left text-xs text-base-content/50">
-                        <span>{event.noteAuthor}</span>
-                        <time
-                          dateTime={moment(event.createdAt).format('M/dd/yy')}>{moment(event.createdAt).calendar()}</time>
-                      </div>
-                      <p className="text-sm text-base-content/70 my-1">
-                        {event.noteContent}{' '}
-                      </p>
-                    </div>
-                  </div>
-
+    <Dialog open={open === 'note'} onClose={() => setOpen('')} className="relative z-60">
+      <DialogBackdrop
+        transition
+        className="fixed inset-0 bg-gray-500/35 backdrop-blur-xs transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+      />
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <DialogPanel
+            transition
+            className="relative transform overflow-hidden rounded-lg bg-base-100 p-12 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+          >
+            <div className="px-12 py-8">
+              <div>
+                <DialogTitle as="h3" className="text-xl font-light text-base-content mx-auto">
+                  Add a note
+                </DialogTitle>
+                <div className="flex flex-col mt-4 gap-4">
+                  <form onSubmit={handleSave}>
+                    <textarea
+                      className="textarea textarea-bordered w-full"
+                      placeholder="Note" value={note.noteContent}
+                      onChange={handleChange} />
+                    <button disabled={note.noteContent.length === 0} onClick={handleSave}
+                            className="btn btn-sm btn-primary w-fit">Save
+                    </button>
+                    <button onClick={handleCancel} className="btn btn-sm btn-secondary w-fit">Cancel</button>
+                  </form>
+                  <Comments />
                 </div>
               </div>
-            </li>
-          ))}
+            </div>
+          </DialogPanel>
         </div>
-        {/*NOTE FORM*/}
-      </ul>
-      <div className={`flex flex-col justify-between items-start gap-3 ml-13 mt-4 w-2/3 `}>
-        <button className={`btn btn-xs relative z-10 ${openNote === actionId ? 'btn-warning' : "btn-outline"}`} onClick={() => {
-          setOpenNote(prevState => prevState === actionId ? "" : actionId);
-        }}>{openNote === actionId ? "Cancel" : "Add note"}</button>
-        <textarea name={`client-activity-note`}
-                  className={`textarea textarea-accent min-h-20 border-base-300 relative z-0 text-sm  ${openNote === actionId ? 'visible' : "hidden"}`}
-                  placeholder={`Enter your notes here...`}
-                  onChange={(e) => {
-                    setNote({
-                      noteContent: e.target.value,
-                      noteAuthor: selectedNavigator?.name,
-                      activityId: actionId,
-                      mood: 'User',
-                      createdAt: new Date(),
-                      clientId: selectedClient?._id
-                    });
-                  }} value={note.noteContent} />
-
-        <button disabled={note.noteContent === ''} className={`btn btn-xs btn-success disabled:btn-ghost ${openNote === actionId ? 'visible' : "hidden"}`} onClick={() => {
-          handleNote().then();
-          setNote({
-            noteContent: '',
-            noteAuthor: selectedNavigator?.name,
-            activityId: actionId,
-            mood: 'User',
-            createdAt: new Date(),
-            clientId: selectedClient?._id
-          });
-        }}>Save
-        </button>
       </div>
-    </div>
-
+    </Dialog>
   );
 }

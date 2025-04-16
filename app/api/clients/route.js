@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server"
-import { getCollection } from "/lib/mongodb"
-import { ObjectId } from "mongodb"
+import { NextResponse } from 'next/server';
+import { getCollection } from '/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
 export async function GET(request) {
   const url = await new URL(request.url);
@@ -12,7 +12,7 @@ export async function GET(request) {
     if (navigator) {
       clients = await collection.find({navigator: navigator}).toArray()
     } else if (clientId) {
-      clients = await collection.findOne({_id: new ObjectId(clientId)})
+      clients = await collection.findOne({ _id: new ObjectId(clientId.toString()) });
     } else if (grouped === "true") {
       clients = await collection.aggregate([
         // { $match: { navigator: nav } },
@@ -25,7 +25,6 @@ export async function GET(request) {
       ]).toArray()
     } else {
       clients = await collection.find({}).toArray()
-
     }
 
     return NextResponse.json(clients, { status: 200 })
@@ -61,7 +60,10 @@ export async function POST(request) {
 
     // Otherwise, it's a new client
     const result = await collection.insertOne(body);
-    return NextResponse.json({ message: "Client added successfully", _id: result.insertedId }, { status: 201 });
+    return NextResponse.json({
+      message: 'Client added successfully',
+      _id: result.insertedId.toString()
+    }, { status: 201 });
 
   } catch (error) {
     console.error("Error adding/updating client:", error);

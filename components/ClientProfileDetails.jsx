@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
-import ActivityTable from "/components/ActivityTable";
-import {useClients} from "/contexts/ClientsContext";
+import React, { useEffect, useState } from 'react';
+import ActivityTable from '/components/ActivityTable';
+import { useClients } from '/contexts/ClientsContext';
 import ClientProfilePersonalOrganization from '@/components/ClientProfilePersonalOrganization';
 import ClientProfileProgress from '@/components/ClientProfileProgress';
 import ClientProfileTABEOrientation from '@/components/ClientProfileTABEOrientation';
 
 export default function ClientProfileDetails() {
     const {selectedClient} = useClients();
-    const [actions, setActions] = useState([]);
+    const [actions, setActions] = useState([]); // actions are the activities
     const [hasTrackable, setHasTrackable] = useState([]);
     const [hasTrackableUpdated, setHasTrackableUpdated] = useState(false);
     const [hasTrackableCopy, setHasTrackableCopy] = useState([]);
@@ -59,6 +59,7 @@ export default function ClientProfileDetails() {
               setActions={setActions}/>
             <ClientProfileTABEOrientation/>
             <ClientProfilePersonalOrganization/>
+
         </div>
     );
 }

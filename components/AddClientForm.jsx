@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { adultSchools, youthSchools } from '/lib/schools';
 import { XCircle } from 'phosphor-react';
 import { useClients } from '@/contexts/ClientsContext';
-import InputLabel from '@/components/InputLabel';
+import InputVariants from '@/components/InputVariants';
 import { useEditing } from '@/contexts/EditingContext';
 
 function AddClientForm() {
@@ -292,7 +292,7 @@ function AddClientForm() {
           <div className="grid grid-cols-1 gap-6">
             {formFields.map((field) => {
               return (
-                <InputLabel key={field.name} label={field.label} name={field.name}
+                <InputVariants key={field.name} label={field.label} name={field.name}
                             handleChange={handleChange} type={field.type}
                             required={field.required} options={field.options} value={field.value} />
               );
