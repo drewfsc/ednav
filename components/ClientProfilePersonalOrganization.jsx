@@ -75,15 +75,14 @@ function ClientProfilePersonalOrganization() {
     setFeps(feps);
   };
 
-  const fetchNavigators = async () => {
-    try {
-      const response = await fetch('/api/education-navigators');
-      const data = await response.json();
-      // setNavigators(data);
-    } catch (error) {
-      console.error('Error fetching navigators:', error);
-    }
-  };
+  // const fetchNavigators = async () => {
+  //   try {
+  //     const response = await fetch('/api/education-navigators');
+  //     const data = await response.json();
+  //   } catch (error) {
+  //     console.error('Error fetching navigators:', error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchFeps().then();
@@ -152,7 +151,6 @@ function ClientProfilePersonalOrganization() {
           <div className="text-sm w-full mb-6">
             <select
               name="fep"
-              label="Select FEP"
               value={change.fep}
               onChange={(value) => handleChange({ target: { name: 'fep', value } })}
               className="input outline-none border-0 border-b-1 border-base-content/30 relative z-0 rounded-none">

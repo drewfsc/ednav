@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Logo(props) {
+function Logo() {
   return (
     <div className={`mb-4`}>
       <div className={`text-[57px] font-black italic antialiased`}>
