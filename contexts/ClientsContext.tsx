@@ -1,44 +1,40 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 type Client = {
-  _id: string;
-  caseNumber: number;
-  clientStatus: string;
-  contactNumber: string;
-  createdAt: string;
-  dateReferred: string;
-  dob: string;
-  email: string;
-  fep: string;
-  first_name: string;
-  group: string;
-  hadOrientation: string;
-  isYouth: boolean;
-  lastGrade: string;
-  last_name: string;
-  latestInteraction: string;
-  name: string;
-  navigator: string;
-  officeCity: string;
-  pin: number;
-  region: number;
-  schoolIfEnrolled: string;
-  tabe: {
-    referralDate: string;
-    completionDate: string;
-  };
-  orientation: {
-    referralDate: string;
-    completionDate: string;
-  };
-  trackable: {
-    type: string;
-    length: number;
-    items: [];
-  };
-  transcripts: string;
-  ttsDream: string;
-};
+  '_id': string,
+  'name': string,
+  'first_name': string,
+  'last_name': string,
+  'email': string,
+  'navigator': string,
+  'contactNumber': string,
+  'caseNumber': number,
+  'dob': string,
+  'fep': string,
+  'dateReferred': string,
+  'lastGrade': string,
+  'orientation': {
+    'completionDate': string,
+    'completionStatus': string,
+    'completionNotes': string,
+  },
+  'pin': number,
+  'region': number,
+  'clientStatus': string,
+  'tabe': {
+    'completionDate': string,
+    'completionStatus': string,
+    'completionNotes': string,
+  },
+  'transcripts': string,
+  'officeCity': string,
+  'group': string,
+  'schoolIfEnrolled': string,
+  'ttsDream': string,
+  'createdAt': string,
+  'latestInteraction': string,
+  'isYouth': boolean,
+}
 
 type ClientsContextType = {
   selectedClient: Client | null;
@@ -61,7 +57,7 @@ export const ClientsProvider = ({ children }: { children: ReactNode }) => {
 export const useClients = () => {
   const context = useContext(ClientsContext);
   if (!context) {
-    throw new Error("useClients must be used within a ClientsProvider");
+    throw new Error('useClients must be used within a ClientsProvider');
   }
   return context;
 };

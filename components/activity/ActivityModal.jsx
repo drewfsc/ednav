@@ -27,7 +27,7 @@ export default function ActivityModal({ open, setOpen }) {
   }, []);
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-60">
+    <Dialog open={open === 'activity'} onClose={() => setOpen('')} className="relative z-60">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/35 backdrop-blur-xs transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[enter]:ease-out data-[leave]:duration-200 data-[leave]:ease-in"
