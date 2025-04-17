@@ -2,15 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import { useFepsLeft } from '../contexts/FepsLeftContext';
 import { useEditing } from '../contexts/EditingContext';
+import { useNavigators } from '../contexts/NavigatorsContext';
 
 export default function LeftNavigation() {
-
+  const { selectedNavigator } = useNavigators();
   const { selectedFepLeft, setSelectedFepLeft } = useFepsLeft();
   const { setEditing } = useEditing();
   const [, setMenuData] = useState([])
 
   const getGroupedClients = async () => {
-    const clients = await fetch(`/api/clients?grouped=true&navigator=Andrew%20McCauley`);
+    const clients = await fetch(`/api/clients?grouped=true&navigator=${selectedNavigator?.name}`);
     const data = await clients.json();
     await setMenuData(data);
   }
@@ -53,11 +54,11 @@ export default function LeftNavigation() {
   const navAgeGroup = ['All', 'Adult', 'Youth'];
 
   return (
-    <div>
-      <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+    <div className={`flex flex-col`}>
+      <ul className="menu menu-vertical rounded-lg w-full bg-base-100 mb-4">
         {
           navStatus.map((item, i) => (
-            <li className={`mb-1`} key={i}>
+            <li className={`mb-1 whitespace-nowrap`} key={i}>
               <a onClick={() => setSelectedFepLeft(prevState => {
                 return {
                   ...prevState,
@@ -71,7 +72,7 @@ export default function LeftNavigation() {
           ))
         }
       </ul>
-      <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+      <ul className="menu menu-vertical w-full bg-base-100 rounded-lg mb-4">
         {
           navAgeGroup.map((item, i) => (
             <li className={`mb-1`} key={i}>
@@ -86,7 +87,7 @@ export default function LeftNavigation() {
           ))
         }
       </ul>
-      <ul className="menu menu-vertical w-full bg-base-100 rounded mb-4">
+      <ul className="menu menu-vertical w-full bg-base-100 rounded-lg mb-4">
         <li>
           <a onClick={() => {
             setEditing('add-client');

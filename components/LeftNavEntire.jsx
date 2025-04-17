@@ -11,7 +11,8 @@ import Logo from './Logo';
 export default function LeftNavEntire({setEditing}) {
     const session = useSession();
     return (
-        <div className={`flex flex-col h-full justify-between bg-base-300 px-4 pb-8 pt-2 gap-4 drop-shadow-lg z-50 no-scrollbar overflow-y-scroll relative`}>
+      <div
+        className={`flex flex-col w-[230px] h-full justify-between bg-base-300 px-4 pb-8 pt-2 gap-4 drop-shadow-lg z-50 no-scrollbar overflow-y-scroll relative whitespace-nowrap`}>
 
           <Logo />
           <LeftNavigation setEditing={setEditing} />
@@ -20,9 +21,9 @@ export default function LeftNavEntire({setEditing}) {
                 {session.data.user.level !== 'navigator' ? <NavigatorSelector/> : null}
                 <ThemeSwitcher/>
               <div className={`flex flex-col mt-8 p-3 bg-base-200`}>
-                    <div className={`text-sm`}>{session.data.user.name}</div>
-                    <div className={`text-xs`}>{session.data.user.email}</div>
-                    <div className={`text-xs mb-4`}>{session.data.user.level}</div>
+                <div className={`text-sm whitespace-nowrap`}>{session.data.user.name}</div>
+                <div className={`text-xs whitespace-nowrap`}>{session.data.user.email}</div>
+                <div className={`text-xs mb-4 whitespace-nowrap`}>{session.data.user.level}</div>
                     {session.status === 'authenticated' ? <SignOutButton /> : <SignInButton />}
                 </div>
             </div>

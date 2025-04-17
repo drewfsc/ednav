@@ -45,7 +45,13 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
         hasTrackable && hasTrackableCopy && hasTrackable.length > 0 && (
           <div className={`flex-col gap-6 mt-6 border-1 border-base-300/60 bg-base-200/50 shadow-xl rounded-lg p-6 w-full`}>
             <div className={`flex items-center justify-between  mt-0 mb-2`}>
-              <div>{selectedClient?.trackable?.type} Progress - {calculateCompletionPercentage(selectedClient?.trackable?.items)}%</div>
+              <div>
+                {selectedClient?.trackable?.type} Progress
+                - {calculateCompletionPercentage(selectedClient?.trackable?.items)}%
+                <p className={`text-xs text-info`}>If you are having trouble selecting items, please refresh the
+                  page.</p>
+              </div>
+
               <div onClick={handleTrackableUpdate} className={` cursor-pointer text-sm text-secondary font-light underline ${updated ? 'visible' : 'hidden'}`}>Save Progress</div>
             </div>
             <progress className="progress progress-success" value={calculateCompletionPercentage(selectedClient?.trackable?.items)} max="100"></progress>
@@ -77,12 +83,14 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
                         </span>}
                     </button>
                   )
+
                 })
               }
             </div>
           </div>
         )
       }
+
     </div>
   );
 }

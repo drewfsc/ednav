@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useClients} from "/contexts/ClientsContext";
+import { useClients } from '/contexts/ClientsContext';
 import { PinIcon } from 'lucide-react';
 import { useNavigators } from '../contexts/NavigatorsContext';
 import { useEditing } from '../contexts/EditingContext';
@@ -88,8 +88,11 @@ export default function ClientTableItem({ person, i, statusCollapse, menuClosed}
                 }
             }}
             className={`${statusCollapse?.includes(person?.clientStatus) ? 'hidden' : 'visible'} hover:bg-base-200 hover:text-base-content hover:border-base-200 cursor-pointer box-border text-base-content ${selectedClient?._id === person._id ? getBorderColor(selectedClient?.clientStatus) : ''} ${selectedClient?._id === person?._id ? 'bg-base-300 text-base-content' : ''}`}>
-            <td className={`text-xs truncate flex justify-between items-center w-[250px] 2xl:w-[320px] ${menuClosed ? 'w-[500px] 2xl:w-[700px] p-1.5' : ''}`}>
+            <td className={`text-xs truncate flex justify-between items-center  ${menuClosed ? 'p-1.5' : ''}`}>
                 <span className={`ml-3 flex-1`}>{person.first_name + " " + person.last_name}</span>
+                {/*<span className={`mr-1`}>{person.latestInteraction}</span>*/}
+                {/*<span className={`mr-1`}>{person.group}</span>*/}
+                {/*<span className={`mr-1`}>{person.clientStatus}</span>*/}
                 <span className={`ml-4`}><PinIcon size={16} className={`${selectedNavigator && selectedNavigator.pinned && selectedNavigator?.pinned.includes(person?._id) ? 'visible' : 'hidden'} text-base-content/70`}/></span>
                 <span className={`mr-1`}><div className={`w-[15px] m-3 2xl:w-fit ${getBadgeColor(person?.clientStatus)}`}>{(screenWidth < 1536 ? statusAbbr1 : "") + (screenWidth >= 1536 ? personStatus : "")}</div></span>
             </td>

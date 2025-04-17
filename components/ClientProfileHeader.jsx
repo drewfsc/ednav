@@ -1,8 +1,8 @@
 import React from 'react';
 import { XSquare } from 'phosphor-react';
-import {useClients} from "/contexts/ClientsContext";
+import { useClients } from '/contexts/ClientsContext';
 import ClientProfilePin from './ClientProfilePin';
-import { useEditing } from '../contexts/EditingContext';
+import { useEditing } from '@/contexts/EditingContext';
 
 export default function ClientProfileHeader() {
 
@@ -26,7 +26,7 @@ export default function ClientProfileHeader() {
 
     return (
         <div
-            className={` h-16 font-extralight absolute flex justify-between items-center px-6 left-0 right-0 shadow-lg bg-base-200 text-base-content w-full transition-all duration-500`}>
+          className={` h-[68px] fixed font-extralight flex justify-between items-center top-0 px-6 left-0 right-0 shadow bg-base-300 text-base-content w-full transition-all duration-600`}>
             <div className={` flex justify-between gap-4 items-center divide-x divide-accent-content/30`}>
                 <ClientProfilePin/>
                 <div
