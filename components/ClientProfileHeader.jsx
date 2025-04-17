@@ -1,5 +1,5 @@
 import React from 'react';
-// import { XSquare } from 'phosphor-react';
+import { XSquare } from 'phosphor-react';
 import { useClients } from '/contexts/ClientsContext';
 import ClientProfilePin from './ClientProfilePin';
 import { useEditing } from '@/contexts/EditingContext';
