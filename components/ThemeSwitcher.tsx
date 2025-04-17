@@ -3,49 +3,61 @@
 import React, { useEffect, useState } from 'react';
 import { useThemes } from '@/contexts/ThemesContext';
 
-// List of available DaisyUI themes
 const themes = [
-  'Light Themes',
-  'acid',
-  'autumn',
-  'bumblebee',
-  'caramellatte',
-  'cmyk',
   'corporate',
-  'cupcake',
-  'cyberpunk',
-  'emerald',
   'fantasy',
-  'garden',
-  'lemonade',
   'light',
-  'lofi',
   'nord',
-  'pastel',
-  'retro',
-  'silk',
-  'valentine',
-  'winter',
-  'wireframe',
-  'Dark Themes',
   'abyss',
-  'aqua',
-  'black',
   'business',
-  'coffee',
-  'dark',
-  'dim',
-  'dracula',
-  'forest',
-  'halloween',
-  'luxury',
+  // 'dracula',
+  // 'halloween',
   'night',
   'sunset',
   'synthwave'
 ];
+// List of available DaisyUI themes
+// const themes = [
+//   'Light Themes',
+//   'acid',
+//   'autumn',
+//   'bumblebee',
+//   'caramellatte',
+//   'cmyk',
+//   'corporate',
+//   'cupcake',
+//   'cyberpunk',
+//   'emerald',
+//   'fantasy',
+//   'garden',
+//   'lemonade',
+//   'light',
+//   'lofi',
+//   'nord',
+//   'pastel',
+//   'retro',
+//   'silk',
+//   'valentine',
+//   'winter',
+//   'wireframe',
+//   'Dark Themes',
+//   'abyss',
+//   'aqua',
+//   'black',
+//   'business',
+//   'coffee',
+//   'dark',
+//   'dim',
+//   'dracula',
+//   'forest',
+//   'halloween',
+//   'luxury',
+//   'night',
+//   'sunset',
+//   'synthwave'
+// ];
 
 export default function ThemeSwitcher() {
-  // Load theme index from localStorage OR default to "light"
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
