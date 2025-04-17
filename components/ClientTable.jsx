@@ -6,8 +6,9 @@ import { useNavigators } from '../contexts/NavigatorsContext';
 import { useClientList } from '../contexts/ClientListContext';
 import { Eye, EyeClosed } from 'phosphor-react';
 import SearchField from './SearchField';
+import { useClients } from '../contexts/ClientsContext';
 
-export default function ClientTable({ menuClosed, setMenuClosed, clients, searchTerm, statusFilter }) {
+export default function ClientTable({ menuClosed, setMenuClosed }) {
   const { clientList } = useClientList();
   const { selectedNavigator } = useNavigators();
   const { selectedFepLeft } = useFepsLeft();
@@ -15,6 +16,7 @@ export default function ClientTable({ menuClosed, setMenuClosed, clients, search
   const [viewMode, setViewMode] = useState(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const [statusCollapse, setStatusCollapse] = useState([]);
+  const { selectedClient } = useClients(null);
 
   const getBGColor = (status) => {
     switch (status) {
@@ -112,7 +114,7 @@ export default function ClientTable({ menuClosed, setMenuClosed, clients, search
                   Object.entries(clientsToShow).map(([status, clients], idx) => (
                     <React.Fragment key={status}>
                       <tr
-                        className={`${getBGColor(status)} ${selectedClient && selectedClient.clientStatus === status ? '' : ''} ${statusCollapse.includes(status) ? 'hidden' : ''} ${menuClosed ? '' : ''}`}>
+                        className={`${getBGColor(status)} ${selectedClient && selectedClient?.clientStatus === status ? '' : ''} ${statusCollapse.includes(status) ? 'hidden' : ''} ${menuClosed ? '' : ''}`}>
                         <td onClick={() => handleCollapseChange(status)}
                             className={`py-2 text-sm flex w-full justify-between items-center cursor-pointer ${menuClosed ? '' : ''}`}>
                           <span className={`w-6/7 text-left font-bold pl-3`}>{status}</span>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ClientProfileDetails from './ClientProfileDetails';
 
-export default function ClientProfile({client, setEditing}) {
+export default function ClientProfile() {
     const [isMounted, setIsMounted] = useState(false);
     const [, setSelectedNavigator] = useState("");
 
