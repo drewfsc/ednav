@@ -1,8 +1,12 @@
 import NextAuth from 'next-auth';
 import { authOptions } from './auth-options';
 
+/**
+ * NextAuth.js API route handler for App Router
+ * This pattern ensures proper handling of requests in Next.js
+ */
 const handler = NextAuth(authOptions);
 
-// Export as separate named constants for App Router
-export const GET = handler.GET;
-export const POST = handler.POST;
+// Export the handler directly (not its properties)
+export const GET = handler;
+export const POST = handler;
