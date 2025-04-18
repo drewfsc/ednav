@@ -41,7 +41,7 @@ function ClientProfileTabeOrientation() {
   return (
     <div className="w-full mt-6 text-sm">
       {
-        selectedClient && (selectedClient.tabe?.completionDate || selectedClient.orientation?.completionDate || selectedClient?.transcripts === "yes") && (
+        selectedClient && (selectedClient.tabe.completedDate || selectedClient.orientation.completedDate || selectedClient.transcripts === "yes") && (
           <div
             className={`grid grid-cols-3 xl:grid-cols-3 w-full border-1 border-base-300/30 bg-base-200/40 shadow-xl rounded-lg py-4 px-4 ${hasValidKey(selectedClient, 'tabe') || hasValidKey(selectedClient, 'orientation') ? 'visible' : 'hidden'}`}>
             {

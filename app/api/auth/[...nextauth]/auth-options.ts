@@ -1,16 +1,16 @@
-import type { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { connectToDatabase } from '@/lib/db';
-import { User as DbUser } from '@/models/User';
-import { compare } from 'bcrypt';
+import type { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { connectToDatabase } from "@/lib/db";
+import { User as DbUser } from "@/models/User";
+import { compare } from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' }
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -55,7 +55,7 @@ export const authOptions: NextAuthOptions = {
             username: user.username
           };
         } catch (error) {
-          console.error('Auth error:', error);
+          console.error("Auth error:", error);
           return null;
         }
       }
@@ -79,11 +79,11 @@ export const authOptions: NextAuthOptions = {
     }
   },
   pages: {
-    signIn: '/login',
-    error: '/login'
+    signIn: "/login",
+    error: "/login"
   },
   session: {
-    strategy: 'jwt'
+    strategy: "jwt"
   },
   secret: process.env.NEXTAUTH_SECRET
 };
