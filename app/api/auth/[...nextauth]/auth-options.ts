@@ -2,7 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "@/lib/db";
 import { User as DbUser } from "@/models/User";
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -24,8 +24,8 @@ export const authOptions: NextAuthOptions = {
           const user = await DbUser.findOne({
             $or: [
               { email: credentials.email },
-              { username: credentials.email }
-            ]
+              { username: credentials.email },
+            ],
           });
 
           if (!user) {
@@ -40,7 +40,10 @@ export const authOptions: NextAuthOptions = {
             isPasswordValid = credentials.password === user.password;
           } else {
             // Hashed password comparison
-            isPasswordValid = await compare(credentials.password, user.password);
+            isPasswordValid = await compare(
+              credentials.password,
+              user.password,
+            );
           }
 
           if (!isPasswordValid) {
@@ -52,14 +55,14 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name,
             level: user.level,
-            username: user.username
+            username: user.username,
           };
         } catch (error) {
           console.error("Auth error:", error);
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -76,14 +79,14 @@ export const authOptions: NextAuthOptions = {
         session.user.level = token.level as string;
       }
       return session;
-    }
+    },
   },
   pages: {
     signIn: "/login",
-    error: "/login"
+    error: "/login",
   },
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 };

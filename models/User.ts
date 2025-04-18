@@ -4,86 +4,90 @@ import { compare, hash } from "bcrypt";
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   level: {
     type: String,
     enum: ["user", "admin", "IT"],
-    default: "user"
+    default: "user",
   },
   username: {
     type: String,
     unique: true,
-    sparse: true
+    sparse: true,
   },
   emailVerified: {
     type: Date,
-    default: null
+    default: null,
   },
   preferences: {
     theme: {
       type: String,
-      default: ""
+      default: "",
     },
     lastAgeFilter: {
       type: String,
-      default: ""
+      default: "",
     },
     lastStatusFilter: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   notifications: {
-    unread: [{
-      message: String,
-      timestamp: {
-        type: Date,
-        default: Date.now
+    unread: [
+      {
+        message: String,
+        timestamp: {
+          type: Date,
+          default: Date.now,
+        },
+        link: String,
       },
-      link: String
-    }],
-    read: [{
-      message: String,
-      timestamp: Date,
-      link: String
-    }]
+    ],
+    read: [
+      {
+        message: String,
+        timestamp: Date,
+        link: String,
+      },
+    ],
   },
   streak: {
     active: {
       type: Boolean,
-      default: false
+      default: false,
     },
     streak: {
       type: Number,
-      default: 0
+      default: 0,
     },
     lastDate: {
       type: String,
-      default: ""
+      default: "",
     },
     longestStreak: {
       type: Number,
-      default: 0
+      default: 0,
     },
     longestStreakDate: {
       type: String,
-      default: ""
-    }
-  }
+      default: "",
+    },
+  },
 });
 
 // Hash password before saving
-UserSchema.pre("save", async function(next) {
+UserSchema.pre("save", async function (next) {
   // Only hash the password if it's modified or new
   if (!this.isModified("password")) return next();
 
@@ -93,7 +97,7 @@ UserSchema.pre("save", async function(next) {
       this.password = await hash(this.password, 10);
       next();
     } catch (error) {
-      next(error);
+      next(error as mongoose.CallbackError);
     }
   } else {
     next();
@@ -101,7 +105,9 @@ UserSchema.pre("save", async function(next) {
 });
 
 // Method to check password
-UserSchema.methods.comparePassword = async function(candidatePassword) {
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string,
+) {
   // For numeric passwords (dev/testing)
   if (/^\d+$/.test(this.password)) {
     return candidatePassword === this.password;

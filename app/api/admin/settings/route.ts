@@ -1,26 +1,27 @@
 // app/api/admin/settings/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
-import { connectToDatabase } from '@/lib/db';
-import mongoose from 'mongoose';
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { connectToDatabase } from "@/lib/db";
+import { models, Schema } from "mongoose";
 
 // Define settings schema
-const SettingsSchema = new mongoose.Schema({
-  siteName: { type: String, default: 'EdNav' },
+const SettingsSchema = new Schema({
+  siteName: { type: String, default: "EdNav" },
   maintenanceMode: { type: Boolean, default: false },
   maintenanceMessage: {
     type: String,
-    default: 'System is currently undergoing scheduled maintenance. Please check back later.'
+    default:
+      "System is currently undergoing scheduled maintenance. Please check back later.",
   },
   maxUploadSize: { type: Number, default: 5 },
   allowRegistration: { type: Boolean, default: true },
-  contactEmail: { type: String, default: 'support@ednavapp.com' },
-  defaultUserLevel: { type: String, default: 'user' }
+  contactEmail: { type: String, default: "support@ednavapp.com" },
+  defaultUserLevel: { type: String, default: "user" },
 });
 
 // Make sure we don't reinitialize the model if it already exists
-const Settings = mongoose.models.Settings || mongoose.model('Settings', SettingsSchema);
+const Settings = models.Settings |"Settings"ettings', SettingsSchema);
 
 // GET /api/admin/settings - Get system settings
 export async function GET(_req: NextRequest) {
