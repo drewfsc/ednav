@@ -47,8 +47,11 @@ export async function POST(request: NextRequest) {
     }
     if (body.path.includes('graduated') && body.path.includes('inactive')) {
       const [client] = await Promise.all([clientsCollection.findOne({ _id: new ObjectId(body.clientId) })]);
-      if (client) {
+      if (client && client.group.toString().toLocaleLowerCase() === 'youth') {
         await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { clientStatus: 'graduated' } });
+      }
+      if (client && client.group.toString().toLocaleLowerCase() === 'adult') {
+        await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { clientStatus: 'inactive' } });
       }
     }
     if(body.path.includes("enrolled in")) {
