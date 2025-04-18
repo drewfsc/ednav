@@ -23,6 +23,7 @@ type Client = {
     'completionDate': string,
     'completionStatus': string,
     'completionNotes': string,
+    'referralDate': string,
   },
   'pin': number,
   'region': number,
@@ -31,6 +32,7 @@ type Client = {
     'completionDate': string,
     'completionStatus': string,
     'completionNotes': string,
+    'referralDate': string,
   },
   trackable: {
     type: string,

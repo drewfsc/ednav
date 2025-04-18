@@ -51,7 +51,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">TABE</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Referred</div>
-                      {moment(selectedClient.tabe.ref).format('MMMM Do, YYYY')}
+                      {moment(selectedClient.tabe.referralDate).format('MMMM Do, YYYY')}
                     </div>
                     <div>
                       <div
@@ -88,7 +88,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">Orientation</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Referred</div>
-                      {moment(selectedClient?.orientation.dateReferred).format('MMMM Do, YYYY')}
+                      {moment(selectedClient?.orientation.referralDate).format('MMMM Do, YYYY')}
                     </div>
                     <div>
                       <div
@@ -96,8 +96,8 @@ function ClientProfileTabeOrientation() {
                         Completed
                       </div>
                       {
-                        selectedClient?.orientation.completedDate
-                          ? <div>{moment(selectedClient.orientation.completedDate).format('MMMM Do, YYYY')}</div>
+                        selectedClient?.orientation.completionDate
+                          ? <div>{moment(selectedClient.orientation.completionDate).format('MMMM Do, YYYY')}</div>
                           : (<div>
                             <div onClick={() => setOrientationOpen(!orientationOpen)}
                                  className={`text-secondary underline cursor-pointer ${orientationOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter
@@ -105,7 +105,7 @@ function ClientProfileTabeOrientation() {
                             </div>
                             <div
                               className={`flex gap-4 items-baseline ${orientationOpen ? 'visible' : 'invisible h-0 collapse overflow-hidden'}`}>
-                              <InputLabel className={``} type={`date`} name={`tabe`}
+                              <InputVariants className={``} type={`date`} name={`tabe`}
                                           value={dateValue} handleChange={handleChange} label="Date Completed" />
                               <button onClick={handleTabeSave}
                                       className={`inline text-secondary/50 hover:text-secondary underline text-xs font-light ${orientationOpen ? 'visible' : 'invisible'}`}>Save
@@ -125,7 +125,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">Transcripts</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Obtained</div>
-                      {moment(selectedClient.tabe.dateReferred).format('MMMM Do, YYYY')}
+                      {moment(selectedClient.tabe.referralDate).format('MMMM Do, YYYY')}
                     </div>
                   </div>
                 </div>
