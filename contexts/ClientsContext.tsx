@@ -2,17 +2,23 @@ import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 type Client = {
   '_id': string,
-  'name': string,
-  'first_name': string,
-  'last_name': string,
-  'email': string,
-  'navigator': string,
-  'contactNumber': string,
   'caseNumber': number,
-  'dob': string,
-  'fep': string,
+  'clientStatus': string,
+  'contactNumber': string,
+  'createdAt': string,
   'dateReferred': string,
+  'dob': string,
+  'email': string,
+  'fep': string,
+  'first_name': string,
+  'group': string,
+  'isYouth': boolean,
   'lastGrade': string,
+  'last_name': string,
+  'latestInteraction': string,
+  'name': string,
+  'navigator': string,
+  'officeCity': string,
   'orientation': {
     'completionDate': string,
     'completionStatus': string,
@@ -20,20 +26,24 @@ type Client = {
   },
   'pin': number,
   'region': number,
-  'clientStatus': string,
+  'schoolIfEnrolled': string,
   'tabe': {
     'completionDate': string,
     'completionStatus': string,
     'completionNotes': string,
   },
+  trackable: {
+    type: string,
+    length: number,
+    items: [
+      {
+        name: string,
+        completed: boolean
+      }
+    ]
+  },
   'transcripts': string,
-  'officeCity': string,
-  'group': string,
-  'schoolIfEnrolled': string,
   'ttsDream': string,
-  'createdAt': string,
-  'latestInteraction': string,
-  'isYouth': boolean,
 }
 
 type ClientsContextType = {

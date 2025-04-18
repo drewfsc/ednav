@@ -8,9 +8,9 @@ import Comments from './Comments';
 export default function NoteModal({ open, setOpen }) {
   const { selectedClient } = useClients();
   const { selectedNavigator } = useNavigators();
-  const [notes, setNotes] = useState([]);
-  const [openNote, setOpenNote] = useState('');
-  const [openComment, setOpenComment] = useState('');
+  // const [notes, setNotes] = useState([]);
+  // const [openNote, setOpenNote] = useState('');
+  // const [openComment, setOpenComment] = useState('');
 
   const [note, setNote] = useState(
     {
@@ -31,19 +31,10 @@ export default function NoteModal({ open, setOpen }) {
       method: 'POST',
       body: JSON.stringify({ note: updatedNote })
     });
-    const data = await response.json();
-    setOpen('');
-    setNote((prev) => ({ ...prev, noteContent: '' }));
+    // const data = await response.json();
+    // setOpen('');
+    // setNote((prev) => ({ ...prev, noteContent: '' }));
   }
-
-  // const handleCancel = () => {
-  //   setOpen("");
-  //   setNote((prev) => ({ ...prev, noteContent: '' })  );
-  // } 
-
-  // const handleChange = (e) => {
-  //   setNote((prev) => ({ ...prev, noteContent: e.target.value })  );
-  // }
 
   return (
     <Dialog open={open === 'note'} onClose={() => setOpen('')} className="relative z-60">

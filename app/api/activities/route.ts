@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { getCollection } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
-// GET activities, optionally filtered by clientId
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const clientId = url.searchParams.get('clientId');
@@ -43,26 +42,25 @@ export async function POST(request: NextRequest) {
     const clientsCollection = await getCollection("clients")
     const notesCollection = await getCollection("notes")
 
-    // Add timestamp if not provided
     if (!body.createdAt) {
       body.createdAt = new Date().toISOString()
     }
-    if (body.path.includes('graduated')) {
-      const client = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
+    if (body.path.includes('graduated') && body.path.includes('inactive')) {
+      const [client] = await Promise.all([clientsCollection.findOne({ _id: new ObjectId(body.clientId) })]);
       if (client) {
-        await clientsCollection.updateOne({_id: new ObjectId(body.clientId)}, { $set: { clientStatus: "Graduated" }})
+        await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { clientStatus: 'graduated' } });
       }
     }
     if(body.path.includes("enrolled in")) {
-      const client = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
+      const client = await clientsCollection.findOne({ _id: new ObjectId(body.clientId) });
       if (client) {
-        await clientsCollection.updateOne({_id: new ObjectId(body.clientId)}, { $set: { clientStatus: "In Progress" }})
+        await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { clientStatus: 'active' } });
       }
     }
-    if (body.path.includes('graduated from') || body.path.includes('inactive')) {
+    if (body.path.includes('graduated') || body.path.includes('inactive')) {
       const client = await clientsCollection.findOne({_id: new ObjectId(body.clientId)})
       if (client) {
-        await clientsCollection.updateOne({_id: new ObjectId(body.clientId)}, { $set: { clientStatus: "Inactive" }})
+        await clientsCollection.updateOne({ _id: new ObjectId(body.clientId) }, { $set: { clientStatus: 'inactive' } });
       }
     }
     const query = { _id: new ObjectId(body.clientId) }

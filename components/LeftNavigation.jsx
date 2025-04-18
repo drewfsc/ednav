@@ -44,7 +44,7 @@ export default function LeftNavigation() {
       'hover:bg-warning'
     ],
     [
-      'Graduated',
+      'graduated',
       'graduated',
       'bg-info shadow-lg',
       'hover:bg-info'
@@ -59,7 +59,7 @@ export default function LeftNavigation() {
         {
           navStatus.map((item, i) => (
             <li className={`mb-1 whitespace-nowrap`} key={i}>
-              <a onClick={() => setSelectedFepLeft(prevState => {
+              <a onClick={() => setSelectedFepLeft((prevState) => {
                 return {
                   ...prevState,
                   status: item[0]
@@ -93,6 +93,10 @@ export default function LeftNavigation() {
             setEditing('add-client');
           }}
              className={`hover:bg-base-200 `}>Add New Client +</a>
+        </li>
+        <li>
+          <a href={`/dashboard/admin-tools`}
+             className={`hover:bg-base-200 `}>Settings</a>
         </li>
       </ul>
     </div>

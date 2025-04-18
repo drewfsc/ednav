@@ -1,18 +1,9 @@
-"use client"
-import * as React from "react"
-import { Label, Pie, PieChart } from "recharts"
-import {
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import {
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
-} from "@/components/ui/chart"
-import moment from "moment";
+'use client';
+import * as React from 'react';
+import { Label, Pie, PieChart } from 'recharts';
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import moment from 'moment';
 // const chartData = [
 //     { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
 //     { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -25,7 +16,7 @@ const chartConfig = {
         label: "Clients",
     },
     graduated: {
-        label: "Graduated",
+        label: 'graduated',
         color: "hsl(var(--chart-primary))",
     },
     inactive: {

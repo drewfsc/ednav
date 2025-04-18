@@ -1,59 +1,124 @@
-import NextAuth from 'next-auth';
-import { MongoDBAdapter } from '@auth/mongodb-adapter';
-import Credentials from 'next-auth/providers/credentials';
-import { connectToDatabase } from '@/lib/mongodb';
-import client from '@/lib/db';
-import bcrypt from 'bcryptjs';
+// app/api/auth/[...nextauth]/route.ts
+import type { Session } from 'next-auth';
+import NextAuth, { AuthOptions, User } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { JWT } from 'next-auth/jwt';
+import { connectToDatabase } from '@/lib/db';
+import { User as DbUser } from '@/models/User'; // Import the default export and rename to avoid conflict
+import { compare } from 'bcrypt';
 
-async function fetchAdditionalData(email: string) {
-  const { db } = await connectToDatabase();
-  return await db.collection('users').findOne({ email });
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id?: string;
+      name?: string | null;
+      email?: string | null;
+      level?: string; // Changed from role to level to match your user model
+    };
+  }
+
+  interface User {
+    id: string;
+    email: string;
+    name?: string;
+    level?: string;
+    username?: string;
+    // @ts-ignore
+    role?: string;
+  }
 }
 
-const authOptions = {
-  adapter: MongoDBAdapter(client),
+declare module 'next-auth/jwt' {
+  interface JWT {
+    level?: string; // Add level to JWT interface
+  }
+}
+
+export const authOptions: AuthOptions = {
   providers: [
-    Credentials({
+    CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "email", type: "text", placeholder: "jsmith" },
+        email: { label: 'Email', type: 'email' },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
-        const { db } = await connectToDatabase();
-        const { email, password } = credentials ?? {};
-        const user = await db.collection('users').findOne({ email, password });
-        if (!user) return null;
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
-        // const isValid = password && user.password ? await bcrypt.compare(password, user.password) : false;
-        // if (!isValid) return null;
+        try {
+          await connectToDatabase();
 
-        if (user) {
+          // Find the user by email OR username
+          const user = await DbUser.findOne({
+            $or: [
+              { email: credentials.email },
+              { username: credentials.email }
+            ]
+          });
+
+          if (!user) {
+            return null;
+          }
+
+          // Check if password is plaintext number or hashed
+          let isPasswordValid = false;
+
+          if (/^\d+$/.test(user.password)) {
+            // Simple numeric password comparison (like your "2903")
+            isPasswordValid = credentials.password === user.password;
+          } else {
+            // Hashed password comparison
+            isPasswordValid = await compare(credentials.password, user.password);
+          }
+
+          if (!isPasswordValid) {
+            return null;
+          }
+
           return {
             id: user._id.toString(),
-            email: user.email || "",
-            name: user.name || "",
-            level: user.level || ""
-          }
-        } else {
-          return null;
+            email: user.email,
+            name: user.name,
+            level: user.level,
+            username: user.username,
+            role: user.level // Map level to role to satisfy the User interface
+          };
+        } catch (error) {
+          console.error('Auth error:', error);
+          throw new Error('Authentication failed');
         }
       }
     })
   ],
-  session: {
-    strategy: 'jwt' as const,
-    maxAge: 30 * 24 * 60 * 60,
-    updateAge: 24 * 60 * 60,
-  },
   callbacks: {
-    session: async ({ session, user }: { session: any; user: any }) => {
-      const additionalData = await fetchAdditionalData(session.user.email);
-      session.user = { ...session.user, ...additionalData };
+    async jwt({ token, user }: { token: JWT; user: User | undefined }) {
+      // Pass the role from the user object to the token
+      if (user) {
+        token.id = user.id;
+        token.level = user.level;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: Session; token: JWT }) {
+      // Pass the level from the token to the session
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        session.user.level = token.level as string;
+      }
       return session;
     }
-  }
-}
+  },
+  pages: {
+    signIn: '/login',
+    error: '/login'
+  },
+  session: {
+    strategy: 'jwt'
+  },
+  secret: process.env.NEXTAUTH_SECRET
+};
+
 const handler = NextAuth(authOptions);
-export const GET = NextAuth(authOptions);
-export const POST = NextAuth(authOptions);
+export { handler as GET, handler as POST };

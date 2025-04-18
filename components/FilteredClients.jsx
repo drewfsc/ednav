@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '/components/ui/input';
-import { Select, SelectTrigger, SelectContent, SelectItem } from '/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger } from '/components/ui/select';
 import NavigatorSelector from '/components/NavigatorSelector';
-import ClientTable from "./ClientTable";
-import {useFepsLeft} from "@/contexts/FepsLeftContext";
+import ClientTable from './ClientTable';
+import { useFepsLeft } from '@/contexts/FepsLeftContext';
 
 const FilteredClients = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -63,7 +63,7 @@ const FilteredClients = () => {
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger>Status</SelectTrigger>
                     <SelectContent>
-                        {['All', 'Active', 'In Progress', 'Graduated', 'Inactive'].map(status => (
+                        {['All', 'Active', 'In Progress', 'graduated', 'Inactive'].map(status => (
                             <SelectItem key={status} value={status}>{status}</SelectItem>
                         ))}
                     </SelectContent>

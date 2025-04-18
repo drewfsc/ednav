@@ -83,7 +83,6 @@ function ClientProfileProgress({ hasTrackable, setHasTrackable, updated, setUpda
                         </span>}
                     </button>
                   )
-
                 })
               }
             </div>

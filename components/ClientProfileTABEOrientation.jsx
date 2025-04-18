@@ -51,7 +51,7 @@ function ClientProfileTabeOrientation() {
                     <div className="font-semibold">TABE</div>
                     <div>
                       <div className={`text-xs font-light`}>Date Referred</div>
-                      {moment(selectedClient.tabe.dateReferred).format('MMMM Do, YYYY')}
+                      {moment(selectedClient.tabe.ref).format('MMMM Do, YYYY')}
                     </div>
                     <div>
                       <div
@@ -60,7 +60,7 @@ function ClientProfileTabeOrientation() {
                       </div>
                       {
                         selectedClient.tabe.completionDate !== ""
-                          ? <div>{moment(selectedClient.tabe.completedDate).format('MMMM Do, YYYY')}</div>
+                          ? <div>{moment(selectedClient.tabe.completionDate).format('MMMM Do, YYYY')}</div>
                           : (<div>
                             <div onClick={() => setTabeOpen(!tabeOpen)}
                                  className={`text-secondary underline cursor-pointer ${tabeOpen ? 'invisible h-0 collapse overflow-hidden' : 'visible'}`}>Enter

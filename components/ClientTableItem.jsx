@@ -4,6 +4,7 @@ import { PinIcon } from 'lucide-react';
 import { useNavigators } from '../contexts/NavigatorsContext';
 import { useEditing } from '../contexts/EditingContext';
 import { useActivities } from '../contexts/ActivityContext';
+import { getBadgeColor, getBorderColor } from '../lib/ColorMap';
 
 export default function ClientTableItem({ person, i, statusCollapse, menuClosed}) {
     const {setSelectedActivity} = useActivities()
@@ -11,35 +12,6 @@ export default function ClientTableItem({ person, i, statusCollapse, menuClosed}
     const {selectedNavigator} = useNavigators();
     const {setEditing} = useEditing();
 
-    const getBadgeColor = (status) => {
-        switch (status) {
-            case "Inactive":
-                return "badge badge-error text-error-content text-xs px-3 ";
-            case "In Progress":
-                return "badge badge-warning text-warning-content text-xs px-3";
-            case "Active":
-                return "badge badge-success text-success-content text-xs px-3";
-            case "Graduated":
-                return "badge badge-info text-info-content text-xs px-3";
-            default:
-                return "badge badge-primary text-primary-content text-xs px-3";
-        }
-    }
-
-    const getBorderColor = (status) => {
-        switch (status) {
-            case "Active":
-                return "border-error";
-            case "Inactive":
-                return "border-warning";
-            case "In Progress":
-                return "border-success";
-            case "Graduated":
-                return "border-info";
-            default:
-                return "border-primary";
-        }
-    }
 
     const getActivities = async (person) => {
         const res = await fetch('/api/activities?clientId=' + person._id)

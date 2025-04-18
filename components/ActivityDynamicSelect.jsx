@@ -4,6 +4,8 @@ import { useActivities } from '../contexts/ActivityContext';
 import { generateSentence } from '../utils/generateSentence.tsx';
 
 const ActivityDynamicSelect = ({ setOpen, questions }) => {
+  const { selectedActivity, setSelectedActivity } = useActivities();
+  const { selectedClient, setSelectedClient } = useClients();
   const [selectedPath, setSelectedPath] = useState([]);
   const [currentOptions, setCurrentOptions] = useState(Object.keys(questions));
   const [, setCurrentObject] = useState(questions);
@@ -13,12 +15,10 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [trackable, setTrackable] = useState(null);
-  const {selectedActivity, setSelectedActivity} = useActivities()
-  const {selectedClient, setSelectedClient} = useClients();
+  const [textInput, setTextInput] = useState('');
 
   const saveSelectionToMongoDB = async (newPath, multi) => {
     setOpen(false);
-
     const data = {
       clientEmail: selectedClient.email,
       clientId: selectedClient._id,
@@ -80,11 +80,6 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
   const handleAdvance = async () => {
     if (!selectedValue) return;
     let newArray = [...selectedPath];
-    if (selectedClient.trackable?.type === 'GED' || selectedClient.trackable?.type === 'HSED') {
-      console.log('GED!!');
-      const itemsToRemove = ['GED', 'HSED'];
-      newArray = selectedPath.filter(item => !itemsToRemove.includes(item));
-    }
 
     const newPath = [...newArray, selectedValue];
     setSelectedPath(newPath);
@@ -103,17 +98,33 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
       }
       setTrackable({ type: selectedValue, length: items.length, items: items });
     }
+    console.log(newObject);
+    if (newObject && typeof newObject === 'object') {
+      if (Object.keys(newObject).length > 0 && Object.hasOwn(newObject, 'textInput')) {
+        setCurrentOptions(prevState => {
+          return [...prevState, 'hasTextInput'];
+        });
+        setTextInput('hasTextInput');
+      }
+    }
+    console.log(textInput);
 
     if (newObject && Object.keys(newObject).length === 0) {
-
       setCurrentOptions([]);
       setFinalSelection(selectedValue);
-
       await saveSelectionToMongoDB(newPath, false);
       return;
     }
+
     if (newObject && typeof newObject === 'object') {
       setFinalSelection(null);
+      if (selectedPath.includes(('other'))) {
+        setMultiSelectOptions(null);
+        setCurrentOptions([]);
+        setFinalSelection(selectedValue);
+        await saveSelectionToMongoDB(newPath, false);
+        return;
+      }
       if (Array.isArray(newObject)) {
         setMultiSelectOptions(newObject);
         setCurrentOptions([]);
@@ -194,11 +205,33 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
             onChange={(e) => setSelectedDate(new Date(e.target.value))} />
         </label>
       )}
+      {selectedPath ?? (
+        <div> selectedPath.toString() </div>
+      )
+      }
+      {
+        selectedPath && selectedPath.includes('other') && (
+          <label className="flex flex-col space-y-2 text-sm font-light">
+            <input
+              type="text"
+              name={selectedPath[selectedPath.length - 1 || 'firstOption']}
+              className="w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3"
+              value={selectedValue}
+              onChange={(e) => setSelectedValue(e.target.value)} />
+            <button
+              className="mt-4 p-2 bg-blue-500 text-white rounded-lg"
+              onClick={handleAdvance}
+            >
+              Continue
+            </button>
+          </label>
+        )
+      }
 
-      {currentOptions.length > 0 && (
+      {currentOptions.length > 0 && !selectedPath.includes('other') && (
         <label className="flex flex-col space-y-2 text-sm font-light mt-6 capitalize">
           <select
-            name={currentOptions[0]}
+            name={selectedPath[selectedPath.length - 1] || 'firstOption'}
             className={`w-full mt-2 border border-base-content text-base-content placeholder:text-base-content rounded py-1 px-3`}
             value={selectedValue}
             onChange={(e) => handleSelectChange(e.target.value)}>
@@ -228,6 +261,7 @@ const ActivityDynamicSelect = ({ setOpen, questions }) => {
                 <input
                   type="checkbox"
                   value={option}
+                  name={selectedPath[selectedPath.length - 1] || 'firstOption'}
                   checked={multiSelectValues.includes(option)}
                   onChange={() => handleMultiSelectChange(option, index)}
                 />

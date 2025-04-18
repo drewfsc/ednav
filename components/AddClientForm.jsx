@@ -28,7 +28,7 @@ function AddClientForm() {
     pin: '',
     region: '',
     clientStatus: 'In Progress',
-    officeCity: '',
+    county: '',
     group: '',
     schoolIfEnrolled: '',
     ttsDream: ''
@@ -140,31 +140,31 @@ function AddClientForm() {
     }
   }
 
-  const validateContactInfo = () => {
-    const newErrors = { ...errors };
-    let valid = true;
-
-    // Validate email
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-      valid = false;
-    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-      valid = false;
-    }
-
-    // Validate phone number
-    if (!formData.contactNumber) {
-      newErrors.contactNumber = 'Phone number is required';
-      valid = false;
-    } else if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(formData.contactNumber)) {
-      newErrors.contactNumber = 'Please enter a valid phone number (xxx) xxx-xxxx';
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
+  // const validateContactInfo = () => {
+  //   const newErrors = { ...errors };
+  //   let valid = true;
+  //
+  //   // Validate email
+  //   if (!formData.email) {
+  //     newErrors.email = 'Email is required';
+  //     valid = false;
+  //   } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+  //     newErrors.email = 'Please enter a valid email address';
+  //     valid = false;
+  //   }
+  //
+  //   // Validate phone number
+  //   if (!formData.contactNumber) {
+  //     newErrors.contactNumber = 'Phone number is required';
+  //     valid = false;
+  //   } else if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(formData.contactNumber)) {
+  //     newErrors.contactNumber = 'Please enter a valid phone number (xxx) xxx-xxxx';
+  //     valid = false;
+  //   }
+  //
+  //   setErrors(newErrors);
+  //   return valid;
+  // };
 
   const formFields = [
     {
@@ -313,8 +313,7 @@ function AddClientForm() {
 
   };
 
-  const handleReset = (e) => {
-    // e.preventDefault();
+  const handleReset = () => {
     setFormData(formBackup);
     setEditing('');
   };

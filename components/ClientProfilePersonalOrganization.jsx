@@ -75,15 +75,6 @@ function ClientProfilePersonalOrganization() {
     setFeps(feps);
   };
 
-  // const fetchNavigators = async () => {
-  //   try {
-  //     const response = await fetch('/api/education-navigators');
-  //     const data = await response.json();
-  //   } catch (error) {
-  //     console.error('Error fetching navigators:', error);
-  //   }
-  // };
-
   useEffect(() => {
     fetchFeps().then();
     // fetchNavigators();

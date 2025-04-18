@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { useClients } from '../contexts/ClientsContext';
+import { useClients } from '@/contexts/ClientsContext';
 import { PinIcon } from 'lucide-react';
-import { useNavigators } from '../contexts/NavigatorsContext';
+import { useNavigators } from '@/contexts/NavigatorsContext';
 
 function ClientProfilePin() {
   const {selectedClient} = useClients();
@@ -15,7 +15,8 @@ function ClientProfilePin() {
     }
   }, [])
 
-  const savePinned = async () => {
+  let savePinned;
+  savePinned = async () => {
     const data = await fetch(`/api/education-navigators`, {
       method: 'POST',
       headers: {
@@ -23,29 +24,32 @@ function ClientProfilePin() {
       },
       body: JSON.stringify({
         navigator: selectedNavigator?._id,
-        clientId: selectedClient?._id,
+        clientId: selectedClient?._id
       })
-    })
+    });
     const json = await data.json();
-    await setSelectedNavigator(json.updatedNavigator)
-  }
+    setSelectedNavigator(json.updatedNavigator);
+  };
 
   async function handlePinClick(event) {
     await event.stopPropagation();
-    await setPinned(
+    setPinned(
       prev => {
         if (prev.includes(selectedClient?._id)) {
-          return prev.filter(id => id !== selectedClient?._id)
+          return prev.filter(id => id !== selectedClient?._id);
         } else {
-          return [...prev, selectedClient?._id]
+          return [...prev, selectedClient?._id];
         }
-      })
+      });
    await savePinned().then();
   }
 
   return (
     <div>
-      <button className={` p-2 pr-4`} onClick={handlePinClick}><PinIcon className={` hover:text-base-content/80 ${selectedNavigator && selectedNavigator.pinned?.length > 0 &&  selectedNavigator.pinned?.includes(selectedClient?._id) ? 'text-base-content' : 'text-base-content/20'}`}/></button>
+      <button className={`p-2 pr-4`} onClick={handlePinClick}>
+        <PinIcon
+          className={`hover:text-base-content/80 ${selectedNavigator && selectedNavigator.pinned?.length > 0 && selectedNavigator.pinned?.includes(selectedClient?._id) ? 'text-base-content' : 'text-base-content/20'}`} />
+      </button>
     </div>
   );
 }

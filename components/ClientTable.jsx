@@ -26,7 +26,7 @@ export default function ClientTable({ menuClosed, setMenuClosed }) {
         return 'bg-warning text-warning-content';
       case 'Active':
         return 'bg-success text-success-content';
-      case 'Graduated':
+      case 'graduated':
         return 'bg-info text-info-content';
       default:
         return 'bg-primary text-primary-content';

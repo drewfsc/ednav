@@ -795,14 +795,15 @@
       }
     },
     "inactive": {
-      "Graduated": {},
+      "graduated": {},
       "No contact with EN for 60 days": {},
       "No show to warm hand off 3x": {},
       "Participant Declined Assistance": {},
       "Participant Request (Barriers)": {},
       "Participant decline prior to meeting EN": {},
       "Participant request (Employment)": {},
-      "W-2 Case Closed": {}
+      "W-2 Case Closed": {},
+      "other": {}
     },
     "needs": [
       "career assessment",
@@ -2069,7 +2070,7 @@
       "7th": {},
       "8th": {},
       "9th": {},
-      "Graduated": {}
+      "graduated": {}
     },
     "referred to": {
       "Apprenticeship": {},
